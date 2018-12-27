@@ -33,6 +33,7 @@
 <a href="topics/intro_geocomputing.html">1.B Dynamic spatial phenomena </a>
 <br>Lecture: Dynamic spatial phenomena and management of multitemporal data
 <br>Assignment: Processing and visualization of multitemporal data using GRASS GIS temporal framework.
+<br><i>Prepare project proposal, submit January 22</i>
 </td>
 <td>January 22</td>
 </tr>
@@ -43,7 +44,6 @@
 <a href="topics/data_simulation.html">2.A Data simulation </a>
 <br>Lecture: Computational techniques and open source tools for data simulation
 <br>Assignment: Generate data for evaluation of uncertainty and sensitivity analysis. 
-<br>Prepare project pre-proposal.
 <br><i>Triangle US Ignite, Durham, January 22</i>
 </td>
 <td>February 5</td>
@@ -54,7 +54,7 @@
 <td>
 <a href="topics/data_simulation.html">2.B Tangible Landscape for data simulation </a>
 <br>Lecture: Tangible Landscape 
-<br>Assignment: Use TL to generate test data for your project. Design TL application related to your project.
+<br>Assignment: Use TL to generate test data for your project. Propose TL application related to your project.
 </td>
 <td>February 5</td>
 </tr>
@@ -62,49 +62,60 @@
 <tr>
 <td>Feb 4-8</td>
 <td>
-Overview of fundamental physical and socio-economic processes
-<br>Empirical and process-based simulations
-<br><i>CGA Faculty Fellows symposium in Hunt library 2:00pm-4:30pm</i>
+<a href="topics/water_simulation.html">3.A Processes: surface water simulations </a>
+<br>Lecture: Mathematical foundations, numerical solutions and applications of surface water flow simulations
+<br>Assignment: Compare methods for modeling surface water flow (path sampling and finite volume differencing) 
+for different landuse scenarios under extreme events (r.sim.water, r.dam.break, itzy)
+<br><i>CGA Faculty Fellows symposium in Hunt library, February 7, 2:00pm-4:30pm</i>
 </td>
-<td></td>
+<td>February 19</td>
 </tr>
 
 <tr>
 <td>Feb 11-15 </td>
 <td>
-Fluxes: diffusion, dispersion, overland flow, mass transport 
-<br>Computational approaches to processing geospatial data for modeling fluxes: surfaces, gradients, flow trajectories
-<br><i>Exploring PFAS in NC - symposium in Talley 2:00pm-4:30pm</i>
+<a href="topics/water_simulation.html">3.B Processes: overland and storm surge flooding simulations </a>
+<br>Lecture: Theory and practical approaches to flooding simulations from rivers and ocean storm surge.
+<br>Assignment: Evaluate the role of resolution, DEM versus DSM in simulations of flooding for your area of interest -
+select appropriate tools and input data (r.hands, r.lake, r.grow), automate the evaluation workflow (in Python or R or other 
+scripting language)
+<br><i>Exploring PFAS in NC - symposium in Talley February 14</i>
 </td>
-<td></td>
+<td>February 19</td>
 </tr>
 
 <tr>
 <td>Feb 18-22</td>
 <td>
-Numerical methods for simulating fluxes 
-<br>Tools for deterministic geospatial simulation of fluxes
+<a href="topics/mass_transport_sim.html">4 Processes: mass transport, erosion and deposition</a>
+<br>Lecture: Theory, numerical solutions and applications of mass transport simulations and landscape evolution modeling
+<br>Assignment: Simulate impact of land management on mass transport for a process and at a scale of your choice 
+(e.g. erosion/deposition usped, r.sim.sediment, r.shalstab, r.massmov, r.landevol) or write a mass transport
+simulation module using landlab
+<br><i>Prepare project lightning talk to present on Feb 26</i>
 </td>
-<td></td>
+<td>March 5</td>
 </tr>
 
 <tr>
 <td>Feb 25-Mar 1</td>
 <td>
-Path sampling simulation method
-<br>Simulation of mass transport using path sampling
+<!--<a href="topics/mass_transport_sim.html">4.B Processes: landscape evolution </a>-->
+<i>Project progress lightning talks</i>
 <br><i>NC GIS conference in Winston-Salem Feb 27 - Mar 1</i>
 </td>
-<td></td>
+<td>na</td>
 </tr>
 
 <tr>
 <td>Mar 4-8</td>
 <td>
-Stochastic simulations, random components and probability distributions <br>Conditional simulations, spread simulation
-techniques
+<a href="topics/geostats_sim.html">5. Geostatistical conditional simulations and their applications </a>
+<br>Lecture: Mathematical foundations, implementation and applications 
+<br>Assignment: Simulate distribution of studied variable (e.g. pollutant) based on observed data and their spatial
+relationships. (R)
 </td>
-<td></td>
+<td>March 19</td>
 </tr>
 
 <tr>
@@ -118,36 +129,43 @@ Spring Break
 <tr>
 <td>Mar 18-22</td>
 <td>
-Population dynamics
-<br>Computational approaches for processing geospatial data for modeling dynamic populations
+<a href="topics/spread.html">6.A Processes: Spread simulations  </a>
+<br>Lecture: Methods for geospatial modeling of spread in complex environments
+<br>Assignment: Perform simulations of fire or plant disease spread (r.ros, r.spread, r.sod)
 </td>
-<td></td>
+<td>April 2</td>
 </tr>
 
 <tr>
 <td>Mar 25-29</td>
 <td>
-Rule-based modeling and cellular automata <br>Techniques and applications of cellular automata
+<a href="topics/spread.html">6.B Processes: Urban growth simulations  </a>
+<br>Lecture: Methods for urban growth simulations
+<br>Assignment: Perform simulation of urban growth (r.futures*)
 </td>
-<td></td>
+<td>April 2</td>
 </tr>
 
 <tr>
 <td>Apr 1-5</td>
 <td>
-Multiagent simulation of complex systems <br>Tools for geospatial agent-based modeling
+<a href="topics/spread.html">7.A Agent based modeling</a>
+<br>Lecture: Principles of AGM, methods and applications 
+<br>Assignment: Explore selected AGM tool, discuss suitability of ABM for your project
 <br><i>NC Space symposium at StaveView hotel April 4-5</i>
 </td>
-<td></td>
+<td>April 16</td>
 </tr>
 
 <tr>
 <td>Apr 8-12</td>
 <td>
-Interaction with simulations: computational steering 
-<br>Challenges of computational steering in geospatial simulations
+<a href="topics/spread.html">7.B Networks and optimization </a>
+<br>Lecture: Geocomputing with networks
+<br>Assignment: Solve a selected routing problem with vector networks (e.g. optimize sampling schedule, find alternative routes 
+during disasters, v.net.*)
 </td>
-<td></td>
+<td>April 16</td>
 </tr>
 
 <tr>
@@ -168,9 +186,9 @@ Project presentations
 <tr>
 <td>Apr 29</td>
 <td>
-Project presentations (backup date), finish paper
+Work on paper, submit May 3
 </td>
-<td></td>
+<td>May 3</td>
 </tr>
 
 </tbody>
