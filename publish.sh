@@ -43,6 +43,16 @@ if [ $? -ne 0 ]; then
     exit
 fi
 
+# build also the lectures to avoid any possible conflicts
+cd lectures
+./build.sh
+cd ..
+
+if [ $? -ne 0 ]; then
+    echo "Build failed. Use ./build.sh script to debug the issue." 1>&2;
+    exit
+fi
+
 last_commit=$(git log -n 1  --pretty=format:"%h \"%s\"")
 
 build_dir="build"
