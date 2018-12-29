@@ -1,0 +1,158 @@
+<section>
+    <h2><b>Introduction to Geospatial computation and simulations</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+    <li>geocomputing definitions</li>
+    <li>motivations for geosimulation</li>
+    <li>overview of open source tools for geocomputing</li>
+    <li>applications in science and practice</li>
+</ul>
+</section>
+
+<section>
+   <h3>Geocomputation</h3>
+The Art and Science of Solving Complex Spatial Problems with Computers - http://www.geocomputation.org/
+<ul>
+<li>Numerical simulations: tools for gaining new knowledge - <b>virtual experiments</b>
+<li>Geospatial simulations: the modeled quantities are function of a location on Earth
+<li>Geocomputing covers:
+<ul>
+<p> <li class="fragment">Data mining and image processing techniques: machine learning, deep learning,
+artificial inteligence, neural networks
+<p> <li class="fragment">Modeling spatial processes, fluxes
+<p> <li class="fragment">Agent-based modeling
+<p> <li class="fragment">Serious games and game-based modeling
+</ul>
+</ul>
+</section>
+
+
+
+<section>
+   <h3>Geospatial modeling of processes</h3>
+<ul>
+<li>Numerical simulations: tools for gaining new knowledge - <b>virtual experiments</b>
+<li>Geospatial simulations: the modeled quantities are function of a location on Earth
+<li>Geospatial models have evolved:
+<ul>
+<p>
+ <li class="fragment">from: empirical, spatially averaged, static 
+<p>
+ <li class="fragment">to: process-based, distributed, dynamic with 
+     the aim to predict modeled quantity at any point in space and time
+</ul>
+</ul>
+ <p class="fragment">Most models combine several approaches
+</section>
+
+<section>
+   <h3>Empirical and process-based models</h3>
+<p class="fragment"><b>Empirical:</b>
+<ul>
+ <li class="fragment">statistical models derived from experimental data
+ <li class="fragment">applicable only to landscapes under same conditions
+</ul>
+<p class="fragment"><b>Process-based</b>
+<ul>
+ <li class="fragment">based on physical laws, such as continuity and mass conservation equations 
+</ul>
+<p class="fragment">Empirical / statistical methods often have physics based interpretations,
+physics based equations often have empirical parameters
+<p class="fragment">ML, AI - empirical approach
+</section>
+
+<section>
+   <h3>Modeling components</h3>
+<p>
+Modeled quantity: water, sediment, pollutant 
+<p>
+Configuration space and interactions: modeled quantity as function of environmental variables (topography, land cover, ...)
+<p>
+Governing equations: continuity, mass preservation ...
+</section>
+
+<section>
+   <h3>Geospatial representation</h3>
+<p>
+ Modeled quantities are usually represented by continuous georeferenced fields 
+<p class="fragment">To support numerical modeling the fields are discretized: 
+<ul>
+  <li class="fragment">spatially averaged units: polygons (hydrologic units, subwatersheds, hillslope elements) - complex geometrical shape is replaced by tilted plane 
+  <li class="fragment">spatially distributed representation: structured and unstructured meshes, or random particles 
+</ul>
+<!--<p> <img height="380" src="img/flow_erosion/D8.jpg">-->
+</section>
+
+<section>
+   <h3>Spatially averaged models</h3>
+Spatially averaged models predict the variable for each averaged unit, such as watershed,
+the result is discrete polygons or a number
+<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+</section>
+
+<section>
+   <h3>Spatially distributed models</h3>
+<p>Spatially distributed or spatially explicit models predict 
+the variable at any point in space, the result is continuous field
+<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+</section>
+
+<section>
+   <h3>Static and dynamic models</h3>
+<p>Empirical, statistical models - usually steady state
+<p>Process-based or hybrid models - capture dynamic processes
+<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+</section>
+
+<section>
+   <h3>Geospatial modeling challenges</h3>
+<p>
+<ul>
+ <li>data intensive - large heterogeneous data sets
+ <li>complex, multiscale spatial interactions
+ <li>high level of uncertainty and difficult validation
+</ul>
+<p><small>Physics : predictions at the electronic level are with 6-12 digits accuracy 
+Geosciences: 50% differences between measurements and model could be satisfactory</small>
+</section>
+
+<section>
+   <h3>Modeling of processes in GIS</h3>
+<p>
+<ul>
+<li class="fragment">workflow using GIS tools: simple empirical models with physics based components 
+<li class="fragment">models fully integrated as modules: complex physics-based or empirical models
+<li class="fragment">models linked to GIS as extensions or add-ons: common structure and interface
+<li class="fragment">complex modeling systems linked through data: GIS is used for input data processing, 
+results analysis and visualization, but the model is independent from GIS.
+<li class="fragment">complex modeling systems can incorporate selected GIS capabilities
+</ul>
+</section>
+
+
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we have defined types of models
+</ul>
+</section>
+
+<!--
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+
+
+
