@@ -1,7 +1,7 @@
 <section>
-    <h2><b>Introduction to Geospatial computation and simulations</b></h2>
+    <h2><b>Introduction to geospatial computation and simulations</b></h2>
     <p style="margin-top: 0.5em">
-        Helena Mitasova</p>
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
     <p class="title-foot">
         GIS714 Geosimulations
         <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
@@ -12,73 +12,110 @@
     <h3>Learning objectives</h3>
 <p>
 <ul>
-    <li>geocomputing definitions</li>
+    <li>geocomputation definitions</li>
     <li>motivations for geosimulation</li>
-    <li>overview of open source tools for geocomputing</li>
     <li>applications in science and practice</li>
+    <li>open source tools for geocomputation</li>
 </ul>
 </section>
 
 <section>
    <h3>Geocomputation</h3>
-The Art and Science of Solving Complex Spatial Problems with Computers - http://www.geocomputation.org/
+<p>
+The Art and Science of Solving Complex Spatial Problems with Computers 
+<p> <a href="http://www.geocomputation.org">http://www.geocomputation.org/</a>
+</section>
+
+<section>
+   <h3>Geocomputation includes</h3>
+<p>
 <ul>
-<li>Numerical simulations: tools for gaining new knowledge - <b>virtual experiments</b>
-<li>Geospatial simulations: the modeled quantities are function of a location on Earth
-<li>Geocomputing covers:
-<ul>
-<p> <li class="fragment">Data mining and image processing techniques: machine learning, deep learning,
+<p> <li class="fragment">Geospatial analysis
+<p> <li class="fragment">Data mining and image processing using machine learning, 
 artificial inteligence, neural networks
-<p> <li class="fragment">Modeling spatial processes, fluxes
-<p> <li class="fragment">Agent-based modeling
-<p> <li class="fragment">Serious games and game-based modeling
-</ul>
+<p> <li class="fragment">Modeling spatial processes represented by continuous fields and networks
+<p> <li class="fragment">Agent-based spatial modeling
+<p> <li class="fragment">Serious spatial games and game-based modeling
+<p> <li class="fragment">Spatial optimization: siting, routing
 </ul>
 </section>
 
-
+<section>
+   <h3>Geocomputation examples</h3>
+<p>
+Series of slides illustrating geocomputing subdisciplines: 
+<ul>
+<li><a href=https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/#/46">Lidar-based vegetation analysis</a> 
+<li>machine learning (from will?)
+<li><a href="https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/#/48">Modeling processes: solar radiation</a> 
+<li>ABM and game, 
+<li><a href="https://vpetras.gitlab.io/v.net.tripplanner/">Trip planner</a>
+<li>your research and dissrtation topics
+</ul>
+</section>
 
 <section>
-   <h3>Geospatial modeling of processes</h3>
+   <h3>Geospatial simulations</h3>
+<p>
 <ul>
 <li>Numerical simulations: tools for gaining new knowledge - <b>virtual experiments</b>
-<li>Geospatial simulations: the modeled quantities are function of a location on Earth
-<li>Geospatial models have evolved:
+<li class="fragment">Geospatial simulations: the modeled quantities are function of a location on Earth
+<li class="fragment">Using modeling to simulate complex processes or behaviors under designed set of conditions to gain understanding of the studied phenomenon
+<li class="fragment">Provide information for decision making
+</ul>
+</section>
+
+<section>
+   <h3>Geospatial models</h3>
+Geospatial models have evolved:
 <ul>
 <p>
- <li class="fragment">from: empirical, spatially averaged, static 
+ <li class="fragment">from: empirical, spatially averaged, and static
 <p>
- <li class="fragment">to: process-based, distributed, dynamic with 
+ <li class="fragment">to: process-based, distributed, and dynamic with
      the aim to predict modeled quantity at any point in space and time
 </ul>
-</ul>
- <p class="fragment">Most models combine several approaches
+ <p class="fragment">Most models combine both approaches
 </section>
 
 <section>
-   <h3>Empirical and process-based models</h3>
-<p class="fragment"><b>Empirical:</b>
+   <h3>Empirical models</h3>
 <ul>
- <li class="fragment">statistical models derived from experimental data
+ <li class="fragment">statistical models derived from experimental or observed data
  <li class="fragment">applicable only to landscapes under same conditions
+ <li class="fragment">empirical / statistical methods often have physics based interpretations
+ <li class="fragment">given sufficient data they can be very accurate (ML, AI) 
 </ul>
-<p class="fragment"><b>Process-based</b>
+<p class="fragment">Examples: USLE - factors based on observations, but LS factor also represents stream power .... LINKS, IMGs?
+</section>
+
+<section>
+   <h3>Process-based models</h3>
 <ul>
- <li class="fragment">based on physical laws, such as continuity and mass conservation equations 
+ <li class="fragment">based on physical laws, such as continuity and mass conservation equations
+ <li class="fragment">many are refered to as mechanistic or deterministic models
+ <li class="fragment">may include stochastic components
+ <li class="fragment">physics based equations often have empirical parameters
 </ul>
-<p class="fragment">Empirical / statistical methods often have physics based interpretations,
-physics based equations often have empirical parameters
-<p class="fragment">ML, AI - empirical approach
+<p class="fragment">Examples: surface water flow (St. Venant equation, but empirical Mannings coefficient
 </section>
 
 <section>
    <h3>Modeling components</h3>
+When performing simulations we need to consider:
 <p>
-Modeled quantity: water, sediment, pollutant 
-<p>
-Configuration space and interactions: modeled quantity as function of environmental variables (topography, land cover, ...)
-<p>
-Governing equations: continuity, mass preservation ...
+<ul>
+  <li> Modeled quantity: water, pollutant, development (population density), individual organism, .. 
+  <li> Configuration space: modeled quantity as function of environmental variables (topography, land cover, ...) 
+  <li> Interactions
+  <li> Governing equations or rules: continuity, mass preservation ...
+</ul>
+</section>
+
+<section>
+   <h3>Modeling components</h3>
+,p>
+image / diagram showing modeled quantity, conf space, iteractions and gov. eqs
 </section>
 
 <section>
@@ -153,6 +190,11 @@ results analysis and visualization, but the model is independent from GIS.
 links
 </section>
 -->
+
+<div class="parent-page">
+    <!-- &#x1f3e0; -->
+    <a href="http://ncsu-geoforall-lab.github.io/geospatial-simulations-course/" title="Go to the course page">&#8962;</a>
+</div>
 
 
 
