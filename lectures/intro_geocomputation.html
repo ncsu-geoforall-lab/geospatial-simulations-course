@@ -14,6 +14,7 @@
 <ul>
     <li>geocomputation definitions</li>
     <li>motivations for geosimulation</li>
+    <li>components and properties of geospatial models</li>
     <li>applications in science and practice</li>
     <li>open source tools for geocomputation</li>
 </ul>
@@ -33,10 +34,10 @@ The Art and Science of Solving Complex Spatial Problems with Computers
 <p> <li class="fragment">Geospatial analysis
 <p> <li class="fragment">Data mining and image processing using machine learning, 
 artificial inteligence, neural networks
-<p> <li class="fragment">Modeling spatial processes represented by continuous fields and networks
+<p> <li class="fragment">Modeling spatial processes represented by continuous fields 
 <p> <li class="fragment">Agent-based spatial modeling
+<p> <li class="fragment">Spatial optimization: siting, routing, land management
 <p> <li class="fragment">Serious spatial games and game-based modeling
-<p> <li class="fragment">Spatial optimization: siting, routing
 </ul>
 </section>
 
@@ -48,9 +49,9 @@ Series of slides illustrating geocomputing subdisciplines:
 <li><a href=https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/#/46">Lidar-based vegetation analysis</a> 
 <li>machine learning (from will?)
 <li><a href="https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/#/48">Modeling processes: solar radiation</a> 
-<li>ABM and game, 
+<li>ABM and game-based modeling 
 <li><a href="https://vpetras.gitlab.io/v.net.tripplanner/">Trip planner</a>
-<li>your research and dissrtation topics
+<li>your research or dissertation topics
 </ul>
 </section>
 
@@ -60,7 +61,8 @@ Series of slides illustrating geocomputing subdisciplines:
 <ul>
 <li>Numerical simulations: tools for gaining new knowledge - <b>virtual experiments</b>
 <li class="fragment">Geospatial simulations: the modeled quantities are function of a location on Earth
-<li class="fragment">Using modeling to simulate complex processes or behaviors under designed set of conditions to gain understanding of the studied phenomenon
+<li class="fragment">Using modeling to simulate complex spatial processes or behaviors 
+under designed set of conditions to gain understanding of the studied phenomenon
 <li class="fragment">Provide information for decision making
 </ul>
 </section>
@@ -70,9 +72,9 @@ Series of slides illustrating geocomputing subdisciplines:
 Geospatial models have evolved:
 <ul>
 <p>
- <li class="fragment">from: empirical, spatially averaged, and static
+ <li class="fragment">from: <b>empirical, spatially averaged, and static</b>
 <p>
- <li class="fragment">to: process-based, distributed, and dynamic with
+ <li class="fragment">to: <b>process-based, distributed, and dynamic </b>with
      the aim to predict modeled quantity at any point in space and time
 </ul>
  <p class="fragment">Most models combine both approaches
@@ -86,18 +88,21 @@ Geospatial models have evolved:
  <li class="fragment">empirical / statistical methods often have physics based interpretations
  <li class="fragment">given sufficient data they can be very accurate (ML, AI) 
 </ul>
-<p class="fragment">Examples: USLE - factors based on observations, but LS factor also represents stream power .... LINKS, IMGs?
+<p class="fragment"><small>Example: Universal Soil Loss Equation - factors are based on observations, 
+but topographic LS factor also represents a special case of stream power </small>
 </section>
 
 <section>
    <h3>Process-based models</h3>
 <ul>
- <li class="fragment">based on physical laws, such as continuity and mass conservation equations
+ <li class="fragment">derived from first principles, based on physical laws, 
+such as continuity and mass conservation equations
  <li class="fragment">many are refered to as mechanistic or deterministic models
  <li class="fragment">may include stochastic components
  <li class="fragment">physics based equations often have empirical parameters
 </ul>
-<p class="fragment">Examples: surface water flow (St. Venant equation, but empirical Mannings coefficient
+<p class="fragment"><small>Example: surface water flow model is based on St. Venant equation, 
+but uses empirical Mannings coefficient for computing flow velocity</small>
 </section>
 
 <section>
@@ -105,54 +110,72 @@ Geospatial models have evolved:
 When performing simulations we need to consider:
 <p>
 <ul>
-  <li> Modeled quantity: water, pollutant, development (population density), individual organism, .. 
-  <li> Configuration space: modeled quantity as function of environmental variables (topography, land cover, ...) 
-  <li> Interactions
-  <li> Governing equations or rules: continuity, mass preservation ...
+  <li class="fragment"> <b>Modeled quantity:</b> water, pollutant, vegetation, population density, individual organism, ... 
+  <li class="fragment"> <b>Spatial and temporal scale</b>
+  <li class="fragment"> <b>Configuration space and interactions:</b> modeled quantity as function of environmental variables, e.g., topography, land cover, infrastructure... 
+  <li class="fragment"> <b>Governing equations or rules:</b> continuity, mass preservation, diffusion, ...
 </ul>
 </section>
 
 <section>
    <h3>Modeling components</h3>
-,p>
-image / diagram showing modeled quantity, conf space, iteractions and gov. eqs
+image / diagram showing modeled quantity, conf space, iteractions and gov. eqs or show this for example model 
+- see e.g. erosion tutorial
 </section>
 
 <section>
    <h3>Geospatial representation</h3>
 <p>
- Modeled quantities are usually represented by continuous georeferenced fields 
-<p class="fragment">To support numerical modeling the fields are discretized: 
+ Modeled quantities can be represented by continuous georeferenced fields 
+ and to support numerical simulations the fields need to be discretized: 
 <ul>
-  <li class="fragment">spatially averaged units: polygons (hydrologic units, subwatersheds, hillslope elements) - complex geometrical shape is replaced by tilted plane 
-  <li class="fragment">spatially distributed representation: structured and unstructured meshes, or random particles 
+  <li class="fragment"><b>spatially averaged units:</b> discrete polygons (hydrologic units, subwatersheds, hillslope elements) 
+  <li class="fragment"><b>spatially distributed representation:</b> structured and unstructured meshes, or random particles 
 </ul>
 <!--<p> <img height="380" src="img/flow_erosion/D8.jpg">-->
 </section>
 
 <section>
    <h3>Spatially averaged models</h3>
-Spatially averaged models predict the variable for each averaged unit, such as watershed,
+<ul>
+ <li>Spatially averaged models predict the modeled variable for each averaged unit, such as watershed,
 the result is discrete polygons or a number
+ <li>Provide important agreggated information for decision making
+</ul>
 <p> <img height="330" src="img/flow_erosion/aspectarrows.png">
 </section>
 
 <section>
    <h3>Spatially distributed models</h3>
-<p>Spatially distributed or spatially explicit models predict 
-the variable at any point in space, the result is continuous field
+<ul>
+<li>Spatially distributed or spatially explicit models predict 
+the variable at any point in space and the result is continuous field
+<li>Results may be spatially averaged and classified to support decision making
+</ul>
 <p> <img height="330" src="img/flow_erosion/aspectarrows.png">
 </section>
 
+<section>
+   <h3>Coupled models for simulations of complex systems</h3>
+<ul>
+<li>Continuous time simulations of multiple coupled processes
+<li>Cpoupled models challenges: different spatial and temporal scales, discretization
+<li>Examples: SWAT, WEPP: weather, runoff, infiltration, crop growth, soil erosion, pollutant transport
+</ul>
+<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+</section>
+
+<!--
 <section>
    <h3>Static and dynamic models</h3>
 <p>Empirical, statistical models - usually steady state
 <p>Process-based or hybrid models - capture dynamic processes
 <p> <img height="330" src="img/flow_erosion/aspectarrows.png">
 </section>
+-->
 
 <section>
-   <h3>Geospatial modeling challenges</h3>
+   <h3>Geospatial simulations challenges</h3>
 <p>
 <ul>
  <li>data intensive - large heterogeneous data sets
@@ -160,20 +183,70 @@ the variable at any point in space, the result is continuous field
  <li>high level of uncertainty and difficult validation
 </ul>
 <p><small>Physics : predictions at the electronic level are with 6-12 digits accuracy 
-Geosciences: 50% differences between measurements and model could be satisfactory</small>
+Geosciences: 70% differences between measurements and model could be satisfactory</small>
 </section>
 
 <section>
-   <h3>Modeling of processes in GIS</h3>
+   <h3>Geospatial simulations accuracy</h3>
+<p> Calibration and validation issues:
+<ul>
+  <li>input and validation data may not available at sufficient spatial and temporal resolution 
+  <li> <small>example: we cannot predict rainfall rate at each 100m cell with high accuracy and
+we don’t have values of initial soil moisture at sufficient temporal resolution, 
+so it is difficult to accurately model infiltration, runoff or sediment flow at any point in space </small>
+  <li>process-based distributed models do not necessarily improve accuracy but they provide more information and insight 
+</ul>
+</section>
+
+<section>
+   <h3>Geospatial simulations and GIS</h3>
 <p>
 <ul>
-<li class="fragment">workflow using GIS tools: simple empirical models with physics based components 
-<li class="fragment">models fully integrated as modules: complex physics-based or empirical models
-<li class="fragment">models linked to GIS as extensions or add-ons: common structure and interface
-<li class="fragment">complex modeling systems linked through data: GIS is used for input data processing, 
-results analysis and visualization, but the model is independent from GIS.
-<li class="fragment">complex modeling systems can incorporate selected GIS capabilities
+<li class="fragment">processing of input parameters, generating scenarios
+<li class="fragment">run models
+<li class="fragment">analyze the results, provide statistical summaries for dashboards
+<li class="fragment">visualization 
+<li class="fragment">optimization and decision support 
 </ul>
+</section>
+
+<section>
+   <h3>Geospatial simulations and GIS</h3>
+<p>
+<ul>
+<li class="fragment"><b>workflow using standard GIS tools</b>: simple empirical models with physics based components
+<li class="fragment"><b>models fully integrated as modules</b>: complex physics-based or empirical models
+<li class="fragment"><b>models linked to GIS as extensions or add-ons</b>: common structure and interface
+<li class="fragment"><b>complex modeling systems linked through data</b>: GIS is used for input data processing,
+results analysis and visualization, but the model is independent from GIS.
+<li class="fragment"><b>complex modeling systems can incorporate selected GIS capabilities</b>
+</ul>
+</section>
+
+<section>
+   <h3>Applications in science</h3>
+<p>Geospatial simulations for gaining knowledge:
+<ul>
+<li class="fragment">specific examples with papers
+<li class="fragment">Geophysical, biological and socio-economic processes and their coupling
+</ul>
+</section>
+
+<section>
+   <h3>Applications in practice</h3>
+<p>Geospatial simulations for solving practical problems and decision making:
+<ul>
+<li class="fragment">specific examples with papers
+</ul>
+</section>
+
+<section>
+   <h3>Open source tools for geospatial simulations</h3>
+<ul>
+<li class="fragment">specific examples with papers
+</ul>
+<p><a href="https://ncsu-geoforall-lab.github.io/grass-as-a-platform/autocarto.html#/">
+GRASS GIS as innovation platform</a>
 </section>
 
 
