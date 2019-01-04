@@ -63,6 +63,7 @@ Series of slides illustrating geocomputing subdisciplines:
 <li class="fragment">Geospatial simulations: the modeled quantities are function of a location on Earth
 <li class="fragment">Using modeling to simulate complex spatial processes or behaviors 
 under designed set of conditions to gain understanding of the studied phenomenon
+<li class="fragment">Diagnostic and predictive modeling
 <li class="fragment">Provide information for decision making
 </ul>
 </section>
@@ -110,7 +111,7 @@ but uses empirical Mannings coefficient for computing flow velocity</small>
 When performing simulations we need to consider:
 <p>
 <ul>
-  <li class="fragment"> <b>Modeled quantity:</b> water, pollutant, vegetation, population density, individual organism, ... 
+  <li class="fragment"> <b>Modeled quantity [units]:</b> water, pollutant, vegetation, population density, individual organism, ... 
   <li class="fragment"> <b>Spatial and temporal scale</b>
   <li class="fragment"> <b>Configuration space and interactions:</b> modeled quantity as function of environmental variables, e.g., topography, land cover, infrastructure... 
   <li class="fragment"> <b>Governing equations or rules:</b> continuity, mass preservation, diffusion, ...
@@ -132,6 +133,7 @@ image / diagram showing modeled quantity, conf space, iteractions and gov. eqs o
   <li class="fragment"><b>spatially averaged units:</b> discrete polygons (hydrologic units, subwatersheds, hillslope elements) 
   <li class="fragment"><b>spatially distributed representation:</b> structured and unstructured meshes, or random particles 
 </ul>
+<p class="fragment">Modeled quantities can also evolve along networks or represent discrete objects (particles, agents)</p>
 <!--<p> <img height="380" src="img/flow_erosion/D8.jpg">-->
 </section>
 
@@ -159,7 +161,7 @@ the variable at any point in space and the result is continuous field
    <h3>Coupled models for simulations of complex systems</h3>
 <ul>
 <li>Continuous time simulations of multiple coupled processes
-<li>Cpoupled models challenges: different spatial and temporal scales, discretization
+<li>Coupled models challenges: different spatial and temporal scales, discretization
 <li>Examples: SWAT, WEPP: weather, runoff, infiltration, crop growth, soil erosion, pollutant transport
 </ul>
 <p> <img height="330" src="img/flow_erosion/aspectarrows.png">
@@ -220,6 +222,18 @@ so it is difficult to accurately model infiltration, runoff or sediment flow at 
 <li class="fragment"><b>complex modeling systems linked through data</b>: GIS is used for input data processing,
 results analysis and visualization, but the model is independent from GIS.
 <li class="fragment"><b>complex modeling systems can incorporate selected GIS capabilities</b>
+</ul>
+</section>
+
+<section>
+   <h3>Geospatial simulation environments</h3>
+<p>
+<ul>
+<li class="fragment">desktop with modern GUIs 
+<li class="fragment">touch-tables 
+<li class="fragment">tangible GIS 
+<li class="fragment">collaborative web environments 
+<li class="fragment">computational steering - steered simulations 
 </ul>
 </section>
 
