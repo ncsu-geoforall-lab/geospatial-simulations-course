@@ -23,7 +23,7 @@
 <section>
    <h3>Geocomputation</h3>
 <p>
-The Art and Science of Solving Complex Spatial Problems with Computers 
+<b>The Art and Science of Solving Complex Spatial Problems with Computers </b>
 <p> <a href="http://www.geocomputation.org">http://www.geocomputation.org/</a>
 </section>
 
@@ -34,7 +34,7 @@ The Art and Science of Solving Complex Spatial Problems with Computers
 <p> <li class="fragment">Geospatial analysis
 <p> <li class="fragment">Data mining and image processing using machine learning, 
 artificial inteligence, neural networks
-<p> <li class="fragment">Modeling spatial processes represented by continuous fields 
+<p> <li class="fragment">Modeling spatial processes with continuous fields 
 <p> <li class="fragment">Agent-based spatial modeling
 <p> <li class="fragment">Spatial optimization: siting, routing, land management
 <p> <li class="fragment">Serious spatial games and game-based modeling
@@ -42,17 +42,34 @@ artificial inteligence, neural networks
 </section>
 
 <section>
-   <h3>Geocomputation examples</h3>
+   <h3>Geocomputation includes</h3>
 <p>
-Series of slides illustrating geocomputing subdisciplines: 
-<ul>
-<li><a href=https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/#/46">Lidar-based vegetation analysis</a> 
-<li>machine learning (from will?)
-<li><a href="https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/#/48">Modeling processes: solar radiation</a> 
-<li>ABM and game-based modeling 
-<li><a href="https://vpetras.gitlab.io/v.net.tripplanner/">Trip planner</a>
-<li>your research or dissertation topics
-</ul>
+Geospatial analysis: vegetation structure from multiple return lidar point cloud
+<p>
+<img height="450" src="../img/intro_lecture/profiles_points_and_ff.png">
+</section>
+
+<section>
+   <h3>Geocomputation includes</h3>
+<p>
+Geospatial analysis: vegetation structure from multiple return lidar point cloud
+<p>
+<img height="450" src="../img/intro_lecture/voxels_vegetation_anim.gif">
+</section>
+
+<section>
+   <h3>Geocomputation includes</h3>
+<p>
+Modeling dynamic spatial processes: distribution of solar radiation during summer solstice
+<p>
+<img height="450" src="../img/intro_lecture/summer_solstice_centennial.gif">
+</section>
+
+<section>
+   <h3>Geocomputation includes</h3>
+<p>
+<br>
+<p class="fragment"><b>Your research</b>
 </section>
 
 <section>
@@ -69,8 +86,10 @@ under designed set of conditions to gain understanding of the studied phenomenon
 </section>
 
 <section>
-   <h3>Geospatial models</h3>
-Geospatial models have evolved:
+   <h3>Geospatial process models</h3>
+<p>Geospatial process models are core tools for simulations.
+<p>The models of geophysical, biological and socio-economic processes 
+have evolved:
 <ul>
 <p>
  <li class="fragment">from: <b>empirical, spatially averaged, and static</b>
@@ -120,18 +139,23 @@ When performing simulations we need to consider:
 </section>
 
 <section>
-   <h3>Modeling components</h3>
-image / diagram showing modeled quantity, conf space, iteractions and gov. eqs or show this for example model 
-- see e.g. erosion tutorial
+   <h3>Modeling components example</h3>
+Show as images
+<ul>
+  <li>Modeled quantity [units]: <b>water depth [m]</b>, 
+  <li>Spatial and temporal scale: <b>first order stream watershed, 1m resolution, 3 hours at 1 min time step)</b> 
+  <li>Configuration space and interactions: <b>water depth as dependent on topography, soil properties, land cover, infrastructure...</b>
+  <li>Governing equations or rules:<b> bivariate shallow water flow equation, mannings equation, ... </b>
+</ul>
 </section>
 
 <section>
    <h3>Geospatial representation</h3>
 <p>
- Modeled quantities can be represented by continuous georeferenced fields 
- and to support numerical simulations the fields need to be discretized: 
+ Modeled quantities and environmental variables can be represented by continuous georeferenced fields 
+<p>To support numerical simulations these fields need to be discretized: 
 <ul>
-  <li class="fragment"><b>spatially averaged units:</b> discrete polygons (hydrologic units, subwatersheds, hillslope elements) 
+  <li class="fragment"><b>spatially averaged units:</b> discrete polygons (hydrologic units, hillslope elements, landscape patches) 
   <li class="fragment"><b>spatially distributed representation:</b> structured and unstructured meshes, or random particles 
 </ul>
 <p class="fragment">Modeled quantities can also evolve along networks or represent discrete objects (particles, agents)</p>
@@ -161,11 +185,11 @@ the variable at any point in space and the result is continuous field
 <section>
    <h3>Coupled models for simulations of complex systems</h3>
 <ul>
-<li>Continuous time simulations of multiple coupled processes
+<li>Continuous time simulations of coupled processes
 <li>Coupled models challenges: different spatial and temporal scales, discretization
 <li>Examples: SWAT, WEPP: weather, runoff, infiltration, crop growth, soil erosion, pollutant transport
+<li>Coupled agent based models and continuous field models for complex human - nature systems simulations
 </ul>
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
 </section>
 
 <!--
@@ -181,26 +205,20 @@ the variable at any point in space and the result is continuous field
    <h3>Geospatial simulations challenges</h3>
 <p>
 <ul>
- <li>data intensive - large heterogeneous data sets
- <li>complex, multiscale spatial interactions
- <li>high level of uncertainty and difficult validation
+ <li class="fragment">data intensive - large heterogeneous data sets
+ <li class="fragment">complex, multiscale spatial interactions
+ <li class="fragment">high level of uncertainty and difficult validation
+ <li class="fragment">input and validation data may not available at sufficient spatial and temporal resolution 
+ <li class="fragment">process-based distributed models do not always improve accuracy but they provide important insight 
 </ul>
 <p><small>Physics : predictions at the electronic level are with 6-12 digits accuracy 
-Geosciences: 70% differences between measurements and model could be satisfactory</small>
-</section>
-
-<section>
-   <h3>Geospatial simulations accuracy</h3>
-<p> Calibration and validation issues:
-<ul>
-  <li>input and validation data may not available at sufficient spatial and temporal resolution 
-  <li> <small>example: we cannot predict rainfall rate at each 100m cell with high accuracy and
+<br>Geosciences: 70% differences between measurements and model could be satisfactory</small>
+<br> <small>Example: we cannot predict rainfall rate at each 100m cell with high accuracy and
 we don’t have values of initial soil moisture at sufficient temporal resolution, 
 so it is difficult to accurately model infiltration, runoff or sediment flow at any point in space </small>
-  <li>process-based distributed models do not necessarily improve accuracy but they provide more information and insight 
-</ul>
 </section>
 
+<!--
 <section>
    <h3>Geospatial simulations and GIS</h3>
 <p>
@@ -212,6 +230,7 @@ so it is difficult to accurately model infiltration, runoff or sediment flow at 
 <li class="fragment">optimization and decision support 
 </ul>
 </section>
+-->
 
 <section>
    <h3>Geospatial simulations and GIS</h3>
@@ -230,46 +249,48 @@ results analysis and visualization, but the model is independent from GIS.
    <h3>Geospatial simulation environments</h3>
 <p>
 <ul>
-<li class="fragment">desktop with modern GUIs 
-<li class="fragment">touch-tables 
+<li class="fragment">desktop with modern GUIs, touch tables 
 <li class="fragment">tangible GIS 
 <li class="fragment">collaborative web environments 
-<li class="fragment">computational steering - steered simulations 
+<li class="fragment">virtual reality systems 
 </ul>
+</section>
+
+<section>
+   <h3>Geospatial simulation environments</h3>
+<p>image from TL webinar
+<p> <img height="280" src="../img/intro_lecture/tl_desktop.jpg">
 </section>
 
 <section>
    <h3>Applications in science</h3>
-<p>Geospatial simulations for gaining knowledge:
-<ul>
-<li>Geophysical, biological and socio-economic processes and their coupling
-<li>pioneering paper: W. R. Tobler (1970) A Computer Movie Simulating Urban Growth in the Detroit Region, Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141
-</ul>
+<p>Pioneering paper: 
+<p>W. R. Tobler (1970) A Computer Movie Simulating Urban Growth in the Detroit Region, Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141
 </section>
 
 <section>
    <h3>Applications in coastal science</h3>
-<p>Simulation of storm surge and comparison with wreck line and ADCIRC
-<p> <img height="280" src="../img/intro_lecture/clinch_shorepaper_fig8.jpg">
+<p>Simulation of storm surge and comparison with wreck line 
+<p> <img height="320" src="../img/intro_lecture/clinch_shorepaper_fig8.jpg">
+<img class="fragment" height="320" src="../img/intro_lecture/hatteras_surge_rlake.gif">
 <p>add elizabeth brown historical simulation
-<p>references to papers
+<p><small><a href="https://geospatial.ncsu.edu/geoforall/pubpdf/clinch_shorepaper2012.pdf">Clinch, A.S., Russ, E.,Oliver, R.C., Mitasova H., and Overton, M.F. 2012, Remote sensing estimation of Hurricane Irene soundside surge elevations on the North Carolina Outer Banks, Shore and Beach 80, p. 1-10.</a></small>
 </section>
 
 <section>
    <h3>Applications in science: geomorphology</h3>
 <p>Simulation of gully evolution to understand underlying processes and importance of unsteady state
-<p> <img height="280" src="../img/intro_lecture/gully_anim_elev.gif">
-<p>references to papers: Kanuk, GIS chapter
+<p> <img height="350" src="../img/intro_lecture/gully_anim_elev.gif">
+<p><small><a href="http://www.sciencedirect.com/science/article/pii/B978012374739600052X">Mitasova H., Hofierka, J., Harmon R.S., Barton M.C., Ullah, I., 2013, GIS-based Soil Erosion Modeling, In: Shroder, J. (Editor in Chief), Bishop, M.P. (Ed.), Treatise on Geomorphology. Academic Press, San Diego, CA, vol 3, pp. 228-258.</a></small>
 </section>
 
 <section>
    <h3>Applications in science: coupled human - nature systems</h3>
-<p>Simulating prehistoric settlements development, land management and role of erosion processes
+<p>Coupling process modeling with agent based modeling to simulating prehistoric settlements 
 <p> <img height="280" src="../img/intro_lecture/gully_anim_elev.gif">
-<p>references to papers: Barton Ecological modeling - coupled ABM and process-based simulations
-<small><p>Looking for the future in the past: long-term change in socioecological systems
-CM Barton, IIT Ullah, SM Bergin, H Mitasova… - Ecological Modelling, 2012 vol 241, 42-53
-<p>Barton, C., Ullah, I., Mitasova, H. (2010). Computational Modeling and Neolithic Socioecological Dynamics: 
+<p><small>Barton, C., Ullah, I., Bergin, SM., Mitasova, H. (2012). 
+Looking for the future in the past: long-term change in socioecological systems, Ecological Modelling, 241, 42-53
+<br>Barton, C., Ullah, I., Mitasova, H. (2010). Computational Modeling and Neolithic Socioecological Dynamics: 
 A Case Study from Southwest Asia. American Antiquity, 75(2), 364-386. doi:10.7183/0002-7316.75.2.364
 </small>
 </section>
@@ -282,7 +303,7 @@ A Case Study from Southwest Asia. American Antiquity, 75(2), 364-386. doi:10.718
 
 <section>
    <h3>Applications in practice</h3>
-<p><b>FLEXPART-WRF: </b>Smoke emissions plume simulation due to fire at hazardous waste facility in Apex
+<p><b>FLEXPART-WRF: </b>Smoke emissions plume simulation due to fire at hazardous waste facility in Apex, mid air and dry white emissions
 <p> <img height="280" src="../img/intro_lecture/apex_mid_air.png">
 <img height="280" src="../img/intro_lecture/apex_dry_white.png">
 <p><small>Simulations by Lara Pagano 2010, link to dissertation for simulations of Evans Rod. fire, summer 2008,
@@ -291,27 +312,19 @@ A Case Study from Southwest Asia. American Antiquity, 75(2), 364-386. doi:10.718
 
 <section>
    <h3>Open source tools for geospatial simulations</h3>
-<ul>
-<li class="fragment">specific examples with papers
-</ul>
-<p><a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/grass.html#/">
-GRASS GIS as a geocomputation and simulation platform</a>
+<p>Collect links with descriptions in 
+<a href="https://moodle-courses1819.wolfware.ncsu.edu/mod/wiki/view.php?id=587721">Moodle wiki</a>
 </section>
-
 
 <section>
  <h3>Summary</h3>
 <ul>
-<li>we have defined types of models
+<li>geocomputation and geospatial simulations was defined and discussed
+<li>role of modeling in simulations was explained
+<li>types of geospatial process models and their properties were described
+<li>examples of geosimulation applications in science and practice were discussed
 </ul>
 </section>
-
-<!--
-<section>
- <h3>Reading, resources</h3>
-links
-</section>
--->
 
 <div class="parent-page">
     <!-- &#x1f3e0; -->
