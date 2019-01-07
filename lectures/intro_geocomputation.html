@@ -14,9 +14,9 @@
 <ul>
     <li>geocomputation definitions</li>
     <li>motivations for geosimulation</li>
-    <li>components and properties of geospatial models</li>
+    <li>models for geosimulation and their properties</li>
     <li>applications in science and practice</li>
-    <li>open source tools for geocomputation</li>
+    <li>open source platforms and tools</li>
 </ul>
 </section>
 
@@ -31,7 +31,7 @@
    <h3>Geocomputation includes</h3>
 <p>
 <ul>
-<p> <li class="fragment">Geospatial analysis
+<p> <li class="fragment">Geospatial analysis and visualization
 <p> <li class="fragment">Data mining and image processing using machine learning, 
 artificial inteligence, neural networks
 <p> <li class="fragment">Modeling spatial processes with continuous fields 
@@ -66,24 +66,34 @@ Modeling dynamic spatial processes: distribution of solar radiation during summe
 </section>
 
 <section>
-   <h3>Geocomputation includes</h3>
+   <h3>Geospatial simulations</h3>
 <p>
-<br>
-<p class="fragment"><b>Your research</b>
+Using modeling to simulate complex spatial processes or behaviors 
+under designed set of conditions to gain understanding of the studied phenomenon
+<p>
+Often focused on agent based modeling and cellular automata but we will use broader definition
 </section>
 
 <section>
    <h3>Geospatial simulations</h3>
 <p>
+Numerical simulations: tools for gaining new knowledge - <b>virtual experiments</b>
 <ul>
-<li>Numerical simulations: tools for gaining new knowledge - <b>virtual experiments</b>
 <li class="fragment">Geospatial simulations: the modeled quantities are function of a location on Earth
-<li class="fragment">Using modeling to simulate complex spatial processes or behaviors 
-under designed set of conditions to gain understanding of the studied phenomenon
 <li class="fragment">Diagnostic and predictive modeling
 <li class="fragment">Provide information for decision making
 </ul>
 </section>
+
+<section>
+   <h3>Geospatial simulation case study</h3>
+<p><small>
+Simulation of sediment transport and net erosion / deposition to understand interactions
+between land cover and water quality and to support sustainable land use management
+</small>
+<p><img height="450" src="../img/intro_lecture/erosion_landuse.jpg">
+</section>
+
 
 <section>
    <h3>Geospatial process models</h3>
@@ -138,6 +148,7 @@ When performing simulations we need to consider:
 </ul>
 </section>
 
+<!--
 <section>
    <h3>Modeling components example</h3>
 Show as images
@@ -148,6 +159,7 @@ Show as images
   <li>Governing equations or rules:<b> bivariate shallow water flow equation, mannings equation, ... </b>
 </ul>
 </section>
+-->
 
 <section>
    <h3>Geospatial representation</h3>
@@ -167,9 +179,8 @@ Show as images
 <ul>
  <li>Spatially averaged models predict the modeled variable for each averaged unit, such as watershed,
 the result is discrete polygons or a number
- <li>Provide important agreggated information for decision making
 </ul>
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+<p><img height="350" src="../img/intro_lecture/spat_aggreg.jpg">
 </section>
 
 <section>
@@ -177,18 +188,17 @@ the result is discrete polygons or a number
 <ul>
 <li>Spatially distributed or spatially explicit models predict 
 the variable at any point in space and the result is continuous field
-<li>Results may be spatially averaged and classified to support decision making
 </ul>
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+<p><img height="350" src="../img/intro_lecture/spat_distr.png">
 </section>
 
 <section>
    <h3>Coupled models for simulations of complex systems</h3>
 <ul>
 <li>Continuous time simulations of coupled processes
-<li>Coupled models challenges: different spatial and temporal scales, discretization
-<li>Examples: SWAT, WEPP: weather, runoff, infiltration, crop growth, soil erosion, pollutant transport
-<li>Coupled agent based models and continuous field models for complex human - nature systems simulations
+<li class="fragment">problems: different spatial and temporal scales, discretization
+<li class="fragment">examples: SWAT, WEPP: weather, runoff, infiltration, crop growth, soil erosion, pollutant transport
+<li class="fragment">coupled agent based and continuous field models for complex human - nature systems simulations (MEDLANDS)
 </ul>
 </section>
 
@@ -211,9 +221,9 @@ the variable at any point in space and the result is continuous field
  <li class="fragment">input and validation data may not available at sufficient spatial and temporal resolution 
  <li class="fragment">process-based distributed models do not always improve accuracy but they provide important insight 
 </ul>
-<p><small>Physics : predictions at the electronic level are with 6-12 digits accuracy 
+<p class="fragment"><small>Physics : predictions at the electronic level are with 6-12 digits accuracy 
 <br>Geosciences: 70% differences between measurements and model could be satisfactory</small>
-<br> <small>Example: we cannot predict rainfall rate at each 100m cell with high accuracy and
+<br class="fragment"> <small>Example: we cannot predict rainfall rate at each 100m cell with high accuracy and
 we don’t have values of initial soil moisture at sufficient temporal resolution, 
 so it is difficult to accurately model infiltration, runoff or sediment flow at any point in space </small>
 </section>
@@ -254,40 +264,54 @@ results analysis and visualization, but the model is independent from GIS.
 <li class="fragment">collaborative web environments 
 <li class="fragment">virtual reality systems 
 </ul>
-</section>
-
-<section>
-   <h3>Geospatial simulation environments</h3>
-<p>image from TL webinar
-<p> <img height="280" src="../img/intro_lecture/tl_desktop.jpg">
+<p class="fragment"> <img height="180" src="../img/intro_lecture/TLcomposit_coast.jpg">
 </section>
 
 <section>
    <h3>Applications in science</h3>
 <p>Pioneering paper: 
 <p>W. R. Tobler (1970) A Computer Movie Simulating Urban Growth in the Detroit Region, Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141
+<p> <img height="300" src="../img/intro_lecture/DTWBuilt1930.jpg">
+</section>
+
+<section>
+   <h3>Applications in science</h3>
+<p>Pioneering paper:
+<p>W. R. Tobler (1970) A Computer Movie Simulating Urban Growth in the Detroit Region, Economic Geography, 46:sup1, 234-240, DOI: 10
+.2307/143141
+<p> <img height="300" src="../img/intro_lecture/DTWBuilt1950.jpg">
+</section>
+
+<section>
+   <h3>Applications in science</h3>
+<p>Pioneering paper:
+<p>W. R. Tobler (1970) A Computer Movie Simulating Urban Growth in the Detroit Region, Economic Geography, 46:sup1, 234-240, DOI: 10
+.2307/143141
+<p> <img height="300" src="../img/intro_lecture/DTWForcast1970.jpg">
 </section>
 
 <section>
    <h3>Applications in coastal science</h3>
 <p>Simulation of storm surge and comparison with wreck line 
-<p> <img height="320" src="../img/intro_lecture/clinch_shorepaper_fig8.jpg">
+<p> <img height="340" src="../img/intro_lecture/clinch_shorepaper_fig8.jpg">
 <img class="fragment" height="320" src="../img/intro_lecture/hatteras_surge_rlake.gif">
-<p>add elizabeth brown historical simulation
 <p><small><a href="https://geospatial.ncsu.edu/geoforall/pubpdf/clinch_shorepaper2012.pdf">Clinch, A.S., Russ, E.,Oliver, R.C., Mitasova H., and Overton, M.F. 2012, Remote sensing estimation of Hurricane Irene soundside surge elevations on the North Carolina Outer Banks, Shore and Beach 80, p. 1-10.</a></small>
 </section>
 
 <section>
-   <h3>Applications in science: geomorphology</h3>
-<p>Simulation of gully evolution to understand underlying processes and importance of unsteady state
-<p> <img height="350" src="../img/intro_lecture/gully_anim_elev.gif">
+   <h3>Applications in science</h3>
+<p><small>Simulation of landcover change impact in bank erosion and 
+simulation of gully evolution to understand underlying processes</small>
+<p> <img height="380" src="../img/intro_lecture/sedrepfig1.jpg">
+<img height="350" src="../img/intro_lecture/gully_anim_elev.gif">
 <p><small><a href="http://www.sciencedirect.com/science/article/pii/B978012374739600052X">Mitasova H., Hofierka, J., Harmon R.S., Barton M.C., Ullah, I., 2013, GIS-based Soil Erosion Modeling, In: Shroder, J. (Editor in Chief), Bishop, M.P. (Ed.), Treatise on Geomorphology. Academic Press, San Diego, CA, vol 3, pp. 228-258.</a></small>
 </section>
 
 <section>
-   <h3>Applications in science: coupled human - nature systems</h3>
-<p>Coupling process modeling with agent based modeling to simulating prehistoric settlements 
-<p> <img height="280" src="../img/intro_lecture/gully_anim_elev.gif">
+   <h3>Applications in science</h3>
+<p>Coupling process modeling with agent based modeling to simulate evolution of prehistoric settlements 
+<p> <img height="300" src="../img/intro_lecture/Bartonetal_ecomod_vegsim.jpg">
+<img height="300" src="../img/intro_lecture/Bartonetal_ecomod_vegsim2.jpg">
 <p><small>Barton, C., Ullah, I., Bergin, SM., Mitasova, H. (2012). 
 Looking for the future in the past: long-term change in socioecological systems, Ecological Modelling, 241, 42-53
 <br>Barton, C., Ullah, I., Mitasova, H. (2010). Computational Modeling and Neolithic Socioecological Dynamics: 
@@ -311,11 +335,18 @@ A Case Study from Southwest Asia. American Antiquity, 75(2), 364-386. doi:10.718
 </section>
 
 <section>
+   <h3>Applications in outreach and education</h3>
+<p>Tangible Landscape
+<p> <img height="380" src="../img/intro_lecture/TL_composit_googleprop.jpg">
+</section>
+
+<section>
    <h3>Open source tools for geospatial simulations</h3>
 <p>Collect links with descriptions in 
 <a href="https://moodle-courses1819.wolfware.ncsu.edu/mod/wiki/view.php?id=587721">Moodle wiki</a>
 </section>
 
+<!--
 <section>
  <h3>Summary</h3>
 <ul>
@@ -325,6 +356,7 @@ A Case Study from Southwest Asia. American Antiquity, 75(2), 364-386. doi:10.718
 <li>examples of geosimulation applications in science and practice were discussed
 </ul>
 </section>
+-->
 
 <div class="parent-page">
     <!-- &#x1f3e0; -->
