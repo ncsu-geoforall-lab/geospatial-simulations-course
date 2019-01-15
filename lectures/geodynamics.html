@@ -68,16 +68,15 @@ multivariate interpolation to convert discrete observations into continuous dyna
 
 <section>
    <h3>Observation multitemporal data</h3>
-<p>Bi-variate interpolation of DEMs from point clouds to surfaces and dynamic visualization
-<p> <img height="420" src="../img/geodynamics_lecture/jr_74_17_anim3dlgfix.gif">
+<p><small>Bi-variate interpolation of DEMs from point clouds to surfaces and dynamic visualization</small>
+<p> <img height="430" src="../img/geodynamics_lecture/jr_74_17_anim3dlgfix.gif">
 <p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
 </section>
 
 <section>
  <h3>Multitemporal Planet imagery</h3>
 <p>
-Satellite imagery at 3m resolution, September 2017 - July 2018, captures impact of
-storm in March 2018 with large ripples similar to those observed post Mathews
+Satellite imagery (3m res), September 2017 - July 2018
 <p>
 <iframe data-autoplay width="580" height="360" src="../img/geodynamics_lecture/sep17_july18.mp4" frameborder="0" allowfullscreen></iframe>
 <p><small>Planet: world’s largest constellation of Earth-imaging (micro) satellites providing daily observations
@@ -87,47 +86,40 @@ for entire Earth at 3m resolution</small>
 <section>
    <h3>Observation timeseries</h3>
 <ul>
-<li>Chesapeake bay monthly nitrogen concentrations - data 
-</ul>
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
-</section>
-
-<section>
-   <h3>Observation timeseries</h3>
-<ul>
 <li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation 
 <li>From scattered space-time point data to continuous space-time model of plume evolution
 </ul>
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+<p> <img height="250" src="../img/geodynamics_lecture/chesaplg.jpg">
+<img height="330" src="../img/geodynamics_lecture/chesapsites.jpg">
+<img height="330" src="../img/geodynamics_lecture/chall4d.gif">
 </section>
 
 <section>
    <h3>Observation multitemporal data</h3>
 <p>groundwater pollution over 10 years - data
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+<p> <img height="330" src="../img/geodynamics_lecture/wellnew.gif">
 </section>
 
 <section>
    <h3>Observation multitemporal data</h3>
 <ul>
-<li>groundwater pollution over 10 years - multivariate (space-time) interpolation of chemical concentrations data
+<li>groundwater pollution over 10 years - (space-time) interpolation of chemical concentrations data
 <li>From scattered space-time point data to continuous space-time model of plume evolution
 </ul>
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+<p> <img height="330" src="../img/geodynamics_lecture/well456.gif">
 </section>
 
-<!--
 <section>
    <h3>Observation multitemporal data</h3>
 Additional examples
 <ul>
-<li>monthly precipitation over Amazon basin
-<li>Cape Fear and Cape hatteras
+<li>monthly precipitation over Amazon basin (precipitation as a surface)
+<li>Cape Fear and Cape hatteras (terrain over time)
+<li>Subsurface soil moisture (4D)
 </ul>
-Many others: weather data, ...
 </section>
--->
 
+<!--
 <section>
    <h3>Processing time series</h3>
 GENERALIZE
@@ -138,20 +130,17 @@ GENERALIZE
 <li>assign time stamps and register raster DSMs within GIS-based temporal data framework
 </ul>
 </section>
+-->
 
 <section>
    <h3>Managing multitemporal data</h3>
-<ul>
-<li>handling time in GIS - temporal framework: Multitemporal_G7 in lMEA592_fall2013
-</ul>
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
 </section>
 
 <section>
  <h3>Temporal data framework</h3>
 <ul>
  <li>supports efficient processing, management and analysis of space-time data sets
- <li>space-time dataset is a set of maps (raster, vector) registered in a temporal database
+ <li><b>space-time dataset</b> is a set of maps (raster, vector) registered in a temporal database
  <li>space-time dataset may represent a dynamic process
  <li>individual maps represent the states of the dynamic system at a given time
 </ul>
@@ -166,11 +155,10 @@ Environmental Modelling and Software, 53, 1–12.</p>
    <h3>Time stamp type</h3>
 <ul>
  <li>time stamp: assigns time to an individual map in space-time data set
- <li>time instant - snapshot at given time: 2013-10-15 13:00:00 (absolute time)
- <li>time interval - defined by start and end time: day, month, year (relative time)
- <li>a single UAS survey represents a snapshot (state) which can be agreggated into intervals
+ <li><b>time instant</b> - snapshot at given time: 2013-10-15 13:00:00 (absolute time)
+ <li><b>time interval </b>- defined by start and end time: day, month, year (relative time)
+ <li>example: a single UAS survey represents a snapshot (state) which can be agreggated into intervals
 </ul>
-
 <img class="stretch" src="../img/geodynamics_lecture/st_dataset.jpg">
 </section>
 
@@ -178,15 +166,16 @@ Environmental Modelling and Software, 53, 1–12.</p>
   <h3>Registered space-time dataset</h3>
 Timeline tool: time and spatial extent of registered maps
 <p>
-<img height="450" src="../img/geodynamics_lecture/uas2015_timeline.jpg">
+<img height="400" src="../img/geodynamics_lecture/uas2015_timeline.jpg">
+<img height="80" src="../img/geodynamics_lecture/timeline_midpines15-18.png">
 </section>
 
 <section>
    <h3>Temporal plot</h3>
 <ul>
-<li>Plot time series of elevation values at a given location
+<li>Plot time series of measured values at a given location: April through October
 </ul>
-<img width="70%"  src="../img/geodynamics_lecture/tplots.jpg">
+<p><img width="70%"  src="../img/geodynamics_lecture/tplots.jpg">
 </section>
 
 <section>
@@ -195,8 +184,8 @@ Timeline tool: time and spatial extent of registered maps
 <li>Count: number of maps (temporal snapshots) where the given cell has non-null value (overlap)
 <li>Intersection: grid cells with non-null values from each map in time series
 </ul>
-<img width="47%" src="img/geodynamics_lecture/series_overlap_count.jpg">
-<img width="47%" src="img/geodynamics_lecture/intersection.jpg">
+<img width="47%" src="../img/geodynamics_lecture/series_overlap_count.jpg">
+<img width="47%" src="../img/geodynamics_lecture/intersection.jpg">
 </section>
 
 <section>
@@ -204,25 +193,26 @@ Timeline tool: time and spatial extent of registered maps
 <ul>
 <li>Temporally aggregate maps over given period of time - for example to derive monthly average elevation
 </ul>
-<br>
-<img width="75%" src="img/geodynamics_lecture/aggregated_sept.jpg">
+<p>
+<img width="75%" src="../img/geodynamics_lecture/aggregated_sept.jpg">
 </section>
 
 <section>
    <h3>Basic time series analysis</h3>
 <p>
-Per cell statistics computed for each cell over the time series:
+Per cell statistics computed for each cell over time:
 <ul>
  <li>mean and standard deviation
  <li>min, max elevation and range
  <li>time at minimum, time at maximum
  <li>linear regression: slopem offset, regr. coefficient
 </ul>
-<p class="small">
+<p class="small"> UPDATE
 <a href="http://www4.ncsu.edu/~hmitaso/gmslab/papers/MitasovaFinalGeoinf09.pdf">
 Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA. </a></p>
 </section>
 
+<!--
 <section>
    <h3>Basic time series analysis: core, envelope</h3>
 <ul>
@@ -233,13 +223,14 @@ Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measu
     <img width="47%" src="../img/timeseries/cutplane1.jpg">
     <img width="47%" src="../img/timeseries/cutplane2.jpg">
 </section>
+-->
 
 <section>
-   <h3>Detecting surveys with large distortions</h3>
+   <h3>Detecting distortions in surveys</h3>
 <ul>
-<li>Derive core surface from UAS time series
+<li>Derive core (minimum) surface from UAS time series
 <li>Compute difference between UAS core and lidar bare ground surface
-<li>Compute time of minimum raster to identify the distorted DSMs with elevation well below lidar bare ground
+<li>Compute time of minimum raster: identify distorted DSMs with elevation below lidar bare ground
 </ul>
 <img width="47%" src="../img/geodynamics_lecture/diff_lid_uasmin.jpg">
 <img width="47%" src="../img/geodynamics_lecture/minraster.jpg">
@@ -302,19 +293,20 @@ Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measu
 extract grid cells with elevation above lidar bare ground
 within a selected elevation interval (z1,z2)
 <p>
-<img width="32%" src="../img/timeseries/veg_uas_lidar2.jpg">
-<img width="32%" src="../img/timeseries/veg_uas_lidar3.jpg">
-<img width="32%" src="../img/timeseries/veg_uas_lidar7.jpg">
+<img width="32%" src="../img/geodynamics_lecture/veg_uas_lidar2.jpg">
+<img width="32%" src="../img/geodynamics_lecture/veg_uas_lidar3.jpg">
+<img width="32%" src="../img/geodynamics_lecture/veg_uas_lidar7.jpg">
 <p class="small">
 Maps of relative elevation (0.3m, 2.0m)  above bare ground lidar for 3 time snapshots in our time series.
 The middle map shows distortions rather than crop.
 </section>
 
+<!--
 <section>
  <h3>Estimate crop volume</h3>
 <p>Summary statistics can be used to estimate above ground crop biomass
 <p>
-<img width="70%" src="../img/timeseries/cutplane1.jpg">
+<img width="70%" src="../img/geodynamics_lecture/cutplane1.jpg">
 </section>
 
 <section>
@@ -324,6 +316,7 @@ The middle map shows distortions rather than crop.
  <li><a href="https://petrasovaa.github.io/amos-STC-presentation/foss4g_presentation.html#/">Pedestrian patterns from webcams</a>
 </ul>
 </section>
+-->
 
 <section>
    <h3>Dynamic processes</h3>
@@ -355,13 +348,13 @@ The middle map shows distortions rather than crop.
 <p>
 Results have a well defined time step
 <ul>
-<li><a href="https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/#/48">Modeling processes: solar radiation</a>
+<li>Modeling processes: solar radiation
 <li>flooding
-<li>surface water flow - particles and surface, scenarios CC Middle school, Balsam mountain
-<li>sediment transport - particles and surface
-<li>erosion and deposition - hedges, grid effects
+<li>surface water flow 
+<li>sediment transport 
+<li>erosion and deposition, landscape evolution
 </ul>
-<!--<p> <img height="380" src="img/flow_erosion/D8.jpg">-->
+<p> <img height="380" src="../img/geodynamics_lecture/lakef1994.gif">
 </section>
 
 
