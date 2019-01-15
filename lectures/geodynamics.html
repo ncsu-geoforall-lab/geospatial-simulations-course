@@ -12,17 +12,333 @@
     <h3>Learning objectives</h3>
 <p>
 <ul>
-  <li>fundamental physical and socio-economic processes
-  <li>static and dynamic simulations
   <li>observation time series and multitemporal data
+  <li>fundamental physical, biological, and socio-economic processes
+  <li>static and dynamic simulations
   <li>managing geospatial multitemporal data
   <li>dynamic visualization
 </ul>
 </section>
 
 <section>
+   <h3>Observation time series and multitemporal data</h3>
+<p>
+<ul>
+<li class="fragment">systematic, consistent monitoring: <b>time series </b>
+<li class="fragment">data collected for different purpose using different technologies: <b>multitemporal data</b>
+</ul>
+</section>
+
+<section>
+   <h3>Your observation data</h3>
+<p>Describe your time series or multitemporal data:
+<ul>
+  <li>source: 
+  <br><small>in situ point measurements, satelite imagery, UAS imagery, ....</small>
+  <li>spatial and temporal distribution, resolution, scale: 
+  <br><small>image(s) at regular time step, event-based acquisition, static points, moving objects,...</small>
+  <li>management of your data: 
+  <br><small>spreadsheet, spatio-temporal database</small>
+  <li>processing, analysis and visualization
+</ul>
+</section>
+
+<section>
+   <h3>Your dynamic process(es)</h3>
+<ul>
+  <li>how fast your variable(s) change? do your data capture the full dynamics?
+  <li>is the process multiscale? what is captured by your data?
+  <li>what is driving the process dynamics - do you have data to capture the driving forces?
+  <li>can the process be simulated numerically?
+   <li>are there existing models to simulate your processes? 
+Do you plan to develop a new one or improve an existing one?
+</ul>
+</section>
+
+<section>
+   <h3>Modeling dynamics from multitemporal data</h3>
+<p>Examples of approaches
+<ul>
+  <li class="fragment">site data: 
+multivariate interpolation to convert discrete observations into continuous dynamic model
+  <li class="fragment">classification, feature extraction, change detection and quantification
+  <li class="fragment">statistical modeling to relate the observed data to the studied process dynamics
+</ul>
+</section>
+
+<section>
+   <h3>Observation multitemporal data</h3>
+<p>Bi-variate interpolation of DEMs from point clouds to surfaces and dynamic visualization
+<p> <img height="420" src="../img/geodynamics_lecture/jr_74_17_anim3dlgfix.gif">
+<p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
+</section>
+
+<section>
+ <h3>Multitemporal Planet imagery</h3>
+<p>
+Satellite imagery at 3m resolution, September 2017 - July 2018, captures impact of
+storm in March 2018 with large ripples similar to those observed post Mathews
+<p>
+<iframe data-autoplay width="580" height="360" src="../img/geodynamics_lecture/sep17_july18.mp4" frameborder="0" allowfullscreen></iframe>
+<p><small>Planet: world’s largest constellation of Earth-imaging (micro) satellites providing daily observations
+for entire Earth at 3m resolution</small>
+</section>
+
+<section>
+   <h3>Observation timeseries</h3>
+<ul>
+<li>Chesapeake bay monthly nitrogen concentrations - data 
+</ul>
+<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+</section>
+
+<section>
+   <h3>Observation timeseries</h3>
+<ul>
+<li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation 
+<li>From scattered space-time point data to continuous space-time model of plume evolution
+</ul>
+<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+</section>
+
+<section>
+   <h3>Observation multitemporal data</h3>
+<p>groundwater pollution over 10 years - data
+<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+</section>
+
+<section>
+   <h3>Observation multitemporal data</h3>
+<ul>
+<li>groundwater pollution over 10 years - multivariate (space-time) interpolation of chemical concentrations data
+<li>From scattered space-time point data to continuous space-time model of plume evolution
+</ul>
+<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+</section>
+
+<!--
+<section>
+   <h3>Observation multitemporal data</h3>
+Additional examples
+<ul>
+<li>monthly precipitation over Amazon basin
+<li>Cape Fear and Cape hatteras
+</ul>
+Many others: weather data, ...
+</section>
+-->
+
+<section>
+   <h3>Processing time series</h3>
+GENERALIZE
+<ul>
+<li>analyze and interpolate point clouds: DSMs with aligned, common resolution grids
+<li>raster DSMs are more suitable for time series than TIN
+<li>use GCPs and permanent features to evaluate accuracy, correct errors and distortions
+<li>assign time stamps and register raster DSMs within GIS-based temporal data framework
+</ul>
+</section>
+
+<section>
+   <h3>Managing multitemporal data</h3>
+<ul>
+<li>handling time in GIS - temporal framework: Multitemporal_G7 in lMEA592_fall2013
+</ul>
+<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+</section>
+
+<section>
+ <h3>Temporal data framework</h3>
+<ul>
+ <li>supports efficient processing, management and analysis of space-time data sets
+ <li>space-time dataset is a set of maps (raster, vector) registered in a temporal database
+ <li>space-time dataset may represent a dynamic process
+ <li>individual maps represent the states of the dynamic system at a given time
+</ul>
+<br>
+<p class="small">
+Gebbert, S. and Pebesma, E. (2014). <a href="https://www.sciencedirect.com/science/article/pii/S136481521300282X">
+A temporal GIS for field based environmental modeling.</a>
+Environmental Modelling and Software, 53, 1–12.</p>
+</section>
+
+<section>
+   <h3>Time stamp type</h3>
+<ul>
+ <li>time stamp: assigns time to an individual map in space-time data set
+ <li>time instant - snapshot at given time: 2013-10-15 13:00:00 (absolute time)
+ <li>time interval - defined by start and end time: day, month, year (relative time)
+ <li>a single UAS survey represents a snapshot (state) which can be agreggated into intervals
+</ul>
+
+<img class="stretch" src="../img/geodynamics_lecture/st_dataset.jpg">
+</section>
+
+<section>
+  <h3>Registered space-time dataset</h3>
+Timeline tool: time and spatial extent of registered maps
+<p>
+<img height="450" src="../img/geodynamics_lecture/uas2015_timeline.jpg">
+</section>
+
+<section>
+   <h3>Temporal plot</h3>
+<ul>
+<li>Plot time series of elevation values at a given location
+</ul>
+<img width="70%"  src="../img/geodynamics_lecture/tplots.jpg">
+</section>
+
+<section>
+   <h3>Temporal count and intersection</h3>
+<ul>
+<li>Count: number of maps (temporal snapshots) where the given cell has non-null value (overlap)
+<li>Intersection: grid cells with non-null values from each map in time series
+</ul>
+<img width="47%" src="img/geodynamics_lecture/series_overlap_count.jpg">
+<img width="47%" src="img/geodynamics_lecture/intersection.jpg">
+</section>
+
+<section>
+   <h3>Temporal aggregation</h3>
+<ul>
+<li>Temporally aggregate maps over given period of time - for example to derive monthly average elevation
+</ul>
+<br>
+<img width="75%" src="img/geodynamics_lecture/aggregated_sept.jpg">
+</section>
+
+<section>
+   <h3>Basic time series analysis</h3>
+<p>
+Per cell statistics computed for each cell over the time series:
+<ul>
+ <li>mean and standard deviation
+ <li>min, max elevation and range
+ <li>time at minimum, time at maximum
+ <li>linear regression: slopem offset, regr. coefficient
+</ul>
+<p class="small">
+<a href="http://www4.ncsu.edu/~hmitaso/gmslab/papers/MitasovaFinalGeoinf09.pdf">
+Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA. </a></p>
+</section>
+
+<section>
+   <h3>Basic time series analysis: core, envelope</h3>
+<ul>
+ <li>Core surface: min. elevation measured for each cell
+ <li>Envelope: max. elevation measured for each cell
+</ul>
+<p> Example: cutting plane with lidar, core and envelope
+    <img width="47%" src="../img/timeseries/cutplane1.jpg">
+    <img width="47%" src="../img/timeseries/cutplane2.jpg">
+</section>
+
+<section>
+   <h3>Detecting surveys with large distortions</h3>
+<ul>
+<li>Derive core surface from UAS time series
+<li>Compute difference between UAS core and lidar bare ground surface
+<li>Compute time of minimum raster to identify the distorted DSMs with elevation well below lidar bare ground
+</ul>
+<img width="47%" src="../img/geodynamics_lecture/diff_lid_uasmin.jpg">
+<img width="47%" src="../img/geodynamics_lecture/minraster.jpg">
+</section>
+
+<section>
+   <h3>Corrected UAS core surface</h3>
+<ul>
+<li>Remove distorted DSMs from derivation of core surface
+<li>Difference between UAS core and lidar bare ground surface is now very small
+<li>Hist. equalized color ramp for differences highlights a small shift in lidar swath
+</ul>
+<img width="45%" src="../img/geodynamics_lecture/diff_lid_uasmin2.png">
+<img width="45%" src="../img/geodynamics_lecture/diff_lid_uasmin2_histeq.jpg">
+</section>
+
+<section>
+   <h3>Envelope and range applications</h3>
+<p>
+<ul>
+<li>Envelope: what is the max height of crop in each pixel over the monitored period?
+<li>time of maximum - when was the crop highest at each grid cell?
+<li>where is the largest range and variability in crop height?
+</ul>
+<img width="40%" src="../img/geodynamics_lecture/diff_lid_uasmax.jpg">
+<img width="40%" src="../img/geodynamics_lecture/max2.jpg">
+</section>
+
+<section>
+   <h3>Envelope and range applications</h3>
+<ul>
+<li>use envelope to show all cars ever parked at the site
+<li>core, snapshot, envelope, surfaces can be used to manage parking area
+</ul>
+<img width="50%" src="../img/geodynamics_lecture/cars.jpg">
+</section>
+
+<section>
+   <h3>Basic time series analysis: regression</h3>
+<ul>
+ <li>applies to well designed, systematic monitoring with longer time series,
+ <li>select subset where the changes are close to linear - e.g. crop growth period,
+ <li>compute per cell linear regression analysis: map of regression slope and offset
+</ul>
+</section>
+
+<section>
+ <h3>Map algebra for time series</h3>
+<p>
+<ul>
+  <li>apply map algebra expression for each map in the time series at each grid cell
+  <li>output is new time series which is registered as a new space-time dataset
+  <li>this is different (and much simpler) from temporal map algebra
+</ul>
+</section>
+
+<section>
+ <h3>Extract crop height time series</h3>
+<p>Map algebra can be used to
+extract grid cells with elevation above lidar bare ground
+within a selected elevation interval (z1,z2)
+<p>
+<img width="32%" src="../img/timeseries/veg_uas_lidar2.jpg">
+<img width="32%" src="../img/timeseries/veg_uas_lidar3.jpg">
+<img width="32%" src="../img/timeseries/veg_uas_lidar7.jpg">
+<p class="small">
+Maps of relative elevation (0.3m, 2.0m)  above bare ground lidar for 3 time snapshots in our time series.
+The middle map shows distortions rather than crop.
+</section>
+
+<section>
+ <h3>Estimate crop volume</h3>
+<p>Summary statistics can be used to estimate above ground crop biomass
+<p>
+<img width="70%" src="../img/timeseries/cutplane1.jpg">
+</section>
+
+<section>
+   <h3>Visualization of multitemporal data</h3>
+<p>Will be covered in GIS715, but here are some interesting examples
+<ul>
+ <li><a href="https://petrasovaa.github.io/amos-STC-presentation/foss4g_presentation.html#/">Pedestrian patterns from webcams</a>
+</ul>
+</section>
+
+<section>
    <h3>Dynamic processes</h3>
-<p> fundamental physical and socio-economic processes
+<p> fundamental physical, biological and socio-economic processes
+</section>
+
+<section>
+   <h3>Dynamic processes</h3>
+<p>Dynamic processes in your projects
+<ul>
+  <li>development growth
+  <li>population / development migration
+  <li>algae growth /evolution
+  <li>crop growth / die out
+</ul>
 </section>
 
 <section>
@@ -31,34 +347,6 @@
 <ul>
 <li class="fragment">steady state for dynamic processes
 <li class="fragment"> dynamic simulations
-</ul>
-</section>
-
-<section>
-   <h3>Observation time series and multitemporal data</h3>
-<p>
-<ul>
-<li class="fragment">systematic, consistent monitoring: time series 
-<li class="fragment">data collected for different purpose using different technologies: multitemporal data
-</ul>
-</section>
-
-<section>
-   <h3>Observation time series and multitemporal data</h3>
-<p> Examples: multitemporal
-<ul>
-<li><a href=https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/#/15">Multitemporal Jockey's Ridge data</a> 
-<li>groundwater pollution over 10 years - show data and animation 
-</ul>
-</section>
-
-<section>
-   <h3>Observation time series and multitemporal data</h3>
-<p> Examples: time series
-<ul>
-<li><a href=https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/texas.html#/6">Jockey's Ridge from Planets</a>
-systematic observations, irregular time interval
-<li>Chesapeake bay nitrogen monthly concentrations - show data and animation 
 </ul>
 </section>
 
@@ -76,60 +364,14 @@ Results have a well defined time step
 <!--<p> <img height="380" src="img/flow_erosion/D8.jpg">-->
 </section>
 
-<section>
-   <h3>Managing multitemporal data</h3>
-<ul>
-<li>handling time in GIS - temporal framework: Multitemporal_G7 in lMEA592_fall2013
-</ul>
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
-</section>
 
 <section>
-   <h3>Managing multitemporal data</h3>
-<ul>
-<li>co-registration of multitemporal data - example of lidar shifts vertical and horizontal 2009 paper and AGU JR talk
-<li>evolution metrics, core and envelope - refer to readings
-</ul>
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
-</section>
-
-<section>
-   <h3>Dynamic visualization</h3>
-<ul>
- <li>see GIS582 for different types
- <li>examples from GRASS, paraview and blender
- <li>dynamic surfaces and space-time cube examples
-</ul>
-<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
-</section>
-
-<section>
-   <h3>Applications in science</h3>
-<p>Geospatial simulations for gaining knowledge:
-<ul>
-<li class="fragment">specific examples with papers
-<li class="fragment">Geophysical, biological and socio-economic processes and their coupling
-</ul>
-</section>
-
-<section>
-   <h3>Applications in practice</h3>
-<p>Geospatial simulations for solving practical problems and decision making:
-<ul>
-<li class="fragment">specific examples with papers
-</ul>
-</section>
-
-<section>
-   <h3>Open source tools for dynamic simulations</h3>
-<ul>
-<li class="fragment">specific examples with papers
-</ul>
-<p><a href="https://ncsu-geoforall-lab.github.io/grass-as-a-platform/autocarto.html#/">
-GRASS GIS as innovation platform</a>
+   <h3>Simulation output: time series</h3>
+<p>Same handling with temporal framework
 </section>
 
 
+<!--
 <section>
  <h3>Summary</h3>
 <ul>
@@ -137,7 +379,6 @@ GRASS GIS as innovation platform</a>
 </ul>
 </section>
 
-<!--
 <section>
  <h3>Reading, resources</h3>
 links
