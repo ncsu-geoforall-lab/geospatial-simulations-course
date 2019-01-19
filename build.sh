@@ -69,7 +69,7 @@ do
     cp -r $DIR $OUTDIR
 done
 
-for DIR in topics
+for DIR in topics assignments
 do
     mkdir -p $OUTDIR/$DIR
 
