@@ -13,9 +13,24 @@
 <p>
 <ul>
    <li>when we need data simulation
-   <li>selected computational techniques for data simulation (geostatistics, fractals, monte carlo...)
+   <li>selected computational techniques for data simulation
    <li>generating scenarios
-   <li>generating data from physical models: SfM approach
+   <li>generating 3D data from physical models: SfM approach
+</ul>
+</section>
+
+<section>
+   <h3>Developing process simulations</h3>
+<ul>
+<li class="fragment">definition of research question 
+<li class="fragment">identification of available data 
+<li class="fragment">design or identification of modeling approach suitable for the research question and available data 
+<small>recall:modeling quantity,scale,configuration space and interactions, governing equations</small>
+<li class="fragment">sensitivity analysis (most important parameters)
+<li class="fragment">model parametrization
+<li class="fragment">calibration and validation
+<li class="fragment">generating scenarios
+<li class="fragment">uncertainty analysis
 </ul>
 </section>
 
@@ -33,46 +48,56 @@
 </section>
 
 <section>
-   <h3>Properties of simulated data</h3>
-<p>random, spatially correlated, statistical properties (distribution)
-<ul>
-  <li>no spatial dependence, spatially correlated (distance dependent) 
-  <li>gaussian distribution, ... 
-  <li>scale invariance
-</ul>
-</section>
-
-<section>
    <h3>Types of simulated data</h3>
-<p>Geometry
 <ul>
-  <li>points, lines areas, surfaces
+<li>Geometry
+<p>
+<ul>
+  <li>points, lines, areas, rasters, surfaces
   <li>synthetic data sets - time series
 </ul>
-Approach
+<p>
+<li>Approach
+<p>
 <ul>
   <li>deterministic
   <li>stochastic
+  <li>hybrid
+</ul>
 </ul>
 </section>
 
 <section>
    <h3>Geometry based spatial methods</h3>
-<p>Examples of approaches
-<ul>
-  <li class="fragment">mathematical functions (plane, paraboloid, etc.)
-  <li class="fragment">growth
-  <li class="fragment">distribution based on configuration space
-</ul>
+<p>Deterministic: mathematical functions 
+<p> $z = 0.2 x + 0.02 y + 50$
+<p class="fragment"> 
+<img height="380" src="img/data_sim/tiltedplane2.jpg">
 </section>
 
 <section>
-   <h3>Gaussian random field</h3>
-<ul>
-  <li class="fragment">Monte Carlo
-  <li class="fragment">classification, feature extraction, change detection and quantification
-  <li class="fragment">statistical modeling to relate the observed data to the studied process dynamics
-</ul>
+   <h3>Geometry based spatial methods</h3>
+<p>Deterministic: mathematical functions
+<p> $z = \sin (0.4x) + 0.3 \cos(y) + 80$
+<p class="fragment">
+<img height="380" src="img/data_sim/waves2_3delev.jpg">
+<img height="250" src="img/data_sim/waves_leg.jpg">
+<p><small>Smooth, simplified surface</small>
+</section>
+
+<section>
+   <h3>Stochastic methods</h3>
+<p>Gaussian random field: distribution of values follows the function
+<p>equation
+<p>example - random field with mean=120m and sigma=0.3 
+<br><small>(mean of our DEM and sigm approx error of lidar data in areas with vegetation)</small>
+<p><img height="380" src="img/data_sim/waves2_3delev.jpg">
+</section>
+
+<section>
+   <h3>Stochastic methods</h3>
+<p>Gaussian random field added to the elevation surface:
+<p><img height="380" src="img/data_sim/waves2_3delev.jpg">
 </section>
 
 <section>
@@ -122,6 +147,15 @@ Satellite imagery (3m res), September 2017 - July 2018
 <iframe data-autoplay width="580" height="360" src="img/geodynamics/sep17_july18.mp4" frameborder="0" allowfullscreen></iframe>
 <p><small>Planet: world’s largest constellation of Earth-imaging (micro) satellites providing daily observations
 for entire Earth at 3m resolution</small>
+</section>
+
+<section>
+   <h3>Gaussian random field</h3>
+<ul>
+  <li class="fragment">Monte Carlo
+  <li class="fragment">classification, feature extraction, change detection and quantification
+  <li class="fragment">statistical modeling to relate the observed data to the studied process dynamics
+</ul>
 </section>
 
 <section>
@@ -321,44 +355,16 @@ The middle map shows distortions rather than crop.
 <p> fundamental physical, biological and socio-economic processes
 </section>
 
+
 <section>
-   <h3>Dynamic processes</h3>
-<p>Dynamic processes in your projects
+   <h3>Weather generators - move to end of lecture</h3>
 <ul>
-  <li>development growth
-  <li>population / development migration
-  <li>algae growth /evolution
-  <li>crop growth / die out
+<li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation
+<li>From scattered space-time point data to continuous space-time model of plume evolution
 </ul>
-</section>
-
-<section>
-   <h3>Static and dynamic simulations</h3>
-<p>
-<ul>
-<li class="fragment">steady state for dynamic processes
-<li class="fragment"> dynamic simulations
-</ul>
-</section>
-
-<section>
-   <h3>Dynamic simulations</h3>
-<p>
-Results have a well defined time step
-<ul>
-<li>Modeling processes: solar radiation
-<li>flooding
-<li>surface water flow 
-<li>sediment transport 
-<li>erosion and deposition, landscape evolution
-</ul>
-<p> <img height="380" src="img/geodynamics/lakef1994.gif">
-</section>
-
-
-<section>
-   <h3>Simulation output: time series</h3>
-<p>Same handling with temporal framework
+<p> <img height="250" src="img/geodynamics/chesaplg.jpg">
+<img height="330" src="img/geodynamics/chesapsites.jpg">
+<img height="330" src="img/geodynamics/chall4d.gif">
 </section>
 
 
