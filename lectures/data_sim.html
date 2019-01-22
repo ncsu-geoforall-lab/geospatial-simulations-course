@@ -29,7 +29,7 @@
 <li class="fragment">sensitivity analysis (most important parameters)
 <li class="fragment">model parametrization
 <li class="fragment">calibration and validation
-<li class="fragment">generating scenarios
+<li class="fragment">generating scenarios and running simulations
 <li class="fragment">uncertainty analysis
 </ul>
 </section>
@@ -70,7 +70,8 @@
 <section>
    <h3>Geometry based spatial methods</h3>
 <p>Deterministic: mathematical functions 
-<p> $z = 0.2 x + 0.02 y + 50$
+<p>
+$z = 0.2 x + 0.02 y + 50$
 <p class="fragment"> 
 <img height="380" src="img/data_sim/tiltedplane2.jpg">
 </section>
@@ -78,7 +79,8 @@
 <section>
    <h3>Geometry based spatial methods</h3>
 <p>Deterministic: mathematical functions
-<p> $z = \sin (0.4x) + 0.3 \cos(y) + 80$
+<p> 
+$z = \sin (0.4x) + 0.3 \cos(y) + 80$
 <p class="fragment">
 <img height="380" src="img/data_sim/waves2_3delev.jpg">
 <img height="250" src="img/data_sim/waves_leg.jpg">
@@ -87,86 +89,136 @@
 
 <section>
    <h3>Stochastic methods</h3>
-<p>Gaussian random field: distribution of values follows the function
-<p>equation
-<p>example - random field with mean=120m and sigma=0.3 
-<br><small>(mean of our DEM and sigm approx error of lidar data in areas with vegetation)</small>
-<p><img height="380" src="img/data_sim/waves2_3delev.jpg">
+<ul>
+<li>Methods based on random fields, characterized by the distribution function
+<li>Uniform random field - linear random number generator
+</ul>
+<p><img height="130" src="img/data_sim/random_0_20_3D.jpg">
+<p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
 </section>
 
 <section>
    <h3>Stochastic methods</h3>
-<p>Gaussian random field added to the elevation surface:
-<p><img height="380" src="img/data_sim/waves2_3delev.jpg">
+<ul>
+<li>Independednt random variable $z$,
+ is often distributed according to the normal distribution:
+$$
+f(z | \mu,\sigma^2) = \frac{1}{\sqrt{2\pi} \sigma} e^{-(z-\mu)^2 / 2\sigma^2} 
+$$
+<p class="fragment">where $\mu$ is the mean, $\sigma$ is the standard deviation,
+$\sigma^2$ is the variance, $e$ is exponential function, and $f(z | \mu,\sigma^2)$
+is probability density function of the normal distribution 
+<p class="fragment">
+Monte Carlo methods often require generating values that have normal distribution
+<p class="fragment"><small>
+See also 
+<a href="https://en.wikipedia.org/wiki/Normal_distribution">Normal distribution</a> here
+</small>
+</section>
+
+<section>
+   <h3>Gaussian random field</h3>
+Random field with $\mu = 120$m and $\sigma = 2$m 
+<p class="fragment"><small>One $\sigma$ (68%) of values in the random field are within 2m range of the mean</small>
+<p><img height="180" src="img/data_sim/gauss_surf_m120s2_3dnew.jpg">
+<p><img height="180" src="img/data_sim/gauss_surf_hist.png">
+</section>
+
+<section>
+   <h3>Uniform and Gaussian random fields</h3>
+Profile and histograms of a uniform random field $z = [0,20]$ and Gaussian random field with $\mu = 0$m and $\sigma = 20$m        
+<p><img height="150" src="img/data_sim/gauss_random_20_profiles.png">
+<p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
+<img height="180" src="img/data_sim/gauss_surf_m0s20_hist.png">
+</section>
+
+<section>
+   <h3>Gaussian random field</h3>
+Random field with $\mu = 0$m and $\sigma = 0.3$m 
+</small>
+<p><img height="300" src="img/data_sim/gauss_surf_m0s03_3d.jpg">
+<p><img height="120" src="img/data_sim/gauss_surf_m0s20_hist.png">
+</section>
+
+<section>
+   <h3>Simulation of surface with noise</h3>
+<p>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m added to the elevation surface:
+<p><img height="380" src="img/data_sim/elev_lid_noise3d.jpg">
+<p><small>How would you test whether the noise on your lidar-based DSM has normal distribution?
+e.g., compute distribution of deviations computed by the spline function</small>
+</section>
+
+<section>
+   <h3>Simulation of random surface with spatial dependence</h3>
+<p>Initial Gaussian or uniform random field is smoothed based on a given filter
+<p>add equations
+</section>
+
+<section>
+   <h3>Simulation of random surface with spatial dependence</h3>
+<p>comparison of random fields and their distributions
+</section>
+
+<section>
+   <h3>Application to uncertainty analysis</h3>
+<p>assignment
 </section>
 
 <section>
    <h3>Fractals</h3>
-<p>What are fractals and how they relate to geospatial computing and simulations
-<p>scale invariant, infinite detail at all scales - complete computation of fractal is impossible 
-<p>deterministic and random fractals
-<p>Geospatial examples of fractals
-<p> <img height="430" src="../img/geodynamics_lecture/jr_74_17_anim3dlgfix.gif">
-<p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
+<p>Scale invariant features with infinite detail at all scales - complete computation of fractal is impossible 
+<p>Deterministic and random fractals
+<p>Fractals have non-integer dimension
+ <p>Learn more about fractals 
+    <ul>
+    <li><a href="https://www.wired.com/2010/09/fractal-patterns-in-nature/">Fractal patterns in nature</a>
+    <li><a href="https://www.wired.com/2012/01/the-fractal-dimension-of-zip-codes/">Fractal dimension of zipcodes</a>
+    <li><a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">Fractals by Hausdorff dimension</a>
+    </ul>
 </section>
 
 <section>
-   <h3>Deterministic Fractals</h3>
+   <h3>Deterministic fractals</h3>
 <p>Self-similar: scaled down and rotated copies of themselves
-<p>example from Lubos
 <p>simple algorithms: particular mappig is repeated in recursive scheme
+<p>example from Lubos
 <p>link for image from web or generate one yourself
-<p> <img height="430" src="../img/geodynamics_lecture/jr_74_17_anim3dlgfix.gif">
-<p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
+<p> <img height="430" src="img/data_sim/fractal_det.gif">
 </section>
 
 <section>
    <h3>Random fractals</h3>
-<p>Surfaces with no derivative (infinitely rough ?)
 <p>Include random component to simulate natural phenomena
-<p>midpoint displacement method, Fourier filtering method, random cut method
-<p> <img height="430" src="../img/geodynamics_lecture/jr_74_17_anim3dlgfix.gif">
-<p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
+<p>Surfaces with no derivative (infinitely rough ?)
+<p>Fractal Brownian motion
+<p>algorithms: midpoint displacement method, Fourier filtering method, random cut method
+<p> <img height="230" src="../img/geodynamics_lecture/jr_74_17_anim3dlgfix.gif">
 </section>
 
 <section>
-   <h3>Fractals</h3>
-Animation of fractal surface with increasing dimension
-<p> <img height="430" src="../img/geodynamics_lecture/jr_74_17_anim3dlgfix.gif">
-   <h3>Examples: fractals</h3>
-<p><small>Bi-variate interpolation of DEMs from point clouds to surfaces and dynamic visualization</small>
-<p> <img height="430" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
-<p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
+   <h3>Random fractals</h3>
+<p>Surface generated by Fourier filtering method d=2.9
+<p> <img height="400" src="img/data_sim/fractal_d290.gif">
+</section>
+
+<section>
+   <h3>Random fractals</h3>
+<p>Surface generated by Fourier filtering method d=2.01
+<p> <img height="400" src="img/data_sim/fractal_d201.gif">
+</section>
+
+<section>
+   <h3>Space filling curves</h3>
+Special cases of fractal constructions
+used for efficient management of multidimensional data
+<a href-"https://en.wikipedia.org/wiki/Space-filling_curve">Space-filling curve on wikipedia</a>
+<a href="https://blog.zen.ly/geospatial-indexing-on-hilbert-curves-2379b929addc">Geospatial indexing on Hilbert curves</a>, 
+blog post by A. Sinton
 </section>
 
 <section>
  <h3>Examples: random points, perturbance</h3>
 <p>
-Satellite imagery (3m res), September 2017 - July 2018
-<p>
-<iframe data-autoplay width="580" height="360" src="img/geodynamics/sep17_july18.mp4" frameborder="0" allowfullscreen></iframe>
-<p><small>Planet: world’s largest constellation of Earth-imaging (micro) satellites providing daily observations
-for entire Earth at 3m resolution</small>
-</section>
-
-<section>
-   <h3>Gaussian random field</h3>
-<ul>
-  <li class="fragment">Monte Carlo
-  <li class="fragment">classification, feature extraction, change detection and quantification
-  <li class="fragment">statistical modeling to relate the observed data to the studied process dynamics
-</ul>
-</section>
-
-<section>
-   <h3>Weather generators - move to end of lecture</h3>
-<ul>
-<li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation 
-<li>From scattered space-time point data to continuous space-time model of plume evolution
-</ul>
-<p> <img height="250" src="img/geodynamics/chesaplg.jpg">
-<img height="330" src="img/geodynamics/chesapsites.jpg">
-<img height="330" src="img/geodynamics/chall4d.gif">
 </section>
 
 <section>
@@ -185,179 +237,7 @@ for entire Earth at 3m resolution</small>
 </section>
 
 <section>
-   <h3>Observation multitemporal data</h3>
-Additional examples
-<ul>
-<li>monthly precipitation over Amazon basin (precipitation as a surface)
-<li>Cape Fear and Cape hatteras (terrain over time)
-<li>Subsurface soil moisture (4D)
-</ul>
-</section>
-
-<section>
-   <h3>Managing multitemporal data</h3>
-</section>
-
-<section>
- <h3>Temporal data framework</h3>
-<ul>
- <li>supports efficient processing, management and analysis of space-time data sets
- <li><b>space-time dataset</b> is a set of maps (raster, vector) registered in a temporal database
- <li>space-time dataset may represent a dynamic process
- <li>individual maps represent the states of the dynamic system at a given time
-</ul>
-<br>
-<p class="small">
-Gebbert, S. and Pebesma, E. (2014). <a href="https://www.sciencedirect.com/science/article/pii/S136481521300282X">
-A temporal GIS for field based environmental modeling.</a>
-Environmental Modelling and Software, 53, 1–12.</p>
-</section>
-
-<section>
-   <h3>Time stamp type</h3>
-<ul>
- <li>time stamp: assigns time to an individual map in space-time data set
- <li><b>time instant</b> - snapshot at given time: 2013-10-15 13:00:00 (absolute time)
- <li><b>time interval </b>- defined by start and end time: day, month, year (relative time)
- <li>example: a single UAS survey represents a snapshot (state) which can be agreggated into intervals
-</ul>
-<img class="stretch" src="img/geodynamics/st_dataset.jpg">
-</section>
-
-<section>
-  <h3>Registered space-time dataset</h3>
-Timeline tool: time and spatial extent of registered maps
-<p>
-<img height="400" src="img/geodynamics/uas2015_timeline.jpg">
-<img height="80" src="img/geodynamics/timeline_midpines15-18.png">
-</section>
-
-<section>
-   <h3>Temporal plot</h3>
-<ul>
-<li>Plot time series of measured values at a given location: April through October
-</ul>
-<p><img width="70%"  src="img/geodynamics/tplots.jpg">
-</section>
-
-<section>
-   <h3>Temporal count and intersection</h3>
-<ul>
-<li>Count: number of maps (temporal snapshots) where the given cell has non-null value (overlap)
-<li>Intersection: grid cells with non-null values from each map in time series
-</ul>
-<img width="47%" src="img/geodynamics/series_overlap_count.jpg">
-<img width="47%" src="img/geodynamics/intersection.jpg">
-</section>
-
-<section>
-   <h3>Temporal aggregation</h3>
-<ul>
-<li>Temporally aggregate maps over given period of time - for example to derive monthly average elevation
-</ul>
-<p>
-<img width="75%" src="img/geodynamics/aggregated_sept.jpg">
-</section>
-
-<section>
-   <h3>Basic time series analysis</h3>
-<p>
-Per cell statistics computed for each cell over time:
-<ul>
- <li>mean and standard deviation
- <li>min, max elevation and range
- <li>time at minimum, time at maximum
- <li>linear regression: slopem offset, regr. coefficient
-</ul>
-<p class="small"> UPDATE
-<a href="http://www4.ncsu.edu/~hmitaso/gmslab/papers/MitasovaFinalGeoinf09.pdf">
-Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA. </a></p>
-</section>
-
-<section>
-   <h3>Detecting distortions in surveys</h3>
-<ul>
-<li>Derive core (minimum) surface from UAS time series
-<li>Compute difference between UAS core and lidar bare ground surface
-<li>Compute time of minimum raster: identify distorted DSMs with elevation below lidar bare ground
-</ul>
-<img width="47%" src="img/geodynamics/diff_lid_uasmin.jpg">
-<img width="47%" src="img/geodynamics/minraster.jpg">
-</section>
-
-<section>
-   <h3>Corrected UAS core surface</h3>
-<ul>
-<li>Remove distorted DSMs from derivation of core surface
-<li>Difference between UAS core and lidar bare ground surface is now very small
-<li>Hist. equalized color ramp for differences highlights a small shift in lidar swath
-</ul>
-<img width="45%" src="img/geodynamics/diff_lid_uasmin2.png">
-<img width="45%" src="img/geodynamics/diff_lid_uasmin2_histeq.jpg">
-</section>
-
-<section>
-   <h3>Envelope and range applications</h3>
-<p>
-<ul>
-<li>Envelope: what is the max height of crop in each pixel over the monitored period?
-<li>time of maximum - when was the crop highest at each grid cell?
-<li>where is the largest range and variability in crop height?
-</ul>
-<img width="40%" src="img/geodynamics/diff_lid_uasmax.jpg">
-<img width="40%" src="img/geodynamics/max2.jpg">
-</section>
-
-<section>
-   <h3>Envelope and range applications</h3>
-<ul>
-<li>use envelope to show all cars ever parked at the site
-<li>core, snapshot, envelope, surfaces can be used to manage parking area
-</ul>
-<img width="50%" src="img/geodynamics/cars.jpg">
-</section>
-
-<section>
-   <h3>Basic time series analysis: regression</h3>
-<ul>
- <li>applies to well designed, systematic monitoring with longer time series,
- <li>select subset where the changes are close to linear - e.g. crop growth period,
- <li>compute per cell linear regression analysis: map of regression slope and offset
-</ul>
-</section>
-
-<section>
- <h3>Map algebra for time series</h3>
-<p>
-<ul>
-  <li>apply map algebra expression for each map in the time series at each grid cell
-  <li>output is new time series which is registered as a new space-time dataset
-  <li>this is different (and much simpler) from temporal map algebra
-</ul>
-</section>
-
-<section>
- <h3>Extract crop height time series</h3>
-<p>Map algebra can be used to
-extract grid cells with elevation above lidar bare ground
-within a selected elevation interval (z1,z2)
-<p>
-<img width="32%" src="img/geodynamics/veg_uas_lidar2.jpg">
-<img width="32%" src="img/geodynamics/veg_uas_lidar3.jpg">
-<img width="32%" src="img/geodynamics/veg_uas_lidar7.jpg">
-<p class="small">
-Maps of relative elevation (0.3m, 2.0m)  above bare ground lidar for 3 time snapshots in our time series.
-The middle map shows distortions rather than crop.
-</section>
-
-<section>
-   <h3>Dynamic processes</h3>
-<p> fundamental physical, biological and socio-economic processes
-</section>
-
-
-<section>
-   <h3>Weather generators - move to end of lecture</h3>
+   <h3>Weather generators</h3>
 <ul>
 <li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation
 <li>From scattered space-time point data to continuous space-time model of plume evolution
@@ -367,6 +247,21 @@ The middle map shows distortions rather than crop.
 <img height="330" src="img/geodynamics/chall4d.gif">
 </section>
 
+<section>
+   <h3>Generating scenarios</h3>
+<p>Depends on the research question, available data and tools
+<p>Participatory research, planning, decision making
+<p>Computational approaches, artificial inteligence, games
+<p>Tangible Landscape
+</section>
+
+<section>
+   <h3>Generating 3D digital objects</h3>
+<p>Computational design
+<p>Structure from motion - digital mapping of 3D objects using overlapping images
+<p><a href="http://ncsu-geoforall-lab.github.io/uav-lidar-analytics-course/assignments/lab_exp_3Dreconstr.html">
+Lab experiment from the UAS course</a>
+</section>
 
 <!--
 <section>
