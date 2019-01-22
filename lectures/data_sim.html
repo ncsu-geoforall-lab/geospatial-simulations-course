@@ -119,30 +119,39 @@ See also
 <section>
    <h3>Gaussian random field</h3>
 Random field with $\mu = 120$m and $\sigma = 2$m 
-<p class="fragment"><small>One $\sigma$ (68%) of values in the random field are within 2m range of the mean</small>
+<p><small>One $\sigma$ (68%) of values in the random field are within 2m range of the mean</small>
 <p><img height="180" src="img/data_sim/gauss_surf_m120s2_3dnew.jpg">
 <p><img height="180" src="img/data_sim/gauss_surf_hist.png">
 </section>
 
 <section>
    <h3>Uniform and Gaussian random fields</h3>
-Profile and histograms of a uniform random field $z = [0,20]$ and Gaussian random field with $\mu = 0$m and $\sigma = 20$m        
+Profile and histograms:
+<br>uniform random field $z = [0,20]$ 
+<br>Gaussian random field with $\mu = 0$m and $\sigma = 20$m        
 <p><img height="150" src="img/data_sim/gauss_random_20_profiles.png">
 <p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
 <img height="180" src="img/data_sim/gauss_surf_m0s20_hist.png">
 </section>
 
 <section>
+   <h3>Uniform and Gaussian random fields</h3>
+2D maps: uniform random field $z = [0,20]$ and Gaussian random field with $\mu = 0$m and $\sigma = 20$m
+<p><img height="300" src="img/data_sim/random_0_20_2d.png">
+<img height="300" src="img/data_sim/gauss_surf_m0s20_2d.png">
+</section>
+
+<section>
    <h3>Gaussian random field</h3>
-Random field with $\mu = 0$m and $\sigma = 0.3$m 
+Random field with $\mu = 0$m and $\sigma = 0.3$m, e.g., random measurement errors (noise)
 </small>
-<p><img height="300" src="img/data_sim/gauss_surf_m0s03_3d.jpg">
+<p><img height="280" src="img/data_sim/gauss_surf_m0s03_3d.jpg">
 <p><img height="120" src="img/data_sim/gauss_surf_m0s20_hist.png">
 </section>
 
 <section>
    <h3>Simulation of surface with noise</h3>
-<p>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m added to the elevation surface:
+<p><small>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m added to the elevation surface:</small>
 <p><img height="380" src="img/data_sim/elev_lid_noise3d.jpg">
 <p><small>How would you test whether the noise on your lidar-based DSM has normal distribution?
 e.g., compute distribution of deviations computed by the spline function</small>
@@ -151,17 +160,34 @@ e.g., compute distribution of deviations computed by the spline function</small>
 <section>
    <h3>Simulation of random surface with spatial dependence</h3>
 <p>Initial Gaussian or uniform random field is smoothed based on a given filter
-<p>add equations
+<p>The filter defines the range and shape of spatial dependence
 </section>
 
 <section>
-   <h3>Simulation of random surface with spatial dependence</h3>
-<p>comparison of random fields and their distributions
+   <h3>Random surface with spatial dependence</h3>
+<p>Gaussian random field 
+<p><img height="450" src="img/data_sim/gauss_surf_m0s20_2d.png">
+</section>
+
+<section>
+   <h3>Random surface with spatial dependence</h3>
+<p>Gaussian random field with spatial dependence $d=10$
+<p><img height="450" src="img/data_sim/random_spatiald10h255.png">
+</section>
+
+<section>
+   <h3>Random surface with spatial dependence</h3>
+<p>Gaussian random field spatial dependence $d=30$
+<p><img height="450" src="img/data_sim/random_spatiald30h255.png">
 </section>
 
 <section>
    <h3>Application to uncertainty analysis</h3>
-<p>assignment
+<p>assignment: add random fields with different properties to a smooth DEM
+and evaluate how different types of errors will influence your analysis or modeling,
+for example, watershed boundaries or flow distribution
+<p>cross-validation analysis shows that errors in DEMs are dependent on terrain shape - 
+how would you adjust your simulated data?
 </section>
 
 <section>
@@ -169,7 +195,6 @@ e.g., compute distribution of deviations computed by the spline function</small>
 <p>Scale invariant features with infinite detail at all scales - complete computation of fractal is impossible 
 <p>Deterministic and random fractals
 <p>Fractals have non-integer dimension
- <p>Learn more about fractals 
     <ul>
     <li><a href="https://www.wired.com/2010/09/fractal-patterns-in-nature/">Fractal patterns in nature</a>
     <li><a href="https://www.wired.com/2012/01/the-fractal-dimension-of-zip-codes/">Fractal dimension of zipcodes</a>
@@ -179,32 +204,32 @@ e.g., compute distribution of deviations computed by the spline function</small>
 
 <section>
    <h3>Deterministic fractals</h3>
-<p>Self-similar: scaled down and rotated copies of themselves
-<p>simple algorithms: particular mappig is repeated in recursive scheme
-<p>example from Lubos
-<p>link for image from web or generate one yourself
-<p> <img height="430" src="img/data_sim/fractal_det.gif">
+<ul>
+<li>Self-similar: scaled down and rotated copies of themselves
+<li>Simple algorithms: particular mappig is repeated in recursive scheme
+</ul>
 </section>
 
 <section>
    <h3>Random fractals</h3>
-<p>Include random component to simulate natural phenomena
-<p>Surfaces with no derivative (infinitely rough ?)
-<p>Fractal Brownian motion
-<p>algorithms: midpoint displacement method, Fourier filtering method, random cut method
-<p> <img height="230" src="../img/geodynamics_lecture/jr_74_17_anim3dlgfix.gif">
-</section>
-
-<section>
-   <h3>Random fractals</h3>
-<p>Surface generated by Fourier filtering method d=2.9
-<p> <img height="400" src="img/data_sim/fractal_d290.gif">
+<ul>
+<li>Include random component to simulate natural phenomena
+<li>Surfaces with no derivative (infinitely rough)
+<li>Fractal Brownian motion
+<li>Algorithms: midpoint displacement method, Fourier filtering method, random cut method
+</ul>
 </section>
 
 <section>
    <h3>Random fractals</h3>
 <p>Surface generated by Fourier filtering method d=2.01
 <p> <img height="400" src="img/data_sim/fractal_d201.gif">
+</section>
+
+<section>
+   <h3>Random fractals</h3>
+<p>Surface generated by Fourier filtering method d=2.9
+<p> <img height="400" src="img/data_sim/fractal_d290.gif">
 </section>
 
 <section>
@@ -217,14 +242,20 @@ blog post by A. Sinton
 </section>
 
 <section>
- <h3>Examples: random points, perturbance</h3>
-<p>
+ <h3>Random points</h3>
+<ul>
+<li>Randomly distributed in a given space
+<li>Random sampling of a given field, map, image
+<li>Perturbated random point fields
+<li>Random points with spatial dependence - e.g. minimum distance appart
+<li>Random subsets of existing data for calibration and validation
+</ul>
 </section>
 
 <section>
-   <h3>Examples: patch generators</h3>
-<p>groundwater pollution over 10 years - data
-<p> <img height="330" src="img/geodynamics/wellnew.gif">
+   <h3>Random patch generators</h3>
+<p>Generating synthetic land cover / land use maps
+<p>Circular growth or fractal 
 </section>
 
 <section>
@@ -232,35 +263,28 @@ blog post by A. Sinton
 <ul>
 <li>points with spatial interactions - inputs for ABM
 <li>patches with spatial dependence and geometry properties
+<li>time series generators - e.g., weather generators for continuous time simulations
 </ul>
-<p> <img height="330" src="img/geodynamics/well456.gif">
-</section>
-
-<section>
-   <h3>Weather generators</h3>
-<ul>
-<li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation
-<li>From scattered space-time point data to continuous space-time model of plume evolution
-</ul>
-<p> <img height="250" src="img/geodynamics/chesaplg.jpg">
-<img height="330" src="img/geodynamics/chesapsites.jpg">
-<img height="330" src="img/geodynamics/chall4d.gif">
-</section>
-
-<section>
-   <h3>Generating scenarios</h3>
-<p>Depends on the research question, available data and tools
-<p>Participatory research, planning, decision making
-<p>Computational approaches, artificial inteligence, games
-<p>Tangible Landscape
 </section>
 
 <section>
    <h3>Generating 3D digital objects</h3>
-<p>Computational design
-<p>Structure from motion - digital mapping of 3D objects using overlapping images
-<p><a href="http://ncsu-geoforall-lab.github.io/uav-lidar-analytics-course/assignments/lab_exp_3Dreconstr.html">
+<ul>
+<li>Computational design, game engines
+<li>Structure from motion - digital mapping of 3D objects using overlapping images
+<li><a href="http://ncsu-geoforall-lab.github.io/uav-lidar-analytics-course/assignments/lab_exp_3Dreconstr.html">
 Lab experiment from the UAS course</a>
+</ul>
+</section>
+
+<section>
+   <h3>Generating scenarios</h3>
+<ul>
+<li>Depends on the research question, available data and tools
+<li>Participatory research, planning, decision making
+<li>Computational approaches, artificial inteligence, games
+<li>Tangible Landscape
+</ul>
 </section>
 
 <!--
