@@ -39,7 +39,7 @@ for <b>GRASS Mapset</b> create a new mapset (called e.g. HW2_data_simulation).<b
 Click <b>Start GRASS session</b>.
 
 <p>
-Change working directory:<br>
+Change working directory to where you will keep your external files (such as color ramps, time series layers, etc.):<br>
 <em>Settings</em> > <em>GRASS working environment</em> > <em>Change working directory</em> > select/create any directory<br>
 or type <code>cd</code> (stands for change directory) into the GUI
 <em>Console</em> and hit Enter:
@@ -48,14 +48,14 @@ cd
 </code></pre>
 
 <p>
-Download all text files with color rules (see above)
-to the selected directory. Now you can use the commands from the assignment requiring the text file
+Now you can use the commands from the assignment requiring external text files
 without the need to specify the full path to the file.
 
-<h3>Geometry-based methods</h3>
+<h3>Geometry-based surface simulation methods</h3>
 
 <p>
-Set region to small rural watershed area at 1m resolution
+Create surfaces defined by mathematical functions. First, set region 
+to a small rural watershed area at 1m resolution using a predefined region:
 
 <pre><code>
 g.region rural_1m -p
@@ -64,7 +64,7 @@ g.region rural_1m -p
 <p>
 Using map algebra we generate a tilted plane with 20% slope, slightly rotated and shifted 50m 
 above the (0,0) plane. We cut off the plane at the crossection with elev_lid792_1m surface,
-but let it protrude 2m to make it visible above the surface
+but let it protrude 2m to make it visible above the surface (see the equation in the lecture):
 
 <pre><code>
 r.mapcalc "tiltplane = 0.02*row()+0.2*col()+50"
@@ -72,7 +72,8 @@ r.mapcalc "tiltpl_under = if(tiltplane &lt; elev_lid792_1m + 2,tiltplane,null())
 </code></pre>
 <p>
 Generate a plane that crosses the surface along the region diagonal with 10% tilt and protrudes 5m through
-the elev_lid792_1m surface. Visualize the plane together with elev_lid792_1m in 3D.
+the elev_lid792_1m surface. Visualize the plane together with elev_lid792_1m in 3D. Provide the equation
+in mathematical and map algebra form.
 
 <p>
 In the lecture we have shown mathematical surface with hills and valleys generated using the following function
@@ -83,43 +84,52 @@ r.mapcalc "waves = sin(0.4*row())+0.3*cos(col())+80"
 
 <p>
 Using map algebra generate surface with hills, depressions or valleys that is different from the one shown in lecture,
-but is close enough to the elev_lid792_1m surface that you can visualize them together in 3D
+but is close enough to the elev_lid792_1m surface that you can visualize them together in 3D.
 
-<h3>Stochastic-based methods</h3>
+<h3>Stochastic methods</h3>
 <p>
 Investiagte impact of errors with different distributions on watershed and stream delineation using random surfaces.
 
+<p>First we explore different types of random surfaces: uniform with values within the interval [0,10],
+gaussian distribution around the mean=0 with sigma=0.3:
+
 <pre><code>
 g.region rural_1m
-r.univar elev_lid792_1m
-r.surf.gauss out=gauss_m120_s2 mean=120.769 sigma=2
-r.univar gauss_m120_s2
-r.colors gauss_m120_s2 co=differences
-r.univar gauss_m120_s2
-r.univar elev_lid792_1m
-
-r.surf.gauss out=gauss_m0_s03 mean=0. sigma=0.3
-r.colors gauss_m0_s03 co=differences
-r.mapcalc "elev_lidnoise = elev_lid792_1m + gauss_m0_s03"
+r.surf.random out=random_neg3_3 min=-3 max=3
+r.colors random_neg3_3 co=bcyr
+d.legend -v -s -d random_neg3_3 at=5,50,7,10
+r.univar random_neg3_3
+r.mapcalc "elev_lidnoise = elev_lid792_1m + random_neg3_3/10"
 r.colors elev_lidnoise co=elevation
 
-r.surf.random out=random_0_20 min=0 max=20
-r.surf.random out=random_0_03 min=0 max=0.3 everything is 0
-r.colors random_0_20 co=differences
-add legend with histogram
+r.surf.gauss out=gauss_m0_s03 mean=0 sigma=0.3
+r.colors gauss_m0_s03 co=differences
+r.univar gauss_m0_s03
+r.mapcalc "elev_lidnoise_gauss = elev_lid792_1m + gauss_m0_s03"
+r.colors elev_lidnoise_gauss co=elevation
 
-r.random.surface output=random_spatial_d10 distance=10
-r.mapcalc "randsurfspat = (random_spatial_d30 - 127.312) * (0.3/254)"
-r.mapcalc "elev_lidnoised30 = elev_lid792_1m + randsurfspat"
-r.colors elev_lidnoised30 co=elevation
+r.random.surface output=gauss_spatial_d10 distance=10
+r.univar gauss_spatial_d10
+r.mapcalc "gauss_surfspat = (gauss_spatial_d10 - 134.441) * (0.3/254)"
+r.mapcalc "elev_lidnoise_gspat = elev_lid792_1m + gauss_surfspat"
+r.colors elev_lidnoise_gspat co=elevation
 </code></pre>
 
 <p>
-Compare watersheds from elev_lidnoised30,elev_lidnoise and others
+Visualy compare watersheds and streams derived from elev_lid792_1m, elev_lidnoise, elev_lidnoise_gauss, elev_lidnois_gspat:
 
-Compare properties of watersheds (or viewsheds) computed using USGS DEM, DEM with errors, fractal surface
-write a script to compute topo parameters, watersheds and their stats and compare with real terrain 
-- which dimension is the closest?  
+<pre><code>
+r.watershed -a elev_lid792_1m thresh=5000 accum=accum_5K drain=draindir_5K basin=basin_5K
+r.watershed -a elev_lidnoise thresh=15000 accum=accum_15K_noise drain=draindir_15K_noise basin=basin_15K_noise
+r.watershed -a elev_lidnoise_gspat thresh=10000 accum=accum_10K_noisegspat drain=draindir_10K_noisegspat basin=basin_10K_noisegspat
+r.to.vect basin_5K out=basin_5K type=area
+r.to.vect basin_10K_noisegspat out=basin_10K_noisegspat type=area
+r.to.vect basin_15K_noise out=basin_15K_noise type=area
+<pre><code>
+
+For quantitative comparison, you can extract selected basins and compare their area using r.report, compute distances between
+the boundaries, extract streams using r.stream.extract and compare their characteristics using the r.stream* add-ons. 
+
 <p>
 Random fractal surfaces
 <p>
@@ -152,6 +162,7 @@ t.register input=fractal_dem_201 type=raster file=fractal_dem201_series.txt unit
 t.rast.colors in=fractal_dem_201 co=elevation
 <pre><code>
 
+Compare properties of watersheds (or viewsheds) computed using USGS DEM, DEM with errors, fractal surface write a script to compute topo parameters, watersheds and their stats and compare with real terrain - which dimension is the closest?  
 <p>
 Generating data for model validation
 generate random samples based on landcover
