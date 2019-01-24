@@ -90,8 +90,9 @@ but is close enough to the elev_lid792_1m surface that you can visualize them to
 <p>
 Investiagte impact of errors with different distributions on watershed and stream delineation using random surfaces.
 
-<p>First we explore different types of random surfaces: uniform with values within the interval [0,10],
-gaussian distribution around the mean=0 with sigma=0.3:
+<p>First we explore different types of random surfaces: uniform with values within the interval [-3,3],
+gaussian distribution around the mean=0 with sigma=0.3, and spatially dependent gaussian distribution with
+distance 10m. Then we add these noise surfaces to our elevation surface: 
 
 <pre><code>
 g.region rural_1m
@@ -125,7 +126,7 @@ r.watershed -a elev_lidnoise_gspat thresh=10000 accum=accum_10K_noisegspat drain
 r.to.vect basin_5K out=basin_5K type=area
 r.to.vect basin_10K_noisegspat out=basin_10K_noisegspat type=area
 r.to.vect basin_15K_noise out=basin_15K_noise type=area
-<pre><code>
+</code></pre>
 
 For quantitative comparison, you can extract selected basins and compare their area using r.report, compute distances between
 the boundaries, extract streams using r.stream.extract and compare their characteristics using the r.stream* add-ons. 
@@ -133,14 +134,11 @@ the boundaries, extract streams using r.stream.extract and compare their charact
 <p>
 Random fractal surfaces
 <p>
-First we generate two series of surfaces with dimension 2.01 to 2.9. The series shows creation of a fractal surface.
+First we generate two series of surfaces with dimension 2.9 to 2.01. The series shows creation of a fractal surface.
 Register the series in temporal framework, assign the rasters a common color table and create an animation
+(feel free to select larger n or a different dimension).
+Prepare text file fractal_dem29_series.txt with the following series
 <pre><code>
-r.surf.fractal out=fractal_dem_d290 dim=2.90 n=10
-r.info fractal_dem_d290
-
-t.create output=fractal_dem_29 type=strds temporaltype=relative title="Fractal DEMs with d=2.9"
-t.register input=fractal_dem_29 type=raster file=fractal_dem29_series.txt unit=year
 fractal_dem_d290.1|1001
 fractal_dem_d290.2|1002
 fractal_dem_d290.3|1003
@@ -151,23 +149,52 @@ fractal_dem_d290.7|1007
 fractal_dem_d290.8|1008
 fractal_dem_d290.9|1009
 fractal_dem_d290.10|1010
+</code></pre>
 
+and a similar one for the fractal_dem201_series.txt
+Then generate the series, register them and visualize, change color table, or run simple analytics.
+Run watershed analysis on the final surfaces.
+
+<pre><code>
+r.surf.fractal out=fractal_dem_d290 dim=2.90 n=10
+r.info fractal_dem_d290
+t.create output=fractal_dem_29 type=strds temporaltype=relative title="Fractal DEMs with d=2.9"
+t.register input=fractal_dem_29 type=raster file=fractal_dem29_series.txt unit=year
 t.rast.list in=fractal_dem_29
-t.rast.colors in=fractal_dem_29 co=elevation
+t.rast.colors in=fractal_dem_29 co=bcyr
+t.rast.univar in=fractal_dem_29
+t.rast.mapcalc input=fractal_dem_29 out=fractal_dem_29_norm expression=
 
 r.surf.fractal out=fractal_dem_d201 dim=2.01 n=10
 r.info fractal_dem_d201
 t.create output=fractal_dem_201 type=strds temporaltype=relative title="Fractal DEMs with d=2.01" desc="Fractal DEMs with d=2.01"
 t.register input=fractal_dem_201 type=raster file=fractal_dem201_series.txt unit=year
-t.rast.colors in=fractal_dem_201 co=elevation
-<pre><code>
+t.rast.colors in=fractal_dem_201 co=bcyr
 
-Compare properties of watersheds (or viewsheds) computed using USGS DEM, DEM with errors, fractal surface write a script to compute topo parameters, watersheds and their stats and compare with real terrain - which dimension is the closest?  
+r.watershed -a fractal_dem_d290 thresh=15000 accum=f290_accum_15K drain=f290_draindir_15K basin=f290_basin_15K
+r.watershed -a fractal_dem_d201 thresh=15000 accum=f201_accum_15K drain=f201_draindir_15K basin=f201_basin_15K
+</pre></code>
+
 <p>
-Generating data for model validation
-generate random samples based on landcover
-v.random - manual has the exmple from ESTCP erosion modeling project
+Rescale the fractal surface to [-0.3,0.3] and add to our DEM as a simulated noise 
 
+<pre><code>
+r.univar fractal_dem_d290
+r.mapcalc "elev_noisefractal = elev_lid792_1m +0.6*(fractal_dem_d290-50.9649)/3754.7"
+r.colors elev_noisefractal co=elevation
+r.univar elev_noisefractal
+r.watershed -a elev_noisefractal thresh=15000 accum=_accum_15K_noisefrac drain=draindir_15K_noisefrac basin=basin_15K_noisefrac
+</code></pre>
+
+<p>
+Generating point data 
+<p>
+r.random.cells manual page has good examples
+r.random, r.random.cells, r.sample.category,
+v.perturb, v.random, v.kcv, r.pi* 
+
+<p>
+Generating patches
 <p>
 create several landscape cover scenarios - compare how their shape and size will influence simple erosion index cls
 prepare example for manual page
