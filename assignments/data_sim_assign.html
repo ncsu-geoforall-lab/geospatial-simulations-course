@@ -152,7 +152,7 @@ Run watershed analysis on the final surfaces.
 <pre><code>
 r.surf.fractal out=fractal_dem_d290 dim=2.90 n=10
 r.info fractal_dem_d290
-t.create output=fractal_dem_29 type=strds temporaltype=relative title="Fractal DEMs with d=2.9"
+t.create output=fractal_dem_29 type=strds temporaltype=relative title="Fractal DEMs with d=2.9" description="Generated data"
 t.register input=fractal_dem_29 type=raster file=fractal_dem29_series.txt unit=year
 t.rast.list in=fractal_dem_29
 t.rast.colors in=fractal_dem_29 co=bcyr
@@ -160,7 +160,7 @@ t.rast.univar in=fractal_dem_29
 
 r.surf.fractal out=fractal_dem_d201 dim=2.01 n=10
 r.info fractal_dem_d201
-t.create output=fractal_dem_201 type=strds temporaltype=relative title="Fractal DEMs with d=2.01" desc="Fractal DEMs with d=2.01"
+t.create output=fractal_dem_201 type=strds temporaltype=relative title="Fractal DEMs with d=2.01" description="Generated data"
 t.register input=fractal_dem_201 type=raster file=fractal_dem201_series.txt unit=year
 t.rast.colors in=fractal_dem_201 co=bcyr
 
