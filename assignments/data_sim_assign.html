@@ -131,13 +131,13 @@ r.to.vect basin_15K_noise out=basin_15K_noise type=area
 For quantitative comparison, you can extract selected basins and compare their area using r.report, compute distances between
 the boundaries, extract streams using r.stream.extract and compare their characteristics using the r.stream* add-ons. 
 
-<p>
-Random fractal surfaces
-<p>
+<h3>Random fractal surfaces</h3>
+
 First we generate two series of surfaces with dimension 2.9 to 2.01. The series shows creation of a fractal surface.
 Register the series in temporal framework, assign the rasters a common color table and create an animation
 (feel free to select larger n or a different dimension).
 Prepare text file fractal_dem29_series.txt with the following series
+
 <pre><code>
 fractal_dem_d290.1|1001
 fractal_dem_d290.2|1002
@@ -163,7 +163,6 @@ t.register input=fractal_dem_29 type=raster file=fractal_dem29_series.txt unit=y
 t.rast.list in=fractal_dem_29
 t.rast.colors in=fractal_dem_29 co=bcyr
 t.rast.univar in=fractal_dem_29
-t.rast.mapcalc input=fractal_dem_29 out=fractal_dem_29_norm expression=
 
 r.surf.fractal out=fractal_dem_d201 dim=2.01 n=10
 r.info fractal_dem_d201
@@ -176,7 +175,9 @@ r.watershed -a fractal_dem_d201 thresh=15000 accum=f201_accum_15K drain=f201_dra
 </pre></code>
 
 <p>
-Rescale the fractal surface to [-0.3,0.3] and add to our DEM as a simulated noise 
+Rescale the fractal surface to [-0.3,0.3] and add to our DEM as a simulated noise. The water flow pattern may represent
+flow over rough surface, where the roughness is represented in the DEMi (e.g. as a grass surface)
+ rather than a constant value over a specific landcover. 
 
 <pre><code>
 r.univar fractal_dem_d290
@@ -186,20 +187,24 @@ r.univar elev_noisefractal
 r.watershed -a elev_noisefractal thresh=15000 accum=_accum_15K_noisefrac drain=draindir_15K_noisefrac basin=basin_15K_noisefrac
 </code></pre>
 
-<p>
-Generating point data 
-<p>
+<h3> Random point data </h3>
 r.random.cells manual page has good examples
 r.random, r.random.cells, r.sample.category,
 v.perturb, v.random, v.kcv, r.pi* 
 
-<p>
-Generating patches
-<p>
-create several landscape cover scenarios - compare how their shape and size will influence simple erosion index cls
-prepare example for manual page
-r.pi.nlm.circ - Creates a random landscape with defined attributes
-r.pi.nlm: Creates a random generated map with values 0 or 1by given landcover and fragment count.
-r.pi.nlm.stats: Neutral Landscape Generator - index statistics
+<h3> Generating patches </h3>
+Note: we will be testing these modules
+Create several landscape cover scenarios, for example, to explore the following scenario - 
+if we need to convert 30% of forest to development, is it better to create a single compact area
+or many smaller areas?
 
+<pre><code>
+g.region landclass96 -p
+r.pi.nlm.circ output=circ1 landcover=30 count=20
+r.pi.nlm.circ output=circ2 landcover=30 count=500 size=1500,1350
+r.pi.nlm input=landclass96 output=nlm.3 nullval=1,5,6,7 landcover=10 sharp=1.0
+r.report circ1 unit=p
+r.report circ2 unit=p
+r.report nlm.3 unit=p
+</pre></code>
 
