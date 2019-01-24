@@ -199,6 +199,23 @@ r.watershed -a elev_noisefractal thresh=15000 accum=_accum_15K_noisefrac drain=d
 r.random.cells manual page has good examples
 r.random, r.random.cells, r.sample.category,
 v.perturb, v.random, v.kcv 
+<p>
+In this example we analyze how errors in point position can influence viewshed analysis.
+First, install r.viewshed.cva addon:
+<pre><code>
+g.extension r.viewshed.cva
+</code></pre>
+
+Generate random points and perturb them. For both points sets compute cumulative viewshed and compare them:
+<pre><code>
+g.region raster=elev_lid792_1m
+v.random output=random_view npoints=10 seed=4
+r.viewshed.cva input=elev_lid792_1m vector=random_view output=cumulative
+v.perturb input=random_view output=random_view_perturb parameters=20 seed=1
+r.viewshed.cva input=elev_lid792_1m vector=random_view_perturb output=cumulative_perturb
+r.report map=cumulative units=p
+r.report map=cumulative_perturb units=p
+</code></pre>
 
 <h3> Generating patches </h3>
 Note: we will be testing these add-on modules.
@@ -208,7 +225,7 @@ or many smaller areas?
 
 <pre><code>
 g.extension r.pi
-g.region landclass96 -p
+g.region raster=landclass96 -p
 r.pi.nlm.circ output=circ1 landcover=30 count=20
 r.pi.nlm.circ output=circ2 landcover=30 count=500 size=1500,1350
 r.pi.nlm input=landclass96 output=nlm.3 nullval=1,5,6,7 landcover=10 sharp=1.0
