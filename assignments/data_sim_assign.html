@@ -1,12 +1,5 @@
 <h2>Data simulation</h2>
 
-DRAFT 
-<p>
-generate data with given properties: errors, patches, fractals, mathematical functions, particles, perturbed points
-uncertainty, sensitivity analysis
-surface with errors
-perturbed points
-
 <p>
 Resources:
 <ul>
@@ -51,7 +44,7 @@ cd
 Now you can use the commands from the assignment requiring external text files
 without the need to specify the full path to the file.
 
-<h3>Geometry-based surface simulation methods</h3>
+<h3>Simple deterministic surfaces</h3>
 
 <p>
 Create surfaces defined by mathematical functions. First, set region 
@@ -62,8 +55,8 @@ g.region rural_1m -p
 </code></pre>
 
 <p>
-Using map algebra we generate a tilted plane with 20% slope, slightly rotated and shifted 50m 
-above the (0,0) plane. We cut off the plane at the crossection with elev_lid792_1m surface,
+Using map algebra generate a tilted plane with 20% slope, slightly rotated, with 50m 
+offset. Cut off the plane at the crossection with elev_lid792_1m surface,
 but let it protrude 2m to make it visible above the surface (see the equation in the lecture):
 
 <pre><code>
@@ -88,10 +81,11 @@ but is close enough to the elev_lid792_1m surface that you can visualize them to
 
 <h3>Stochastic methods</h3>
 <p>
-Investiagte impact of errors with different distributions on watershed and stream delineation using random surfaces.
+Investiagte impact of noise with different distributions on water flow pattern, watershed and stream 
+delineation using random surfaces.
 
 <p>First we explore different types of random surfaces: uniform with values within the interval [-3,3],
-gaussian distribution around the mean=0 with sigma=0.3, and spatially dependent gaussian distribution with
+Gaussian distribution around the mean=0 with sigma=0.3, and spatially dependent gaussian distribution with
 distance 10m. Then we add these noise surfaces to our elevation surface: 
 
 <pre><code>
@@ -128,7 +122,7 @@ r.to.vect basin_10K_noisegspat out=basin_10K_noisegspat type=area
 r.to.vect basin_15K_noise out=basin_15K_noise type=area
 </code></pre>
 
-For quantitative comparison, you can extract selected basins and compare their area using r.report, compute distances between
+Optional: For quantitative comparison, you can extract selected basins and compare their area using r.report, compute distances between
 the boundaries, extract streams using r.stream.extract and compare their characteristics using the r.stream* add-ons. 
 
 <h3>Random fractal surfaces</h3>
@@ -136,7 +130,7 @@ the boundaries, extract streams using r.stream.extract and compare their charact
 First we generate two series of surfaces with dimension 2.9 to 2.01. The series shows creation of a fractal surface.
 Register the series in temporal framework, assign the rasters a common color table and create an animation
 (feel free to select larger n or a different dimension).
-Prepare text file fractal_dem29_series.txt with the following series
+Prepare text file fractal_dem29_series.txt with the names and "years" in your series
 
 <pre><code>
 fractal_dem_d290.1|1001
@@ -151,7 +145,7 @@ fractal_dem_d290.9|1009
 fractal_dem_d290.10|1010
 </code></pre>
 
-and a similar one for the fractal_dem201_series.txt
+and a similar one for the fractal_dem201_series.txt.
 Then generate the series, register them and visualize, change color table, or run simple analytics.
 Run watershed analysis on the final surfaces.
 
@@ -176,8 +170,8 @@ r.watershed -a fractal_dem_d201 thresh=15000 accum=f201_accum_15K drain=f201_dra
 
 <p>
 Rescale the fractal surface to [-0.3,0.3] and add to our DEM as a simulated noise. The water flow pattern may represent
-flow over rough surface, where the roughness is represented in the DEMi (e.g. as a grass surface)
- rather than a constant value over a specific landcover. 
+flow over rough surface, where the roughness is represented in the DEM (e.g. as a grass cover)
+ rather than a constant value. 
 
 <pre><code>
 r.univar fractal_dem_d290
@@ -190,15 +184,16 @@ r.watershed -a elev_noisefractal thresh=15000 accum=_accum_15K_noisefrac drain=d
 <h3> Random point data </h3>
 r.random.cells manual page has good examples
 r.random, r.random.cells, r.sample.category,
-v.perturb, v.random, v.kcv, r.pi* 
+v.perturb, v.random, v.kcv 
 
 <h3> Generating patches </h3>
-Note: we will be testing these modules
+Note: we will be testing these add-on modules.
 Create several landscape cover scenarios, for example, to explore the following scenario - 
 if we need to convert 30% of forest to development, is it better to create a single compact area
 or many smaller areas?
 
 <pre><code>
+g.extension r.pi
 g.region landclass96 -p
 r.pi.nlm.circ output=circ1 landcover=30 count=20
 r.pi.nlm.circ output=circ2 landcover=30 count=500 size=1500,1350
