@@ -1,0 +1,202 @@
+<section>
+    <h2><b>Tangible Landscape as a geosimulation environment</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+   <li>motivation for tangible simulation
+   <li>evolution of tangible simulation environments
+   <li>Tangible Landscape principle and setup
+   <li>Creating 3D physical models
+   <li>TL applications
+</ul>
+</section>
+
+<section>
+<h2>Motivation for Tangible Interfaces for GIS</h2>
+<ul>
+    <li class="fragment">Interaction through mouse, keyboard and display does not encourage creativity.</li>
+    <li class="fragment">Manipulating computer models is not intuitive and requires specialized software and training.</li>
+    <li class="fragment">Collaboration is restricted as typically only one user at a time can navigate and modify models. </li>
+</ul>
+<img height="200px" src="img/collaboration_computer.JPG">
+<img height="200px" src="img/art_rhino.jpg">
+</section>
+
+<section>
+<h2>The evolution of tangible geospatial interfaces </h2>
+<img style="margin-bottom:0px" height="250px" src="img/illuminating_clay.png">
+<!-- <img style="margin-bottom:0px" height="250px" src="images/sandscape.png"> -->
+<img style="margin-bottom:0px" height="250px" src="img/tangeoms_5_s.jpg">
+<img style="margin-bottom:0px" height="250px" src="img/augmented_reality_sandbox.jpg">
+<p style="margin-top:0px"><small>Image source:
+     <a href="http://tangible.media.mit.edu/project/illuminating-clay/">MIT Media Lab</a>,<br>
+          <a href="http://idav.ucdavis.edu/~okreylos/ResDev/SARndbox/">http://idav.ucdavis.edu/</a></small></p>
+<!-- <img height="250px" src="img/tangeoms_2.jpg"> -->
+<p>  <b>Illuminating Clay</b>,
+ <b>Tangible Geospatial Modeling System (TanGeoMS)</b>, <b>Augmented Reality Sandbox</b></p>
+
+<p><small>Ishii H., Ratti C., Piper B., Wang Y., Biderman A. and Ben-Joseph E. <a href="http://tmg-trackr.media.mit.edu/publishedmedia/Papers/188-Bringing%20clay%20and%20sand/Published/PDF">
+    "Bringing clay and sand into digital design—continuous tangible user interfaces."</a> BT technology journal 22.4 (2004): 287-299.
+<br>L. Tateosian, H. Mitasova, B. A. Harmon, B. Fogleman, K. Weaver, and R. S. Harmon,
+ <a href="http://baharmon.github.io/publications/tangible_geospatial_modeling.pdf">
+     “TanGeoMS: Tangible Geospatial Modeling System,”</a>
+     IEEE Trans. Vis. Comput. Graph., vol. 16, no. 6, pp. 1605–12, 2010.</small></p>
+</section>
+
+<section>
+<h2>Tangible Landscape: real-time coupling with GIS</h2>
+<iframe data-autoplay <iframe width="560" height="315" src="https://www.youtube.com/embed/Cd3cCQTGer4?rel=0&amp;showinfo=0;loop=1&amp;playlist=Cd3cCQTGer4" frameborder="0" allowfullscreen></iframe>
+<img height="315px" src="img/system_schema.png">
+<p>Tangible Landscape couples a digital and a physical model through
+     a continuous cycle of 3D scanning, geospatial modeling, and projection.</p>
+</section>
+
+<section>
+    <h3>System setup</h3>
+    <p>projector, scanner, stand, computer, model, table, screen</p>
+    <img width="30%" src="img/projector_configuration_2.png">
+    <img width="30%" src="img/system/setup_screen.JPG">
+</section>
+
+
+<section>
+<h2>Software architecture</h2>
+<img class="stretch" src="img/Coupling_diagram.jpg">
+</section>
+
+<section>
+<h2>Building physical 3D models</h2>
+<!--<img height="250px" src="img/model.png">-->
+<img class="stretch" src="img/tangible_landscape.jpg">
+<p>What are your suggestions for creating 3D models?
+<!-- show here the old way from Katie? including "erase" -->
+</section>
+
+<section>
+<h3>Hand sculpting from polymeric sand</h3>
+<img class="stretch" src="img/hand_sculpting.jpg">
+</section>
+
+<section>
+<h3>Hand sculpting with difference feedback</h3>
+    <iframe data-autoplay width="853" height="480"
+    src="https://www.youtube.com/embed/Q3elMIRCYSk?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+</br><span style="color:blue">blue</span> &#8594; add sand,
+ <span style="color:red">red</span> &#8594; remove sand
+</section>
+
+<section>
+<h3>3D printing</h3>
+<img class="stretch" src="img/3d_print_1.jpg">
+</section>
+
+<section>
+<h3>CNC routing large complex models and molds</h3>
+<img class="stretch" src="img/cnc_router.jpg">
+</section>
+
+<section>
+<h3>Casting polymeric sand</h3>
+<img class="stretch" src="img/new_molds_workflow.jpg">
+</section>
+
+<section>
+<h3>Scaling the physical model</h3>
+<p>compute the scale of your model and its vertical exageration - example
+<p>what would be the width of a road, size of 1 story bldg, width of stream?
+<p>what resolution do we need to scan it at?
+<p>what size of feature change can be detected?
+</section>
+
+
+<section>
+<h2>Tangible interactions</h2>
+<img class="stretch" src="img/interaction/interactions_new.png">
+<p>of both depth and color information coming from the 3D scanner.
+<p>split interactions - ask how they think they are handled
+</section>
+
+<section>
+<h2>Tangible interactions: markers</h2>
+<img class="stretch" src="img/interaction/interactions_new.png">
+<p>of both depth and color information coming from the 3D scanner.
+<p>map algebra detects the markers (differencing)
+<p>vector geometries: markers can be interpreted as points or combined into polylines. 
+<p>traveling salesman heuristics is used to combine detected markers into lines
+</section
+
+<section>
+<h2>Tangible interactions</h2>
+<ul>
+<li>Areas of different categories: pieces of colored felt.
+<li>Direction can be intuitively manipulated using a colored marker.
+<li class="fragment"> of both depth and color information coming from the 3D scanner.
+<li class="fragment">
+raster algebra, and remote sensing techniques like image segmentation and classification.
+</ul>
+<img class="stretch" src="img/interaction/interactions_new.png">
+</section
+
+<section>
+<h2>Open source</h2>
+<p>Tangible Landscape plugin for GRASS GIS <br>
+    <a href="https://github.com/tangible-landscape/grass-tangible-landscape">
+        github.com/tangible-landscape/grass-tangible-landscape
+    </a></p>
+<p>GRASS GIS module for importing data from Kinect v2 <br>
+    <a href="https://github.com/tangible-landscape/r.in.kinect">
+        github.com/tangible-landscape/r.in.kinect
+    </a></p>
+<p>Tangible Landscape repository on Open Science Framework <br>
+    <a href="https://osf.io/w8nr6/">
+        osf.io/w8nr6
+    </a></p>
+<img width="20%" src="img/tl_logo.png">
+</section>
+
+<section>
+<h3>Resources</h3>
+<ul>
+    <li>Tangible Landscape website:  <a href="https://tangible-landscape.github.io">tangible-landscape.github.io</a></li>
+    <li>Tangible Landscape wiki: <br><a href="https://github.com/tangible-landscape/grass-tangible-landscape/wiki">github.com/tangible-landscape/grass-tangible-landscape/wiki</a> </li>
+    <li>Book: <a href="https://link.springer.com/book/10.1007%2F978-3-319-89303-7">
+        <em>Tangible Modeling with Open Source GIS</em>, second edition</a></li>
+    <!-- <li><em><a href="http://www.mdpi.com/2220-9964/4/2/942/pdf">
+        Integrating Free and Open Source Solutions into Geospatial Science Education.</a></em>
+        Petras, V., Petrasova, A., Harmon, B., Meentemeyer, R.K., Mitasova, H.
+         ISPRS IJGI. 2015.</li> -->
+</ul>
+<p>
+<iframe data-autoplay width="853" height="380" src="https://www.youtube.com/embed/Uje8ORyhBaQ?rel=0&amp;showinfo=0&amp;loop=1&amp;playlist=Uje8ORyhBaQ" frameborder="0" allowfullscreen></iframe>
+</section>
+
+<!--
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we have defined types of models
+</ul>
+</section>
+
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+
+<div class="parent-page">
+    <!-- &#x1f3e0; -->
+    <a href="http://ncsu-geoforall-lab.github.io/geospatial-simulations-course/" title="Go to the course page">&#8962;</a>
+</div>
+
+
+
