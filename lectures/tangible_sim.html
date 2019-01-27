@@ -15,28 +15,31 @@
    <li>motivation for tangible simulation
    <li>evolution of tangible simulation environments
    <li>Tangible Landscape principle and setup
-   <li>Creating 3D physical models
+   <li>creating 3D physical models
+   <li>tangible interactions
    <li>TL applications
 </ul>
 </section>
 
 <section>
-<h2>Motivation for Tangible Interfaces for GIS</h2>
+<h3>Motivation</h3>
 <ul>
     <li class="fragment">Interaction through mouse, keyboard and display does not encourage creativity.</li>
-    <li class="fragment">Manipulating computer models is not intuitive and requires specialized software and training.</li>
+    <li class="fragment">Manipulating 3D computer models is not intuitive and requires specialized software and training.</li>
     <li class="fragment">Collaboration is restricted as typically only one user at a time can navigate and modify models. </li>
 </ul>
-<img height="200px" src="img/collaboration_computer.JPG">
-<img height="200px" src="img/art_rhino.jpg">
+<img height="200px" src="img/tangible_landscape/collaboration_computer.JPG">
+<img height="200px" src="img/tangible_landscape/art_rhino.jpg">
 </section>
 
+
+
 <section>
-<h2>The evolution of tangible geospatial interfaces </h2>
-<img style="margin-bottom:0px" height="250px" src="img/illuminating_clay.png">
+<h3>Evolution of tangible interfaces </h3>
+<img style="margin-bottom:0px" height="250px" src="img/tangible_landscape/illuminating_clay.png">
 <!-- <img style="margin-bottom:0px" height="250px" src="images/sandscape.png"> -->
-<img style="margin-bottom:0px" height="250px" src="img/tangeoms_5_s.jpg">
-<img style="margin-bottom:0px" height="250px" src="img/augmented_reality_sandbox.jpg">
+<img style="margin-bottom:0px" height="250px" src="img/tangible_landscape/tangeoms_5_s.jpg">
+<img style="margin-bottom:0px" height="250px" src="img/tangible_landscape/augmented_reality_sandbox.jpg">
 <p style="margin-top:0px"><small>Image source:
      <a href="http://tangible.media.mit.edu/project/illuminating-clay/">MIT Media Lab</a>,<br>
           <a href="http://idav.ucdavis.edu/~okreylos/ResDev/SARndbox/">http://idav.ucdavis.edu/</a></small></p>
@@ -53,7 +56,12 @@
 </section>
 
 <section>
-<h2>Tangible Landscape: real-time coupling with GIS</h2>
+<h3>Evolution of tangible interfaces </h3>
+add our old video
+</section>
+
+<section>
+<h3>Tangible Landscape: real-time coupling with GIS</h3>
 <iframe data-autoplay <iframe width="560" height="315" src="https://www.youtube.com/embed/Cd3cCQTGer4?rel=0&amp;showinfo=0;loop=1&amp;playlist=Cd3cCQTGer4" frameborder="0" allowfullscreen></iframe>
 <img height="315px" src="img/system_schema.png">
 <p>Tangible Landscape couples a digital and a physical model through
@@ -63,27 +71,29 @@
 <section>
     <h3>System setup</h3>
     <p>projector, scanner, stand, computer, model, table, screen</p>
-    <img width="30%" src="img/projector_configuration_2.png">
-    <img width="30%" src="img/system/setup_screen.JPG">
+    <img width="30%" src="img/tangible_landscape/projector_configuration_2.png">
+    <img width="30%" src="img/system/tangible_landscape/setup_screen.JPG">
 </section>
 
 
 <section>
-<h2>Software architecture</h2>
-<img class="stretch" src="img/Coupling_diagram.jpg">
+<h3>Software architecture</h3>
+<img width="40%" src="img/tangible_landscape/TL_schema.jpg">
 </section>
 
 <section>
-<h2>Building physical 3D models</h2>
-<!--<img height="250px" src="img/model.png">-->
-<img class="stretch" src="img/tangible_landscape.jpg">
+<h3>Software architecture</h3>
+<img width="80%" src="img/tangible_landscape/TL_GRASS_Blender_schema.jpg">
+</section>
+
+<section>
+<h3>Physical 3D models</h3>
 <p>What are your suggestions for creating 3D models?
-<!-- show here the old way from Katie? including "erase" -->
 </section>
 
 <section>
 <h3>Hand sculpting from polymeric sand</h3>
-<img class="stretch" src="img/hand_sculpting.jpg">
+<img class="stretch" src="img/tangible_landscape/hand_sculpting.jpg">
 </section>
 
 <section>
@@ -96,17 +106,18 @@
 
 <section>
 <h3>3D printing</h3>
-<img class="stretch" src="img/3d_print_1.jpg">
+<img class="stretch" src="img/tangible_landscape/3d_print_1.jpg">
 </section>
 
 <section>
-<h3>CNC routing large complex models and molds</h3>
-<img class="stretch" src="img/cnc_router.jpg">
+<h3>CNC routing</h3>
+<p>Large complex models and molds
+<img class="stretch" src="img/tangible_landscape/cnc_router.jpg">
 </section>
 
 <section>
 <h3>Casting polymeric sand</h3>
-<img class="stretch" src="img/new_molds_workflow.jpg">
+<img class="stretch" src="img/tangible_landscape/new_molds_workflow.jpg">
 </section>
 
 <section>
@@ -117,25 +128,97 @@
 <p>what size of feature change can be detected?
 </section>
 
+<section>
+<h3>Scanning the physical model</h3>
+3D sensors: kinect, new types, principle
+<ul>
+ <li>calibration process
+ <li>acquiring the point cloud
+ <li>point cloud filtering
+</ul>
+<p>kinect calibration
+<img height="300" src="img/tangible_landscape/before_calib.png">
+<img height="300" src="img/tangible_landscape/after_calib.png">
+</section>
+
+<section>
+<h3>Processing the point cloud</h3>
+<ul>
+  <li>filtering 
+  <li>extraction of edges
+</ul>
+<img class="stretch" src="img/tangible_landscape/fusion.jpg">
+</section>
+
+<section>
+<h3>Processing the point cloud</h3>
+<ul>
+  <li>filtering
+  <li>extraction of edges
+  <li>gridding: binning or interpolation
+  <li>georeferencing
+</ul>
+<img class="stretch" src="img/tangible_landscape/scan_geometry_schema1a.png">
+<img class="stretch" src="img/tangible_landscape/scan_geometry_schema1b.png">
+</section>
+
+<section>
+<h3>Processing the point cloud</h3>
+<ul>
+  <li>filtering
+  <li>extraction of edges
+  <li>gridding: binning or interpolation
+  <li>georeferencing
+</ul>
+<img class="stretch" src="img/tangible_landscape/scan_geometry_schema2.png">
+</section>
+
+<section>
+<h3>Georeferencing - rescaling</h3>
+<p class="fragment">
+$$
+S_x = \frac{X_{east} - X_{west}}{x_{max} - x_{min}},\quad
+S_y = \frac{Y_{north} - Y_{south}}{y_{max} - y_{min}},\quad
+S_z = \frac{(S_x + S_y) / 2}{e}
+$$
+where $X, Y$ are DEM (real-world) coordinates, 
+$x, y$ are coordinates of the physical model 
+$e$ is the specified vertical exaggeration.
+</section>
+
+<section>
+<h3>Georeferencing</h3>
+<p class="fragment">Rescaling, rotation and translation
+<small>
+<p class="fragment">
+$$ G = S \dot R + T$$
+<p>which rotates the points around the $z$ axes by angle $\alpha$ in the counterclockwise direction,
+scales to real-world dimensions, and translates the points
+by adding $t_x$ and $t_y$ computed so that the lower left corner of the model
+matches the south-west corner of the DEM.
+The vertical translation $t_z$ is then similarly computed
+to match the lowest point of the model and the minimum height of the DEM.
+</small>
+</section>
 
 <section>
 <h2>Tangible interactions</h2>
-<img class="stretch" src="img/interaction/interactions_new.png">
+<img class="stretch" src="img/tangible_landscape/interactions_new.png">
 <p>of both depth and color information coming from the 3D scanner.
 <p>split interactions - ask how they think they are handled
 </section>
 
 <section>
 <h2>Tangible interactions: markers</h2>
-<img class="stretch" src="img/interaction/interactions_new.png">
+<img class="stretch" src="img/tangible_landscape/interactions_new.png">
 <p>of both depth and color information coming from the 3D scanner.
 <p>map algebra detects the markers (differencing)
 <p>vector geometries: markers can be interpreted as points or combined into polylines. 
 <p>traveling salesman heuristics is used to combine detected markers into lines
-</section
+</section>
 
 <section>
-<h2>Tangible interactions</h2>
+<h3>Tangible interactions</h3>
 <ul>
 <li>Areas of different categories: pieces of colored felt.
 <li>Direction can be intuitively manipulated using a colored marker.
@@ -143,8 +226,14 @@
 <li class="fragment">
 raster algebra, and remote sensing techniques like image segmentation and classification.
 </ul>
-<img class="stretch" src="img/interaction/interactions_new.png">
-</section
+<img class="stretch" src="img/tangible_landscape/interactions_new.png">
+</section>
+
+<section>
+<h3>Simulations with TL</h3>
+Examples of simulations: water, storm surge game, fire, solar, futures, termite game, SOD, design
+<img class="stretch" src="img/tangible_landscape/interactions_new.png">
+</section>
 
 <section>
 <h2>Open source</h2>
