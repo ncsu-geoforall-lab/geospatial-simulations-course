@@ -196,9 +196,9 @@ $$s = \frac{d_m}{d_r}$$
 
 <section>
 <h3>Scale of the physical model</h3>
-<p>If the smallest feature that can be reliably detected is $1 cm^3$
+<p>If the smallest feature that can be reliably detected is $1 cm$ cube
 <ul>
-  <li>What scale the model should be to facilitate modeling check dams and stream channels 10m wide?
+  <li>What scale the model should be to facilitate modeling dams and rivers 10m wide?
   <li>How big the model area can be for a model size of 50 x 60 cm? how about 1 m x 80 cm ?
   <li>If the difference in elevation in your area is 30m and you want 3 x exaggeration
 how high your model will be at the scale computed above and for the smaller model?
@@ -282,14 +282,14 @@ $$
  <li><p class="fragment">Rescaling, rotation and translation
  <li><p class="fragment">
 $$ G = S . R + T$$
- <li><p class="fragment"> 
-  where 
-  <ul>
-  <li>$S=[S_x,S_y,S_z]$ scales to real-world dimensions, 
- <li>$R$ is a rotation matrix that rotates the points around the $z$ axes by angle $\alpha$ 
- <li>$T=[t_x,t_y,t_z]$ translates the points so that the lower left corner of the model
+<small>
+  <li class="fragment">$S=[S_x,S_y,S_z]$ scales to real-world dimensions, 
+ <li class="fragment">$R$ is a rotation matrix that rotates the points around the $z$ axes by angle $\alpha$ 
+ <li class="fragment">$T=[t_x,t_y,t_z]$ translates the points so that the lower left corner of the model
 matches the south-west corner of the DEM and the lowest DEM elevation
 matches the lowest point of the model.
+</small>
+</ul>
 </section>
 
 <section>
@@ -398,9 +398,8 @@ Your browser does not support the video tag.
 <!-- Trail Planning -->
 <section data-background-image="img/tangible_landscape/background_interaction_hands_markers.png">
 <h3>Trail planning</h3>
-<img width="32%" src="img/tangible_landscape/trail_1.jpg">
-<img width="32%" src="img/tangible_landscape/trail_2.jpg">
-<img width="32%" src="img/tangible_landscape/trail_4.jpg">
+<img width="38%" src="img/tangible_landscape/trail_2.jpg">
+<img width="38%" src="img/tangible_landscape/trail_4.jpg">
 <p>Optimized trail routing between waypoints based on energetics, topography, and cost maps with feedback including trail slopes and viewsheds</p>
 </section>
 
@@ -414,6 +413,7 @@ Your browser does not support the video tag.
 <p class=fragment><img width="80%" src="img/tangible_landscape/cross_section.png">
 </section>
 
+<!--
 <section data-background-image="img/tangible_landscape/background_interaction_hands.png">
 <h3>Application: erosion control</h3>
 <p>Sculpting a check dam to retain storm water and reduce erosion
@@ -428,17 +428,18 @@ Your browser does not support the video tag.
 Adding grass (light green) and patches of trees (darker green)
 changes the c-factor thus reducing erosion.
 <img width="900px" src="img/tangible_landscape/felt.png">
-<!-- demo -->
-<!-- <img width="23%" src="img/felt/felt_1.jpg">
+ demo
+<img width="23%" src="img/felt/felt_1.jpg">
 <img width="23%" src="img/felt/felt_2.jpg">
 <img width="23%" src="img/felt/felt_3.jpg">
-<img width="23%" src="img/felt/felt_4.jpg"> -->
+<img width="23%" src="img/felt/felt_4.jpg"> 
 </section>
+-->
 
 <section>
-<h3>Applications: Dam break</h3>
+<h3>Dam breach</h3>
 <video  data-autoplay height="450px" controls muted>
-<source src="video/tangible_landscape/dam_breach_3.mp4" type="video/mp4">
+<source src="img/tangible_landscape/dam_breach_3.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 </section>
@@ -452,136 +453,89 @@ Your browser does not support the video tag.
 
 <!-- SOD -->
 <section data-background-image="img/background_interaction_felt.png">
-<h3>Management of emerging infectious disease through participatory modeling</h3>
+<h3>Management of infectious disease</h3>
 <div class="left" style="max-width: 56% !important; ">
 <ul class="ps">
-<li>Sudden Oak Death (SOD) case study</li>
-<li>tree disease in California and Oregon</li>
+<li>Sudden Oak Death (SOD)</li>
 <li>simulating disease using spatially-explicit model</li>
 <li>workshop with expert stakeholders</li>
 </ul>
 </div>
 <div class="right" style="max-width: 43% !important; ">
-<img src="img/tangible_landscape/applications/SOD_workshop.jpg"></div>
+<img src="img/tangible_landscape/SOD_workshop.jpg"></div>
 </section>
 
 <!-- Futures -->
-
 <section data-background-image="img/background_interaction_sand.png">
-<h3>Applications: urban growth</h3>
+<h3>Urban growth</h3>
 <p>Simulation of urban growth scenarios with FUTURES model
-<img width="32%" src="img/tangible_landscape/applications/Sod_1.png">
-<img width="32%" src="img/tangible_landscape/applications/Sod_2.png">
-<img width="32%" src="img/tangible_landscape/applications/Sod_anim.gif">
-
-<br><br>
+<p>
+<img width="32%" src="img/tangible_landscape/Sod_1.png">
+<img width="32%" src="img/tangible_landscape/Sod_2.png">
+<img width="32%" src="img/tangible_landscape/Sod_anim.gif">
+<br>
  <p><small> Meentemeyer, et al. (2013), </i> <a href="https://www.tandfonline.com/doi/abs/10.1080/00045608.2012.707591">FUTURES: multilevel simulations of emerging urban–rural landscape structure using a stochastic patch-growing algorithm.</a></small></p>
-
-<aside class="notes">
-In our next example, we scale up a bit to explore 3D rendering with a dynamic Urban-rural growth model, called FUTURES.
-Developed by Meentemeyer et al., FUTURES in 2013 is an open source urban growth model specifically designed to capture the spatial structure of development.
-FUTURES has been has been implemented in GRASS GIS and coupled with Tangible landscape.
-The case study is the Buncombe county region located in the North West of North Carolina with 660 Sq miles area.
-
-</aside>
-</section>
-
-<section>
-<h3>Applications: urban growth</h3>
-<!--<video  data-autoplay height="400px" controls muted>
-<source src="video/futures.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>-->
-<iframe width="1000" height="500" src="https://www.youtube.com/embed/oFILb0En258?rel=0&amp;controls=0&amp;showinfo=0&amp;start=46" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </section>
 
 <!-- Serious gaming with Tangible Landscape: Termites -->
 <section data-background-image="img/tangible_landscape/background_interaction_markers.png">
 <h3>Serious games: Termite infestation</h3>
-<img width="45%" src="img/tangible_landscape/termite_game_2.jpg">
-<img width="45%" src="img/tangible_landscape/termite_game_3.jpg">
-<p>Manage the spread of termites across a city by treating city blocks
-using a model of biological invasion in R</p>
+<p>Manage the spread of termites across a city by treating city blocks using a model of biological invasion in R</p>
+<img height="400px" src="img/tangible_landscape/termite_game_2.jpg">
 </section>
 
 <!-- Serious gaming with Tangible Landscape: Coastal -->
 <section data-background-image="img/tangible_landscape/background_interaction_hands.png">
 <h3>Serious games: coastal flooding</h3>
-<img width="45%" src="img/tangible_landscape/Hunt_coastal1.JPG">
-<img width="45%" src="img/tangible_landscape/Hunt_coastal2.JPG">
-<p>Save houses from coastal flooding by building coastal defenses<br>(Bald Head Island, NC)</p>
+<img width="95%" src="img/tangible_landscape/bhigames_composite.jpg">
+<p>Save houses from coastal flooding by building coastal defenses (Bald Head Island, NC)</p>
 <p style="font-size:0.75em">Structured problem-solving with rules, challenging objectives, and scoring</p>
 </section>
 
 <section data-background-image="img/tangible_landscape/BHIpostflorenceedit.jpg">
-    <h2 style="color: rgb(255, 255, 255); margin-bottom:10em">Florence hurricane flooding</h2>
+    <h4 style="color: rgb(255, 255, 255); margin-bottom:10em">Florence hurricane flooding</h4>
 </section>
 
 <!-- Immersive Virtual Reality -->
 <section>
 <h3> Realtime 3D rendering with Blender</h3>
-<div class="right" style="max-width: 67% !important; "><img src="img/tangible_landscape/tl_planting_4.jpg"></div>
-<div class="left" style="max-width: 28% !important; "><img src="img/tangible_landscape/rendered_diagram_2.png"></div>
-</section>
-
-<section>
-<h3> Designing with Tangible Landscape</h3>
-<p>Dorothea Dix park case study:<br> changing landforms and hydrology</p>
-<img class="left" src="img/tangible_landscape/design/site.png">
-<img class="right" src="img/tangible_landscape/process.png">
-</section>
-
-<section>
-<p>Exploring views from the park entrances</p>
-<img class="stretch" src="img/tangible_landscape/process2.png">
-</section>
-
-<section>
-<p>Planting trees and siting a shelter </p>
-<img class="stretch" src="img/tangible_landscape/process3.png">
-</section>
-
-<section>
-<p>Designing a trail and exploring views</p>
 <img class="stretch" src="img/tangible_landscape/process4.png">
 </section>
 
 <section>
-<p>Evaluation of design scenarios</p>
+<h3> Designing with Tangible Landscape</h3>
 <img class="stretch" src="img/tangible_landscape/process7.png">
 </section>
 
 <section>
-<h3>Open source</h3>
-<p>Tangible Landscape plugin for GRASS GIS <br>
+<h3>Open source Tangible Landscape</h3>
+<ul>
+<li>TL plugin for GRASS GIS <br>
     <a href="https://github.com/tangible-landscape/grass-tangible-landscape">
         github.com/tangible-landscape/grass-tangible-landscape
     </a></p>
-<p>GRASS GIS module for importing data from Kinect v2 <br>
+<li>GRASS GIS module for importing data from Kinect v2 <br>
     <a href="https://github.com/tangible-landscape/r.in.kinect">
         github.com/tangible-landscape/r.in.kinect
     </a></p>
-<p>Tangible Landscape repository on Open Science Framework <br>
-    <a href="https://osf.io/w8nr6/">
-        osf.io/w8nr6
-    </a></p>
-<img width="20%" src="img/tl_logo.png">
+<li>TL repository on Open Science Framework <a href="https://osf.io/w8nr6/"> osf.io/w8nr6 </a></p>
+<li>TL website:  <a href="https://tangible-landscape.github.io">tangible-landscape.github.io</a></li>
+<li>TL wiki: <br><a href="https://github.com/tangible-landscape/grass-tangible-landscape/wiki">github.com/tangible-landscape/grass-tangible-landscape/wiki</a> </li>
+</ul>
 </section>
 
 <section>
 <h3>Resources</h3>
 <ul>
-    <li>Tangible Landscape website:  <a href="https://tangible-landscape.github.io">tangible-landscape.github.io</a></li>
-    <li>Tangible Landscape wiki: <br><a href="https://github.com/tangible-landscape/grass-tangible-landscape/wiki">github.com/tangible-landscape/grass-tangible-landscape/wiki</a> </li>
     <li>Book: <a href="https://link.springer.com/book/10.1007%2F978-3-319-89303-7">
-        <em>Tangible Modeling with Open Source GIS</em>, second edition</a></li>
+        <em>Petrasova et al., 2008, Tangible Modeling with Open Source GIS</em>, second edition, Springer Int. Pub. </a></li>
     <!-- <li><em><a href="http://www.mdpi.com/2220-9964/4/2/942/pdf">
         Integrating Free and Open Source Solutions into Geospatial Science Education.</a></em>
         Petras, V., Petrasova, A., Harmon, B., Meentemeyer, R.K., Mitasova, H.
          ISPRS IJGI. 2015.</li> -->
 </ul>
 <p>
-<iframe data-autoplay width="853" height="380" src="https://www.youtube.com/embed/Uje8ORyhBaQ?rel=0&amp;showinfo=0&amp;loop=1&amp;playlist=Uje8ORyhBaQ" frameborder="0" allowfullscreen></iframe>
+<iframe data-autoplay width="800" height="350" src="https://www.youtube.com/embed/Uje8ORyhBaQ?rel=0&amp;showinfo=0&amp;loop=1&amp;playlist=Uje8ORyhBaQ" frameborder="0" allowfullscreen></iframe>
 </section>
 
 <!--
