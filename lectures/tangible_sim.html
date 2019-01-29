@@ -113,12 +113,19 @@ src="https://www.youtube.com/embed/Cd3cCQTGer4?rel=0&amp;showinfo=0;loop=1&amp;p
 
 <section>
 <h3>Software architecture</h3>
-<img height="450px" src="img/tangible_landscape/TL_schema.jpg">
+<p><img height="450px" src="img/tangible_landscape/TL_schema.jpg">
 </section>
 
 <section>
 <h3>Software architecture</h3>
-<img class="stretch" src="img/tangible_landscape/TL_GRASS_Blender_schema.jpg">
+<p>Extended system with 3D rendering and virtual reality
+<p><img height="450px" src="img/tangible_landscape/TL_GRASS_Blender_schema.jpg">
+</section>
+
+<section>
+<h3>Software architecture</h3>
+<p>System roles: user, operator, developer
+<p><img width="95%" src="img/tangible_landscape/TUI_GUI_CLI_horizontal.jpg">
 </section>
 
 <section>
@@ -189,11 +196,12 @@ $$s = \frac{d_m}{d_r}$$
 
 <section>
 <h3>Scale of the physical model</h3>
-<p>
+<p>If the smallest feature that can be reliably detected is $1 cm^3$
 <ul>
-  <li>what would be the width of a road, size of 1 story bldg, width of stream?
-  <li>what resolution do we need to scan it at?
-  <li>how to compute the height of the model? What vertical exagerration is needed?
+  <li>What scale the model should be to facilitate modeling check dams and stream channels 10m wide?
+  <li>How big the model area can be for a model size of 50 x 60 cm? how about 1 m x 80 cm ?
+  <li>If the difference in elevation in your area is 30m and you want 3 x exaggeration
+how high your model will be at the scale computed above and for the smaller model?
 </ul>
 </section>
 
@@ -235,7 +243,6 @@ Scanned 3D model includes all features in the scan area
 <ul>
   <li>point cloud is acquired within the operator-defined horizontal and vertical extent 
   <li>flying pixels are filtered out
-  <li>edges of the model are detected and extracted
 </ul>
 <p>
 <img height=320  src="img/tangible_landscape/scan_geometry_schema1a.png">
@@ -244,10 +251,8 @@ Scanned 3D model includes all features in the scan area
 
 <section>
 <h3>Processing the point cloud</h3>
-<ul>
-  <li>extraction of edges, $x_{max},x_{min},y_{max},y_{min}$
-</ul>
-<img class="stretch" src="img/tangible_landscape/scan_geometry_schema2.png">
+  <p>Edges of the model are detected and extracted
+<img height="450" src="img/tangible_landscape/scan_geometry_schema2.png">
 </section>
 
 <section>
@@ -261,7 +266,7 @@ $$
 $$
 S_z = \frac{(S_x + S_y) / 2}{e}
 $$
-<p>
+<p class="fragment">
 <ul>
   <li>$X, Y$ are DEM (real-world) coordinates, 
   <li>$x, y$ are coordinates of the physical model 
@@ -271,19 +276,20 @@ $$
 
 <section>
 <h3>Georeferencing</h3>
-Transformation from the scan ("table") coordinates to the georeferenced coordinate system
-<p class="fragment">Rescaling, rotation and translation
-<p class="fragment">
+<p>
+<ul>
+ <li>Transformation from the scan ("table") coordinates to the georeferenced coordinate system
+ <li><p class="fragment">Rescaling, rotation and translation
+ <li><p class="fragment">
 $$ G = S . R + T$$
-<p class="fragment"> 
-<small>
-where $S=[S_x,S_y,S_z]$ scales to real-world dimensions, 
-$R$ is a rotation matrix that rotates the points around the $z$ axes by angle $\alpha$ 
-$T=[t_x,t_y,t_z]$ translates the points 
-so that the lower left corner of the model
-matches the south-west corner of the DEM.
-to match the lowest point of the model and the minimum height of the DEM.
-</small>
+ <li><p class="fragment"> 
+  where 
+  <ul>
+  <li>$S=[S_x,S_y,S_z]$ scales to real-world dimensions, 
+ <li>$R$ is a rotation matrix that rotates the points around the $z$ axes by angle $\alpha$ 
+ <li>$T=[t_x,t_y,t_z]$ translates the points so that the lower left corner of the model
+matches the south-west corner of the DEM and the lowest DEM elevation
+matches the lowest point of the model.
 </section>
 
 <section>
