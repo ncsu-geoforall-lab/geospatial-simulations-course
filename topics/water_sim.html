@@ -1,13 +1,53 @@
 <h2>3. Surface water simulation</h2>
 
-<h3 id="water_flow_sim" class="subtopic">3.A Surface water flow simulation</h3>
+<h3 id="flow_flood_geometry" class="subtopic">3.A Surface water: geometry driven simulations of flow and flooding </h3>
+Outline:
+<ul>
+    <li>principle of geometry driven modeling of surface water flow
+    <li>surface gradient, flowtracing over complex surfaces, flowaccumulation
+    <li>geometry driven modeling of flooding: overflow from rivers and ocean storm surge
+    <li>geospatial implementation of flooding simulations
+    <li>input variables, role of scale and resolution
+    <li>visualization of flooding dynamics
+    <li>applications and limitations
+</ul>
+
+<h4>Lecture</h4>
+Slides:
+<ul>
+<li><a href="../lectures/flood_sim.html">Lecture slides: geometry driven simulations of flow and flooding</a>
+</ul>
+Supplemental materials:
+<ul>
+<li>Flowrouting:
+    <ul>
+    <li>review of flowrouting methods, Whitebox, GIS582
+    </ul>
+<li>Flooding:
+    <ul>
+    <li>hands ref
+    <li><a href="https://fiman.nc.gov/fiman/#">FIMAN</a>
+    <li><a href="https://link-springer-com.prox.lib.ncsu.edu/chapter/10.1007/978-3-319-89303-7_13">Coastal Modeling</a>
+         Tangible Modeling book, Chapter 13
+    <li>nelson dissertation or paper
+</ul>
+
+<h4>Assignment part 3.A</h4>
+Evaluate the role of resolution, DEM versus DSM in simulations of flooding for your area of interest -
+select appropriate tools and input data (r.hands, r.lake, r.grow), automate the evaluation workflow (in Python or R or other
+scripting language), develop visualization using MAPBOX
+<ul>
+    <li>assignment: from lidar to DEM to flowacc with r.watershed and HAND with output on Mapbox, workflow from Corey
+    <li><a href="https://grasswiki.osgeo.org/wiki/From_GRASS_GIS_novice_to_power_user_(workshop_at_FOSS4G_Boston_2017)#Hydrology:_Estimating_inundation_extent_using_HAND_methodology">HAND methodology from workshop GRASS GIS: from novice to power user"</a>
+</ul>
+
+<h3 id="water_flow_sim" class="subtopic">3.B Surface water: process based simulation</h3>
 Outline:
 <ul>
     <li>geospatial modeling of surface water flow
     <li>shallow water flow equations</li>
     <li>numerical methods for solving shallow water flow equations</li>
     <li>geospatial processing of input variables</li>
-    <li>implementation in open source environments</li>
     <li>applications: surface runoff, dam breach
     <li>visualization of surface water flow dynamics</li>
 </ul>
@@ -19,20 +59,17 @@ Slides
 </ul>
 Supplemental materials:
 <ul>
-<li><a href="https://link-springer-com.prox.lib.ncsu.edu/chapter/10.1007/978-3-319-89303-7_7">Surface Water Flow Modeling</a>
-Tangible Modeling book, Chapter 7
-<li>2005 paper
+<li><a href="https://link-springer-com.prox.lib.ncsu.edu/chapter/10.1007/978-3-319-89303-7_7">Surface Water Flow Modeling</a> Tangible Modeling book, Chapter 7
+<li><a herf="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/II.6.8_Mitasova_044.pdf">Mitasova, H., Thaxton, C., Hofierka, J., McLaughlin, R., Moore, A., Mitas L., 2005, Path sampling method for modeling overland water flow, sediment transport and short term terrain evolution in Open Source GIS. In: C.T. Miller, M.W. Farthing, V.G. Gray, G.F. Pinder eds., Proc. CMWR XV, 13-17 June 2004, Chapel Hill, NC, USA, Elsevier, pp. 1479-1490.
 <li>itzy paper
-<li><a href="https://fiman.nc.gov/fiman/#">FIMAN</a>
-<li>
-<a href="https://doi.org/10.1016/j.envsoft.2013.01.011">
-Charles Brooking and Jane Hunter
-Providing online access to hydrological model simulations through interactive geospatial animations
+<li><a href="https://oss.deltares.nl/web/delft3d">DELFT3D - open source</a> and <a href="https://publicwiki.deltares.nl/display/OET/OpenEarth">OpenEarth</a>
+<li><a href="https://adcirc.org/">ADCIRC</a>
+<li> <a href="https://doi.org/10.1016/j.envsoft.2013.01.011">
+Brooking C, Hunter, J Providing online access to hydrological model simulations through interactive geospatial animations
 Environmental Modelling and Software 42, May 2013, p163-168</a>
-<li><a href="https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/texas.html#/15">selected slides from dynamic surfaces talk</a>
 </ul>
 
-<h4>Assignment part 3.A</h4>
+<h4>Assignment part 3.B</h4>
 Compare distribution of surface water flow at high resolution for various land cover and topographic conditions
 using data and tools of your choice. Optional: use scripting to generate scenarios and summarize the results.
 Use the following material for inspiration:
@@ -46,42 +83,7 @@ method (r.sim.water), see the last two sections of this assignment from GIS595-0
 <li>TL book dam breach, section 7.3.2 and A.1.9
 </ul>
 
-
-<h3 id="flood_sim" class="subtopic">3.B River and storm surge flooding simulations </h3>
-Outline:
-<ul>
-    <li>geospatial modeling of flooding: overflow from rivers and ocean storm surge
-    <li>shallow water flow equations for flooding and simplified techniques
-    <li>geospatial implementation of flooding simulations
-    <li>input variables, role of scale and resolution
-    <li>visualization of flooding dynamics
-</ul>
-
-<h4>Lecture</h4>
-Slides:
-<ul>
-<li><a href="../lectures/flood_sim.html">Lecture slides: River and storm surge flooding simulations</a>
-</ul>
-Supplemental materials:
-<ul>
-<li><a href="https://link-springer-com.prox.lib.ncsu.edu/chapter/10.1007/978-3-319-89303-7_13">Coastal Modeling</a>
-Tangible Modeling book, Chapter 13
-<li>hands ref
-<li>adcirc ref
-<li>nelson dissertation or paper
-<li>floodplain mapping ref
-<li><a href="https://ncsu-geoforall-lab.github.io/dynamic-surfaces-talk/texas.html#/24">selected slides from dynamic surfaces talk</a>
-</ul>
-
-<h4>Assignment part 3.B</h4>
-Evaluate the role of resolution, DEM versus DSM in simulations of flooding for your area of interest -
-select appropriate tools and input data (r.hands, r.lake, r.grow), automate the evaluation workflow (in Python or R or other
-scripting language)
-<ul>
-    <li><a href="https://grasswiki.osgeo.org/wiki/From_GRASS_GIS_novice_to_power_user_(workshop_at_FOSS4G_Boston_2017)#Hydrology:_Estimating_inundation_extent_using_HAND_methodology">HAND methodology from workshop GRASS GIS: from novice to power user"</a>
-</ul>
-
 <h3>Homework 3. A and B</h3>
-Write a paper about what you have learned - use your judgement to select what you will write about,
-but the structure should follow a short scientific publication - see  e.g. IEEE GRSL
+Write a paper about surface water simulations - use your judgement to select what you will write about,
+add link(s) to dynamic visualizations that you have developed.
 
