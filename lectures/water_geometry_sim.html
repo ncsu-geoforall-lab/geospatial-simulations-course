@@ -1,0 +1,164 @@
+<section>
+    <h2><b>Data simulation</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+   <li>when we need data simulation
+   <li>selected computational techniques for data simulation
+   <li>generating scenarios
+   <li>generating 3D data from physical models: SfM approach
+</ul>
+</section>
+
+<section>
+   <h3>Geometry driven flow and flooding modeling</h3>
+<ul>
+<li class="fragment">special case of process based, deterministic modeling
+<li class="fragment">focus on spatial pattern, steady state
+<li class="fragment">gravity and momentum
+<li class="fragment">flowtracing or spread over complex surfaces
+</ul>
+</section>
+
+<section>
+   <h3>Types of geometry driven water models</h3>
+<ul>
+<li>Surface water flow - flow accumulation
+<li>Flooding
+</ul>
+<p class="fragment">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<p>
+Both are based on digital elevation models
+</section>
+
+<section>
+   <h3>Flow direction over complex surfaces</h3>
+<ul>
+<li>DEM - digital representation of topography, complex surface 
+$$z = f(x,y)$$
+<li>magnitude and direction of flow is a function of <b>surface gradient</b>
+EQUATION
+</ul>
+<p>See GIS582 and supplemental material for methods to compute surface gradient, and its components
+slope and aspect (or partial derivatives)
+add slide for equations between slope, aspect and partial derivates
+</section>
+
+<section>
+   <h3>Flow routing over complex surfaces</h3>
+<p>flowlines - path of a single drop
+<p>flow accumulation - density of flowlines, number of drops passing through each grid cell
+<p class="fragment">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves_leg.jpg">
+<p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
+<p>D8, Dinf, SFD, MFD
+http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.html#/10
+</section>
+
+<section>
+   <h3>Flat areas and depressions</h3>
+<p>Spatial variable source areas
+<p>flow accumulation - density of flowlines, number of drops passing through each grid cell
+<p class="fragment">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves_leg.jpg">
+<p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
+</section>
+
+<section>
+   <h3>least cost path flow routing</h3>
+<p>Spatial variable source areas
+<p>flow accumulation - density of flowlines, number of drops passing through each grid cell
+<p class="fragment">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves_leg.jpg">
+<p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
+</section>
+
+<section>
+   <h3>Weighted flow routing over complex surfaces</h3>
+<p>Simulation of spatialy variable source areas explanation, equation?
+<p>flow accumulation - density of flowlines, number of drops passing through each grid cell
+<p class="fragment">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves_leg.jpg">
+</section>
+
+<section>
+   <h3>Weighted flow routing over complex surfaces</h3>
+<p>Simulation of spatialy variable source areas examples
+<p>flow accumulation - density of flowlines, number of drops passing through each grid cell
+<p class="fragment">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves_leg.jpg">
+</section>
+
+<section>
+   <h3>Watersheds</h3>
+skip in this context?
+<p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
+</section>
+
+<section>
+   <h3>Flooding</h3>
+<ul>
+<li>Methods based on random fields, characterized by the distribution function
+<li>Uniform random field - linear random number generator
+</ul>
+<p><img height="130" src="img/data_sim/random_0_20_3D.jpg">
+<p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
+</section>
+
+<section>
+   <h3>Stochastic methods</h3>
+<ul>
+<li>Independednt random variable $z$,
+ is often distributed according to the normal distribution:
+$$
+f(z | \mu,\sigma^2) = \frac{1}{\sqrt{2\pi} \sigma} e^{-(z-\mu)^2 / 2\sigma^2} 
+$$
+<p class="fragment">where $\mu$ is the mean, $\sigma$ is the standard deviation,
+$\sigma^2$ is the variance, $e$ is exponential function, and $f(z | \mu,\sigma^2)$
+is probability density function of the normal distribution 
+<p class="fragment">
+Monte Carlo methods often require generating values that have normal distribution
+<p class="fragment"><small>
+See also 
+<a href="https://en.wikipedia.org/wiki/Normal_distribution">Normal distribution</a> here
+</small>
+</section>
+
+
+<!--
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we have defined types of models
+</ul>
+</section>
+
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+
+<div class="parent-page">
+    <!-- &#x1f3e0; -->
+    <a href="http://ncsu-geoforall-lab.github.io/geospatial-simulations-course/" title="Go to the course page">&#8962;</a>
+</div>
+
+
+
