@@ -1,5 +1,5 @@
 <section>
-    <h2><b>Data simulation</b></h2>
+    <h2><b>Surface water simulation</b></h2>
     <p style="margin-top: 0.5em">
         Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
     <p class="title-foot">
@@ -12,58 +12,115 @@
     <h3>Learning objectives</h3>
 <p>
 <ul>
-   <li>when we need data simulation
-   <li>selected computational techniques for data simulation
-   <li>generating scenarios
-   <li>generating 3D data from physical models: SfM approach
+   <li>concept of geometry driven flow
+   <li>surface gradient and flowlines
+   <li>flat areas and depressions
+   <li>methods for flow routing on raster DEMs
+   <li>flooding as spread
+   <li>HAND method
 </ul>
 </section>
 
 <section>
-   <h3>Geometry driven flow and flooding modeling</h3>
+   <h3>Geometry driven surface water simulations</h3>
+<p>
 <ul>
 <li class="fragment">special case of process based, deterministic modeling
 <li class="fragment">focus on spatial pattern, steady state
-<li class="fragment">gravity and momentum
 <li class="fragment">flowtracing or spread over complex surfaces
+<li class="fragment">controled by elevation surface represented as DEM
+<li class="fragment">in optimization problems: cost surface
 </ul>
 </section>
 
 <section>
-   <h3>Types of geometry driven water models</h3>
+   <h3>Types of surface water simulations</h3>
 <ul>
-<li>Surface water flow - flow accumulation
-<li>Flooding
+<li>Surface water flow - overland flow accumulation
+<li>Flooding - spread of rising water level
+<li>Coupled flooding and surface flow - active research area
 </ul>
 <p class="fragment">
 <img height="380" src="img/water/waves2_3delev.jpg">
 <img height="380" src="img/water/waves2_3delev.jpg">
-<p>
-Both are based on digital elevation models
+<p class="fragment">
+Both processes are controled by elevation surfaces
 </section>
 
 <section>
-   <h3>Flow direction over complex surfaces</h3>
+   <h3>Flow over complex surfaces</h3>
+<p>
 <ul>
-<li>DEM - digital representation of topography, complex surface 
-$$z = f(x,y)$$
-<li>magnitude and direction of flow is a function of <b>surface gradient</b>
-EQUATION
+ <li>Elevation surface represented by a bivariate function:
+
+ $$z = f(x,y)$$
+
+<p>
+ <li>flow over this surface is driven by  <b>surface gradient</b> 
+
+$$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
+
+ <li class="fragment">vector in the steepest slope direction (or aspect), 
+  and its magnitude represents tangent of slope angle.
+ <li class="fragment">slope  is
+$$ \beta={\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta[\%]=100 \sqrt{f_x^2+f_y^2} $$
+ <li class="fragment">aspect is
+$$ \alpha=\arccos {-f_y \over (f^2_x + f^2_y)^{1/2}} $$
+ <li class="fragment">where  $f_x=\partial f / \partial x$ and $f_y=\partial f / \partial y$.
+
+<p class="fragment"><small> note that the direction of flow is minus $\nabla f$, because gradient vector points upslope</small>
+<p class="fragment"> <small>See 
+GIS582 and supplemental material for methods to compute surface gradient, 
+and its components slope and aspect (or partial derivatives)
+<p class="fragment">See  Khan Academy for refresher on partial derivatives and gradient</small>
+</section>
+
+<section>
+   <h3>Computing gradient vector</h3>
+<p>
+<ul>
+  <li>based on $\delta z_{max}$ in 3x3 window, discrete directions limited to 0,45,90, ...360 degrees, magnitude is rise/run 
+  <li>using partial derivatives of a suitable approximation function, such as polynomial or spline,
+(see GIS582 and GRASSbook - add link here)
+  <li>using slope and aspect angle (this is variation of the above)
+$$ \partial f / \partial x = \tan \beta . \cos \alpha, \partial f / \partial y = \tan \beta . \sin \alpha$$
 </ul>
-<p>See GIS582 and supplemental material for methods to compute surface gradient, and its components
-slope and aspect (or partial derivatives)
-add slide for equations between slope, aspect and partial derivates
+<p>ADD IMAGES
 </section>
 
 <section>
    <h3>Flow routing over complex surfaces</h3>
-<p>flowlines - path of a single drop
-<p>flow accumulation - density of flowlines, number of drops passing through each grid cell
+<ul>
+<li>flowline - path of a single drop following gradient direction, 
+<li>flow accumulation - density of flowlines, cumulative drops routed from each cell,
+<li>SFD, MFD
 <p class="fragment">
 <img height="380" src="img/water/waves2_3delev.jpg">
 <img height="380" src="img/water/waves_leg.jpg">
 <p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
-<p>D8, Dinf, SFD, MFD
+http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.html#/10
+</section>
+
+<section>
+   <h3>Flow routing over complex surfaces</h3>
+<p>flow patterns depends on algorithm used for gradient: D8, Dinf
+<p>
+<p class="fragment">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves_leg.jpg">
+<p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
+http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.html#/10
+</section>
+
+<section>
+   <h3>Flow routing over complex surfaces</h3>
+<p>flow patterns depends on algorithm used for routing: SFD, MFD
+<p>
+<p class="fragment">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves_leg.jpg">
+<p>SFD over noisy surface mitigates the D8 artifact
+<p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
 http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.html#/10
 </section>
 
@@ -114,8 +171,9 @@ skip in this context?
 <section>
    <h3>Flooding</h3>
 <ul>
-<li>Methods based on random fields, characterized by the distribution function
-<li>Uniform random field - linear random number generator
+<li>spread of water from source - friction gradient rather than elevation gradient 
+<li>HAND: height above the nearest drainage technique
+<li>interpolation between contours along the source stream section(FINMAP)
 </ul>
 <p><img height="130" src="img/data_sim/random_0_20_3D.jpg">
 <p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
