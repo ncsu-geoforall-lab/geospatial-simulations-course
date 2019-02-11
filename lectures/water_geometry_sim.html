@@ -1,5 +1,6 @@
 <section>
     <h2><b>Surface water simulation</b></h2>
+    <h3>Introduction to flow simulation</h3>
     <p style="margin-top: 0.5em">
         Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
     <p class="title-foot">
@@ -17,7 +18,7 @@
    <li>flat areas and depressions
    <li>methods for flow routing on raster DEMs
    <li>flooding as spread
-   <li>HAND method
+   <li>height above the nearest drainage technique
 </ul>
 </section>
 
@@ -74,19 +75,21 @@ by the surface gradient field $\nabla f$.
 <ul>
  <li>$- \nabla f$ is a vector in the steepest slope direction (aspect),
   its magnitude is slope steepness (rise over run).
- <li class="fragment">slope $\beta$ and aspect $\alpha$ 
+<p>
+ <li class="fragment">slope $\beta$ and aspect $\alpha$: 
 
-$$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2} $$
-$$\alpha^\circ = {\arccos} {-f_y \over \sqrt{f_x^2+f_y^2}$$ 
+$$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2}$$
+<p>
+$$\alpha^\circ = {\arccos} {-f_y \over {\sqrt{f_x^2+f_y^2}}$$ 
 
 <li class="fragment">we can compute gradient using slope and aspect angle 
 <p>
 $$ f_x = \tan \beta . \cos \alpha, \qquad f_y = \tan \beta . \sin \alpha$$
+</ul>
 <p>
- <li><small>recall that 
+<small>recall that 
 $$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right), \; z = f(x,y)$$
 </small>
-</ul>
 </section>
 
 <section>
@@ -94,14 +97,13 @@ $$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial 
 <p>
 <ul>
   <li class="fragment">D8: $\Delta z_{max}$ in 3x3 window: 
-  <ul>
-  <li class="fragment">discrete directions limited to 0,45,90, ...360 degrees, 
-  <li class="fragment">magnitude is rise/run 
-  </ul>
+  discrete directions 0,45, deg 
 <p>
-  <li class="fragment">using partial derivatives of a suitable approximation function, such as spline or polynomial
+  <li class="fragment">Dinf: partial derivatives of a suitable approximation function, such as spline or polynomial
 </ul>
-<p class="fragment"> <small>
+<p class="fragment"> <small>Fitting the polynomial bellow to the 9 grid points of 3x3 window
+using weighted least squares leads to simple equations for estimating $f_x, f_y$:
+<p class="fragment">
 $$z(x,y)=a_0+a_1 x + a_2 y + a_3 xy + a_4 x^2 + a_5 y^2$$
 <p class="fragment">
 $$f_x={{(z_{i-1,j-1}-z_{i+1,j-1})+2(z_{i-1,j}-z_{i+1,j})+(z_{i-1,j+1}-z_{i+1,j+1})} \over {8\Delta x}}$$
@@ -118,38 +120,45 @@ IMAGES
 <section>
    <h3>Flow routing over complex surfaces</h3>
 <ul>
-<li>flowline - path of a single drop following gradient direction, 
-<li>flow accumulation 
+<li>flowline - path of a single drop following gradient, 
+<p>
+<li class="fragment">flow accumulation 
    <ul>
-   <li class="fragment">density of flowlines, 
+   <li class="fragment">density of flowlines generated from each grid cell, 
    <li class="fragment">cumulative drops routed from each cell,
    <li class="fragment">measure of steady state flow depth
    </ul>
-<liclass="fragment">flow patterns depend on algorithm used for gradient, routing and treatment of depressions
+<p>
+<li class="fragment">flow patterns depend on algorithm used for gradient, routing and treatment of depressions
+<p>
 <li class="fragment">gradient magnitude (slope, flow velocity) is omitted
 </ul>
-<p class="fragment"> img flowline versus flow density
-<img height="380" src="img/water/waves2_3delev.jpg">
-<img height="380" src="img/water/waves_leg.jpg">
 <p class="fragment"><small>See GIS582 and supplemental material for flow tracing and flow accumulation methods
 http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.html#/10</small>
 </section>
 
 <section>
-   <h3>Flow routing with single flow direction</h3>
-<p>Discrete D8 and continuous Dinf gradient direction
-<p>SFD Single flow direction - moves entire unit of flow into a single downslope cell in the gradient direction
-<p>
+   <h3>Flow routing over complex surfaces</h3>
+<p> img flowline versus flow density
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves_leg.jpg">
+</section>
+
+<section>
+   <h3>Single flow direction routing</h3>
+<ul>
+<li>SFD Single flow direction - moves entire unit of flow into a single downslope cell in the gradient direction
+<li>Discrete D8 and continuous Dinf gradient direction
+</ul>
 <p class="fragment">
 <img height="380" src="img/water/waves2_3delev.jpg">
 <img height="380" src="img/water/waves_leg.jpg">
-<p>when D8 is sufficient?
-<p class="fragment">SFD over noisy surface mitigates the D8 artifact
+<p><small>when D8 is sufficient? SFD over noisy surface mitigates the D8 artifact</small>
 </section>
 
 <!--add equations later on-->
 <section>
-   <h3>Flow routing with dispersal flow</h3>
+   <h3>Flow routing with dispersed flow</h3>
 <p>MFD multiple flow direction partitions flow into two or more downslope directions
 <p>
 <p class="fragment">
@@ -159,12 +168,14 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 
 <section>
    <h3>Flat areas and depressions</h3>
-<p>What is the gradient in flat area? What it is in depressions?
-<p>Many algorithms exist for routing through flat areas and depressions 
+<ul>
+<li>What is the gradient in flat area? What it is in depressions?
+<li>Many algorithms were developed for routing through flat areas and depressions 
+<li>Hydrological flattening, enforcement, conditioning
+<li>New (and some old) algorithms do not require depression filled DEM
+</ul>
 <p class="fragment">
 <img height="380" src="img/water/waves2_3delev.jpg">
-<p class="fragment">
-Hydrological flattening, enforcement, conditioning
 </section>
 
 <section>
@@ -177,18 +188,25 @@ Hydrological flattening, enforcement, conditioning
 </section>
 
 <section>
-   <h3>Weighted flow routing over complex surfaces</h3>
-<p>Simulation of spatialy variable source areas explanation, equation?
-<p>flow accumulation - density of flowlines, number of drops passing through each grid cell
+   <h3>Priority Flood method</h3>
+<p>no depression filling
+<p class="fragment">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves_leg.jpg">
+<p><small>add REFS</small>
+</section>
+
+<section>
+   <h3>Weighted flow routing</h3>
+<p>Simulation of spatialy variable source areas
 <p class="fragment">
 <img height="380" src="img/water/waves2_3delev.jpg">
 <img height="380" src="img/water/waves_leg.jpg">
 </section>
 
 <section>
-   <h3>Weighted flow routing over complex surfaces</h3>
-<p>Simulation of spatialy variable source areas examples
-<p>flow accumulation - density of flowlines, number of drops passing through each grid cell
+   <h3>Weighted flow routing</h3>
+<p>Simulation of spatialy variable source areas
 <p class="fragment">
 <img height="380" src="img/water/waves2_3delev.jpg">
 <img height="380" src="img/water/waves_leg.jpg">
@@ -208,15 +226,15 @@ skip in this context?
 <li>HAND: height above the nearest drainage technique
 <li>interpolation between contours along the source stream section(FINMAP)
 </ul>
-<p><img height="130" src="img/data_sim/random_0_20_3D.jpg">
-<p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
+<p><img height="130" src="img/water/random_0_20_3D.jpg">
+<p><img height="180" src="img/water/random_0_20_histogramred.png">
 </section>
 
 <section>
    <h3>Flooding</h3>
 <p> Small areas with point source - explain r.lake, show storm surge
-<p><img height="130" src="img/data_sim/random_0_20_3D.jpg">
-<p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
+<p><img height="130" src="img/water/random_0_20_3D.jpg">
+<p><img height="180" src="img/water/random_0_20_histogramred.png">
 </section>
 
 <section>
@@ -224,15 +242,15 @@ skip in this context?
 <p>Channel has variable elevation: Height Above Nearest Drainage methodology
 <p>compute new raster where each cell is the elevation difference between the cell 
 and the the cell on the stream where the cell drains.
-<p><img height="130" src="img/data_sim/random_0_20_3D.jpg">
-<p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
+<p><img height="130" src="img/water/random_0_20_3D.jpg">
+<p><img height="180" src="img/water/random_0_20_histogramred.png">
 </section>
 
 <section>
    <h3>Flooding</h3>
 <p>Run r.lake and HAND raster
-<p><img height="130" src="img/data_sim/random_0_20_3D.jpg">
-<p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
+<p><img height="130" src="img/water/random_0_20_3D.jpg">
+<p><img height="180" src="img/water/random_0_20_histogramred.png">
 </section>
 
 
