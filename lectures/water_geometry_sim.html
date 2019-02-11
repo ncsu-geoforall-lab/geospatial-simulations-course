@@ -37,10 +37,10 @@
    <h3>Types of surface water simulations</h3>
 <p>
 <ul>
-<li>Surface water flow - overland flow accumulation
-<li>Flooding - spread of rising water level
-<li>Coupled flooding and surface flow - active research area
-<li>Coupled storm surge, river flooding and overland flow
+<li class="fragment">Surface water flow - overland flow accumulation
+<li class="fragment">Flooding - spread of rising water level
+<li class="fragment">Coupled flooding and surface flow - active research area
+<li class="fragment">Coupled storm surge, river flooding and overland flow
 </ul>
 <p class="fragment">
 <img height="380" src="img/water/waves2_3delev.jpg">
@@ -73,15 +73,18 @@ by the surface gradient field $\nabla f$.
 <p>
 <ul>
  <li>$- \nabla f$ is a vector in the steepest slope direction (aspect),
-  its magnitude represents tangent of slope angle (rise over run).
- <li class="fragment">slope 
-$$ \beta={\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta[\%]=100 \sqrt{f_x^2+f_y^2} $$
- <li class="fragment">aspect
-$$ \alpha=\arccos {-f_y \over \sqrt{f^2_x + f^2_y} $$
+  its magnitude is slope steepness (rise over run).
+ <li class="fragment">slope $\beta$ and aspect $\alpha$ 
+
+$$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2} $$
+$$\alpha^\circ = {\arccos} {-f_y \over \sqrt{f_x^2+f_y^2}$$ 
+
 <li class="fragment">we can compute gradient using slope and aspect angle 
-$$ f_x = \tan \beta . \cos \alpha, f_y = \tan \beta . \sin \alpha$$
+<p>
+$$ f_x = \tan \beta . \cos \alpha, \qquad f_y = \tan \beta . \sin \alpha$$
+<p>
  <li><small>recall that 
-$$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right)$$
+$$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right), \; z = f(x,y)$$
 </small>
 </ul>
 </section>
@@ -95,14 +98,16 @@ $$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial 
   <li class="fragment">discrete directions limited to 0,45,90, ...360 degrees, 
   <li class="fragment">magnitude is rise/run 
   </ul>
-<p class="fragment">
-  <li>using partial derivatives of a suitable approximation function, such as spline or polynomial:
-$$z(x,y)=a_0+a_1 x + a_2 y + a_3 xy + a_4 x^2 + a_5 y^2$$
 <p>
-  <li>
-$$f_x={{(z_{i-1,j-1}-z_{i+1,j-1})+2(z_{i-1,j}-z_{i+1,j})+(z_{i-1,j+1}-z_{i+1,j+1})} \over {8\Delta x}}$$
-$$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1})} \over {8\Delta y}}$$
+  <li class="fragment">using partial derivatives of a suitable approximation function, such as spline or polynomial
 </ul>
+<p class="fragment"> <small>
+$$z(x,y)=a_0+a_1 x + a_2 y + a_3 xy + a_4 x^2 + a_5 y^2$$
+<p class="fragment">
+$$f_x={{(z_{i-1,j-1}-z_{i+1,j-1})+2(z_{i-1,j}-z_{i+1,j})+(z_{i-1,j+1}-z_{i+1,j+1})} \over {8\Delta x}}$$
+<p class="fragment">
+$$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1})} \over {8\Delta y}}$$
+</small>
 </section>
 
 <section>
@@ -114,18 +119,25 @@ IMAGES
    <h3>Flow routing over complex surfaces</h3>
 <ul>
 <li>flowline - path of a single drop following gradient direction, 
-<li>flow accumulation - density of flowlines, cumulative drops routed from each cell,
-<li>flow patterns depend on algorithm used for gradient, routing and treatment of depressions
-<p class="fragment">
+<li>flow accumulation 
+   <ul>
+   <li class="fragment">density of flowlines, 
+   <li class="fragment">cumulative drops routed from each cell,
+   <li class="fragment">measure of steady state flow depth
+   </ul>
+<liclass="fragment">flow patterns depend on algorithm used for gradient, routing and treatment of depressions
+<li class="fragment">gradient magnitude (slope, flow velocity) is omitted
+</ul>
+<p class="fragment"> img flowline versus flow density
 <img height="380" src="img/water/waves2_3delev.jpg">
 <img height="380" src="img/water/waves_leg.jpg">
-<p><small>See GIS582 and supplemental material for flow tracing and flow accumulation methods
+<p class="fragment"><small>See GIS582 and supplemental material for flow tracing and flow accumulation methods
 http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.html#/10</small>
 </section>
 
 <section>
    <h3>Flow routing with single flow direction</h3>
-<p>Discrete D8 and continuous Dinf gradient 
+<p>Discrete D8 and continuous Dinf gradient direction
 <p>SFD Single flow direction - moves entire unit of flow into a single downslope cell in the gradient direction
 <p>
 <p class="fragment">
