@@ -28,7 +28,7 @@
 <ul>
 <li class="fragment">special case of process based, deterministic modeling
 <li class="fragment">focus on spatial pattern, steady state
-<li class="fragment">flowtracing or spread over complex surfaces
+<li class="fragment">flowtracing or flooding over complex surfaces
 <li class="fragment">controled by elevation surface represented as DEM
 <li class="fragment">in optimization problems: cost surface
 </ul>
@@ -44,8 +44,8 @@
 <li class="fragment">Coupled storm surge, river flooding and overland flow
 </ul>
 <p class="fragment">
-<img height="380" src="img/water/waves2_3delev.jpg">
-<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="280" src="img/water_geometry/accum_5Kmfd.jpg">
+<img height="280" src="img/water_geometry/floodedarea.jpg">
 <p class="fragment">
 These processes are controled by elevation surface
 </section>
@@ -62,7 +62,8 @@ These processes are controled by elevation surface
 <p>
 $$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
 <p>
- <li class="fragment">vector in the direction of largest increase in $z$.  
+ <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)
+ <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$.  
  <li class="fragment">direction and magnitude of flow velocity over complex surface is controled 
 by the surface gradient field $\nabla f$.  
 </ul>
@@ -77,11 +78,9 @@ by the surface gradient field $\nabla f$.
   its magnitude is slope steepness (rise over run).
 <p>
  <li class="fragment">slope $\beta$ and aspect $\alpha$: 
-
-$$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2}$$
 <p>
-$$\alpha^\circ = {\arccos} {-f_y \over {\sqrt{f_x^2+f_y^2}}$$ 
-
+$$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2}$$
+$$\alpha^\circ = {\arccos} \left( -f_y \over \sqrt{f_x^2+f_y^2} \right) $$
 <li class="fragment">we can compute gradient using slope and aspect angle 
 <p>
 $$ f_x = \tan \beta . \cos \alpha, \qquad f_y = \tan \beta . \sin \alpha$$
@@ -110,11 +109,17 @@ $$f_x={{(z_{i-1,j-1}-z_{i+1,j-1})+2(z_{i-1,j}-z_{i+1,j})+(z_{i-1,j+1}-z_{i+1,j+1
 <p class="fragment">
 $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1})} \over {8\Delta y}}$$
 </small>
+<p> <img height="120" src="img/water_geometry/3x3window_zij.png">
 </section>
 
 <section>
    <h3>Estimating gradient from raster DEM</h3>
-IMAGES
+<p>Elevation, gradient field, slope and aspect maps
+<img height="250" src="img/water_geometry/elevation.png">
+<img height="250" src="img/water_geometry/aspectarrows.png">
+<p>
+<img height="250" src="img/water_geometry/slope.png">
+<img height="250" src="img/water_geometry/aspect.png">
 </section>
 
 <section>
@@ -139,9 +144,16 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 
 <section>
    <h3>Flow routing over complex surfaces</h3>
-<p> img flowline versus flow density
-<img height="380" src="img/water/waves2_3delev.jpg">
-<img height="380" src="img/water/waves_leg.jpg">
+<p>vector-based algorithm for generating flowlines
+<p>flowlines are perpendicular to contours
+<img height="380" src="img/water_geometry/rflowfigure.jpg">
+<img height="380" src="img/water_geometry/flowlines_and_contours.png">
+</section>
+
+<section>
+   <h3>Flow routing over complex surfaces</h3>
+<p>Flowlines and flow accumulation
+<img height="420" src="img/water_geometry/flowlines_flowaccum.jpg">
 </section>
 
 <section>
@@ -151,8 +163,8 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 <li>Discrete D8 and continuous Dinf gradient direction
 </ul>
 <p class="fragment">
-<img height="380" src="img/water/waves2_3delev.jpg">
-<img height="380" src="img/water/waves_leg.jpg">
+<img height="360" src="img/water_geometry/flowD8dem.jpg">
+<img height="360" src="img/water_geometry/flowdinfdem.jpg">
 <p><small>when D8 is sufficient? SFD over noisy surface mitigates the D8 artifact</small>
 </section>
 
@@ -162,61 +174,64 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 <p>MFD multiple flow direction partitions flow into two or more downslope directions
 <p>
 <p class="fragment">
-<img height="380" src="img/water/waves2_3delev.jpg">
-<img height="380" src="img/water/waves_leg.jpg">
+<!--<img height="350" src="img/water_geometry/flowdispersal.jpg">-->
+<img height="360" src="img/water_geometry/accum5K_gr65_feb10b.jpg">
+<img height="360" src="img/water_geometry/accum5K_gr65_mfd.jpg">
 </section>
 
 <section>
    <h3>Flat areas and depressions</h3>
 <ul>
-<li>What is the gradient in flat area? What it is in depressions?
+<li>What is gradient in flat area? In depressions?
 <li>Many algorithms were developed for routing through flat areas and depressions 
 <li>Hydrological flattening, enforcement, conditioning
 <li>New (and some old) algorithms do not require depression filled DEM
 </ul>
 <p class="fragment">
-<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="280" src="img/water_geometry/depressionfill_scheme.png">
 </section>
 
 <section>
-   <h3>Least cost path flow routing</h3>
-<p>no depression filling
-<p class="fragment">
-<img height="380" src="img/water/waves2_3delev.jpg">
-<img height="380" src="img/water/waves_leg.jpg">
-<p><small>add REFS</small>
+   <h3>Flow routing for massive DEMs</h3>
+<p>Least cost path and Priority Flood methods do not require depression filling
+<small>
+<ul>
+  <li>Metz, M., Mitasova, H., Harmon, R.S. (2011) Efficient extraction of drainage networks from massive, radar-based elevation models with least cost path search, Hydrology and Earth System Sciences 15, pp. 667-678. r.watershed in GRASS GIS
+  <li>Magalh˜aes, S. V. G., Andrade, M. V. A., Randolph Franklin, W., Pena, G. C., 2012. A new method for computing the drainage network based on raising the level of an ocean surrounding the terrain. In: Gensel, J., Josselin, D., Vandenbroucke, D., Cartwright, W., Gartner, G., Meng, L., Peterson, M. P. (Eds.), Bridging the Geographic Information Sciences. Lecture Notes in Geoinformation and Cartography. Springer Berlin Heidelberg, pp. 391–407. doi: http://dx.doi.org/10.1007/978-3-642-29063-3_21
+  <li>Barnes, Lehman, Mulla. “Priority-Flood: An Optimal Depression-Filling and Watershed-Labeling Algorithm for Digital Elevation Models”. Computers and Geosciences. Vol 62, Jan 2014, pp 117–127. doi: “10.1016/j.cageo.2013.04.024”.
+  <li>Araujo et al. 2014 Watersheds in disordered media
+  <li>Geomorphometry best paper
+</ul>
+</small>
 </section>
 
+<!--
 <section>
    <h3>Priority Flood method</h3>
 <p>no depression filling
 <p class="fragment">
 <img height="380" src="img/water/waves2_3delev.jpg">
 <img height="380" src="img/water/waves_leg.jpg">
+<p><small>Does priority flooding also use D8?</small>
 <p><small>add REFS</small>
 </section>
+-->
 
 <section>
    <h3>Weighted flow routing</h3>
 <p>Simulation of spatialy variable source areas
 <p class="fragment">
-<img height="380" src="img/water/waves2_3delev.jpg">
-<img height="380" src="img/water/waves_leg.jpg">
+<img height="350" src="img/water_geometry/accum_runoffuni_30m3d.jpg">
+<img height="350" src="img/water_geometry/accum_runoffvar_30m3d.jpg">
 </section>
 
-<section>
-   <h3>Weighted flow routing</h3>
-<p>Simulation of spatialy variable source areas
-<p class="fragment">
-<img height="380" src="img/water/waves2_3delev.jpg">
-<img height="380" src="img/water/waves_leg.jpg">
-</section>
-
+<!--
 <section>
    <h3>Watersheds</h3>
 skip in this context?
 <p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
 </section>
+-->
 
 <section>
    <h3>Flooding</h3>
@@ -226,19 +241,22 @@ skip in this context?
 <li>HAND: height above the nearest drainage technique
 <li>interpolation between contours along the source stream section(FINMAP)
 </ul>
-<p><img height="130" src="img/water/random_0_20_3D.jpg">
-<p><img height="180" src="img/water/random_0_20_histogramred.png">
 </section>
 
 <section>
-   <h3>Flooding</h3>
-<p> Small areas with point source - explain r.lake, show storm surge
-<p><img height="130" src="img/water/random_0_20_3D.jpg">
-<p><img height="180" src="img/water/random_0_20_histogramred.png">
+   <h3>Flooding - bathtub model</h3>
+<p><img height="450" src="img/geodynamics/lakef1994.gif">
 </section>
 
 <section>
-   <h3>Flooding from channel </h3>
+   <h3>Flooding - spread model</h3>
+<p> Small areas with point source - simplified storm surge
+<p>Neglects time and limited amount of water
+<p><img height="430" src="img/intro/hatteras_surge_rlake.gif">
+</section>
+
+<section>
+   <h3>Flooding from a channel </h3>
 <p>Channel has variable elevation: Height Above Nearest Drainage methodology
 <p>compute new raster where each cell is the elevation difference between the cell 
 and the the cell on the stream where the cell drains.
@@ -251,6 +269,13 @@ and the the cell on the stream where the cell drains.
 <p>Run r.lake and HAND raster
 <p><img height="130" src="img/water/random_0_20_3D.jpg">
 <p><img height="180" src="img/water/random_0_20_histogramred.png">
+</section>
+
+<section>
+   <h3>FINMAP</h3>
+<p>Interpolation between water levels predicted by process based model
+<p><img height="330" src="img/intro/FIMAN_swiftcreek_scenario.jpg">
+<p>add link
 </section>
 
 
