@@ -112,6 +112,7 @@ $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1
 <p> <img height="120" src="img/water_geometry/3x3window_zij.png">
 </section>
 
+<!--
 <section>
    <h3>Estimating gradient from raster DEM</h3>
 <p>Elevation, gradient field, slope and aspect maps
@@ -121,6 +122,7 @@ $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1
 <img height="250" src="img/water_geometry/slope.png">
 <img height="250" src="img/water_geometry/aspect.png">
 </section>
+-->
 
 <section>
    <h3>Flow routing over complex surfaces</h3>
@@ -249,19 +251,34 @@ skip in this context?
 </section>
 
 <section>
-   <h3>Flooding - spread model</h3>
-<p> Small areas with point source - simplified storm surge
-<p>Neglects time and limited amount of water
+   <h3>Flooding - lake model</h3>
+<ul>
+<li> Creates hydrologically connected area (lake) from a given point at a given elevation 
+<li> Valid for small flat areas with point source, approximates steady state, uniform flooding
+</ul>
+<p>
+<img height="280" src="img/water_geometry/floodedarea.jpg">
+<img height="280" src="img/water_geometry/lakeflood_swwake_streets.jpg">
+<p><small>water level at 90m asl</small>
+</section>
+
+<section>
+   <h3>Flooding - lake model</h3>
+<ul>
+<li>Simplified storm surge
+<li>Neglects time and limited amount of water: worst case scenario
+</ul>
 <p><img height="430" src="img/intro/hatteras_surge_rlake.gif">
 </section>
 
 <section>
-   <h3>Flooding from a channel </h3>
-<p>Channel has variable elevation: Height Above Nearest Drainage methodology
-<p>compute new raster where each cell is the elevation difference between the cell 
-and the the cell on the stream where the cell drains.
-<p><img height="130" src="img/water/random_0_20_3D.jpg">
-<p><img height="180" src="img/water/random_0_20_histogramred.png">
+   <h3>Flooding - inundation (spread) model </h3>
+<ul>
+<li>Channel has variable elevation: Height Above Nearest Drainage methodology
+<li>Using flow direction, we can compute new raster where each cell is the elevation difference between the given cell 
+and the the cell on the stream into which the cell drains.
+</ul>
+<p><img height="130" src="img/water_geometry/heightabovestream.jpg">
 </section>
 
 <section>
@@ -269,11 +286,15 @@ and the the cell on the stream where the cell drains.
 <p>Run r.lake and HAND raster
 <p><img height="130" src="img/water/random_0_20_3D.jpg">
 <p><img height="180" src="img/water/random_0_20_histogramred.png">
+<a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial">Implemented in mapbox</a>
 </section>
 
 <section>
    <h3>FINMAP</h3>
-<p>Interpolation between water levels predicted by process based model
+<ul>
+<li>Interpolation between water levels predicted by process based model
+<li>Limited to areas near stream gauges
+</ul>
 <p><img height="330" src="img/intro/FIMAN_swiftcreek_scenario.jpg">
 <p>add link
 </section>
