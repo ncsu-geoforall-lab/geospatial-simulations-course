@@ -1,0 +1,133 @@
+<h2>Introduction to surface water simulation</h2>
+
+<p>
+Resources:
+<ul>
+    <li><a href="http://grass.osgeo.org/grass74/manuals/index.html">
+GRASS GIS overview and manual</a>
+    <li><a href="http://www.grassbook.org/">GRASS book</a>
+</ul>
+
+<p>
+For animating in GRASS GIS 7, see the
+<a href="https://www.youtube.com/watch?v=Pi1ESk9iPwk">video instructions</a> or
+instructions for the
+<a href="http://ncsu-geoforall-lab.github.io/grass-temporal-workshop/">
+  Spatio-temporal data handling and visualization in GRASS GIS workshop
+</a>
+<p>
+For more practice in watershed analysis see
+<a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/grass/hydrology.html">Flow and watershed analysis in GIS582</a>
+
+
+<h3>Start GRASS GIS</h3>
+Start GRASS - click on GRASS icon or type<br>
+
+<pre><code>
+grass74
+</code></pre>
+
+<p>
+In startup pannel set <b>GRASS GIS Database Directory</b> to path to datasets,
+for example on MS Windows, <code>C:\Users\myname\grassdata</code>.<br>
+For <b>GRASS Location</b> select nc_spm_08_grass7 (North Carolina, State Plane, meters) and
+for <b>GRASS Mapset</b> create a new mapset (called e.g. HW2_data_simulation).<br>
+Click <b>Start GRASS session</b>.
+
+<p>
+Change working directory to where you will keep your external files (such as color ramps, time series layers, etc.):<br>
+<em>Settings</em> > <em>GRASS working environment</em> > <em>Change working directory</em> > select/create any directory<br>
+or type <code>cd</code> (stands for change directory) into the GUI
+<em>Console</em> and hit Enter:
+<pre><code>
+cd
+</code></pre>
+
+<p>
+Now you can use the commands from the assignment requiring external text files
+without the need to specify the full path to the file.
+
+<h3>Compare flow accumulation derived by different algorithms</h3>
+
+Set region to the high resolution study area and zoom to it. Then run least cost path flow routing 
+with SFD and MFD options and vector based flowrouting.
+
+<pre><code>
+g.region rural_1m -p
+r.watershed -as elevation=elev_lid792_1m threshold=5000 accumulation=accum_mfd5K drainage=draindir_5K basin=basin_mfd5K
+r.watershed -a elevation=elev_lid792_1m threshold=5000 accumulation=accum_sfd5K drainage=draindir_sfd5K basin=basin_sfd5K
+r.flow elevation=elev_lid792_1m flowline=flowlines flowlength=flowlg_1m flowaccumulation=flowacc_1m
+</code></pre>
+
+<p> Extract streams, convert to vector format and display results along with the official Wake county streams (red).
+The example is for the MFD results, do the same for the SFD and Dinf result and visualy compare
+<pre><code>
+r.mapcalc "streams_mfd = if(abs(accum_mfd5K) > 100, 1, null())"
+r.thin streams_mdf output=streams_mfd_t
+r.to.vect -s streams_mfd_t out=streams_mfd type=line
+d.rast ortho_2001_t792_1m
+d.vect streams_mfd_t
+</code></pre>
+
+Compare the values of flowaccumulation from all your runs, including the ones from data simulation 
+assignment, in outlet with coordinates 638845.52,220085.26. (hint, use r.what). Discuss the result.
+
+<h3>Create a map of flooded area</h3>
+Create a map of flooded area for a given water level and a seed point:
+
+<pre><code>
+r.lake elevation=elev_lid792_1m water_level=113.5 lake=flood1 coordinates=638728,220278
+d.rast elev_lid792_1m
+d.rast flood1
+d.out.file floodedarea
+</code></pre>
+
+<p>
+Increase water level to 113.7m and 114.0m and create flooded
+area maps at these two levels.
+
+<h3>Hydrology: Estimating inundation extent using HAND methodology</h3>
+
+We will use r.stream.distance and r.lake.series are addons and we need to install them first:
+
+<pre><code>
+g.extension r.stream.distance
+g.extension r.lake.series
+</code></pre>
+We will estimate inundation extent using Height Above Nearest Drainage methodology (A.D. Nobre, 2011). We will compute HAND terrain model representing the differences in elevation between each grid cell and the elevations of the flowpath-connected downslope grid cell where the flow enters the channel.
+
+First we compute the flow accumulation, drainage and streams (with threshold value of 100000). We convert the streams to vector for better visualization.
+
+<pre><code>
+g.region rast=elevation
+r.watershed elevation=elevation accumulation=flowacc drainage=drainage stream=streams threshold=100000
+r.to.vect input=streams output=streams type=line
+</code></pre>
+
+Now we use r.stream.distance without output parameter difference to compute new raster where each cell is the elevation difference between the cell and the the cell on the stream where the cell drains.
+
+<pre><code>
+r.stream.distance stream_rast=streams direction=drainage elevation=elevation method=downstream difference=above_stream
+</code></pre>
+Before we compute the inundation, we will look at how r.lake works. We compute a lake from specified coordinate and water level:
+
+<pre><code>
+r.lake elevation=elevation water_level=90 lake=lake coordinates=637877,218475
+</code></pre>
+Now instead of elevation raster we use the HAND raster to simulate 5-meter inundation and as the seed we specify the entire stream.
+
+<pre><code>
+r.lake elevation=above_stream water_level=5 lake=flood seed=streams
+</code></pre>
+With addon r.lake.series we can create a series of inundation maps with rising water levels:
+
+<pre><code>
+r.lake.series elevation=above_stream start_water_level=0 end_water_level=5 water_level_step=0.5 output=inundation seed_raster=streams
+</code></pre>
+r.lake.series creates a space-time dataset. We can use temporal modules to further work with the data. for example, we could further compute the volume and extent of flood water using t.rast.univar:
+
+<pre><code>
+t.rast.univar input=inundation separator=comma
+</code></pre>
+
+
