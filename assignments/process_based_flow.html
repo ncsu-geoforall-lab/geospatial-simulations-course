@@ -1,0 +1,119 @@
+<h2>Surface water: process-based simulation using Itzi</h2>
+
+<p>
+Resources:
+<ul>
+    <li><a href="http://grass.osgeo.org/grass74/manuals/index.html">
+GRASS GIS overview and manual</a>
+    <li><a href="http://www.grassbook.org/">GRASS book</a>
+        <li><a href="https://www.itzi.org/">Itzï</a>
+</ul>
+
+<p>
+For animating in GRASS GIS 7, see the
+<a href="https://www.youtube.com/watch?v=Pi1ESk9iPwk">video instructions</a> or
+instructions for the
+<a href="http://ncsu-geoforall-lab.github.io/grass-temporal-workshop/">
+  Spatio-temporal data handling and visualization in GRASS GIS workshop
+</a>
+
+
+
+<h3>Install Itzi</h3>
+Follow <a href="https://itzi.readthedocs.io/en/latest/installation.html">
+    installation instructions</a>.
+
+<h3>Start GRASS GIS</h3>
+Start GRASS - click on GRASS icon or type<br>
+
+<pre><code>
+grass74
+</code></pre>
+
+<p>
+In startup pannel set <b>GRASS GIS Database Directory</b> to path to datasets,
+for example on MS Windows, <code>C:\Users\myname\grassdata</code>.<br>
+For <b>GRASS Location</b> select nc_spm_08_grass7 (North Carolina, State Plane, meters) and
+for <b>GRASS Mapset</b> create a new mapset (called e.g. HW2_data_simulation).<br>
+Click <b>Start GRASS session</b>.
+
+<p>
+Change working directory to where you will keep your external files (such as color ramps, time series layers, etc.):<br>
+<em>Settings</em> > <em>GRASS working environment</em> > <em>Change working directory</em> > select/create any directory<br>
+or type <code>cd</code> (stands for change directory) into the GUI
+<em>Console</em> and hit Enter:
+<pre><code>
+cd
+</code></pre>
+
+<p>
+Now you can use the commands from the assignment requiring external text files
+without the need to specify the full path to the file.
+
+<h3>Modeling flooding with Itzi</h3>
+<pre><code>
+r.watershed -s elevation=elevation threshold=1000 accumulation=flowacc stream=streams drainage=drainage
+r.water.outlet input=drainage output=watershed coordinates=637715,218815 --o
+r.mask raster=watershed
+g.region zoom=watershed
+</code></pre>
+
+<pre>
+637715|218815
+</pre>
+
+<pre><code>
+v.in.ascii --overwrite input=outlet.txt output=outlet
+</code></pre>
+
+<pre><code>
+v.to.rast input=outlet type=point output=bctype use=val value=4
+v.to.rast --overwrite input=outlet type=point output=bcvalue use=val value=0
+</code></pre>
+
+<pre><code>
+r.mapcalc expression="rain = 100"
+r.mapcalc expression="friction = 0.05"
+</code></pre>
+
+<pre>
+[time]
+duration = 02:00:00
+record_step = 00:05:00
+
+[input]
+dem = elevation@PERMANENT
+friction = friction@itzi
+rain = rain@itzi
+bctype = bctype@itzi
+bcval = bcvalue@itzi
+
+[output]
+prefix = simulation
+values = h, wse, v, vdir, boundaries
+
+[statistics]
+stats_file = stats.csv
+</pre>
+
+
+<pre><code>
+itzi run itzi_config.txt
+# alternatively:
+# ~/.local/bin/itzi run itzi_config.txt
+</code></pre>
+
+<pre>
+0 240:249:232
+0.3 186:228:188
+0.5 123:204:196
+1 67:162:202
+2 8:104:172
+10 8:104:172
+nv 255:255:255
+default 8:104:172
+</pre>
+
+<pre><code>
+t.rast.colors input=simulation_h rules=itzi_color.txt
+</code></pre>
