@@ -22,35 +22,18 @@
 </section>
 
 <section>
-   <h3>Geometry driven flow simulations</h3>
+   <h3>Diffusion and flow processes</h3>
 <p>
 <ul>
-<li class="fragment">special case of process based, deterministic modeling
-<li class="fragment">focus on spatial pattern, steady state
-<li class="fragment">flowtracing or flooding over complex surfaces
-<li class="fragment">controled by elevation surface represented as DEM
-<li class="fragment">in optimization problems: cost surface
+<li class="fragment">where we see diffusion in nature
+<li class="fragment">where we see flow 
 </ul>
-</section>
-
-<section>
-   <h3>Types of surface water simulations</h3>
-<p>
-<ul>
-<li class="fragment">Surface water flow - overland flow accumulation
-<li class="fragment">Flooding - spread of rising water level
-<li class="fragment">Coupled flooding and surface flow - active research area
-<li class="fragment">Coupled storm surge, river flooding and overland flow
-</ul>
-<p class="fragment">
+<p>diffusion and flow images or animations
 <img height="280" src="img/water_geometry/accum_5Kmfd.jpg">
-<img height="280" src="img/water_geometry/floodedarea.jpg">
-<p class="fragment">
-These processes are controled by elevation surface
 </section>
 
 <section>
-   <h3>Flow over complex surfaces</h3>
+   <h3>Diffusion equation, analytical solution</h3>
 <p>
 <ul>
  <li>elevation surface: represented by a bivariate function:
@@ -70,7 +53,7 @@ by the surface gradient field $\nabla f$.
 </section>
 
 <section>
-   <h3>Gradient vector: slope and aspect</h3>
+   <h3>Diffusion: numerical modeling</h3>
 <p>
 <ul>
  <li>$- \nabla f$ is a vector in the steepest slope direction (aspect),
@@ -91,7 +74,7 @@ $$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial 
 </section>
 
 <section>
-   <h3>Estimating gradient from raster DEM</h3>
+   <h3>Diffusion example</h3>
 <p>
 <ul>
   <li class="fragment">D8: $\Delta z_{max}$ in 3x3 window: 
@@ -111,48 +94,55 @@ $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1
 <p> <img height="120" src="img/water_geometry/3x3window_zij.png">
 </section>
 
-<!--
 <section>
-   <h3>Estimating gradient from raster DEM</h3>
-<p>Elevation, gradient field, slope and aspect maps
-<img height="250" src="img/water_geometry/elevation.png">
-<img height="250" src="img/water_geometry/aspectarrows.png">
-<p>
-<img height="250" src="img/water_geometry/slope.png">
-<img height="250" src="img/water_geometry/aspect.png">
-</section>
--->
-
-<section>
-   <h3>Flow routing over complex surfaces</h3>
+   <h3>Shallow water flow equation</h3>
 <ul>
-<li>flowline - path of a single drop following gradient, 
+<li>processes modeled by SWF equation: 
 <p>
-<li class="fragment">flow accumulation 
    <ul>
-   <li class="fragment">density of flowlines generated from each grid cell, 
-   <li class="fragment">cumulative drops routed from each cell,
-   <li class="fragment">measure of steady state flow depth
+   <li class="fragment">overland flow, 
+   <li class="fragment">dam breach flooding,
+   <li class="fragment">storm surge
+   <li class="fragment">sediment and debris flow
    </ul>
-<p>
-<li class="fragment">flow patterns depend on algorithm used for gradient, routing and treatment of depressions
-<p>
-<li class="fragment">gradient magnitude (slope, flow velocity) is omitted
-</ul>
-<p class="fragment"><small>See GIS582 and supplemental material for flow tracing and flow accumulation methods
-http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.html#/10</small>
+<p> examples of processes modeled by SWF - photos or simulations
+<img height="380" src="img/water_geometry/rflowfigure.jpg">
 </section>
 
 <section>
-   <h3>Flow routing over complex surfaces</h3>
-<p>vector-based algorithm for generating flowlines
-<p>flowlines are perpendicular to contours
-<img height="380" src="img/water_geometry/rflowfigure.jpg">
+   <h3>SWF equation</h3>
+<p>
+<ul>
+ <li>elevation surface: represented by a bivariate function:
+<p>
+ $$z = f(x,y)$$
+<p>
+ <li class="fragment">flow over this surface is driven by  <b>surface gradient</b>
+<p>
+$$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
+<p>
+ <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)
+ <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$.
+ <li class="fragment">direction and magnitude of flow velocity over complex surface is controled
+by the surface gradient field $\nabla f$.
+</ul>
+<p class="fragment"><small> note that the direction of flow is minus $\nabla f$, because gradient vector points upslope</small>
+</section>
+
+<section>
+   <h3>SWF numerical methods</h3>
+<ul>
+<li> finite differenc, finite element
+<li> finite volume
+<li> QMC path sampling 
+</ul>
+<p>images illsutrating approaches
+<p><img height="380" src="img/water_geometry/rflowfigure.jpg">
 <img height="380" src="img/water_geometry/flowlines_and_contours.png">
 </section>
 
 <section>
-   <h3>Flow routing over complex surfaces</h3>
+   <h3>Duality of particles and fields</h3>
 <p>Flowlines and flow accumulation
 <img height="420" src="img/water_geometry/flowlines_flowaccum.jpg">
 </section>
@@ -171,7 +161,7 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 
 <!--add equations later on-->
 <section>
-   <h3>Flow routing with dispersed flow</h3>
+   <h3>Green's function solution</h3>
 <p>MFD multiple flow direction partitions flow into two or more downslope directions
 <p>
 <p class="fragment">
@@ -181,7 +171,7 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 </section>
 
 <section>
-   <h3>Weighted flow routing</h3>
+   <h3>Implementation and parallelization</h3>
 <p>Simulation of spatialy variable source areas
 <p class="fragment">
 <img height="350" src="img/water_geometry/accum_runoffuni_30m3d.jpg">
@@ -189,7 +179,7 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 </section>
 
 <section>
-   <h3>Flat areas and depressions</h3>
+   <h3>Applications</h3>
 <ul>
 <li>What is gradient in flat area? In depressions?
 <li>Many algorithms were developed for routing through flat areas and depressions 
@@ -201,41 +191,7 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 </section>
 
 <section>
-   <h3>Flow routing for massive DEMs</h3>
-<p>Least cost path and Priority Flood methods do not require depression filling
-<small>
-<ul>
-  <li>Metz, M., Mitasova, H., Harmon, R.S. (2011) Efficient extraction of drainage networks from massive, radar-based elevation models with least cost path search, Hydrology and Earth System Sciences 15, pp. 667-678. r.watershed in GRASS GIS
-  <li>Magalh˜aes, S. V. G., Andrade, M. V. A., Randolph Franklin, W., Pena, G. C., 2012. A new method for computing the drainage network based on raising the level of an ocean surrounding the terrain. In: Gensel, J., Josselin, D., Vandenbroucke, D., Cartwright, W., Gartner, G., Meng, L., Peterson, M. P. (Eds.), Bridging the Geographic Information Sciences. Lecture Notes in Geoinformation and Cartography. Springer Berlin Heidelberg, pp. 391–407. doi: http://dx.doi.org/10.1007/978-3-642-29063-3_21
-  <li>Barnes, Lehman, Mulla. “Priority-Flood: An Optimal Depression-Filling and Watershed-Labeling Algorithm for Digital Elevation Models”. Computers and Geosciences. Vol 62, Jan 2014, pp 117–127. doi: “10.1016/j.cageo.2013.04.024”.
-  <li>Araujo et al. 2014 Watersheds in disordered media
-  <li>Geomorphometry best paper
-</ul>
-</small>
-</section>
-
-<!--
-<section>
-   <h3>Priority Flood method</h3>
-<p>no depression filling
-<p class="fragment">
-<img height="380" src="img/water/waves2_3delev.jpg">
-<img height="380" src="img/water/waves_leg.jpg">
-<p><small>Does priority flooding also use D8?</small>
-<p><small>add REFS</small>
-</section>
--->
-
-<!--
-<section>
-   <h3>Watersheds</h3>
-skip in this context?
-<p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
-</section>
--->
-
-<section>
-   <h3>Flooding</h3>
+   <h3>Finite volume solution</h3>
 <ul>
 <li>elevation threshold - bathtub model 
 <li>spread of water from source - friction gradient rather than elevation gradient 
