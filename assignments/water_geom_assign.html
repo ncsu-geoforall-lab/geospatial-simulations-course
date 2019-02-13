@@ -129,5 +129,23 @@ r.lake.series creates a space-time dataset. We can use temporal modules to furth
 <pre><code>
 t.rast.univar input=inundation separator=comma
 </code></pre>
+Now we will export the results from r.lake.series so that we can display the animated series of inundation maps with rising water levels in MapBox GL. To do this we must export each raster as a png and get the bounding box of the computational region in WGS84. First download r.out.leaflet from <a href="https://github.com/ncsu-geoforall-lab/">https://github.com/ncsu-geoforall-lab/</a> or clone the plugin using git.
 
+<pre><code>
+git clone https://github.com/ncsu-geoforall-lab/grass-web-publishing.git
+</code></pre>
+Next, find r.out.leaflet.py inside of the grass-web-publishing directory you just downloaded. Now in the GRASS terminal we will run the r.out.leaflet.py python script.
 
+<pre><code>
+python r.out.leaflet.py raster="inundation_0.0,inundation_0.5,inundation_1.0,inundation_1.5,inundation_2.0,inundation_2.5,inundation_3.0,inundation_3.5,inundation_4.0,inundation_4.5,inundation_5.0" output="./images"
+</code></pre>
+You will now see a few new files in the images directory
+
+<ul>
+    <li>data_file.csv</li>
+    <li> data_file.js</li>
+    <li>New pngs</li>
+</ul>
+
+To add the newly output pngs to a web map continue by following the instructions found in the next tutorial here
+<a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial" target="_blank">https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial</a>
