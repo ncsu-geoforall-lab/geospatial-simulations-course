@@ -28,12 +28,12 @@
 <li class="fragment">where we see diffusion in nature
 <li class="fragment">where we see flow 
 </ul>
-<p>diffusion and flow images or animations
+<p class="fragment">diffusion and flow images or animations
 <img height="280" src="img/water_geometry/accum_5Kmfd.jpg">
 </section>
 
 <section>
-   <h3>Diffusion equation, analytical solution</h3>
+   <h3>Diffusion equation</h3>
 <p>
 <ul>
  <li>elevation surface: represented by a bivariate function:
@@ -100,63 +100,101 @@ $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1
 <li>processes modeled by SWF equation: 
 <p>
    <ul>
-   <li class="fragment">overland flow, 
-   <li class="fragment">dam breach flooding,
+   <li class="fragment">overland flow (approx, and full difusive wave) 
+   <li class="fragment">dam breach flooding
    <li class="fragment">storm surge
    <li class="fragment">sediment and debris flow
    </ul>
-<p> examples of processes modeled by SWF - photos or simulations
-<img height="380" src="img/water_geometry/rflowfigure.jpg">
+<p class="fragment"> processes modeled by SWF - photos or simulations
+<img height="300" src="img/water_geometry/rflowfigure.jpg">
 </section>
 
 <section>
-   <h3>SWF equation</h3>
+   <h3>Shallow water flow equation</h3>
+<p>bivariate form of the St Venant equation
 <p>
+ $$ {\partial h({\bf r},t) \over \partial t} = i_e({\bf r},t) - \nabla \cdot {\bf q}({\bf r},t)$$
+<p>momentum conservation in the diffusion wave approximation:
+$$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
+<small>
 <ul>
- <li>elevation surface: represented by a bivariate function:
-<p>
- $$z = f(x,y)$$
-<p>
- <li class="fragment">flow over this surface is driven by  <b>surface gradient</b>
-<p>
-$$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
-<p>
- <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)
- <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$.
- <li class="fragment">direction and magnitude of flow velocity over complex surface is controled
-by the surface gradient field $\nabla f$.
+ <li>${\bf r}=(x,y)$ [m] is the position,
+ <li>$t$ [s] is the time,
+ <li>$h({\bf r},t)$ [m] is the depth of overland flow,
+ <li>$i_e({\bf r},t)$ [m/s] is the rainfall excess = (rainfall $-$ infiltration $-$ vegetation intercept) [m/s],
+ <li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width,
+ <li>${\bf s}({\bf r})= - \nabla z({\bf r})$ is the negative elevation gradient,
+ <li>$z({\bf r})$ [m] is the elevation,
+ <li>and ${\bf s_f}({\bf r},t)$ is the negative gradient of overland flow surface (friction slope).
 </ul>
-<p class="fragment"><small> note that the direction of flow is minus $\nabla f$, because gradient vector points upslope</small>
+</small>
+</section>
+
+<section>
+   <h3>Shallow water flow equation</h3>
+<p>hydraulic radius is approximated by flow depth $h({\bf r},t)$ and the unit discharge is given by:
+
+$${\bf q}({\bf r},t)={\bf v}({\bf r},t) h({\bf r},t)$$
+
+<p>${\bf v}({\bf r},t)$  [m/s] is the flow velocity.
+<p>The system of equations is closed using the Manning's relation  
+
+$${\bf v}({\bf r},t)= {C\over n({\bf r})} h({\bf r},t)^{2/3} |{\bf s_f}({\bf r},t)|^{1/2} {\bf s_{f0}({\bf r},t)}$$
+<ul>
+<li>$n({\bf r}) $ is the dimensionless Manning's coefficient,
+<li>C=1$ [$m^{1/3}/s$] is the corresponding dimension constant 
+<li>${\bf s_{f0}}({\bf r})={\bf s_f}({\bf r})/|{\bf s_f}({\bf r})|$
+is the unit vector in the friction slope direction.
 </section>
 
 <section>
    <h3>SWF numerical methods</h3>
 <ul>
-<li> finite differenc, finite element
+<li>finite difference, finite element
 <li> finite volume
 <li> QMC path sampling 
 </ul>
-<p>images illsutrating approaches
-<p><img height="380" src="img/water_geometry/rflowfigure.jpg">
-<img height="380" src="img/water_geometry/flowlines_and_contours.png">
+<p>images illustrating approaches
+<p><img height="280" src="img/water_geometry/rflowfigure.jpg">
+<img height="280" src="img/water_geometry/flowlines_and_contours.png">
+</section>
+
+<section>
+   <h3>SWF simplified</h3>
+Solution of continuity and momentum equations for
+a steady water flow that is close to kinematic wave approximation
 </section>
 
 <section>
    <h3>Duality of particles and fields</h3>
-<p>Flowlines and flow accumulation
-<img height="420" src="img/water_geometry/flowlines_flowaccum.jpg">
+<p>Modeled quantities can be represented by
+<ul>
+  <li>fields - continuous distribution (scalar, vector, tensor) 
+  <li>particles - discrete distribution
+</ul>
+<p>Transformation between the two representations:
+<p>distributed particles - particle density function - field $f(r)$ 
+<p>field $f(r)$ - sampling with density $f(r)$ - particle representation
 </section>
 
 <section>
-   <h3>Single flow direction routing</h3>
+   <h3>Duality of particles and fields</h3>
+<p>Process can be modeled as
 <ul>
-<li>SFD Single flow direction - moves entire unit of flow into a single downslope cell in the gradient direction
-<li>Discrete D8 and continuous Dinf gradient direction
+  <li>evolution of fields 
+  <li>evolution of spatially distributed particles 
 </ul>
-<p class="fragment">
-<img height="360" src="img/water_geometry/flowD8dem.jpg">
-<img height="360" src="img/water_geometry/flowdinfdem.jpg">
-<p><small>when D8 is sufficient? SFD over noisy surface mitigates the D8 artifact</small>
+<p>Path sampling method uses this duality to solve the governing equations
+</section>
+
+<section>
+   <h3>Path sampling method</h3>
+<p>Method for solving linear partial differential equations developed in physics, used also in chemistry, finance
+<p> Governing  equation: $L(c) = S$ 
+<p>S is sources-sinks, c is the modeled quantity, L is the operator e.g.,diffusion+ flow/drift + proliferation/decay
+<p> Solution: $c = L^{-1} (S)$,  $L^{-1}$ is the inverse operator
+<p>sample the source term field simulate action of L-1 on S estimate c from the density
+<img height="160" src="img/water_geometry/accum5K_gr65_feb10b.jpg">
 </section>
 
 <!--add equations later on-->
@@ -168,6 +206,13 @@ by the surface gradient field $\nabla f$.
 <!--<img height="350" src="img/water_geometry/flowdispersal.jpg">-->
 <img height="360" src="img/water_geometry/accum5K_gr65_feb10b.jpg">
 <img height="360" src="img/water_geometry/accum5K_gr65_mfd.jpg">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy and properties</h3>
+<p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
+<p>animation
+<img height="360" src="img/water_geometry/accum5K_gr65_feb10b.jpg">
 </section>
 
 <section>
@@ -202,7 +247,8 @@ by the surface gradient field $\nabla f$.
 </section>
 
 <section>
-   <h3>Flooding - bathtub model</h3>
+   <h3>ADCIRC equations </h3>
+(from the exam)
 <p><img height="450" src="img/geodynamics/lakef1994.gif">
 </section>
 
@@ -252,6 +298,7 @@ and the the cell on the stream into which the cell drains.
 <p><img height="330" src="img/intro/FIMAN_swiftcreek_scenario.jpg">
 <p><a href="https://fiman.nc.gov/fiman/#">Flood inundation mapping and alert network</a>
 </section>
+
 
 
 <!--
