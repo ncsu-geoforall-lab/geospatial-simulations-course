@@ -22,38 +22,108 @@
 </section>
 
 <section>
-   <h3>Diffusion and flow processes</h3>
-<p>
+   <h3>Diffusion and flow </h3>
+<p>Foundation of many geospatial models of natural and socioeconomic processes 
 <ul>
-<li class="fragment">where we see diffusion in nature
-<li class="fragment">where we see flow 
+<li class="fragment">diffusion in natural and socio-economic systems
+<li class="fragment">flow in natural and socio-economic systems 
 </ul>
-<p class="fragment">diffusion and flow images or animations
-<img height="280" src="img/water_geometry/accum_5Kmfd.jpg">
+<p class="fragment">diffusion and flow examples from Tobler to wind in real time
+<img height="250" src="img/intro/apex_dry_white.png">
+<img height="250" src="img/diffusion_flows/Tobler_govfiscal.jpg">
+<p><small>Images from Laura Pagano and Waldo Tobler presentations</small>
+</section>
+
+<section>
+   <h3>Duality of particles and fields</h3>
+<p>Modeled quantities can be represented by
+<ul>
+  <li>fields - continuous distribution (scalar, vector, tensor)
+  <li>particles - discrete distribution
+</ul>
+<p>Transformation between the two representations:
+<p>distributed particles - particle density function - field $f(r)$
+<p>field $f(r)$ - sampling with density $f(r)$ - particle representation
+</section>
+
+<section>
+   <h3>Duality of particles and fields</h3>
+<p>Process can be modeled as
+<ul>
+  <li>evolution of fields
+  <li>evolution of spatially distributed particles
+</ul>
+<p>Path sampling method uses this duality to solve the governing equations
+</section>
+
+<section>
+   <h3>Duality of particles and fields</h3>
+<p>
+<img height="300" src="img/diffusion_flows/fanimwalk.gif">
+<img height="300" src="img/diffusion_flows/fanimhhcolp.gif">
+</section>
+
+<section>
+   <h3>Path sampling method</h3>
+<p>Method for solving linear partial differential equations developed in physics, used also in chemistry, finance
+<p> Governing  equation: $L(c) = S$
+<p>S is sources-sinks, c is the modeled quantity, L is the operator e.g.,diffusion+ flow/drift + proliferation/decay
+<p> Solution: $c = L^{-1} (S)$,  $L^{-1}$ is the inverse operator
+<p>sample the source term field simulate action of L-1 on S estimate c from the density
+</section>
+
+<section>
+   <h3>Diffusion</h3>
+<p>Fick's law + mass conservation law lead to diffusion equation
+<p>Alternatively, random walks densities evolution is used to derive diffusion equation
+<p><small>some definitions
+<ul>
+<li>flux : rate of mass transport across unit point, line, or area depending on dimension
+<li>density gradient: change in density (concentration?)
+<li>Fick's law: flux (of particles, material) at a given location is proportional 
+to local change (gradient) of (particle) density (or material concentration?)
+</ul>
+</small>
 </section>
 
 <section>
    <h3>Diffusion equation</h3>
 <p>
 <ul>
- <li>elevation surface: represented by a bivariate function:
+<li>
+<ul>
+<li class="fragment">Fick's law (flux is a function of density gradient, empirical observation) - in 1D:
 <p>
- $$z = f(x,y)$$
+$$ f(x,t) = -D_0 {\partial n(x,t) \over \partial x}$$ 
 <p>
- <li class="fragment">flow over this surface is driven by  <b>surface gradient</b> 
+<li class="fragment"> Continuity equation (mass preservation: change in density at any location is equal 
+to the inflow and outflow of particles (material) at this location
 <p>
+$$ {\partial n(x,t) \over \partial t} + {\partial f(x,t) \over \partial x} = 0 $$
+<p>
+<li class="fragment"> Diffusion equation 
+<p>
+$$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2} $$
+</ul>
+<li>
+<ul>
+<li>$f(x,t)$ is flux
+<li>$n(x,t)$ is density
+<li>$x$ is location and $t$ is time
+</ul>
+</ul>
+<!--
+see also https://en.wikipedia.org/wiki/Diffusion_equation
 $$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
 <p>
  <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)
  <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$.  
- <li class="fragment">direction and magnitude of flow velocity over complex surface is controled 
-by the surface gradient field $\nabla f$.  
-</ul>
-<p class="fragment"><small> note that the direction of flow is minus $\nabla f$, because gradient vector points upslope</small>
+-->
 </section>
 
 <section>
    <h3>Diffusion: numerical modeling</h3>
+<!--
 <p>
 <ul>
  <li>$- \nabla f$ is a vector in the steepest slope direction (aspect),
@@ -71,10 +141,12 @@ $$ f_x = \tan \beta . \cos \alpha, \qquad f_y = \tan \beta . \sin \alpha$$
 <small>recall that 
 $$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right), \; z = f(x,y)$$
 </small>
+-->
 </section>
 
 <section>
    <h3>Diffusion example</h3>
+<!--
 <p>
 <ul>
   <li class="fragment">D8: $\Delta z_{max}$ in 3x3 window: 
@@ -92,6 +164,7 @@ $$f_x={{(z_{i-1,j-1}-z_{i+1,j-1})+2(z_{i-1,j}-z_{i+1,j})+(z_{i-1,j+1}-z_{i+1,j+1
 $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1})} \over {8\Delta y}}$$
 </small>
 <p> <img height="120" src="img/water_geometry/3x3window_zij.png">
+-->
 </section>
 
 <section>
@@ -211,52 +284,63 @@ a steady water flow that is close to kinematic wave approximation
 <section>
    <h3>Path sampling method: accuracy and properties</h3>
 <p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
-<p>animation
-<img height="360" src="img/water_geometry/accum5K_gr65_feb10b.jpg">
+<p>
+<img height="300" src="img/diffusion_flows/mcsf_steady.gif">
+<img height="300" src="img/diffusion_flows/mcsf3_steady.gif">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy and properties</h3>
+<p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
+<p>
+<img height="360" src="img/diffusion_flows/mcsimwelg.gif">
+</section>
+
+<section>
+   <h3>Multiscale implementation</h3>
+<p>Path sampling enables implementation with multiple resolutions by adjusting
+the weight of the particles
+<p class="fragment">
+<img height="320" src="img/diffusion_flows/mcwc.gif">
+<img height="320" src="img/diffusion_flows/multiscale_hohen.jpg">
 </section>
 
 <section>
    <h3>Implementation and parallelization</h3>
 <p>Simulation of spatialy variable source areas
 <p class="fragment">
-<img height="350" src="img/water_geometry/accum_runoffuni_30m3d.jpg">
-<img height="350" src="img/water_geometry/accum_runoffvar_30m3d.jpg">
+<img height="350" src="img/diffusion_flows/accum_runoffuni_30m3d.jpg">
+<img height="350" src="img/diffusion_flows/accum_runoffvar_30m3d.jpg">
 </section>
 
 <section>
-   <h3>Applications</h3>
+   <h3>Urban flooding</h3>
 <ul>
-<li>What is gradient in flat area? In depressions?
-<li>Many algorithms were developed for routing through flat areas and depressions 
-<li>Hydrological flattening, enforcement, conditioning
-<li>New (and some old) algorithms do not require depression filled DEM
+<li>simplified shallow water flow equation with dynamic input
+<li>coupled with 1D flow (SWWM) through stormwater infrastructure
 </ul>
 <p class="fragment">
-<img height="280" src="img/water_geometry/depressionfill_scheme.png">
+<img height="280" src="img/diffusion_flows/depressionfill_scheme.png">
 </section>
 
 <section>
    <h3>Finite volume solution</h3>
-<ul>
-<li>elevation threshold - bathtub model 
-<li>spread of water from source - friction gradient rather than elevation gradient 
-<li>hydrologically connected surface water level 
-<li>HAND: height above the nearest drainage technique
-<li>interpolation between pre-computed flood levels along the source stream section(FIMAN)
-</ul>
+Dam breach model - full diffusive wave solution with backwater effect
+<!--<p><img height="380" src="img/diffusion_flows/sim3_ortho.gif">-->
 </section>
 
 <section>
    <h3>ADCIRC equations </h3>
 (from the exam)
-<p><img height="450" src="img/geodynamics/lakef1994.gif">
 </section>
 
 <section>
-   <h3>Flooding - lake model</h3>
+   <h3>Visualization</h3>
 <ul>
-<li> Creates hydrologically connected area (lake) from a given point at a given elevation 
-<li> Valid for small flat areas with point source, approximates steady state, uniform flooding
+<li>2D animation over orthophoto
+<li>3D animation: dynamic color map over static elevation surface
+<li>3D animation as dynamic water surface over static elevation surface
+<li>3D animation as dynamic water surface for visual analysis (e.g. steady state)
 </ul>
 <p>
 <img height="280" src="img/water_geometry/floodedarea.jpg">
@@ -265,39 +349,17 @@ a steady water flow that is close to kinematic wave approximation
 </section>
 
 <section>
-   <h3>Flooding - lake model</h3>
+   <h3>Applications</h3>
 <ul>
-<li>Simplified storm surge - series of lake models 
-<li>Neglects time and water mass: worst case scenario
+<li>What is gradient in flat area? In depressions?
+<li>Many algorithms were developed for routing through flat areas and depressions
+<li>Hydrological flattening, enforcement, conditioning
+<li>New (and some old) algorithms do not require depression filled DEM
 </ul>
-<p><img height="430" src="img/intro/hatteras_surge_rlake.gif">
+<p class="fragment">
+<img height="280" src="img/water_geometry/depressionfill_scheme.png">
 </section>
 
-<section>
-   <h3>Flooding - inundation (spread) model </h3>
-<ul>
-<li>Channel has variable elevation: Height Above Nearest Drainage methodology
-<li>Using flow direction, compute raster where each cell is $\Delta z$ between the given cell 
-and the the cell on the stream into which the cell drains.
-</ul>
-<p><img height="320" src="img/water_geometry/heightabovestream.jpg">
-<img height="320" src="img/water_geometry/inundation_5m.jpg">
-</section>
-
-<section>
-   <h3>Flooding - inundation dynamic</h3>
-<a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial">Implemented in mapbox</a>
-</section>
-
-<section>
-   <h3>FIMAN</h3>
-<ul>
-<li>Interpolation between water levels predicted by process based model, limited to areas near stream gauges
-<li>Coupled with real time observations
-</ul>
-<p><img height="330" src="img/intro/FIMAN_swiftcreek_scenario.jpg">
-<p><a href="https://fiman.nc.gov/fiman/#">Flood inundation mapping and alert network</a>
-</section>
 
 
 
