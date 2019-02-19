@@ -36,11 +36,10 @@
 <p>Modeled quantities can be represented by
 <ul>
   <li>fields - continuous distribution (scalar, vector, tensor)
-  <li>particles - discrete distribution
+  <li>particles - discrete sampling of fields
 </ul>
-<p>Transformation between the two representations:
-<p>distributed particles - particle density function - field $f(r)$
-<p>field $f(r)$ - sampling with density $f(r)$ - distr. particles
+<p>Corresponce between the two representations:
+<p>density of particles - field $f(r)$
 </section>
 
 <section>
@@ -69,6 +68,7 @@ by algorithms with polynomial scaling  (eg, can be NP-hard)
  deterministic or a mix of both.
 </section>
 
+<!--
 <section>
    <h3>Diffusion</h3>
 <p>REMOVE THIS SLIDE
@@ -83,6 +83,7 @@ to local change (gradient) of (particle) density (or material concentration?)
 </ul>
 </small>
 </section>
+-->
 
 <section>
    <h3>Diffusion equation</h3>
@@ -91,21 +92,21 @@ to local change (gradient) of (particle) density (or material concentration?)
 <li>
 <ul>
 <li class="fragment">Fick's law in 1D:
-<br><small>flux is a function of density (concentration) gradient, empirical observation</small>
+<br><small>flux $f$ is a function of change in density $n$ (concentration), empirical observation</small>
 <p>
 $$ f(x,t) = -D_0 {\partial n(x,t) \over \partial x}$$ 
 <p>
-<li class="fragment"> Continuity equation, 
-<br><small>mass preservation: change in density at a location =  inflow and outflow of material at this location</small>
+<li class="fragment"> Continuity equation, mass preservation: 
+<br><small>change in density over time at a location =  inflow and outflow of material at this location</small>
 <p>
-$$ {\partial n(x,t) \over \partial t} = {\partial f(x,t) \over \partial x} $$
+$$ {\partial n(x,t) \over \partial t} + {\partial f(x,t) \over \partial x} = 0 $$
 <p>
 <li class="fragment"> Diffusion equation: 
 <br><small>change in density over time at location $x$ is proportional to change in gradient at this location</small>
 <p>
 $$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2} $$
 <li class="fragment">
-<small> $f(x,t)$ is flux, $n(x,t)$ is density, $x$ is location and $t$ is time</small>
+<small> $f(x,t)$ is flux, $n(x,t)$ is density, $x$ is location and $t$ is time, D_0 is diffusion constant</small>
 </ul>
 </ul>
 <!-- see also https://en.wikipedia.org/wiki/Diffusion_equation -->
@@ -115,40 +116,50 @@ $$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^
    <h3>Fundamental solution </h3>
 <ul>
 <li>Given a unit impuls $\delta(x-x_0)=n(x,t=0)$ the fundamental solution of 
-diffusion equation is a Gaussian with $ N(x_0, \sigma^2 = 2D_0t) $ 
+diffusion equation is 
 <p>
 <li>
-$$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2}$$
+$$ n(x,t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-(x-x_0)^2} \over ({4D_0t)}}$$
 <p>
-<li>
-$$ n(x,t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-(x-x_0)^2} \over {4D_0t)}}$$
-<p>
+<li class="fragment"> a Gaussian with $ N(x_0, \sigma^2 = 2D_0t) $
+</ul>
 </section>
 
 <section>
    <h3>Green's function for diffusion</h3>
 <ul>
-<li> Rewrite the diffusion equation using differential operator 
+<p>We can rewrite the diffusion equation using Green's function
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation 
 <p>
 <li>
-$$\left[{\partial \over \partial t} - D_0 {\partial^2 \over \partial x^2} \right] n(x,t) = 0$$
+and where the Green's function for diffusion equation is the fundamental solution
+$$ G_d({\bf r},{\bf r}',\delta t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-({\bf r}-{\bf r}')^2} \over {4D_0t)}}$$
 <p>
-<li>
-$$ n(x,t+ \delta t) = dopln integral$$
-<p>
-<li>
-Green's function for diffusion equation
-$$ G_d(x,x',\delta t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-(x-x_0)^2} \over {4D_0t)}}$$
-<p>
-<li>
-$$D G = I, G=D^{-1}I$$
+</ul>
 <p>
 </section>
 
 <section>
+   <h3>Stochastic method of solution</h3>
+<ul>
+<p>For complex processes which cannot be solved analytically we need numerical solution
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation
+<p>
+<li>
+$${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
+<p>
+</ul>
+</section>
+
+
+<section>
    <h3>Diffusion examples</h3>
 <ul>
-<li>Physics: drop of milk in coffee, heat propagation, QM, SM?
+<li>Physics: drop of milk in coffee, heat propagation, 
 <li>diffusion in geosciences: solid earth, ocean and atmosphere
 <li>some  financial market effects, etc
 <li>your examples
@@ -191,6 +202,7 @@ $$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
 </small>
 </section>
 
+<!--
 <section>
    <h3>Shallow water flow equation</h3>
 <p>hydraulic radius is approximated by flow depth $h({\bf r},t)$ and the unit discharge is given by:
@@ -207,6 +219,7 @@ $${\bf v}({\bf r},t)= {C\over n({\bf r})} h({\bf r},t)^{2/3} |{\bf s_f}({\bf r},
 <li>${\bf s_{f0}}({\bf r})={\bf s_f}({\bf r})/|{\bf s_f}({\bf r})|$
 is the unit vector in the friction slope direction.
 </section>
+-->
 
 <section>
    <h3>SWF numerical methods</h3>
@@ -218,6 +231,7 @@ is the unit vector in the friction slope direction.
 <p>images illustrating approaches
 </section>
 
+<!--
 <section>
    <h3>SWF simplified</h3>
 Solution of continuity and momentum equations for
@@ -233,11 +247,7 @@ a steady water flow that is close to kinematic wave approximation
 <p>sample the source term field simulate action of L-1 on S estimate c from the density
 </section>
 
-<!--add equations later on-->
-<section>
-   <h3>Green's function solution</h3>
-<p>
-</section>
+-->
 
 <section>
    <h3>Green's function solution</h3>
@@ -258,6 +268,7 @@ a steady water flow that is close to kinematic wave approximation
    <h3>Water flow: methods comparison</h3>
 <p>
 <img height="450" src="img/diffusion_flows/gisemflow1hh.gif">
+<p><small>geometry based methods, kinematic wave, approx. diffusion wave</small>
 </section>
 
 <section>
@@ -293,7 +304,7 @@ the weight of the particles
 <section>
    <h3>Spatially variable source</h3>
 <p>Overland flow with spatialy variable source areas
-<p>
+<br>
 <img height="480" src="img/diffusion_flows/water01dsmall.gif">
 </section>
 
@@ -334,6 +345,7 @@ the weight of the particles
 <p><small>see supplemental material for equations and r.damflood manual page for references</small>
 </section>
 
+<!--
 <section>
    <h3>ADCIRC equations </h3>
 (from the exam)
@@ -349,6 +361,7 @@ the weight of the particles
 </ul>
 <p>Couple with hydrograph at the outlet
 </section>
+-->
 
 <section>
    <h3>Visualization</h3>
@@ -366,9 +379,21 @@ the weight of the particles
 
 <section>
    <h3>Applications</h3>
+<p>Surface water 
+<p><img height="400" src="img/diffusion_flows/depth3d_2.jpg">
+</section>
+
+<section>
+   <h3>Applications</h3>
+<p>Surface water 
+<p><img height="400" src="img/diffusion_flows/waterdepth_simwe1m_SWc.jpg">
+</section>
+
+<section>
+   <h3>Applications</h3>
 <ul>
-<li>natural and socio-economic processes 
-<li>generalize the concept - define appropriate gradient field and density 
+<li>natural and socio-economic processes
+<li>generalize the concept - define appropriate gradient field and density
 <li>how does your research relate to diffusion, dispersal, flux and related processes?
 </ul>
 <small>growing cities - inverse of population density or economic opportunity fields
