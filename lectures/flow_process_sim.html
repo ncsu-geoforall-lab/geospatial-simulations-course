@@ -12,9 +12,9 @@
     <h3>Learning objectives</h3>
 <p>
 <ul>
-   <li>diffusion process modeling
-   <li>diffusion equation and its solutions
-   <li>shallow water flow equation
+   <li>duality of particles and fields
+   <li>diffusion
+   <li>shallow water flow 
    <li>numerical methods for solving SWFE
    <li>implementation
    <li>applications
@@ -24,13 +24,10 @@
 <section>
    <h3>Diffusion and flow </h3>
 <p>Foundation of many geospatial models of natural and socioeconomic processes 
-<ul>
-<li class="fragment">diffusion in natural and socio-economic systems
-<li class="fragment">flow in natural and socio-economic systems 
-</ul>
-<p class="fragment">diffusion and flow examples from Tobler to wind in real time
-<img height="250" src="img/intro/apex_dry_white.png">
-<img height="250" src="img/diffusion_flows/Tobler_govfiscal.jpg">
+<p>Relate change in time to change in space
+<p class="fragment">
+<img height="280" src="img/intro/apex_dry_white.png">
+<img height="280" src="img/diffusion_flows/Tobler_govfiscal.jpg">
 <p><small>Images from Laura Pagano and Waldo Tobler presentations</small>
 </section>
 
@@ -43,7 +40,7 @@
 </ul>
 <p>Transformation between the two representations:
 <p>distributed particles - particle density function - field $f(r)$
-<p>field $f(r)$ - sampling with density $f(r)$ - particle representation
+<p>field $f(r)$ - sampling with density $f(r)$ - distr. particles
 </section>
 
 <section>
@@ -53,27 +50,28 @@
   <li>evolution of fields
   <li>evolution of spatially distributed particles
 </ul>
-<p>Path sampling method uses this duality to solve the governing equations
-</section>
-
-<section>
-   <h3>Duality of particles and fields</h3>
 <p>
 <img height="300" src="img/diffusion_flows/fanimwalk.gif">
 <img height="300" src="img/diffusion_flows/fanimhhcolp.gif">
+<p><small>Path sampling method uses this duality to solve the governing equations</small>
 </section>
 
 <section>
-   <h3>Path sampling method</h3>
-<p>Method for solving linear partial differential equations developed in physics, used also in chemistry, finance
-<p> Governing  equation: $L(c) = S$
-<p>S is sources-sinks, c is the modeled quantity, L is the operator e.g.,diffusion+ flow/drift + proliferation/decay
-<p> Solution: $c = L^{-1} (S)$,  $L^{-1}$ is the inverse operator
-<p>sample the source term field simulate action of L-1 on S estimate c from the density
+   <h3>Monte Carlo methods</h3>
+Monte Carlo methods use <b> randomness and statistical estimators</b> 
+to solve a variety of problems:
+<ul>
+  <li class="fragment"> calculations of complicated expressions, eg, multi-variate integrals
+  <li class="fragment"> finding approximate solutions of optimization or other problems that are intractable 
+by algorithms with polynomial scaling  (eg, can be NP-hard)
+  <li class="fragment"> sampling/generating possible scenarios in uncertainty and error propagation studies
+  <li class="fragment"> using stochastic processes to simulate processes that can be stochastic, 
+ deterministic or a mix of both.
 </section>
 
 <section>
    <h3>Diffusion</h3>
+<p>REMOVE THIS SLIDE
 <p>Fick's law + mass conservation law lead to diffusion equation
 <p>Alternatively, random walks densities evolution is used to derive diffusion equation
 <p><small>some definitions
@@ -92,79 +90,69 @@ to local change (gradient) of (particle) density (or material concentration?)
 <ul>
 <li>
 <ul>
-<li class="fragment">Fick's law (flux is a function of density gradient, empirical observation) - in 1D:
+<li class="fragment">Fick's law in 1D:
+<br><small>flux is a function of density (concentration) gradient, empirical observation</small>
 <p>
 $$ f(x,t) = -D_0 {\partial n(x,t) \over \partial x}$$ 
 <p>
-<li class="fragment"> Continuity equation (mass preservation: change in density at any location is equal 
-to the inflow and outflow of particles (material) at this location
+<li class="fragment"> Continuity equation, 
+<br><small>mass preservation: change in density at a location =  inflow and outflow of material at this location</small>
 <p>
-$$ {\partial n(x,t) \over \partial t} + {\partial f(x,t) \over \partial x} = 0 $$
+$$ {\partial n(x,t) \over \partial t} = {\partial f(x,t) \over \partial x} $$
 <p>
-<li class="fragment"> Diffusion equation 
+<li class="fragment"> Diffusion equation: 
+<br><small>change in density over time at location $x$ is proportional to change in gradient at this location</small>
 <p>
 $$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2} $$
+<li class="fragment">
+<small> $f(x,t)$ is flux, $n(x,t)$ is density, $x$ is location and $t$ is time</small>
 </ul>
+</ul>
+<!-- see also https://en.wikipedia.org/wiki/Diffusion_equation -->
+</section>
+
+<section>
+   <h3>Fundamental solution </h3>
+<ul>
+<li>Given a unit impuls $\delta(x-x_0)=n(x,t=0)$ the fundamental solution of 
+diffusion equation is a Gaussian with $ N(x_0, \sigma^2 = 2D_0t) $ 
+<p>
 <li>
-<ul>
-<li>$f(x,t)$ is flux
-<li>$n(x,t)$ is density
-<li>$x$ is location and $t$ is time
-</ul>
-</ul>
-<!--
-see also https://en.wikipedia.org/wiki/Diffusion_equation
-$$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
+$$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2}$$
 <p>
- <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)
- <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$.  
--->
+<li>
+$$ n(x,t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-(x-x_0)^2} \over {4D_0t)}}$$
+<p>
 </section>
 
 <section>
-   <h3>Diffusion: numerical modeling</h3>
-<!--
-<p>
+   <h3>Green's function for diffusion</h3>
 <ul>
- <li>$- \nabla f$ is a vector in the steepest slope direction (aspect),
-  its magnitude is slope steepness (rise over run).
+<li> Rewrite the diffusion equation using differential operator 
 <p>
- <li class="fragment">slope $\beta$ and aspect $\alpha$: 
+<li>
+$$\left[{\partial \over \partial t} - D_0 {\partial^2 \over \partial x^2} \right] n(x,t) = 0$$
 <p>
-$$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2}$$
-$$\alpha^\circ = {\arccos} \left( -f_y \over \sqrt{f_x^2+f_y^2} \right) $$
-<li class="fragment">we can compute gradient using slope and aspect angle 
+<li>
+$$ n(x,t+ \delta t) = dopln integral$$
 <p>
-$$ f_x = \tan \beta . \cos \alpha, \qquad f_y = \tan \beta . \sin \alpha$$
-</ul>
+<li>
+Green's function for diffusion equation
+$$ G_d(x,x',\delta t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-(x-x_0)^2} \over {4D_0t)}}$$
 <p>
-<small>recall that 
-$$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right), \; z = f(x,y)$$
-</small>
--->
+<li>
+$$D G = I, G=D^{-1}I$$
+<p>
 </section>
 
 <section>
-   <h3>Diffusion example</h3>
-<!--
-<p>
+   <h3>Diffusion examples</h3>
 <ul>
-  <li class="fragment">D8: $\Delta z_{max}$ in 3x3 window: 
-  discrete directions 0,45, deg 
-<p>
-  <li class="fragment">Dinf: partial derivatives of a suitable approximation function, such as spline or polynomial
+<li>Physics: drop of milk in coffee, heat propagation, QM, SM?
+<li>diffusion in geosciences: solid earth, ocean and atmosphere
+<li>some  financial market effects, etc
+<li>your examples
 </ul>
-<p class="fragment"> <small>Fitting the polynomial bellow to the 9 grid points of 3x3 window
-using weighted least squares leads to simple equations for estimating $f_x, f_y$:
-<p class="fragment">
-$$z(x,y)=a_0+a_1 x + a_2 y + a_3 xy + a_4 x^2 + a_5 y^2$$
-<p class="fragment">
-$$f_x={{(z_{i-1,j-1}-z_{i+1,j-1})+2(z_{i-1,j}-z_{i+1,j})+(z_{i-1,j+1}-z_{i+1,j+1})} \over {8\Delta x}}$$
-<p class="fragment">
-$$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1})} \over {8\Delta y}}$$
-</small>
-<p> <img height="120" src="img/water_geometry/3x3window_zij.png">
--->
 </section>
 
 <section>
@@ -173,13 +161,13 @@ $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1
 <li>processes modeled by SWF equation: 
 <p>
    <ul>
-   <li class="fragment">overland flow (approx, and full difusive wave) 
+   <li class="fragment">overland flow  
    <li class="fragment">dam breach flooding
    <li class="fragment">storm surge
-   <li class="fragment">sediment and debris flow
    </ul>
-<p class="fragment"> processes modeled by SWF - photos or simulations
-<img height="300" src="img/water_geometry/rflowfigure.jpg">
+<p class="fragment">
+<img height="250" src="img/diffusion_flows/streambufferflood.jpg">
+<img height="250" src="img/diffusion_flows/IM_A0019storm2006Alberto.JPG.jpg">
 </section>
 
 <section>
@@ -228,8 +216,6 @@ is the unit vector in the friction slope direction.
 <li> QMC path sampling 
 </ul>
 <p>images illustrating approaches
-<p><img height="280" src="img/water_geometry/rflowfigure.jpg">
-<img height="280" src="img/water_geometry/flowlines_and_contours.png">
 </section>
 
 <section>
@@ -239,50 +225,49 @@ a steady water flow that is close to kinematic wave approximation
 </section>
 
 <section>
-   <h3>Duality of particles and fields</h3>
-<p>Modeled quantities can be represented by
-<ul>
-  <li>fields - continuous distribution (scalar, vector, tensor) 
-  <li>particles - discrete distribution
-</ul>
-<p>Transformation between the two representations:
-<p>distributed particles - particle density function - field $f(r)$ 
-<p>field $f(r)$ - sampling with density $f(r)$ - particle representation
-</section>
-
-<section>
-   <h3>Duality of particles and fields</h3>
-<p>Process can be modeled as
-<ul>
-  <li>evolution of fields 
-  <li>evolution of spatially distributed particles 
-</ul>
-<p>Path sampling method uses this duality to solve the governing equations
-</section>
-
-<section>
    <h3>Path sampling method</h3>
 <p>Method for solving linear partial differential equations developed in physics, used also in chemistry, finance
 <p> Governing  equation: $L(c) = S$ 
 <p>S is sources-sinks, c is the modeled quantity, L is the operator e.g.,diffusion+ flow/drift + proliferation/decay
 <p> Solution: $c = L^{-1} (S)$,  $L^{-1}$ is the inverse operator
 <p>sample the source term field simulate action of L-1 on S estimate c from the density
-<img height="160" src="img/water_geometry/accum5K_gr65_feb10b.jpg">
 </section>
 
 <!--add equations later on-->
 <section>
    <h3>Green's function solution</h3>
-<p>MFD multiple flow direction partitions flow into two or more downslope directions
 <p>
-<p class="fragment">
-<!--<img height="350" src="img/water_geometry/flowdispersal.jpg">-->
-<img height="360" src="img/water_geometry/accum5K_gr65_feb10b.jpg">
-<img height="360" src="img/water_geometry/accum5K_gr65_mfd.jpg">
 </section>
 
 <section>
-   <h3>Path sampling method: accuracy and properties</h3>
+   <h3>Green's function solution</h3>
+<p>Evolution of the water depth solution
+<p><img height="400" src="img/diffusion_flows/evolfig.jpg">
+</section>
+
+<section>
+   <h3>Evolution of water depth solution</h3>
+<ul>
+<li>Particles show single impulse, water depth shows accumulated depth 
+</ul>
+<p><img height="320" src="img/diffusion_flows/fanimwalk.gif">
+<img height="320" src="img/diffusion_flows/fanimhhcolp.gif">
+</section>
+
+<section>
+   <h3>Water flow: methods comparison</h3>
+<p>
+<img height="450" src="img/diffusion_flows/gisemflow1hh.gif">
+</section>
+
+<section>
+   <h3>Water flow with diffusion term</h3>
+<p>
+<img height="350" src="img/diffusion_flows/gisemhhdifu.gif">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy</h3>
 <p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
 <p>
 <img height="300" src="img/diffusion_flows/mcsf_steady.gif">
@@ -290,10 +275,10 @@ a steady water flow that is close to kinematic wave approximation
 </section>
 
 <section>
-   <h3>Path sampling method: accuracy and properties</h3>
-<p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
+   <h3>Path sampling method: accuracy</h3>
+<p>Error is proportional to $1/\sqrt N$, $N$ is number of particles
 <p>
-<img height="360" src="img/diffusion_flows/mcsimwelg.gif">
+<img height="380" src="img/diffusion_flows/mcsimwelg.gif">
 </section>
 
 <section>
@@ -301,32 +286,52 @@ a steady water flow that is close to kinematic wave approximation
 <p>Path sampling enables implementation with multiple resolutions by adjusting
 the weight of the particles
 <p class="fragment">
-<img height="320" src="img/diffusion_flows/mcwc.gif">
-<img height="320" src="img/diffusion_flows/multiscale_hohen.jpg">
+<img height="350" src="img/diffusion_flows/mcwc.gif">
+<img height="350" src="img/diffusion_flows/multiscale_hohen.jpg">
 </section>
 
 <section>
-   <h3>Implementation and parallelization</h3>
-<p>Simulation of spatialy variable source areas
-<p class="fragment">
-<img height="350" src="img/diffusion_flows/accum_runoffuni_30m3d.jpg">
-<img height="350" src="img/diffusion_flows/accum_runoffvar_30m3d.jpg">
+   <h3>Spatially variable source</h3>
+<p>Overland flow with spatialy variable source areas
+<p>
+<img height="480" src="img/diffusion_flows/water01dsmall.gif">
+</section>
+
+<section>
+   <h3>Spatially variable source</h3>
+<p>Scenarios with spatialy variable source areas
+<p>
+<img height="220" src="img/diffusion_flows/gimlcbf1dcchdcut2.jpg">
+<img height="220" src="img/diffusion_flows/gimwaterchdcut2.jpg">
+<img height="220" src="img/diffusion_flows/gimwaterdcchdcut2.jpg">
+</section>
+
+<section>
+   <h3>Urban flooding: sub-meter resolution</h3>
+<p>Path sampling solution for overland flow with uniform rainfall
+<p>
+<img height="420" src="img/diffusion_flows/water_ortho_lg.png">
+<img height="380" src="img/diffusion_flows/water_stormdrains_zoom.jpg">
 </section>
 
 <section>
    <h3>Urban flooding</h3>
 <ul>
-<li>simplified shallow water flow equation with dynamic input
-<li>coupled with 1D flow (SWWM) through stormwater infrastructure
+<li>Overland flow with dynamic rainfall input
+<li>Optionally coupled with 1D flow thorugh stormwater infrastructure
 </ul>
-<p class="fragment">
-<img height="280" src="img/diffusion_flows/depressionfill_scheme.png">
+<!--<img height="280" src="img/diffusion_flows/hand.gif">-->
+<img height="280" src="img/diffusion_flows/simwe.gif">
+<img height="280" src="img/diffusion_flows/itzi.gif">
+<p><small>example from the assigment</small>
+<p><small>see supplemental material for equations and itzi web page for references</small>
 </section>
 
 <section>
    <h3>Finite volume solution</h3>
-Dam breach model - full diffusive wave solution with backwater effect
-<!--<p><img height="380" src="img/diffusion_flows/sim3_ortho.gif">-->
+<p>Dam breach model - full diffusive wave solution with backwater effect
+<p><img height="400" src="img/diffusion_flows/sim3_ortho_small.gif">
+<p><small>see supplemental material for equations and r.damflood manual page for references</small>
 </section>
 
 <section>
@@ -342,26 +347,32 @@ Dam breach model - full diffusive wave solution with backwater effect
 <li>3D animation as dynamic water surface over static elevation surface
 <li>3D animation as dynamic water surface for visual analysis (e.g. steady state)
 </ul>
+<p>Couple with hydrograph at the outlet
+</section>
+
+<section>
+   <h3>Visualization</h3>
 <p>
-<img height="280" src="img/water_geometry/floodedarea.jpg">
-<img height="280" src="img/water_geometry/lakeflood_swwake_streets.jpg">
-<p><small>water level at 90m asl</small>
+<img height="400" src="img/diffusion_flows/balsamsimwe3d_wsteadystate.jpg">
+<img height="350" src="img/diffusion_flows/water1994.gif">
+</section>
+
+<section>
+   <h3>Visualization</h3>
+<p>Flow depth during and after rainfall
+<p>
+<img height="450" src="img/diffusion_flows/irwinhhanim.gif">
 </section>
 
 <section>
    <h3>Applications</h3>
 <ul>
-<li>What is gradient in flat area? In depressions?
-<li>Many algorithms were developed for routing through flat areas and depressions
-<li>Hydrological flattening, enforcement, conditioning
-<li>New (and some old) algorithms do not require depression filled DEM
+<li>natural and socio-economic processes 
+<li>generalize the concept - define appropriate gradient field and density 
+<li>how does your research relate to diffusion, dispersal, flux and related processes?
 </ul>
-<p class="fragment">
-<img height="280" src="img/water_geometry/depressionfill_scheme.png">
+<small>growing cities - inverse of population density or economic opportunity fields
 </section>
-
-
-
 
 <!--
 <section>
