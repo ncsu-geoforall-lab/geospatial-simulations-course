@@ -1,4 +1,4 @@
-<h2>Surface water: process-based simulation using Itzi</h2>
+<h2>Surface water: process-based simulation using Itzi and SIMWE</h2>
 
 <p>
 Resources:
@@ -19,63 +19,87 @@ instructions for the
 
 
 
-<h3>Install Itzi</h3>
-Follow <a href="https://itzi.readthedocs.io/en/latest/installation.html">
+<h3>Before we start</h3>
+To run Itzi on Linux, follow <a href="https://itzi.readthedocs.io/en/latest/installation.html">
     installation instructions</a>.
-
-<h3>Start GRASS GIS</h3>
-Start GRASS - click on GRASS icon or type<br>
-
+If you are on Windows, we recommend using <a href="https://vcl.ncsu.edu/">VCL - OSGeoLive v12.0</a>
+where we already have GRASS installed. Once logged in, open terminal and run:
 <pre><code>
-grass74
+sudo apt-get install python-dev
+pip install itzi --user
+</code></pre>
+
+To test whether installation was successful, try to run:
+<pre><code>
+itzi run -h
+# alternatively:
+# ~/.local/bin/itzi run -h
 </code></pre>
 
 <p>
-In startup pannel set <b>GRASS GIS Database Directory</b> to path to datasets,
-for example on MS Windows, <code>C:\Users\myname\grassdata</code>.<br>
-For <b>GRASS Location</b> select nc_spm_08_grass7 (North Carolina, State Plane, meters) and
-for <b>GRASS Mapset</b> create a new mapset (called e.g. HW2_data_simulation).<br>
-Click <b>Start GRASS session</b>.
-
-<p>
-Change working directory to where you will keep your external files (such as color ramps, time series layers, etc.):<br>
-<em>Settings</em> > <em>GRASS working environment</em> > <em>Change working directory</em> > select/create any directory<br>
-or type <code>cd</code> (stands for change directory) into the GUI
-<em>Console</em> and hit Enter:
-<pre><code>
-cd
-</code></pre>
-
-<p>
-Now you can use the commands from the assignment requiring external text files
-without the need to specify the full path to the file.
+Start GRASS in nc_spm_08_grass7 Location and create new mapset.
+Go to Settings - GRASS working environment - Change working directory
+and browse to a folder where you will create all the text files we will need.
 
 <h3>Modeling flooding with Itzi</h3>
+We will simulate flood within a watershed derived from an outlet point.
 <pre><code>
+g.region raster=elevation
 r.watershed -s elevation=elevation threshold=1000 accumulation=flowacc stream=streams drainage=drainage
-r.water.outlet input=drainage output=watershed coordinates=637715,218815 --o
+r.water.outlet input=drainage output=watershed coordinates=637715,218815
+</code></pre>
+
+We will limit our computation just to the watershed using mask.
+<pre><code>
 r.mask raster=watershed
 g.region zoom=watershed
 </code></pre>
 
+The default boundary condition is closed boundary, we need to change it
+to let water flow out of our region.
+Create a text file with the outlet point coordinates outlet.txt and save it.
 <pre>
 637715|218815
 </pre>
 
+Import it to create a vector map:
 <pre><code>
-v.in.ascii --overwrite input=outlet.txt output=outlet
+v.in.ascii input=outlet.txt output=outlet
 </code></pre>
 
+And create boundary conditions:
 <pre><code>
 v.to.rast input=outlet type=point output=bctype use=val value=4
-v.to.rast --overwrite input=outlet type=point output=bcvalue use=val value=0
+v.to.rast input=outlet type=point output=bcvalue use=val value=0
 </code></pre>
 
+Create uniform rain:
 <pre><code>
 r.mapcalc expression="rain = 100"
-r.mapcalc expression="friction = 0.05"
 </code></pre>
 
+We also need friction raster (Manning's n value). For that we will
+use landcover raster (<tt>landuse96_28m</tt>) and reclassify it using these rules 
+(e.g. 7:9:0.2 means categories 7 to 9 will become value 0.2).
+Save these rules into a text file friction.txt:
+<pre>
+1:1:0.01
+2:2:0.1
+3:3:0.1
+4:6:0.2
+7:9:0.2
+10:19:0.5
+20:20:0.9
+</pre>
+
+And now run r.recode for reclassification:
+<pre><code>
+r.recode input=landuse96_28m output=friction rules=friction.txt
+</code></pre>
+
+Finally create a configuration file
+(see <a href="https://itzi.readthedocs.io/en/latest/conf_file.html#configuration-file">
+documentation</a> for details):
 <pre>
 [time]
 duration = 02:00:00
@@ -83,26 +107,26 @@ record_step = 00:05:00
 
 [input]
 dem = elevation@PERMANENT
-friction = friction@itzi
-rain = rain@itzi
-bctype = bctype@itzi
-bcval = bcvalue@itzi
+friction = friction
+rain = rain
 
 [output]
-prefix = simulation
-values = h, wse, v, vdir, boundaries
+prefix = itzi
+values = h, wse, v, vdir
 
 [statistics]
 stats_file = stats.csv
 </pre>
 
-
+And run Itzi, providing path to the configuration file.
 <pre><code>
 itzi run itzi_config.txt
 # alternatively:
 # ~/.local/bin/itzi run itzi_config.txt
 </code></pre>
 
+Once the simulation ends, set the color table on the resulting time series of water depth.
+Save these color rules in a text file itzi_color.txt.
 <pre>
 0 240:249:232
 0.3 186:228:188
@@ -110,10 +134,43 @@ itzi run itzi_config.txt
 1 67:162:202
 2 8:104:172
 10 8:104:172
-nv 255:255:255
-default 8:104:172
 </pre>
 
+And set the color:
 <pre><code>
-t.rast.colors input=simulation_h rules=itzi_color.txt
+t.rast.colors input=itzi_h rules=itzi_color.txt
 </code></pre>
+
+Create a 2D or 3D animation of the flooding, explore also other
+<a href="https://itzi.readthedocs.io/en/latest/conf_file.html#output">
+outputs</a> of the simulation and exported file with stats.
+
+<h3>Modeling flooding with SIMWE</h3>
+We will use the same area to model overland water flow with SIMWE (r.sim.water).
+
+<pre><code> 
+r.slope.aspect elevation=elevation dx=dx dy=dy
+r.sim.water -t elevation=elevation dx=dx dy=dy rain_value=100 man=friction depth=simwe niterations=120 output_step=5
+</code></pre>
+
+We will register the output as a space time raster dataset 
+to match the Itzi output and set matching color table:
+<pre><code> 
+t.create output=simwe temporaltype=relative semantictype=mean title="Water depth" description="Water depth from SIMWE"
+g.list type=raster pattern=simwe* output=simwe_list.txt
+t.register file=simwe_list.txt start=300 unit=seconds increment=300
+t.rast.colors input=simwe rules=itzi_color.txt
+</code></pre>
+
+<h3>Modeling flooding with HAND</h3>
+For comparison, we will also compute inundation extent with HAND:
+
+<pre><code> 
+r.watershed -s elevation=elevation threshold=1000 stream=streams drainage=drainage
+r.stream.distance stream_rast=streams direction=drainage elevation=elevation method=downstream difference=hand
+r.lake.series elevation=hand output=hand start_water_level=0 end_water_level=2 water_level_step=0.1 seed_raster=streams time_step=300 time_unit=seconds nproc=4
+t.rast.colors input=hand rules=itzi_color.txt
+</code></pre>
+
+<h3>Compare methods</h3>
+Discuss how these different methods compare? What is the applicability of each method?

@@ -54,8 +54,8 @@ with SFD and MFD options and vector based flowrouting.
 
 <pre><code>
 g.region rural_1m -p
-r.watershed -as elevation=elev_lid792_1m threshold=5000 accumulation=accum_mfd5K drainage=draindir_5K basin=basin_mfd5K
-r.watershed -a elevation=elev_lid792_1m threshold=5000 accumulation=accum_sfd5K drainage=draindir_sfd5K basin=basin_sfd5K
+r.watershed -a elevation=elev_lid792_1m threshold=5000 accumulation=accum_mfd5K drainage=draindir_5K basin=basin_mfd5K
+r.watershed -as elevation=elev_lid792_1m threshold=5000 accumulation=accum_sfd5K drainage=draindir_sfd5K basin=basin_sfd5K
 r.flow elevation=elev_lid792_1m flowline=flowlines flowlength=flowlg_1m flowaccumulation=flowacc_1m
 </code></pre>
 
@@ -63,7 +63,7 @@ r.flow elevation=elev_lid792_1m flowline=flowlines flowlength=flowlg_1m flowaccu
 The example is for the MFD results, do the same for the SFD and Dinf result and visualy compare
 <pre><code>
 r.mapcalc "streams_mfd = if(abs(accum_mfd5K) > 100, 1, null())"
-r.thin streams_mdf output=streams_mfd_t
+r.thin streams_mfd output=streams_mfd_t
 r.to.vect -s streams_mfd_t out=streams_mfd type=line
 d.rast ortho_2001_t792_1m
 d.vect streams_mfd_t
@@ -83,7 +83,7 @@ d.out.file floodedarea
 </code></pre>
 
 <p>
-Increase water level to 113.7m and 114.0m and create flooded
+Increase water level to 113.7 m and 114.0 m and create flooded
 area maps at these two levels.
 
 <h3>Hydrology: Estimating inundation extent using HAND methodology</h3>
