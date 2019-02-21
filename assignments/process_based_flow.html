@@ -29,6 +29,11 @@ sudo apt-get install python-dev
 pip install itzi --user
 </code></pre>
 
+On OSGeoLive v12.0 VCL you will also need to do:
+<pre><code>
+pip install --upgrade --force-reinstall networkx==1.11 --user
+</code></pre>
+
 To test whether installation was successful, try to run:
 <pre><code>
 itzi run -h
@@ -43,7 +48,9 @@ and browse to a folder where you will create all the text files we will need.
 
 <h3>Modeling flooding with Itzi</h3>
 We will simulate flood within a watershed derived from an outlet point.
+We copy first elevation raster from PERMANENT to our current mapset (needed for Itzi).
 <pre><code>
+g.copy raster=elevation,elevation
 g.region raster=elevation
 r.watershed -s elevation=elevation threshold=1000 accumulation=flowacc stream=streams drainage=drainage
 r.water.outlet input=drainage output=watershed coordinates=637715,218815
@@ -78,7 +85,12 @@ Create uniform rain:
 r.mapcalc expression="rain = 100"
 </code></pre>
 
-We also need friction raster (Manning's n value). For that we will
+We also need friction raster (Manning's n value). We can create uniform friction:
+<pre><code>
+r.mapcalc expression="friction = 0.05"
+</code></pre>
+We can also create spatially variable friction based on landcover.
+For that we will
 use landcover raster (<tt>landuse96_28m</tt>) and reclassify it using these rules 
 (e.g. 7:9:0.2 means categories 7 to 9 will become value 0.2).
 Save these rules into a text file friction.txt:
@@ -106,9 +118,11 @@ duration = 02:00:00
 record_step = 00:05:00
 
 [input]
-dem = elevation@PERMANENT
+dem = elevation
 friction = friction
 rain = rain
+bctype = bctype
+bcval = bcvalue
 
 [output]
 prefix = itzi
