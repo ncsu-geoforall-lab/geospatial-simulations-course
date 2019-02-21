@@ -8,7 +8,6 @@ Created on Sun Dec 20 22:39:00 2015
 import numpy as np
 import grass.script as gscript
 from grass.script import array as garray
-import matplotlib.pyplot as plt
 
 
 def main(elevation, dxn, dyn):
