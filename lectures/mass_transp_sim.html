@@ -1,0 +1,411 @@
+<section>
+    <h2><b>Process-based mass transport simulation</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+   <li>modeling flow / transport with sources and sinks
+   <li>reduced complexity models
+   <li>numerical methods for PDE models
+   <li>implementation
+   <li>applications
+</ul>
+</section>
+
+<section>
+   <h3>Mass transport processes </h3>
+<ul>
+<li>transport by water
+  <ul>
+   <li class="fragment">sediment transport and erosion / deposition 
+   <li class="fragment">pollutant transport
+  </ul>
+<li>transport by wind
+  <ul>
+   <li class="fragment">sand and dust
+   <li class="fragment">air pollutants, aerosols
+  </ul>
+<li>transport by gravitation
+  <ul>
+   <li class="fragment">landslides and debris flows
+   <li class="fragment">avalanches
+ </ul>
+</ul>
+<p class="fragment">
+<img height="200" src="img/intro/apex_dry_white.png">
+<img height="200" src="img/intro/erosion_landuse.jpg">
+<p><small>Images from Laura Pagano and Waldo Tobler presentations</small>
+</section>
+
+<section>
+   <h3>Modeling diffusion, flow, transport</h3>
+<p>
+<ul>
+<li class="fragment"> Diffusion equation: 
+<br><small>change in density over time at location $x$ is proportional to change in gradient at this location</small>
+<p>
+$$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2} $$
+<li>
+<small> $f(x,t)$ is flux, $n(x,t)$ is density, $x$ is location and $t$ is time, D_0 is diffusion constant</small>
+<li>continuity equation, diffusion with drift
+<li>diffusion with drift = source
+<li>diffusion with drift, proliferation and decay = sources and sinks
+</ul>
+</section>
+
+<section>
+   <h3>Fundamental solution </h3>
+<ul>
+<li>Given a unit impuls $\delta(x-x_0)=n(x,t=0)$ the fundamental solution of 
+diffusion equation is 
+<p>
+<li>
+$$ n(x,t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-(x-x_0)^2} \over ({4D_0t)}}$$
+<p>
+<li> a Gaussian with $ N(x_0, \sigma^2 = 2D_0t) $
+<li>solutions for the rest require numerical approach, but special cases have explicit solutions
+</ul>
+</section>
+
+<section>
+   <h3>Green's function, path sampling solutions </h3>
+<ul>
+<p>We can rewrite the diffusion equation using Green's function
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation 
+<p>
+<li>
+and where the Green's function for diffusion equation is the fundamental solution
+$$ G_d({\bf r},{\bf r}',\delta t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-({\bf r}-{\bf r}')^2} \over {4D_0t)}}$$
+<p>
+<li>
+</ul>
+<p>
+</section>
+
+<section>
+   <h3>Stochastic method of solution</h3>
+<ul>
+<p>For complex processes which cannot be solved analytically we need numerical solution
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation
+<p>
+<li>
+$${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
+<p>
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion examples</h3>
+<ul>
+<li>Physics: drop of milk in coffee, heat propagation,
+<li>diffusion in geosciences: solid earth, ocean and atmosphere
+<li>some  financial market effects, etc
+<li>your examples
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion with drift</h3>
+<p>
+<ul>
+<li>This describes diffusion in a medium which {\it drifts} with
+constant velocity ${\bf v}_0$.  GF:
+$$
+G_d(...)={1 \over (4\pi t)^{3/2}} 
+e^{- |{\bf r}-{\bf r}'-{\bf v}_0t|^2/4t}
+$$
+<li>Of course, this process can be also simulated by sampling.  The walk will propagate as
+$$
+{\bf r}^{(i)}(t+\tau)={\bf r}^{(i)}(t)+{\bf v}_0\tau + \vec\eta^{(i)}
+$$
+<li>where ...
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion with drift and proliferation / decay</h3>
+<p><small>
+<ul>
+<li>Inclusion of a constant proliferation/decay term $U_0$:
+$$
+[\partial n({\bf r},t) /\partial t - \nabla_{\bf r}^2n({\bf r},t)
++\nabla\cdot(n({\bf r},t){\bf v}_0) +U_0 n({\bf r},t)]=0
+$$
+<li>Disregard for a moment the diffusion and drift terms so that the equation simplifies to
+$$
+{\partial  n({\bf r},t)) \over \partial t} = -U_0n({\bf r},t)
+$$
+<li>This reminds us of a rate process, for which we have
+ $n({\bf r},t)\propto \exp(-U_0t)$. Enlightened by this insight we can write
+$$
+G({\bf r},{\bf r}',t)= e^{-U_0t}G_d(...)
+$$
+<li>How could this be captured by the sampling process ? We need to
+introduce the walker {\it weight} which records how much of it has survived 
+or how much it has gained in time.  The walker weight will evolve as
+$$
+w^{(i)}(t+\tau)=w^{(i)}(t)e^{-\tau U_0} 
+$$
+<li>Note that this is multiplicative as it is in GF and assuming
+positive $U_0$, the walks diminish exponentially quickly in time and 
+the solution will be given by
+$$
+n({\bf r},t)={\rm distr}
+[\{
+w^{(i)}(t)\delta({\bf r}-{\bf r}^{(i)}(t))
+\}_{i=1}^{M_{walk}}]+\epsilon_{stat}
+$$
+</ul>
+</small>
+</section>
+
+<section>
+   <h3>Shallow water flow equation</h3>
+<p>
+<small>
+bivariate form of the St Venant equation
+<p>
+ $$ {\partial h({\bf r},t) \over \partial t} + \nabla \cdot {\bf v}({\bf r},t) h({\bf r},t) = i_e({\bf r},t)$$
+<p>hydraulic radius is approximated by flow depth $h({\bf r},t)$ and the unit discharge is given by:
+<p>where the flow velocity is given by the Manning's relation  
+$${\bf v}({\bf r},t)= {C\over n({\bf r})} h({\bf r},t)^{2/3} |{\bf s_f}({\bf r},t)|^{1/2} {\bf s_{f0}({\bf r},t)}$$
+</small>
+<small>
+<ul>
+ <li>${\bf r}=(x,y)$ [m] is the position,
+ <li>$t$ [s] is the time,
+ <li>$h({\bf r},t)$ [m] is the depth of overland flow,
+ <li>$i_e({\bf r},t)$ [m/s] is the rainfall excess = (rainfall $-$ infiltration $-$ vegetation intercept) [m/s],
+<!-- <li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width,-->
+ <li>${\bf v}({\bf r},t)$  [m/s] is the flow velocity.
+<li>$n({\bf r}) $ is the dimensionless Manning's coefficient,
+<li>C=1 [$m^{1/3}/s$] is the corresponding dimension constant
+<li>${\bf s_{f0}}({\bf r})={\bf s_f}({\bf r})/|{\bf s_f}({\bf r})|$ is the unit vector in the friction slope direction.
+</ul>
+</small>
+</section>
+
+<section>
+   <h3>Shallow water flow equation</h3>
+<p>momentum conservation in the diffusion wave approximation: 
+$$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
+<ul>
+ <li>and ${\bf s_f}({\bf r},t)$ is the negative gradient of overland flow surface (friction slope).
+ <li>${\bf s}({\bf r})= - \nabla z({\bf r})$ is the negative elevation gradient,
+ <li>$z({\bf r})$ [m] is the elevation,
+</ul>
+</section>
+
+<section>
+   <h3>SWF numerical methods</h3>
+<ul>
+<li>finite difference, finite element
+<li> finite volume
+<li> QMC path sampling 
+</ul>
+<p>images illustrating approaches
+</section>
+
+<section>
+   <h3>SWF simplified</h3>
+Solution of continuity and momentum equations for
+a steady water flow that is close to kinematic wave approximation
+<p>
+$$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
+<p>approximate diffusive wave effects $ \propto \nabla^2 [h^{5/3}({\bf r})]$ :
+$$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
+</section>
+
+<section>
+   <h3>Path sampling method</h3>
+<p>Method for solving linear partial differential equations developed in physics, used also in chemistry, finance
+<p> Governing  equation: $L(c) = S$ 
+<p>S is sources-sinks, c is the modeled quantity, L is the operator e.g.,diffusion+ flow/drift + proliferation/decay
+<p> Solution: $c = L^{-1} (S)$,  $L^{-1}$ is the inverse operator
+<p>sample the source term field simulate action of L-1 on S estimate c from the density
+</section>
+
+
+<section>
+   <h3>Green's function solution</h3>
+<p>Evolution of the water depth solution
+<p><img height="400" src="img/diffusion_flows/evolfig.jpg">
+</section>
+
+<section>
+   <h3>Evolution of water depth solution</h3>
+<ul>
+<li>Particles show single impulse, water depth shows accumulated depth 
+</ul>
+<p><img height="320" src="img/diffusion_flows/fanimwalk.gif">
+<img height="320" src="img/diffusion_flows/fanimhhcolp.gif">
+</section>
+
+<section>
+   <h3>Water flow: methods comparison</h3>
+<p>
+<img height="450" src="img/diffusion_flows/gisemflow1hh.gif">
+<p><small>geometry based methods, kinematic wave, approx. diffusion wave</small>
+</section>
+
+<section>
+   <h3>Water flow with diffusion term</h3>
+<p>
+<img height="350" src="img/diffusion_flows/gisemhhdifu.gif">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy</h3>
+<p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
+<p>
+<img height="300" src="img/diffusion_flows/mcsf_steady.gif">
+<img height="300" src="img/diffusion_flows/mcsf3_steady.gif">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy</h3>
+<p>Error is proportional to $1/\sqrt N$, $N$ is number of particles
+<p>
+<img height="380" src="img/diffusion_flows/mcsimwelg.gif">
+</section>
+
+<section>
+   <h3>Multiscale implementation</h3>
+<p>Path sampling enables implementation with multiple resolutions by adjusting
+the weight of the particles
+<p class="fragment">
+<img height="350" src="img/diffusion_flows/mcwc.gif">
+<img height="350" src="img/diffusion_flows/multiscale_hohen.jpg">
+</section>
+
+<section>
+   <h3>Spatially variable source</h3>
+<p>Overland flow with spatialy variable source areas
+<br>
+<img height="480" src="img/diffusion_flows/water01dsmall.gif">
+</section>
+
+<section>
+   <h3>Spatially variable source</h3>
+<p>Scenarios with spatialy variable source areas
+<p>
+<img height="220" src="img/diffusion_flows/gimlcbf1dcchdcut2.jpg">
+<img height="220" src="img/diffusion_flows/gimwaterchdcut2.jpg">
+<img height="220" src="img/diffusion_flows/gimwaterdcchdcut2.jpg">
+</section>
+
+<section>
+   <h3>Urban flooding: sub-meter resolution</h3>
+<p>Path sampling solution for overland flow with uniform rainfall
+<p>
+<img height="420" src="img/diffusion_flows/water_ortho_lg.png">
+<img height="380" src="img/diffusion_flows/water_stormdrains_zoom.jpg">
+</section>
+
+<section>
+   <h3>Urban flooding</h3>
+<ul>
+<li>Overland flow with dynamic rainfall input
+<li>Optionally coupled with 1D flow thorugh stormwater infrastructure
+</ul>
+<!--<img height="280" src="img/diffusion_flows/hand.gif">-->
+<img height="280" src="img/diffusion_flows/simwe.gif">
+<img height="280" src="img/diffusion_flows/itzi.gif">
+<p><small>example from the assigment</small>
+<p><small>see supplemental material for equations and itzi web page for references</small>
+</section>
+
+<section>
+   <h3>Finite volume solution</h3>
+<p>Dam breach model - full diffusive wave solution with backwater effect
+<p><img height="400" src="img/diffusion_flows/sim3_ortho_small.gif">
+<p><small>see supplemental material for equations and r.damflood manual page for references</small>
+</section>
+
+<!--
+<section>
+   <h3>ADCIRC equations </h3>
+(from the exam)
+</section>
+
+<section>
+   <h3>Visualization</h3>
+<ul>
+<li>2D animation over orthophoto
+<li>3D animation: dynamic color map over static elevation surface
+<li>3D animation as dynamic water surface over static elevation surface
+<li>3D animation as dynamic water surface for visual analysis (e.g. steady state)
+</ul>
+<p>Couple with hydrograph at the outlet
+</section>
+-->
+
+<section>
+   <h3>Visualization</h3>
+<p>
+<img height="400" src="img/diffusion_flows/balsamsimwe3d_wsteadystate.jpg">
+<img height="350" src="img/diffusion_flows/water1994.gif">
+</section>
+
+<section>
+   <h3>Visualization</h3>
+<p>Flow depth during and after rainfall
+<p>
+<img height="450" src="img/diffusion_flows/irwinhhanim.gif">
+</section>
+
+<section>
+   <h3>Applications</h3>
+<p>Surface water 
+<p><img height="400" src="img/diffusion_flows/depth3d_2.jpg">
+</section>
+
+<section>
+   <h3>Applications</h3>
+<p>Surface water 
+<p><img height="400" src="img/diffusion_flows/waterdepth_simwe1m_SWc.jpg">
+</section>
+
+<section>
+   <h3>Applications</h3>
+<ul>
+<li>natural and socio-economic processes
+<li>generalize the concept - define appropriate gradient field and density
+<li>how does your research relate to diffusion, dispersal, flux and related processes?
+</ul>
+<small>growing cities - inverse of population density or economic opportunity fields
+</section>
+
+<!--
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we have defined types of models
+</ul>
+</section>
+
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+
+<div class="parent-page">
+    <!-- &#x1f3e0; -->
+    <a href="http://ncsu-geoforall-lab.github.io/geospatial-simulations-course/" title="Go to the course page">&#8962;</a>
+</div>
+
+
+
