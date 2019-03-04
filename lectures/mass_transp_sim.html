@@ -9,6 +9,17 @@
 </section>
 
 <section>
+    <h3>Moving the course </h3>
+<p>
+<ul>
+   <li>5103 Tu,Th 3pm - 4:15pm (conflict with geoforum everyother thursday)
+   <li>5103 Tu,Th 8:45 - 10am 
+   <li>3214 Tu,Th 10:25 - 11:45 (GRASS needs to be installed)
+   <li>2115 Tu 1:30 - 2:45, Th 10:25 - 11:45? (GRASS needs to be installed)
+</ul>
+</section>
+
+<section>
     <h3>Learning objectives</h3>
 <p>
 <ul>
@@ -21,44 +32,91 @@
 </section>
 
 <section>
-   <h3>Mass transport processes </h3>
+   <h3>Modeling diffusion, flow, transport</h3>
+<p>
 <ul>
-<li>transport by water
+<li class="fragment">natural systems: geosphere, biosphere, atmosphere
+<li class="fragment">socio-economic systems: people, materials, trade
+<li class="fragment">coupled natural and socio-economic systems
+</ul>
+</section>
+
+<section>
+   <h3>Transport by water</h3>
   <ul>
-   <li class="fragment">sediment transport and erosion / deposition 
+  <p>
+   <li class="fragment">sediment transport and erosion / deposition
    <li class="fragment">pollutant transport
+   <li class="fragment">coastal evolution: waves, currents and storm surge
   </ul>
-<li>transport by wind
+</section>
+
+<section>
+   <h3>Transport by wind</h3>
   <ul>
-   <li class="fragment">sand and dust
+  <p>
+   <li class="fragment">sand and dust, dune migration
    <li class="fragment">air pollutants, aerosols
+   <li class="fragment">pathogens, pollen
   </ul>
-<li>transport by gravitation
+</ul>
+</section>
+
+<section>
+   <h3>Transport by gravitation</h3>
   <ul>
+  <p>
    <li class="fragment">landslides and debris flows
    <li class="fragment">avalanches
+   <li class="fragment">glaciers
  </ul>
 </ul>
-<p class="fragment">
-<img height="200" src="img/intro/apex_dry_white.png">
-<img height="200" src="img/intro/erosion_landuse.jpg">
-<p><small>Images from Laura Pagano and Waldo Tobler presentations</small>
+</section>
+
+<section>
+   <h3>Motivation for simulations </h3>
+  <ul>
+  <p>
+<li class="fragment">pollution prevention, control, and mitigation
+<li class="fragment">design of conservation measures
+<li class="fragment">hazards prevention, response, management
+<li class="fragment">sustainable land management
+</ul>
 </section>
 
 <section>
    <h3>Modeling diffusion, flow, transport</h3>
 <p>
 <ul>
-<li class="fragment"> Diffusion equation: 
-<br><small>change in density over time at location $x$ is proportional to change in gradient at this location</small>
+<li class="fragment">diffusion with source
+<li class="fragment">diffusion with drift and source
+<li class="fragment">diffusion with drift, proliferation and decay = sources and sinks
+</ul>
+<p>
+Discuss how these processes relate to computing and simulations in your projects
+</section>
+
+<section>
+   <h3>Modeling diffusion, flow, transport</h3>
+<p>
+<ul>
+<li> Recall diffusion equation: 
+<br><small>change in density over time at location $x$ is proportional to change in gradient at this location
 <p>
 $$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2} $$
 <li>
-<small> $f(x,t)$ is flux, $n(x,t)$ is density, $x$ is location and $t$ is time, D_0 is diffusion constant</small>
-<li>continuity equation, diffusion with drift
-<li>diffusion with drift = source
-<li>diffusion with drift, proliferation and decay = sources and sinks
+$n(x,t)$ is density, $x$ is location and $t$ is time, D_0 is diffusion constant</small>
 </ul>
+<ul>
+<!-- change x to bold r=(x,y)-->
+<li class="fragment"> Diffusion in geomorphology: long-term landscape evolution
+<br><small>change in elevation over time at $x$ is proportional to change in gradient at $x$
+<p>
+$$ {\partial z(x,t) \over \partial t} = U - \kappa \nabla q_s(x,t) = U - \kappa {\partial^2 z(x,t) \over \partial x^2} $$
+<li>
+$q_s(x,t)$ = \kappa \nabla$ is flux, $z(x,t)$ is elevation, $x$ is location and $t$ is time, \kappa is diffusion constant</small>
+</ul>
+<p>What is second order derivative of elevation field?
 </section>
 
 <section>
@@ -103,16 +161,6 @@ $$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
 <li>
 $${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
 <p>
-</ul>
-</section>
-
-<section>
-   <h3>Diffusion examples</h3>
-<ul>
-<li>Physics: drop of milk in coffee, heat propagation,
-<li>diffusion in geosciences: solid earth, ocean and atmosphere
-<li>some  financial market effects, etc
-<li>your examples
 </ul>
 </section>
 
@@ -171,6 +219,7 @@ $$
 </small>
 </section>
 
+<!--
 <section>
    <h3>Shallow water flow equation</h3>
 <p>
@@ -188,7 +237,7 @@ $${\bf v}({\bf r},t)= {C\over n({\bf r})} h({\bf r},t)^{2/3} |{\bf s_f}({\bf r},
  <li>$t$ [s] is the time,
  <li>$h({\bf r},t)$ [m] is the depth of overland flow,
  <li>$i_e({\bf r},t)$ [m/s] is the rainfall excess = (rainfall $-$ infiltration $-$ vegetation intercept) [m/s],
-<!-- <li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width,-->
+<li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width
  <li>${\bf v}({\bf r},t)$  [m/s] is the flow velocity.
 <li>$n({\bf r}) $ is the dimensionless Manning's coefficient,
 <li>C=1 [$m^{1/3}/s$] is the corresponding dimension constant
@@ -207,50 +256,19 @@ $$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
  <li>$z({\bf r})$ [m] is the elevation,
 </ul>
 </section>
+-->
+
 
 <section>
-   <h3>SWF numerical methods</h3>
-<ul>
-<li>finite difference, finite element
-<li> finite volume
-<li> QMC path sampling 
-</ul>
-<p>images illustrating approaches
-</section>
-
-<section>
-   <h3>SWF simplified</h3>
+   <h3>Reduced complexity models</h3>
 Solution of continuity and momentum equations for
 a steady water flow that is close to kinematic wave approximation
 <p>
 $$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
-<p>approximate diffusive wave effects $ \propto \nabla^2 [h^{5/3}({\bf r})]$ :
-$$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
-</section>
-
-<section>
-   <h3>Path sampling method</h3>
-<p>Method for solving linear partial differential equations developed in physics, used also in chemistry, finance
-<p> Governing  equation: $L(c) = S$ 
-<p>S is sources-sinks, c is the modeled quantity, L is the operator e.g.,diffusion+ flow/drift + proliferation/decay
-<p> Solution: $c = L^{-1} (S)$,  $L^{-1}$ is the inverse operator
-<p>sample the source term field simulate action of L-1 on S estimate c from the density
-</section>
-
-
-<section>
-   <h3>Green's function solution</h3>
-<p>Evolution of the water depth solution
-<p><img height="400" src="img/diffusion_flows/evolfig.jpg">
-</section>
-
-<section>
-   <h3>Evolution of water depth solution</h3>
-<ul>
-<li>Particles show single impulse, water depth shows accumulated depth 
-</ul>
-<p><img height="320" src="img/diffusion_flows/fanimwalk.gif">
-<img height="320" src="img/diffusion_flows/fanimhhcolp.gif">
+<p>
+explicit solution
+$$ q = c.A $$
+where A is contributing area
 </section>
 
 <section>
@@ -261,109 +279,18 @@ $$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({
 </section>
 
 <section>
-   <h3>Water flow with diffusion term</h3>
-<p>
-<img height="350" src="img/diffusion_flows/gisemhhdifu.gif">
-</section>
-
-<section>
-   <h3>Path sampling method: accuracy</h3>
-<p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
-<p>
-<img height="300" src="img/diffusion_flows/mcsf_steady.gif">
-<img height="300" src="img/diffusion_flows/mcsf3_steady.gif">
-</section>
-
-<section>
    <h3>Path sampling method: accuracy</h3>
 <p>Error is proportional to $1/\sqrt N$, $N$ is number of particles
 <p>
 <img height="380" src="img/diffusion_flows/mcsimwelg.gif">
 </section>
 
-<section>
-   <h3>Multiscale implementation</h3>
-<p>Path sampling enables implementation with multiple resolutions by adjusting
-the weight of the particles
-<p class="fragment">
-<img height="350" src="img/diffusion_flows/mcwc.gif">
-<img height="350" src="img/diffusion_flows/multiscale_hohen.jpg">
-</section>
-
-<section>
-   <h3>Spatially variable source</h3>
-<p>Overland flow with spatialy variable source areas
-<br>
-<img height="480" src="img/diffusion_flows/water01dsmall.gif">
-</section>
-
-<section>
-   <h3>Spatially variable source</h3>
-<p>Scenarios with spatialy variable source areas
-<p>
-<img height="220" src="img/diffusion_flows/gimlcbf1dcchdcut2.jpg">
-<img height="220" src="img/diffusion_flows/gimwaterchdcut2.jpg">
-<img height="220" src="img/diffusion_flows/gimwaterdcchdcut2.jpg">
-</section>
-
-<section>
-   <h3>Urban flooding: sub-meter resolution</h3>
-<p>Path sampling solution for overland flow with uniform rainfall
-<p>
-<img height="420" src="img/diffusion_flows/water_ortho_lg.png">
-<img height="380" src="img/diffusion_flows/water_stormdrains_zoom.jpg">
-</section>
-
-<section>
-   <h3>Urban flooding</h3>
-<ul>
-<li>Overland flow with dynamic rainfall input
-<li>Optionally coupled with 1D flow thorugh stormwater infrastructure
-</ul>
-<!--<img height="280" src="img/diffusion_flows/hand.gif">-->
-<img height="280" src="img/diffusion_flows/simwe.gif">
-<img height="280" src="img/diffusion_flows/itzi.gif">
-<p><small>example from the assigment</small>
-<p><small>see supplemental material for equations and itzi web page for references</small>
-</section>
-
-<section>
-   <h3>Finite volume solution</h3>
-<p>Dam breach model - full diffusive wave solution with backwater effect
-<p><img height="400" src="img/diffusion_flows/sim3_ortho_small.gif">
-<p><small>see supplemental material for equations and r.damflood manual page for references</small>
-</section>
-
-<!--
-<section>
-   <h3>ADCIRC equations </h3>
-(from the exam)
-</section>
-
-<section>
-   <h3>Visualization</h3>
-<ul>
-<li>2D animation over orthophoto
-<li>3D animation: dynamic color map over static elevation surface
-<li>3D animation as dynamic water surface over static elevation surface
-<li>3D animation as dynamic water surface for visual analysis (e.g. steady state)
-</ul>
-<p>Couple with hydrograph at the outlet
-</section>
--->
 
 <section>
    <h3>Visualization</h3>
 <p>
 <img height="400" src="img/diffusion_flows/balsamsimwe3d_wsteadystate.jpg">
 <img height="350" src="img/diffusion_flows/water1994.gif">
-</section>
-
-<section>
-   <h3>Visualization</h3>
-<p>Flow depth during and after rainfall
-<p>
-<img height="450" src="img/diffusion_flows/irwinhhanim.gif">
 </section>
 
 <section>
@@ -385,7 +312,7 @@ the weight of the particles
 <li>generalize the concept - define appropriate gradient field and density
 <li>how does your research relate to diffusion, dispersal, flux and related processes?
 </ul>
-<small>growing cities - inverse of population density or economic opportunity fields
+<small>Example: growing cities - inverse of population density or economic opportunity fields
 </section>
 
 <!--
