@@ -123,7 +123,7 @@ $n(x,t)$ is density, $x$ is location and $t$ is time, $D_0$ is diffusion constan
 <p>
 $$ {\partial z(x,t) \over \partial t} = U - \kappa \nabla q_s(x,t) = U - \kappa {\partial^2 z(x,t) \over \partial x^2} $$
 <li>
-$q_s(x,t) = \kappa \nabla$ is flux, $z(x,t)$ is elevation, $x$ is location and $t$ is time, $\kappa$ is a diffusion constant</small>
+$q_s(x,t) = \kappa \nabla z(x,t)$ is flux, $z(x,t)$ is elevation, $x$ is location and $t$ is time, $\kappa$ is a diffusion constant</small>
 </ul>
 <p class="fragment"><small>What is second order derivative of elevation field?</small>
 <p class="fragment"><small>Explore the model in <b>landlab</b></small>
@@ -168,11 +168,14 @@ $$ G_d({\bf r},{\bf r}',\tau) = {1 \over \sqrt{4\pi D_0 \tau}} e^{{-|{\bf r}-{\b
 <ul>
 <li>Diffusion in a medium which drifts with a
 constant velocity ${\bf v}_0$. Green's function is then: 
+<p>
 $$
 G_d(...)={1 \over (4\pi t)^{3/2}} 
 e^{- |{\bf r}-{\bf r}'-{\bf v}_0t|^2/4t}
 $$
+<p>
 <li>and the walk will propagate as
+<p>
 $$
 {\bf r}^{(i)}(t+\tau)={\bf r}^{(i)}(t)+{\bf v}_0\tau + \vec\eta^{(i)}
 $$
@@ -417,8 +420,9 @@ USPED model
 </section>
 
 <section>
-   <h3>Applications</h3>
-<p><img height="400" src="img/masstransport/pattersonsedimentflux.jpg">
+   <h3>Coupled models</h3>
+<p>Climate, landscape evolution, and settlements:
+<p><img height="350" src="img/masstransport/fig18_mml_rev.jpg">
 </section>
 
 <section>
