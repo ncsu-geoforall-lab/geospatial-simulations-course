@@ -68,6 +68,17 @@ by algorithms with polynomial scaling  (eg, can be NP-hard)
  deterministic or a mix of both.
 </section>
 
+<section>
+   <h3>Monte Carlo methods: random walks</h3>
+<p>Walkers move in random directions
+<p>Markov Chain Models (MCM):
+<ul>
+  <li class="fragment">Brownian motion (molecules in air, pollen in fluid)
+  <li class="fragment">Heat conduction
+  <li class="fragment">Stock prices
+  <li class="fragment">Diffusion
+</section>
+
 <!--
 <section>
    <h3>Diffusion</h3>
@@ -135,7 +146,7 @@ $$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
 <p>
 <li>
 and where the Green's function for diffusion equation is the fundamental solution
-$$ G_d({\bf r},{\bf r}',\delta t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-({\bf r}-{\bf r}')^2} \over {4D_0t)}}$$
+$$ G_d({\bf r},{\bf r}', \tau) = {1 \over \sqrt{4\pi D_0 \tau}} e^{{-|{\bf r}-{\bf r}'|^2} \over {4D_0\tau}}$$
 <p>
 </ul>
 <p>
@@ -151,6 +162,8 @@ $$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
 <p>
 <li>
 $${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
+<li>
+where $\eta \elem N(0, \sigma^2 = 2D_0\tau)$
 <p>
 </ul>
 </section>
@@ -159,10 +172,15 @@ $${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
    <h3>Diffusion examples</h3>
 <ul>
 <li>Physics: drop of milk in coffee, heat propagation,
-<li>diffusion in geosciences: solid earth, ocean and atmosphere
-<li>some  financial market effects, etc
+<li>Diffusion in geosciences: diffusive hillslope evolution, 
+<li>some  financial market effects, 
 <li>your examples
 </ul>
+</section>
+
+<section>
+   <h3>Diffusion with drift</h3>
+<p>see written notes
 </section>
 
 <section>

@@ -12,11 +12,16 @@
     <h3>Moving the course </h3>
 <p>
 <ul>
-   <li>5103 Tu,Th 3pm - 4:15pm (conflict with geoforum everyother thursday)
+   <li>5103 Tu,Th 3pm - 4:15pm (conflict with geoforum)
    <li>5103 Tu,Th 8:45 - 10am 
    <li>3214 Tu,Th 10:25 - 11:45 (GRASS needs to be installed)
-   <li>2115 Tu 1:30 - 2:45, Th 10:25 - 11:45? (GRASS needs to be installed)
+   <li>2115 Tu 1:30 - 2:45, Th 10:25 - 11:45? (needs GRASS)
 </ul>
+Other agenda
+<ul>
+   <li>HW grades posted, explain differences in flow acumulation at a given point
+   <li>testing in Hunt April 11
+   <li>Project titles on moodle wiki: correct if needed, add methods and links to a google site and/or github
 </section>
 
 <section>
@@ -49,6 +54,10 @@
    <li class="fragment">pollutant transport
    <li class="fragment">coastal evolution: waves, currents and storm surge
   </ul>
+<p class="fragment">
+<img height="200" src="img/masstransport/8-8-03Ditch.jpg">
+<img height="200" src="img/masstransport/Gully.1.jpg">
+<img height="200" src="img/masstransport/bankerosion.jpg">
 </section>
 
 <section>
@@ -85,15 +94,17 @@
 </section>
 
 <section>
-   <h3>Modeling diffusion, flow, transport</h3>
+   <h3>Diffusion, flow, and transport</h3>
 <p>
 <ul>
+<li>diffusion: <small>change of density over time is proportional to change in gradient at a given location</small>
 <li class="fragment">diffusion with source
-<li class="fragment">diffusion with drift and source
-<li class="fragment">diffusion with drift, proliferation and decay = sources and sinks
+<li class="fragment">diffusion with drift: diffusion in medium moving by velocity ${\bf v}$ 
+<li class="fragment">diffusion with drift and source 
+<li class="fragment">diffusion with drift, proliferation and decay
 </ul>
 <p>
-Discuss how these processes relate to computing and simulations in your projects
+<small>Discuss how these processes relate to computing and simulations in your projects</small>
 </section>
 
 <section>
@@ -105,34 +116,20 @@ Discuss how these processes relate to computing and simulations in your projects
 <p>
 $$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2} $$
 <li>
-$n(x,t)$ is density, $x$ is location and $t$ is time, D_0 is diffusion constant</small>
-</ul>
-<ul>
+$n(x,t)$ is density, $x$ is location and $t$ is time, $D_0$ is diffusion constant</small>
 <!-- change x to bold r=(x,y)-->
-<li class="fragment"> Diffusion in geomorphology: long-term landscape evolution
-<br><small>change in elevation over time at $x$ is proportional to change in gradient at $x$
+<li class="fragment">Hillslope evolution with uplift: diffusion with source
+<br><small>change in elevation over time at $x$ is proportional to change in gradient at $x$ and uplift $U$
 <p>
 $$ {\partial z(x,t) \over \partial t} = U - \kappa \nabla q_s(x,t) = U - \kappa {\partial^2 z(x,t) \over \partial x^2} $$
 <li>
-$q_s(x,t)$ = \kappa \nabla$ is flux, $z(x,t)$ is elevation, $x$ is location and $t$ is time, \kappa is diffusion constant</small>
+$q_s(x,t) = \kappa \nabla$ is flux, $z(x,t)$ is elevation, $x$ is location and $t$ is time, $\kappa$ is a diffusion constant</small>
 </ul>
-<p>What is second order derivative of elevation field?
+<p class="fragment"><small>What is second order derivative of elevation field?</small>
+<p class="fragment"><small>Explore the model in <b>landlab</b></small>
 </section>
 
-<section>
-   <h3>Fundamental solution </h3>
-<ul>
-<li>Given a unit impuls $\delta(x-x_0)=n(x,t=0)$ the fundamental solution of 
-diffusion equation is 
-<p>
-<li>
-$$ n(x,t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-(x-x_0)^2} \over ({4D_0t)}}$$
-<p>
-<li> a Gaussian with $ N(x_0, \sigma^2 = 2D_0t) $
-<li>solutions for the rest require numerical approach, but special cases have explicit solutions
-</ul>
-</section>
-
+<!--
 <section>
    <h3>Green's function, path sampling solutions </h3>
 <ul>
@@ -149,36 +146,37 @@ $$ G_d({\bf r},{\bf r}',\delta t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-({\bf r}-{\
 </ul>
 <p>
 </section>
+-->
 
 <section>
    <h3>Stochastic method of solution</h3>
-<ul>
-<p>For complex processes which cannot be solved analytically we need numerical solution
-<li>
+<small>
+<p>Recall path sampling solution:
 $$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
-<li>which is evolution equation
+<p>which is evolution equation and the walk will propagate as
 <p>
-<li>
 $${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
 <p>
-</ul>
+where $\vec\eta^{(i)}$ is from distribution
+$$ G_d({\bf r},{\bf r}',\tau) = {1 \over \sqrt{4\pi D_0 \tau}} e^{{-|{\bf r}-{\bf r}'|^2} \over {4D_0\tau)}}$$
+</small>
 </section>
 
 <section>
    <h3>Diffusion with drift</h3>
 <p>
 <ul>
-<li>This describes diffusion in a medium which {\it drifts} with
-constant velocity ${\bf v}_0$.  GF:
+<li>Diffusion in a medium which drifts with a
+constant velocity ${\bf v}_0$. Green's function is then: 
 $$
 G_d(...)={1 \over (4\pi t)^{3/2}} 
 e^{- |{\bf r}-{\bf r}'-{\bf v}_0t|^2/4t}
 $$
-<li>Of course, this process can be also simulated by sampling.  The walk will propagate as
+<li>and the walk will propagate as
 $$
 {\bf r}^{(i)}(t+\tau)={\bf r}^{(i)}(t)+{\bf v}_0\tau + \vec\eta^{(i)}
 $$
-<li>where ...
+<li>this was the water flow model
 </ul>
 </section>
 
@@ -261,21 +259,116 @@ $$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
 
 <section>
    <h3>Reduced complexity models</h3>
-Solution of continuity and momentum equations for
-a steady water flow that is close to kinematic wave approximation
+<ul>
+<li>
+Solution of continuity and momentum equations for a steady state flow, constant velocity
+and uniform steady rainfall leads to rational equation for estimation of peak discharge:
+<!--
 <p>
 $$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
+-->
 <p>
-explicit solution
-$$ q = c.A $$
-where A is contributing area
+$$ Q = c.i.A $$
+<li>
+where $A$ is contributing area, $i$ is rainfall intensity, and $c$ is constant dependent on soil type, land cover
+and average slope within the watershed. 
+<li>We can use uplsope contributing area to estimate water flow for reduced complexity erosion modeling
+</ul>
 </section>
 
 <section>
-   <h3>Water flow: methods comparison</h3>
+   <h3>Reduced complexity models</h3>
+Assuming steady state flow, sediment transport $q_s$ can be approximated by 
+sediment transport capacity $T_c$:
 <p>
-<img height="450" src="img/diffusion_flows/gisemflow1hh.gif">
-<p><small>geometry based methods, kinematic wave, approx. diffusion wave</small>
+$$ q_s = K_T q^m (\nabla z)^n$$
+<p>
+$$ q_s \approx T_c = K_T A^m (\sin \gamma)^n$$
+<p>
+<small>
+<ul>
+<li> where $A$ is contributing area as measure of water flow
+<li>$K_T$ is transport capacity coefficient
+<li>$\gamma$ is slope angle
+<li>$m,n$ are empirical coefficients
+</ul>
+</small>
+</section>
+
+<section>
+   <h3>Evolution of water flow</h3>
+Water flow $q$ accumulates during steady rainfall:
+<p>
+<img height="450" src="img/diffusion_flows/water1994.gif">
+</section>
+
+<section>
+   <h3>Evolution of sediment flow capacity</h3>
+Evolution in sediment transport capacity $T_c$ during steady rainfall, as water flow accumulates
+<p>
+<img height="450" src="img/masstransport/lsfac1994.gif">
+</section>
+
+<section>
+   <h3>Erosion modeling: equations</h3>
+<small>
+<ul>
+<li>USLE, 
+$$E=R.K.L.S.C.P$$
+<li>
+empirical factors/coefficients
+R - rainfall intensity 
+K - soil erodibility 
+L - hillslope length or contributing area
+S - slope steepness
+C - cover
+P - protection measures
+
+<li>USPED
+<li>SIMWE/WEPP
+</ul>
+</small>
+</section>
+
+<section>
+   <h3>Erosion modeling: equations</h3>
+<small>
+<ul>
+<li>USLE,
+<li>USPED
+<li>SIMWE/WEPP
+</ul>
+</small>
+</section>
+
+<section>
+   <h3>Erosion modeling: methods comparison</h3>
+Erosion models with different level of reduced complexity: 
+<small>
+<ul>
+<li>erosion only (detachment limited regime) hillslope length and contributing area
+<li>erosion and deposition, transport capacity regime and variable sigma
+</ul>
+</small>
+<p>
+<img height="400" src="img/masstransport/erosion_germany_usle.jpg">
+<img height="400" src="img/masstransport/erdep_germany_simweusped.jpg">
+</section>
+
+<section>
+   <h3>Path sampling method</h3>
+<p>Weighted particles: sediment transport with proliferation and decay
+<p>
+<img height="380" src="img/masstransport/sfwc_new.gif">
+<img height="380" src="img/masstransport/sfn10.gif">
+</section>
+
+<section>
+   <h3>Path sampling method</h3>
+Spatially variable source
+<p>
+<img height="300" src="img/masstransport/hohen_lu.gif">
+<img height="300" src="img/masstransport/edn10.gif">
 </section>
 
 <section>
@@ -285,24 +378,47 @@ where A is contributing area
 <img height="380" src="img/diffusion_flows/mcsimwelg.gif">
 </section>
 
-
 <section>
-   <h3>Visualization</h3>
+   <h3>Detachment and transport capacity limited regime</h3>
+<p>Ratio of sediment transport capacity and detachment capacity controls 
+the spatial extent of deposition: impact of change in detachment capacity coefficient $K_c$,
+transported sediment remains constant
 <p>
-<img height="400" src="img/diffusion_flows/balsamsimwe3d_wsteadystate.jpg">
-<img height="350" src="img/diffusion_flows/water1994.gif">
+<img height="380" src="img/masstransport/sigerkc.gif">
+</section>
+
+<section>
+   <h3>Detachment and transport capacity limited regime</h3>
+<p>Ratio of sediment transport capacity and detachment capacity controls 
+the spatial extent of deposition: impact of transport capacity coefficient $T_c$,
+transported sediment is reduced
+<p>
+<img height="380" src="img/masstransport/sigertc.gif">
 </section>
 
 <section>
    <h3>Applications</h3>
-<p>Surface water 
-<p><img height="400" src="img/diffusion_flows/depth3d_2.jpg">
+<p>Sediment flow and net erosion/deposition for variable land use,
+USPED model 
+<p><img height="380" src="img/masstransport/uspedsedflowdem.jpg">
+<img height="380" src="img/masstransport/uspederdepdem.jpg">
 </section>
 
 <section>
    <h3>Applications</h3>
-<p>Surface water 
-<p><img height="400" src="img/diffusion_flows/waterdepth_simwe1m_SWc.jpg">
+<p>Simulated erosion and deposition pattern and observations
+<p><img height="450" src="img/masstransport/cerl9808.gif">
+</section>
+
+<section>
+   <h3>Applications</h3>
+<p>Land use management: soil erosion control
+<p><img height="450" src="img/intro/erosion_landuse.jpg">
+</section>
+
+<section>
+   <h3>Applications</h3>
+<p><img height="400" src="img/masstransport/pattersonsedimentflux.jpg">
 </section>
 
 <section>
