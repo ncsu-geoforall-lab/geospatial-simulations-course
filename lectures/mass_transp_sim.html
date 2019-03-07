@@ -259,28 +259,31 @@ $$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
 </section>
 -->
 
-
 <section>
    <h3>Reduced complexity models</h3>
+<p>Consider steady state and replace some effects by empirical parameters
+</section>
+
+
+<section>
+   <h3>Peak flow and discharge</h3>
 <ul>
 <li>
 Solution of continuity and momentum equations for a steady state flow, constant velocity
 and uniform steady rainfall leads to rational equation for estimation of peak discharge:
-<!--
 <p>
 $$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
--->
-<p>
+<p> then
 $$ Q = c.i.A $$
 <li>
 where $A$ is contributing area, $i$ is rainfall intensity, and $c$ is constant dependent on soil type, land cover
 and average slope within the watershed. 
-<li>We can use uplsope contributing area to estimate water flow for reduced complexity erosion modeling
+<li>We can use uplsope contributing area to estimate peak water flow for reduced complexity erosion modeling
 </ul>
 </section>
 
 <section>
-   <h3>Reduced complexity models</h3>
+   <h3>Sediment flow</h3>
 Assuming steady state flow, sediment transport $q_s$ can be approximated by 
 sediment transport capacity $T_c$:
 <p>
@@ -311,6 +314,36 @@ Evolution in sediment transport capacity $T_c$ during steady rainfall, as water 
 <p>
 <img height="450" src="img/masstransport/lsfac1994.gif">
 </section>
+
+
+<section>
+   <h3>Net erosion and deposition</h3>
+<small>
+Net erosion and deposition (source and sinks term) are computed as a change 
+in sediment transport capacity $T_c$ in the direction of flow (divergence of the sediment 
+transport vector field).
+It is a dot product of a unit vector ${\bf s_0}$ in the direction of flow $\alpha$ 
+<p>
+$${\bf s_0} =(\cos \alpha, \sin \alpha)$$ 
+
+<p>and sediment transport surface gradient
+<p>
+
+$$ {\bf q_s} = \left ( \partial T_c \over \partial x, \partial T_c \over \partial y \right ) $$
+
+<p>leading to an equation that is easy to compute using map algebra 
+<p>
+$$d_s =\nabla\cdot {\bf q}_s  \approx = {\partial (T_c  \cos \alpha ) \over {\partial x}} + {\partial (T_c  \sin \alpha ) \over {\partial y}}$$
+</small>
+</section>
+
+<section>
+   <h3>Net erosion deposition</h3>
+<p>
+<img height="300" src="img/masstransport/erdep_cerl_3d.gif">
+<img height="300" src="img/masstransport/erdep_cerl_dem.gif">
+</section>
+
 
 <section>
    <h3>Erosion modeling: equations</h3>
