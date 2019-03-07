@@ -28,7 +28,7 @@ and browse to a folder where you will create all the text files we will need.
 Create bedrock raster:
 <pre><code>
 g.region raster=elevation
-r.mapcalc = elevation - 2
+r.mapcalc "bedrock = elevation - 2"
 </code></pre>
 
 Run landscape evolution with default parameters for 10 years:
