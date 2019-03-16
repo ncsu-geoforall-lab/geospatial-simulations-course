@@ -100,7 +100,7 @@ for DIR in resources
 do
     mkdir -p $OUTDIR/$DIR
 
-    for FILE in `ls $DIR/*.html $DIR/*.geojson $DIR/*.png`
+    for FILE in `ls $DIR/*.html $DIR/*.geojson $DIR/*.png $DIR/*.R`
     do
         cp $FILE $OUTDIR/$DIR
     done
