@@ -18,5 +18,37 @@ Resources to download:
 Run each block in the provided R scripts step by step and see the associated instructions as comments in the code.
 
 <h3>Calibration</h3>
+Run the calibration code to derive parameters for spore rate and distance for the PoPs model. 
+<ul>
+<li>What are the parameters?</li>
+<li>How many times were the spore rate and distance parameters used out of the total number of calibration iterations?</li>
+<li>What does the distribution of the two parameters look like?</li>
+</ul>
+
+Optional:
+<ul>
+<li>Try different numbers of iterations. Are derived parameters different?</li>
+<li>Try turning management on (line 22). Are derived parameters different?</li>
+</ul>
+
 
 <h3>Validation</h3>
+Use the parameters derived from the calibration code to run the PoPS model and
+validate the outputs using the validation code.
+<ul>
+<li>What was the average disagreement and landscape similarity?</li>
+</ul>
+
+Optional:
+<ul>
+<li>Try with management on (line 24). How are the total disagreement and landscape similarity affected?</li>
+<li>Try with different spore rate and distance parameters. How are total disagreement and landscape similarity affected?</li>
+<li>Try with different conditions. How are total disagreement and landscape similarity affected?
+    <ul>
+        <li>With mortality on - Set mortality to "TRUE" and you can change the
+             conditions for time lag and mortality rate (lines 28-30)</li>
+        <li>With wind direction on - Can set wind to "N", "S", "W", "E".
+            Higher kappa values make the wind direction stronger (lines 33-34).</li>
+    </ul>
+</li>
+</ul>
