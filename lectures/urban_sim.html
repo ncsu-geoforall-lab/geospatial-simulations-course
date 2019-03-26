@@ -13,9 +13,112 @@
     <h3>Learning objectives</h3>
 <p>
 <ul>
-   <li>
+   <li>evolution of urban growth models
+   <li>current approaches 
+   <li>cellular automata: rule-based
+   <li>cellular automata: probabilistic
+   <li>metrics for spatial model evaluation
 </ul>
 </section>
+
+<section>
+    <h3>Urban growth models evolution</h3>
+<p>
+<ul>
+   <li>theoretical concepts: circular, sectors, ...
+   <li>computational foundation: 
+   <ul>
+      <li>Tobler's Detroit growth model (1970)
+      <li>Conway's Game of life (1970) 
+  </ul>
+   <li>cellular automata 
+   <li>land change models
+   <li>agent-based modeling
+</ul>
+</section>
+
+<section>
+    <h3>Urban growth models evolution</h3>
+<p>
+IMG from Li and Gong
+</section>
+
+<section>
+    <h3>Cellular automata principle</h3>
+<p>
+Space is tesselated into grid cells $(i,j)$ (usually square) with initial state $C_{i,j}^{t=0}$
+<p>General expression for the cell state evolution:
+$$
+C_{ij}^{t+1} = F(C_{ij}^{t}, O_{ij}^{t}, R)
+$$
+State of cell $(i,j)$ at time $t+1$ is a function of 
+<ul>
+ <li>its state at time $t$, 
+ <li>state of the cells in its neighborhood or more general impact of its neighborhood $O_{ij}^{t}$
+ <li>transition rules $R$
+</ul>
+</section>
+
+<section>
+    <h3>Game of life example</h3>
+<p>Rules:
+<ul>
+  <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+  <li>Any live cell with two or three live neighbours lives on to the next generation.
+  <li>Any live cell with more than three live neighbours dies, as if by overpopulation.
+  <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+</ul>
+For the given rules, the resulting pattern is dependent only on the initial configuration:
+example of emergence and self-organization
+</section>
+
+<section>
+    <h3>Game of life example</h3>
+<a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of life in wikipedia</a>: from simple 
+still lifes and oscilators to complex and surprising evolution (e.g. play puffer-type breeder)
+</section>
+
+<section>
+    <h3>Geospatial cellular automata</h3>
+<ul>
+  <li>initial state is based on land use / land cover data, usually from RS or GIS
+  <li>rules are derived from socio-economic data 
+  <li>models can be calibrated and validated used past time series
+</ul>
+</section>
+
+<section>
+    <h3>Rule-based CA urban growth models</h3>
+<p>SLEUTH principle
+couples urban growth model and land cover model
+</section>
+
+<section>
+    <h3>Rule-based CA urban growth models</h3>
+<p>SLEUTH application examples: China, Iran
+</section>
+
+<section>
+    <h3>Rule-based CA urban growth models</h3>
+<p>SLEUTH
+</section>
+
+<section>
+    <h3>Probabilistic CA urban growth models</h3>
+<ul>
+<li>Probabilistic transition rules and a stochastic perturbation term
+<li>Statistical methods are used to develop the transition rules, based on past time series
+<li>Logistic regression, neural networks, decision trees
+</ul>
+New states are generated based on a probabilistic distribution
+</section>
+
+<section>
+    <h3>Probabilistic CA urban growth models</h3>
+EXAMPLES
+</section>
+
+
 <div class="parent-page">
     <!-- &#x1f3e0; -->
     <a href="http://ncsu-geoforall-lab.github.io/geospatial-simulations-course/" title="Go to the course page">&#8962;</a>
