@@ -25,16 +25,20 @@
     <h3>Urban growth models evolution</h3>
 <p>
 <ul>
-   <li>theoretical concepts: circular, sectors, ...
+   <li>theoretical concepts
    <li>computational foundation: 
+<p>
    <ul>
       <li>Tobler's Detroit growth model (1970)
       <li>Conway's Game of life (1970) 
   </ul>
+<p>
    <li>cellular automata 
    <li>land change models
    <li>agent-based modeling
 </ul>
+   <p>From rule-based to probability driven with stochastic perturbations, calibration and validation based
+on time series of RS and GIS data
 </section>
 
 <section>
@@ -50,14 +54,15 @@ Space is tesselated into grid cells $(i,j)$ (usually square) with initial state 
 <p>General expression for the cell state evolution:
 <p>
 $$
-C_{ij}^{t+1} = F(C_{ij}^{t}, O_{ij}^{t}, R)
+C_{ij}^{t+\Delta t} = F(C_{ij}^{t}, O_{ij}^{t}, R)
 $$
 <p>
-State of cell $(i,j)$ at time $t+1$ is a function of 
+State of cell $(i,j)$ at time $t+\Delta t$ is a function of 
 <ul>
  <li>its state at time $t$, 
- <li>state of the cells in its neighborhood or more general impact of its neighborhood $O_{ij}^{t}$
+ <li>state of cells in its neighborhood $O_{ij}^{t}$
  <li>transition rules $R$
+ <li>$\Delta t$ is small 
 </ul>
 </section>
 
@@ -72,7 +77,7 @@ State of cell $(i,j)$ at time $t+1$ is a function of
 </ul>
 <p>
 For the given rules, the resulting pattern is dependent only on the initial configuration:
-example of emergence and self-organization
+example of <strong>emergence and self-organization </strong>
 </section>
 
 <section>
@@ -81,7 +86,7 @@ example of emergence and self-organization
 <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of life in wikipedia</a>: from simple 
 still lifes and oscilators to complex and surprising evolution (e.g. play puffer-type breeder)
 <p>
-<a href-"https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of different configurations</a>
+<a href="https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of different configurations</a>
 
 </section>
 
@@ -90,7 +95,7 @@ still lifes and oscilators to complex and surprising evolution (e.g. play puffer
 <ul>
   <li>initial state is based on land use / land cover data, usually from RS or GIS
   <li>rules are derived from socio-economic data and interactions between humans and environment 
-  <li>models are calibrated and validated used time series of land use data 
+  <li>models are calibrated and validated using time series of land use data 
 </ul>
 </section>
 
@@ -100,6 +105,7 @@ still lifes and oscilators to complex and surprising evolution (e.g. play puffer
   <li>started as wildfire spread model
   <li>couples Urban Growth Model (UGM) and Land Cover Deltatron Model (LCD)
   <li>SLEUTH: acronym for inputs:
+<p>
   <ul>
     <li>Slope
     <li>Land Cover
@@ -110,18 +116,30 @@ still lifes and oscilators to complex and surprising evolution (e.g. play puffer
   </ul>
 </ul>
 <p>
-Open source model - many researchers contributed to the code
+Open source model - many researchers contributed 
 </section>
 
 <section>
     <h3>SLEUTH principle</h3>
 Urban areas behave like a living organism trained by transition rules:
 <ul>
-  <li>class to class transition matrix derived from two LU maps
-  <li>time series of four urban maps is used for calibration
-  <li>dispersion, breed, spread, slope resistance, road gravity
+  <li>class to class transition matrix derived from 2 LU maps
+  <li>time series of 4 urban maps is used for calibration
+  <li>parameters derived from past growth: 
+      dispersion, breed, spread, slope resistance, road gravity
   <li>growth types: diffusive, new spreading center, organic, road influenced 
 </ul>
+</section>
+
+<section>
+    <h3>SLEUTH applications and innovation</h3>
+<p>Read more at
+<a href="http://www.ncgia.ucsb.edu/projects/gig/index.html">Project Gigalopolis</a>
+<p>
+Chaudhuri, Gargi and Clarke, Keith. (2013). 
+<a href="https://www.researchgate.net/publication/237052846_The_SLEUTH_land_use_change_model_A_review">
+The SLEUTH land use change model: A review. International Journal Of Environmental Resource Research. 1. 88 - 105.</a>
+<p>
 </section>
 
 <section>
@@ -131,13 +149,16 @@ Urban areas behave like a living organism trained by transition rules:
 <li>Statistical methods are used to develop the transition rules, based on past time series
 <li>Logistic regression, neural networks, decision trees
 </ul>
+<p>
 New states are generated based on a probabilistic distribution
 </section>
 
+<!--
 <section>
     <h3>Probabilistic CA urban growth models</h3>
 EXAMPLES
 </section>
+-->
 
 <section>
     <h3>CA models with generalized tesselations</h3>
