@@ -1,0 +1,169 @@
+<section>
+    <h2><b>Agent-Based Models:</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+<li>principles of agent-based modeling
+</ul>
+</section>
+
+<!--
+<section>
+    <h3>Urban growth models evolution</h3>
+<p>
+<ul>
+   <li>theoretical concepts
+   <li>computational foundation: 
+<p>
+   <ul>
+      <li>Tobler's Detroit growth model (1970)
+      <li>Conway's Game of life (1970) 
+  </ul>
+<p>
+   <li>cellular automata 
+   <li>land change models
+   <li>agent-based modeling
+</ul>
+   <p>From rule-based to probability driven with stochastic perturbations, calibration and validation based
+on time series of RS and GIS data
+</section>
+
+<section>
+    <h3>Urban growth models evolution</h3>
+<p>
+IMG from Li and Gong
+</section>
+
+<section>
+    <h3>Cellular automata principle</h3>
+<p>
+Space is tesselated into grid cells $(i,j)$ (usually square) with initial state $C_{i,j}^{t=0}$
+<p>General expression for the cell state evolution:
+<p>
+$$
+C_{ij}^{t+\Delta t} = F(C_{ij}^{t}, O_{ij}^{t}, R)
+$$
+<p>
+State of cell $(i,j)$ at time $t+\Delta t$ is a function of 
+<ul>
+ <li>its state at time $t$, 
+ <li>state of cells in its neighborhood $O_{ij}^{t}$
+ <li>transition rules $R$
+ <li>$\Delta t$ is small 
+</ul>
+</section>
+
+<section>
+    <h3>Game of life rules</h3>
+<p>
+<ul>
+  <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+  <li>Any live cell with two or three live neighbours lives on to the next generation.
+  <li>Any live cell with more than three live neighbours dies, as if by overpopulation.
+  <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+</ul>
+<p>
+For the given rules, the resulting pattern is dependent only on the initial configuration:
+example of <strong>emergence and self-organization </strong>
+</section>
+
+<section>
+    <h3>Game of life example</h3>
+<p>
+<a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of life in wikipedia</a>: from simple 
+still lifes and oscilators to complex and surprising evolution (e.g. play puffer-type breeder)
+<p>
+<a href="https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of different configurations</a>
+
+</section>
+
+<section>
+    <h3>Geospatial cellular automata</h3>
+<ul>
+  <li>initial state is based on land use / land cover data, usually from RS or GIS
+  <li>rules are derived from socio-economic data and interactions between humans and environment 
+  <li>models are calibrated and validated using time series of land use data 
+</ul>
+</section>
+
+<section>
+    <h3>SLEUTH urban growth model</h3>
+<ul>
+  <li>started as wildfire spread model
+  <li>couples Urban Growth Model (UGM) and Land Cover Deltatron Model (LCD)
+  <li>SLEUTH: acronym for inputs:
+<p>
+  <ul>
+    <li>Slope
+    <li>Land Cover
+    <li>Excluded
+    <li>Urban
+    <li>Transportation
+    <li>Hillshade
+  </ul>
+</ul>
+<p>
+Open source model - many researchers contributed 
+</section>
+
+<section>
+    <h3>SLEUTH principle</h3>
+Urban areas behave like a living organism trained by transition rules:
+<ul>
+  <li>class to class transition matrix derived from 2 LU maps
+  <li>time series of 4 urban maps is used for calibration
+  <li>parameters derived from past growth: 
+      dispersion, breed, spread, slope resistance, road gravity
+  <li>growth types: diffusive, new spreading center, organic, road influenced 
+</ul>
+</section>
+
+<section>
+    <h3>SLEUTH applications and innovation</h3>
+<p>Read more at
+<a href="http://www.ncgia.ucsb.edu/projects/gig/index.html">Project Gigalopolis</a>
+<p>
+Chaudhuri, Gargi and Clarke, Keith. (2013). 
+<a href="https://www.researchgate.net/publication/237052846_The_SLEUTH_land_use_change_model_A_review">
+The SLEUTH land use change model: A review. International Journal Of Environmental Resource Research. 1. 88 - 105.</a>
+<p>
+</section>
+
+<section>
+    <h3>Probabilistic CA urban growth models</h3>
+<ul>
+<li>Probabilistic transition rules and a stochastic perturbation term
+<li>Statistical methods are used to develop the transition rules, based on past time series
+<li>Logistic regression, neural networks, decision trees
+</ul>
+<p>
+New states are generated based on a probabilistic distribution
+</section>
+
+<section>
+    <h3>CA models with generalized tesselations</h3>
+<p>
+Beyond square grids: hexagons, irregular probabilistic patches
+<p>
+Interactions and spread beyond the immediate neighborhood
+
+</section>
+-->
+
+
+<div class="parent-page">
+    <!-- &#x1f3e0; -->
+    <a href="http://ncsu-geoforall-lab.github.io/geospatial-simulations-course/" title="Go to the course page">&#8962;</a>
+</div>
+
+
+
