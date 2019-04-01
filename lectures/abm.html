@@ -13,7 +13,7 @@
 <p>
 <ul>
 <li>principles of agent-based modeling
-<li>methods and techniques
+<li>methods, techniques and tools
 <li>simulating coupled human and natural systems
 <li>applications
 <li>open source tools
@@ -21,7 +21,7 @@
 </section>
 
 <section>
-    <h3>ABM evolution</h3>
+    <h3>Agent-Based Modeling</h3>
 <p>
 <ul>
   <li>evolved from cellular automata, game of life
@@ -37,19 +37,19 @@
 <p>General expression for the agent $A_r (t)$ evolution
 <p>
 $$
-A_r^i (t+\Delta t) = F(A_r^i (t), A_r^j (t), E_r (t), E_r (t+\Delta t), R)
+A_r^i (t+\Delta t) = F(A_r^i (t), A_r^j (t), E_r (t), R)
 $$
 <p>
 where $r=(i,j)$ or $(x,y)$ is a location and $t$ is time.
 Agent state at time $t+\Delta t$ is a function of 
 <ul>
  <li>its state at time $t$, 
- <li>state of the environment $E_r (t), (t+\Delta t)$ at the location $r$ and its neighborhood
  <li>state of the interacting agent(s) $A_r^j (t)$
+ <li>state of the environment $E_r (t)$ at the location $r$ and its neighborhood
  <li>interaction rules $R$
 </ul>
 <p><small>Space is often tesselated into grid cells $(i,j)$ with initial environmental state $E_r^{t=0}$
-Agents are modeled as grid cells or points</small>
+Agents are modeled as grid cells, patches, oriented lines, or points</small>
 </section>
 
 <section>
@@ -61,7 +61,7 @@ Agents are modeled as grid cells or points</small>
 <ul>
   <li class="fragment">pro-active, reactive, bounded rationality
   <li class="fragment">interaction with other agents and the environment
-  <li class="fragment">mobility
+  <li class="fragment">mobile or stationary
   <li class="fragment">adaptation and learning
 </ul>
 <li class="fragment">population of agents can be heterogeneous
@@ -73,7 +73,7 @@ Agents are modeled as grid cells or points</small>
 <p>Examples 
 <ul>
 <li class="fragment">Fire modeling: burning cell
-<li class="fragment">Disease spread: 
+<li class="fragment">Disease spread: bug, virus, or infected people or animals 
 <li class="fragment">Evolution of agropastoral settlements: farming household
 <li class="fragment">Movement of people in urban environment: pedestrian
 </ul>
@@ -85,24 +85,50 @@ Agents are modeled as grid cells or points</small>
  <li class="fragment">in CA environment is equivalent to population 
  <li class="fragment">ABM treats agents (population) and environment as separate interacting entities
  <li class="fragment">in CA the evolution depends only on the state of the cell neighborhood
- <li class="fragment">ABM the evolution depends on the environment and interaction between agents
- <li class="fragment">ABM the interactions can be long range
+ <li class="fragment">in ABM the evolution depends on the environment and interaction between agents
+ <li class="fragment">in ABM the interactions can be long range
 <p>
-Both CA and ABM capture <strong>emergence and self-organization </strong>
+<small>
+There is a continuum of models between CA and ABM. Some models can be interpreted as special cases
+of solutions to processes, described by partial differential equations: diffusion, fire 
+</small>
+</section>
+
+<section>
+    <h3>Emergence and self-organization</h3>
+<p>
+<ul>
+<li>Emergent behavior: behavior of the modeled system is more complex than the behavior of the parts
+ <li class="fragment">synchronization, cooperation or chaos, turbulence 
+ <li class="fragment">self-organization: feedback and adaptive behavior
+ <li class="fragment">behavior of a component depends on the behavior of the system
+ <li class="fragment">different initial conditions and randomness may lead to different results 
+</ul>
+<p>
 </section>
 
 <section>
     <h3>ABM examples</h3>
 NetLogo web has many on-line examples:
 <p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model</a>
-<p><small>Wilensky, U. (1997). NetLogo Segregation model. http://ccl.northwestern.edu/netlogo/models/Segregation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</small>
+<small>
+<ul>
+<li>2 groups in randomly distributed patches
+<li>Each agent is happy if it has $n%$ of neighbors from the same group
+<li>Unhappy agent moves until it finds happy location
+<li>System segregates into more homogeneus groups even for $n$ less than 50% (compare n = 20,30,45 %)
+</ul>
+<p><a href="https://ccl.northwestern.edu/netlogo/docs/programming.html">Terminology and programming in Netlogo</a>
+<p>Agents: turtles, patches, links and observer; see more in the manual, the terminology has its
+<p>Wilensky, U. (1997). NetLogo Segregation model. http://ccl.northwestern.edu/netlogo/models/Segregation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
+origin in a models of turtles swimming in a pond</a></small>
 </section>
 
 <section>
     <h3>ABM examples</h3>
 <p>Flocking
 <p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Alternative%20Visualizations/Flocking%20-%20Alternative%20Visualizations.nlogo">Flocking in Netlogo</a>
-<p>many interesting models
+<p>Many interesting models in Social science, Biology, Chemistry, Physics, Computer Science and other disciplines
 </section>
 
 <section>
@@ -110,11 +136,11 @@ NetLogo web has many on-line examples:
 <p>Advantages
 <ul>
  <li class="fragment">modeling complex systems where differential equations are not known or are intractable
- <li class="fragment">flexibility
+ <li class="fragment">flexibility  as exploratory tool
 </ul>
 <p>Limitations
 <ul>
- <li class="fragment">applications to real-world systems is challenging
+ <li class="fragment">applications to real-world systems are challenging
  <li class="fragment">parametrizationa and rules definition can be difficult
  <li class="fragment">computationally intensive
 </ul>
