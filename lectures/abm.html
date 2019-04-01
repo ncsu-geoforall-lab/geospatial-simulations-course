@@ -24,7 +24,7 @@
     <h3>ABM evolution</h3>
 <p>
 <ul>
-  <li>started with cellular automata, game of life
+  <li>evolved from cellular automata, game of life
   <li class="fragment">introduces agent acting within an environment
   <li class="fragment">agents move through space across time while interacting with the environment and with each other
   <li class="fragment">in geospatial applications ABM simulates behavior of intelligent agents within a geographic space
@@ -34,30 +34,36 @@
 <section>
     <h3>ABM principle</h3>
 <p>
-<p>General expression for the agent $A_r (t)$ evolution within 
- an environment $E_r (t)$:
+<p>General expression for the agent $A_r (t)$ evolution
 <p>
 $$
-A_r_i^k (t+\Delta t) = F(A_r_i^t, A_r_j^t, E_r_i^{t}, E_r_j^{t}, R)
+A_r^i (t+\Delta t) = F(A_r^i (t), A_r^j (t), E_r (t), E_r (t+\Delta t), R)
 $$
 <p>
-where $r=(i,j)$ or $(x,y)$ is a location, $t$ is time
-Agent's attribute k at time $t+\Delta t$ is a function of 
+where $r=(i,j)$ or $(x,y)$ is a location and $t$ is time.
+Agent state (attribute) at time $t+\Delta t$ is a function of 
 <ul>
  <li>its state at time $t$, 
- <li>state of the environment at the location $r$ and its neighborhood
- <li>state of the interacting agent(s) 
+ <li>state of the environment $E_r (t), (t+\Delta t)$ at the location $r$ and its neighborhood
+ <li>state of the interacting agent(s) $A_r^j (t)$
  <li>interaction rules $R$
 </ul>
-Space is often tesselated into grid cells $(i,j)$ with initial environmental state $E_r^{t=0}$
-Agents are modeled as grid cells or points
+<p><small>Space is often tesselated into grid cells $(i,j)$ with initial environmental state $E_r^{t=0}$
+Agents are modeled as grid cells or points</small>
 </section>
 
 <section>
     <h3>Agents and their interaction</h3>
 <p>What are agents?
 <p class="fragment">autonomous interacting units
-
+<p class="fragment">active features of agents (Crooks et al. 2012): 
+<ul>
+  <li class="fragment">pro-active, reactive, bounded rationality
+  <li class="fragment">interaction with other agents and the environment
+  <li class="fragment">mobility
+  <li class="fragment">adaptation and learning
+</ul>
+<p class="fragment">population of agents can be heterogeneous
 </section>
 
 <section>
@@ -73,7 +79,6 @@ Agents are modeled as grid cells or points
 
 <section>
     <h3>Compare CA and ABM</h3>
-Cellular automata:
 <ul>
  <li class="fragment">in CA environment is equivalent to population? $A_i(t) = C_i(t)$ 
  <li class="fragment">ABM treats agents (population) and environment as separate interacting entities
@@ -81,21 +86,7 @@ Cellular automata:
  <li class="fragment">ABM the evolution depends on the environment and interaction between agents
  <li class="fragment">ABM the interactions can be long range
 <p>
-In CA For the given rules, the resulting pattern is dependent only on the initial configuration:
-example of <strong>emergence and self-organization </strong>
-In ABM - add
-</section>
-
-<section>
-    <h3>Compare CA and ABM</h3>
-Cellular automata:
-<ul>
- <li class="fragment">in CA environment is equivalent to population? $A_i(t) = C_i(t)$
- <li class="fragment">the evolution depends only on the state of the cell neighborhood
- <li class="fragment">rules are stationary (don't change over time)
-<p>
-For the given rules, the resulting pattern is dependent only on the initial configuration:
-example of <strong>emergence and self-organization </strong>
+Both CA and ABM capture <strong>emergence and self-organization </strong>
 </section>
 
 <section>
@@ -110,11 +101,10 @@ how are these models different and what is same?
 </section>
 
 <section>
-    <h3>Geospatial cellular automata</h3>
+    <h3>ABM advantages and limitations</h3>
 <ul>
-  <li>initial state is based on land use / land cover data, usually from RS or GIS
-  <li>rules are derived from socio-economic data and interactions between humans and environment 
-  <li>models are calibrated and validated using time series of land use data 
+ <li class="fragment">modeling complex systems where differential equations are not known or are intractable
+ <li class="fragment">felxibility
 </ul>
 </section>
 
