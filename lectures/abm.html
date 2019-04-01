@@ -1,5 +1,5 @@
 <section>
-    <h2><b>Agent-Based Models:</b></h2>
+    <h2><b>Agent-Based Modeling</b></h2>
     <p style="margin-top: 0.5em">
         Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
     <p class="title-foot">
@@ -13,77 +13,100 @@
 <p>
 <ul>
 <li>principles of agent-based modeling
+<li>methods and techniques
+<li>simulating coupled human and natural systems
+<li>applications
+<li>open source tools
 </ul>
 </section>
 
-<!--
 <section>
-    <h3>Urban growth models evolution</h3>
+    <h3>ABM evolution</h3>
 <p>
 <ul>
-   <li>theoretical concepts
-   <li>computational foundation: 
-<p>
-   <ul>
-      <li>Tobler's Detroit growth model (1970)
-      <li>Conway's Game of life (1970) 
-  </ul>
-<p>
-   <li>cellular automata 
-   <li>land change models
-   <li>agent-based modeling
+  <li>started with cellular automata, game of life
+  <li class="fragment">introduces agent acting within an environment
+  <li class="fragment">agents move through space across time while interacting with the environment and with each other
+  <li class="fragment">in geospatial applications ABM simulates behavior of intelligent agents within a geographic space
 </ul>
-   <p>From rule-based to probability driven with stochastic perturbations, calibration and validation based
-on time series of RS and GIS data
 </section>
 
 <section>
-    <h3>Urban growth models evolution</h3>
+    <h3>ABM principle</h3>
 <p>
-IMG from Li and Gong
-</section>
-
-<section>
-    <h3>Cellular automata principle</h3>
-<p>
-Space is tesselated into grid cells $(i,j)$ (usually square) with initial state $C_{i,j}^{t=0}$
-<p>General expression for the cell state evolution:
+<p>General expression for the agent $A_r (t)$ evolution within 
+ an environment $E_r (t)$:
 <p>
 $$
-C_{ij}^{t+\Delta t} = F(C_{ij}^{t}, O_{ij}^{t}, R)
+A_r_i^k (t+\Delta t) = F(A_r_i^t, A_r_j^t, E_r_i^{t}, E_r_j^{t}, R)
 $$
 <p>
-State of cell $(i,j)$ at time $t+\Delta t$ is a function of 
+where $r=(i,j)$ or $(x,y)$ is a location, $t$ is time
+Agent's attribute k at time $t+\Delta t$ is a function of 
 <ul>
  <li>its state at time $t$, 
- <li>state of cells in its neighborhood $O_{ij}^{t}$
- <li>transition rules $R$
- <li>$\Delta t$ is small 
+ <li>state of the environment at the location $r$ and its neighborhood
+ <li>state of the interacting agent(s) 
+ <li>interaction rules $R$
 </ul>
+Space is often tesselated into grid cells $(i,j)$ with initial environmental state $E_r^{t=0}$
+Agents are modeled as grid cells or points
 </section>
 
 <section>
-    <h3>Game of life rules</h3>
-<p>
+    <h3>Agents and their interaction</h3>
+<p>What are agents?
+<p class="fragment">autonomous interacting units
+
+</section>
+
+<section>
+    <h3>Agents and their interaction</h3>
+<p>Examples
+<p class="fragment">Fire modeling: burning cell
+<p class="fragment">Disease spread: 
+<p class="fragment">Evolution of agropastoral settlements: community / village
+<p class="fragment">Movement of people in urban environment: pedestrian
+
+<p>examples of agents and their interactions
+</section>
+
+<section>
+    <h3>Compare CA and ABM</h3>
+Cellular automata:
 <ul>
-  <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-  <li>Any live cell with two or three live neighbours lives on to the next generation.
-  <li>Any live cell with more than three live neighbours dies, as if by overpopulation.
-  <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-</ul>
+ <li class="fragment">in CA environment is equivalent to population? $A_i(t) = C_i(t)$ 
+ <li class="fragment">ABM treats agents (population) and environment as separate interacting entities
+ <li class="fragment">in CA the evolution depends only on the state of the cell neighborhood
+ <li class="fragment">ABM the evolution depends on the environment and interaction between agents
+ <li class="fragment">ABM the interactions can be long range
+<p>
+In CA For the given rules, the resulting pattern is dependent only on the initial configuration:
+example of <strong>emergence and self-organization </strong>
+In ABM - add
+</section>
+
+<section>
+    <h3>Compare CA and ABM</h3>
+Cellular automata:
+<ul>
+ <li class="fragment">in CA environment is equivalent to population? $A_i(t) = C_i(t)$
+ <li class="fragment">the evolution depends only on the state of the cell neighborhood
+ <li class="fragment">rules are stationary (don't change over time)
 <p>
 For the given rules, the resulting pattern is dependent only on the initial configuration:
 example of <strong>emergence and self-organization </strong>
 </section>
 
 <section>
-    <h3>Game of life example</h3>
-<p>
-<a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of life in wikipedia</a>: from simple 
-still lifes and oscilators to complex and surprising evolution (e.g. play puffer-type breeder)
-<p>
-<a href="https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of different configurations</a>
+    <h3>Discuss FUTURES and PoPPS components</h3>
+group work - look at futures and popps and explain relation of their components to CA and ABM
+how are these models different and what is same?
+</section>
 
+<section>
+    <h3>ABM examples</h3>
+<p>Schell segregation model
 </section>
 
 <section>
@@ -95,6 +118,7 @@ still lifes and oscilators to complex and surprising evolution (e.g. play puffer
 </ul>
 </section>
 
+<!--
 <section>
     <h3>SLEUTH urban growth model</h3>
 <ul>
