@@ -41,7 +41,7 @@ A_r^i (t+\Delta t) = F(A_r^i (t), A_r^j (t), E_r (t), E_r (t+\Delta t), R)
 $$
 <p>
 where $r=(i,j)$ or $(x,y)$ is a location and $t$ is time.
-Agent state (attribute) at time $t+\Delta t$ is a function of 
+Agent state at time $t+\Delta t$ is a function of 
 <ul>
  <li>its state at time $t$, 
  <li>state of the environment $E_r (t), (t+\Delta t)$ at the location $r$ and its neighborhood
@@ -54,16 +54,18 @@ Agents are modeled as grid cells or points</small>
 
 <section>
     <h3>Agents and their interaction</h3>
-<p>What are agents?
-<p class="fragment">autonomous interacting units
-<p class="fragment">active features of agents (Crooks et al. 2012): 
+<p>
+<ul>
+<li class="fragment">autonomous interacting units
+<li class="fragment">active features of agents (Crooks et al. 2012): 
 <ul>
   <li class="fragment">pro-active, reactive, bounded rationality
   <li class="fragment">interaction with other agents and the environment
   <li class="fragment">mobility
   <li class="fragment">adaptation and learning
 </ul>
-<p class="fragment">population of agents can be heterogeneous
+<li class="fragment">population of agents can be heterogeneous
+</ul>
 </section>
 
 <section>
@@ -90,9 +92,8 @@ Both CA and ABM capture <strong>emergence and self-organization </strong>
 </section>
 
 <section>
-    <h3>Discuss FUTURES and PoPPS components</h3>
-group work - look at futures and popps and explain relation of their components to CA and ABM
-how are these models different and what is same?
+    <h3>ABM examples</h3>
+<p>Schell segregation model
 </section>
 
 <section>
@@ -102,76 +103,69 @@ how are these models different and what is same?
 
 <section>
     <h3>ABM advantages and limitations</h3>
+<p>Advantages
 <ul>
  <li class="fragment">modeling complex systems where differential equations are not known or are intractable
- <li class="fragment">felxibility
+ <li class="fragment">flexibility
 </ul>
-</section>
-
-<!--
-<section>
-    <h3>SLEUTH urban growth model</h3>
+<p>Limitations
 <ul>
-  <li>started as wildfire spread model
-  <li>couples Urban Growth Model (UGM) and Land Cover Deltatron Model (LCD)
-  <li>SLEUTH: acronym for inputs:
-<p>
-  <ul>
-    <li>Slope
-    <li>Land Cover
-    <li>Excluded
-    <li>Urban
-    <li>Transportation
-    <li>Hillshade
-  </ul>
+ <li class="fragment">parametrizationa and rules definition can be difficult
+ <li class="fragment">computationally intensive
 </ul>
-<p>
-Open source model - many researchers contributed 
 </section>
 
 <section>
-    <h3>SLEUTH principle</h3>
-Urban areas behave like a living organism trained by transition rules:
+    <h3>Coupling human and natural systems</h3>
 <ul>
-  <li>class to class transition matrix derived from 2 LU maps
-  <li>time series of 4 urban maps is used for calibration
-  <li>parameters derived from past growth: 
-      dispersion, breed, spread, slope resistance, road gravity
-  <li>growth types: diffusive, new spreading center, organic, road influenced 
+ <li class="fragment">natural systems component: process-based simulations
+ <li class="fragment">human components: ABM
 </ul>
 </section>
 
 <section>
-    <h3>SLEUTH applications and innovation</h3>
-<p>Read more at
-<a href="http://www.ncgia.ucsb.edu/projects/gig/index.html">Project Gigalopolis</a>
-<p>
-Chaudhuri, Gargi and Clarke, Keith. (2013). 
-<a href="https://www.researchgate.net/publication/237052846_The_SLEUTH_land_use_change_model_A_review">
-The SLEUTH land use change model: A review. International Journal Of Environmental Resource Research. 1. 88 - 105.</a>
-<p>
-</section>
-
-<section>
-    <h3>Probabilistic CA urban growth models</h3>
+    <h3>Coupling human and natural systems</h3>
+<p>Simulating long-term change in socioecological systems: application to prehistoric
+Mediterranean societies MedLanD
 <ul>
-<li>Probabilistic transition rules and a stochastic perturbation term
-<li>Statistical methods are used to develop the transition rules, based on past time series
-<li>Logistic regression, neural networks, decision trees
+  <li>evolution of landscape: process-based erosion modeling
+  <li>land use change driven by agropastoral practicies: stochastic, rule-based model
+  <li>alternatively: agent driven land use change
+  <li>ABM: agent=farming household 
 </ul>
-<p>
-New states are generated based on a probabilistic distribution
 </section>
 
 <section>
-    <h3>CA models with generalized tesselations</h3>
-<p>
-Beyond square grids: hexagons, irregular probabilistic patches
-<p>
-Interactions and spread beyond the immediate neighborhood
+    <h3>ABM of farmed land use evolution</h3>
+<p>Simulating long-term change in socioecological systems: application to prehistoric
+Mediterranean societies MedLanD
+<ul>
+  <li>evolution of landscape: process-based erosion modeling
+  <li>land use change driven by agropastoral practicies: stochastic, rule-based model
+  <li>alternatively: agent driven land use change
+  <li>ABM: agent=farming household
+</ul>
+</section>
+
+<section>
+Agents employ decision rules to choose land cells to farm or graze on the basis of their farming returns (calories that affect birth and death rate) and needs (based on household size), the potential productiv- ity of land for agropastoral use (including soil depth and fertility, slope, and current vegetation), and costs to use the land (includ- ing access on foot) (Ullah and Bergin, 2012; Mayer et al., 2006; Mayer and Sarjoughian, 2009; Barton et al., 2010a). As opposed to stochastic modeling of land-use, where cultivated and grazed cells are allocated randomly within catchments whose sizes are esti- mated on the basis of subsistence needs and fallow/grazing cycles, each household agent chooses the best available landscape patches in a round-robin whose order is randomized each execution cycle of the model so that no household will have first access to better lands than other households. Agents also choose land cells from which to collect fuel–wood, based on household size, availability of woody vegetation, and energy costs to access a cell on foot.
+</section>
+
+<section>
+    <h3>ABM and modeling of processes</h3>
+<p>Discuss disease, urban, and flood modeling and their relation to ABM
+<p>Compare the components of disease, urban or flood models to CA and ABM,
+how are these models different and what is same?
+<p>Can these models be coupled with ABM - which components could be represented by ABM?
+
+<ul>
+  <li>Group 1: ABM, CA and FUTURES
+  <li>Group 2: ABM, CA and PoPPs
+  <li>Group 3: ABM, CA and flooding
+</ul>
 
 </section>
--->
+
 
 
 <div class="parent-page">
