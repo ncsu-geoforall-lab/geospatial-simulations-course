@@ -10,8 +10,56 @@ GRASS GIS overview and manual</a>
     <li><a href="https://github.com/projectmesa/mesa/">MESA: agent based modeling in Python</a>
 </ul>
 
-<h3>Agent Based Modeling in Python using MESA</h3>
-Install MESA, run some example models, modify and expand the fire model
+<h3>Agent Based Modeling in Python using Mesa</h3>
+We will install ABM framework <a href="https://mesa.readthedocs.io/en/master/">MESA</a>,
+ run some example models, and then modify and expand the fire model to reuse it as a tree disease spread model.
+ 
+<h4>Installation</h4>
+Use pip to install Mesa, note that Mesa requires Python 3:
+
+<pre><code>
+pip install mesa
+</code></pre>
+
+Test if successfull:
+<pre><code>
+mesa --help
+# alternatively ~/.local/bin/mesa --help
+</code></pre>
+
+Download <a href="https://github.com/projectmesa/mesa/archive/master.zip">Mesa repository</a>, unzip and in command line go to examples folder,
+pick an example folder (for example <code>Schelling</code>) and install dependencies:
+<pre><code>
+pip install -r requirements.txt
+</code></pre>
+
+<pre><code>
+mesa runserver
+</code></pre>
+Inspect the code in <code>model.py</code> defining the agent rules.
+
+<h4>From fire to disease spread ABM</h4>
+Copy folder <code>forest_fire</code> and rename it to <code>disease_spread</code>.
+Now run the model in the same way and observe the behavior.
+Inspect the code in <code>model.py</code>, <code>agent.py</code> and <code>server.py</code>.
+<p>
+Now the task is to change and expand the forest fire model to represent a tree disease spread simulation.
+Start by renaming the categories: "On Fire" to "Infected", "Burned Out" to "Dead".
+
+Then independently work on these possible tasks, or come up with your own rules and behaviors:
+<ul>
+    <li>Change mortality to have trees die after a specified number of steps </li>
+    <li>Add stochastic behavior, for example, infect neighbor only with certain probability</li>
+    <li>Increase distance how far the disease can spread 
+        (use <a href="https://mesa.readthedocs.io/en/master/apis/space.html#space.Grid.iter_neighbors"><code>model.grid.iter_neighbors</code></a>)</li>
+    <li>Implement prevailing spread direction, can be stochastic</li>
+    <li>Add another agent (use <a href="https://mesa.readthedocs.io/en/master/apis/space.html#space.MultiGrid"><code>MultiGrid</code></a>)
+         who is doing random walk and spreading disease</li>
+    <li>Add slider/dropdown box to the web interface to interactively explore the effects</li>
+</ul>
+
+Solution can be found <a href="https://github.com/ncsu-geoforall-lab/mesa-teaching-example">here</a>.
+
 
 
 <h3>Modeling coupled human and natural systems using MedlanD </h3>
