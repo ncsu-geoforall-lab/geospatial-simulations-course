@@ -82,6 +82,7 @@ of solutions to processes, described by partial differential equations: diffusio
 </ul>
 </section>
 
+<!--
 <section>
     <h3>Agents and their interaction</h3>
 <p>Examples 
@@ -94,6 +95,7 @@ of solutions to processes, described by partial differential equations: diffusio
 </ul>
 Propose interactions
 </section>
+-->
 
 <section>
     <h3>Emergence and self-organization</h3>
@@ -107,6 +109,21 @@ Propose interactions
  <li class="fragment">different initial conditions and randomness may lead to different results 
 </ul>
 <p>
+</section>
+
+<section>
+    <h3>Agent based modeling environments</h3>
+<ul>
+<li><a href="https://github.com/projectmesa/mesa/">MESA: ABM in python 3+</a>
+<li><a href="https://ccl.northwestern.edu/netlogo/">NetLogo</a>
+and <a href="http://netlogoweb.org/">NetLogoWeb</a>
+<li><a href="https://repast.github.io/">REPAST</a>
+<li><a href="https://cs.gmu.edu/~eclab/projects/mason/">MASON</a>
+<li><a href="https://gama-platform.github.io/">GAMA platform</a>
+<li>GRASS GIS ABM library
+<li><a href="http://www.geosimulation.org/geosim/abms.htm">ABM at geosimulation labs</a>
+<li><a href="https://www.comses.net/">CoMSES/OpenABM</a>: collection of resources for computational model-based science
+</ul>
 </section>
 
 <section>
@@ -135,10 +152,6 @@ origin in a models of turtles swimming in a pond
 <p>Flocking
 <p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Alternative%20Visualizations/Flocking%20-%20Alternative%20Visualizations.nlogo">Flocking in Netlogo</a>
 <p>Many interesting models in Social science, Biology, Chemistry, Physics, Computer Science and other disciplines
-</section>
-
-<section>
-    <h3>ABM modeling environments</h3>
 </section>
 
 <section>
@@ -175,11 +188,11 @@ origin in a models of turtles swimming in a pond
 <section>
     <h3>Coupling human and natural systems</h3>
 <p>Simulating long-term change in socioecological systems: application to prehistoric
-Mediterranean societies MedLanD
+Mediterranean societies
 <ul>
   <li>evolution of landscape: process-based erosion and deposition modeling
   <li>land use change driven by agropastoral practicies: stochastic, rule-based model
-  <li>alternatively: agent (farming household) driven land use change
+  <li>or: agent (farming household) driven land use change
 </ul>
 Stochastic modeling of land-use: cultivated and grazed cells are allocated randomly within catchments 
 whose sizes are estimated on the basis of subsistence needs and fallow/grazing cycles. 
@@ -189,12 +202,12 @@ whose sizes are estimated on the basis of subsistence needs and fallow/grazing c
     <h3>Neolithic farming spread ABM </h3>
 <p>Agents employ decision rules to choose land cells to farm or graze based on:
 <ul>
- <li>their farming returns (calories that affect birth and death rate)  
+ <li>their farming returns  (affect borth and death rate) 
  <li>needs (based on household size), 
- <li>the potential productivity of land for agropastoral use (including soil depth and fertility, slope, and current vegetation),
+ <li>the potential productivity of land for agropastoral use (soil depth and fertility, slope, current vegetation),
  <li>costs to use the land (including access on foot) 
- <li>each household agent chooses the best available landscape patches 
-in a round-robin whose order is randomized each execution cycle of the model so that no household will have first access to better lands than other households. Agents also choose land cells from which to collect fuel–wood, based on household size, availability of woody vegetation, and energy costs to access a cell on foot.
+ <li><small>each household agent chooses the best available landscape patches 
+in a round-robin whose order is randomized each execution cycle of the model so that no household will have first access to better lands than other households. Agents also choose land cells from which to collect fuel–wood, based on household size, availability of woody vegetation, and energy costs to access a cell on foot.</small>
 </ul>
 Agents initial state and model developemnt is based on archeological record.
 <small>
