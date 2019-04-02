@@ -34,22 +34,36 @@
 <section>
     <h3>ABM principle</h3>
 <p>
-<p>General expression for the agent $A_r (t)$ evolution
+<p>General expression for the agent $A_i$ evolution 
 <p>
 $$
-A_r^i (t+\Delta t) = F(A_r^i (t), A_r^j (t), E_r (t), R)
+A_i^{t+\Delta t} = F(A_i^t, A_j^t, E^t, R)
 $$
 <p>
-where $r=(i,j)$ or $(x,y)$ is a location and $t$ is time.
-Agent state at time $t+\Delta t$ is a function of 
+Agent state (location, attributes) at time $t+\Delta t$ is a function of 
 <ul>
  <li>its state at time $t$, 
- <li>state of the interacting agent(s) $A_r^j (t)$
- <li>state of the environment $E_r (t)$ at the location $r$ and its neighborhood
+ <li>state of the interacting agent(s) $A_j^t$
+ <li>state of the environment $E$ 
  <li>interaction rules $R$
 </ul>
-<p><small>Space is often tesselated into grid cells $(i,j)$ with initial environmental state $E_r^{t=0}$
+<p><small>Space is often tesselated into grid cells with initial environmental state. 
 Agents are modeled as grid cells, patches, oriented lines, or points</small>
+</section>
+
+<section>
+    <h3>Compare CA and ABM</h3>
+<ul>
+ <li class="fragment">in CA environment is equivalent to population
+ <li class="fragment">ABM treats agents (population) and environment as separate interacting entities
+ <li class="fragment">in CA the evolution depends only on the state of the cell neighborhood
+ <li class="fragment">in ABM the evolution depends on the environment and interaction between agents
+ <li class="fragment">in ABM the interactions can be long range
+<p>
+<small>
+There is a continuum of models between CA and ABM. Some models can be interpreted as special cases
+of solutions to processes, described by partial differential equations: diffusion, fire
+</small>
 </section>
 
 <section>
@@ -74,24 +88,11 @@ Agents are modeled as grid cells, patches, oriented lines, or points</small>
 <ul>
 <li class="fragment">Fire modeling: burning cell
 <li class="fragment">Disease spread: bug, virus, or infected people or animals 
-<li class="fragment">Evolution of agropastoral settlements: farming household
+<li class="fragment">Evolution of agropastoral settlements: farming household, settlements
+<li class="fragment">Movement of animals: individual animal 
 <li class="fragment">Movement of people in urban environment: pedestrian
 </ul>
-</section>
-
-<section>
-    <h3>Compare CA and ABM</h3>
-<ul>
- <li class="fragment">in CA environment is equivalent to population 
- <li class="fragment">ABM treats agents (population) and environment as separate interacting entities
- <li class="fragment">in CA the evolution depends only on the state of the cell neighborhood
- <li class="fragment">in ABM the evolution depends on the environment and interaction between agents
- <li class="fragment">in ABM the interactions can be long range
-<p>
-<small>
-There is a continuum of models between CA and ABM. Some models can be interpreted as special cases
-of solutions to processes, described by partial differential equations: diffusion, fire 
-</small>
+Propose interactions
 </section>
 
 <section>
@@ -109,7 +110,7 @@ of solutions to processes, described by partial differential equations: diffusio
 
 <section>
     <h3>ABM examples</h3>
-NetLogo web has many on-line examples:
+NetLogo Web has many on-line examples:
 <p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model</a>
 <small>
 <ul>
@@ -120,8 +121,9 @@ NetLogo web has many on-line examples:
 </ul>
 <p><a href="https://ccl.northwestern.edu/netlogo/docs/programming.html">Terminology and programming in Netlogo</a>
 <p>Agents: turtles, patches, links and observer; see more in the manual, the terminology has its
+origin in a models of turtles swimming in a pond
 <p>Wilensky, U. (1997). NetLogo Segregation model. http://ccl.northwestern.edu/netlogo/models/Segregation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
-origin in a models of turtles swimming in a pond</a></small>
+</a></small>
 </section>
 
 <section>
@@ -176,10 +178,22 @@ Mediterranean societies MedLanD
   <li>alternatively: agent driven land use change
   <li>ABM: agent=farming household
 </ul>
+Stochastic modeling of land-use: cultivated and grazed cells are allocated randomly within catchments 
+whose sizes are estimated on the basis of subsistence needs and fallow/grazing cycles. 
 </section>
 
 <section>
-Agents employ decision rules to choose land cells to farm or graze on the basis of their farming returns (calories that affect birth and death rate) and needs (based on household size), the potential productiv- ity of land for agropastoral use (including soil depth and fertility, slope, and current vegetation), and costs to use the land (includ- ing access on foot) (Ullah and Bergin, 2012; Mayer et al., 2006; Mayer and Sarjoughian, 2009; Barton et al., 2010a). As opposed to stochastic modeling of land-use, where cultivated and grazed cells are allocated randomly within catchments whose sizes are esti- mated on the basis of subsistence needs and fallow/grazing cycles, each household agent chooses the best available landscape patches in a round-robin whose order is randomized each execution cycle of the model so that no household will have first access to better lands than other households. Agents also choose land cells from which to collect fuel–wood, based on household size, availability of woody vegetation, and energy costs to access a cell on foot.
+    <h3>Neolithic farming spread ABM </h3>
+<p>Agents employ decision rules to choose land cells to farm or graze based on:
+<ul>
+ <li>their farming returns (calories that affect birth and death rate)  
+ <li>needs (based on household size), 
+ <li>the potential productivity of land for agropastoral use (including soil depth and fertility, slope, and current vegetation),
+ <li>costs to use the land (including access on foot) 
+ <li>each household agent chooses the best available landscape patches 
+in a round-robin whose order is randomized each execution cycle of the model so that no household will have first access to better lands than other households. Agents also choose land cells from which to collect fuel–wood, based on household size, availability of woody vegetation, and energy costs to access a cell on foot.
+</ul>
+(Ullah and Bergin, 2012; Mayer et al., 2006; Mayer and Sarjoughian, 2009; Barton et al., 2010a). 
 </section>
 
 <section>
