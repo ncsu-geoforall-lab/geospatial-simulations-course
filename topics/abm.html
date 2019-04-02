@@ -47,29 +47,10 @@ approach at two spatial scales. Environmental Modelling and Software. 25(2), pp.
 </ul>
 <p> Explore coupled human - natural system simulation 
 <ul>
-<li>run the coupled landscape evolution and agropastoral society in GRASS, see the assignment webpage
+<li><a href="../assignments/abm.html">Run the coupled landscape evolution and agropastoral society in GRASS</a>
 <li>run the spread of agriculture in NetLogo
 <a href="https://www.comses.net/codebases/4447/releases/2.1.0/">Neolithic spread model</a>
 </ul>
-<!--
-r.agropast.adaptive2 (ABM/CA): "https://github.com/comses/MML-Lite/blob/master/r.agropast.adaptive2.py" 
-r.landscape.evol2 (landscape evolution CA): "https://github.com/comses/medland/blob/master/Scripts/r.landscape.evol2.py" 
-
-r.agropast.adaptive2 is now tuned to use r.landscape.evol2 so they can work together as designed. 
-
-Here is a link to a clean GRASS location for testing with all the files you need to run with.
-"https://www.dropbox.com/s/ljdlgejk5qy44te/Penaguila_MML_test.zip?dl=0"
-
-And here is a command that will run r.agropast.adaptive2 linked with r.landscape.evol2 for 3 interations 
-change the path to the rules files that are in a folder in the GRASS location 
-
-r.agropast.adaptive2 -1 numpeople=30 years=3 prefx='sim' costsurf=farm_catch_10yr_30ppl_cost_surface@PERMANENT agcatch=farm_catch_10yr_30ppl@PERMANENT grazecatch=graze_catch@PERMANENT fodder_rules=/Users/cmbarton/Dropbox/GRASS_dropbox/grassdata_dropbox/Penaguila/rules/fodder_rules.txt inlcov=init_veg@PERMANENT infert=init_fert@PERMANENT lc_rules=/Users/cmbarton/Dropbox/GRASS_dropbox/grassdata_dropbox/Penaguila/rules/luse_reclass_rules.txt cfact_rules=/Users/cmbarton/Dropbox/GRASS_dropbox/grassdata_dropbox/Penaguila/rules/cfactor_recode_rules.txt elev=DEM@PERMANENT initbdrk=init_bdrk@PERMANENT 
-
-If you want to set up your own geographic locale for this, you'll also need r.catchment
-"https://github.com/comses/medland/blob/master/Scripts/r.catchment.py"o
-
-there is also a spreadsheet with default values for agropastoral economy - get the numbers into the assignment webpage
--->
 
 <h3>Homework 5</h3>
 Write a paper about agent based modeling and include your own code in MESA or interesting results
