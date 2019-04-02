@@ -97,9 +97,10 @@ Propose interactions
 
 <section>
     <h3>Emergence and self-organization</h3>
-<p>
+<p> Applies to both CA and ABM
 <ul>
 <li>Emergent behavior: behavior of the modeled system is more complex than the behavior of the parts
+<li><small>recall <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Puffer breeder CA</a></small>
  <li class="fragment">synchronization, cooperation or chaos, turbulence 
  <li class="fragment">self-organization: feedback and adaptive behavior
  <li class="fragment">behavior of a component depends on the behavior of the system
@@ -110,19 +111,22 @@ Propose interactions
 
 <section>
     <h3>ABM examples</h3>
-NetLogo Web has many on-line examples:
-<p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model</a>
-<small>
+<a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<br>
+<small><a href="https://lectures.quantecon.org/jl/schelling.html">the model as Jupyter notebook</a>
 <ul>
 <li>2 groups in randomly distributed patches
 <li>Each agent is happy if it has $n%$ of neighbors from the same group
 <li>Unhappy agent moves until it finds happy location
-<li>System segregates into more homogeneus groups even for $n$ less than 50% (compare n = 20,30,45 %)
+<li>System segregates into more homogeneus groups even for $n$ less than 50% 
+<br>(compare n = 20,30,45 %, also try to start with 25% empty and 60% neighbors)
+<li>how to measure the system seggregation/integration?
 </ul>
 <p><a href="https://ccl.northwestern.edu/netlogo/docs/programming.html">Terminology and programming in Netlogo</a>
-<p>Agents: turtles, patches, links and observer; see more in the manual, the terminology has its
+<br>Agents: turtles, patches, links and observer; see more in the manual, the terminology has its
 origin in a models of turtles swimming in a pond
-<p>Wilensky, U. (1997). NetLogo Segregation model. http://ccl.northwestern.edu/netlogo/models/Segregation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
+<p><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<p><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
 </a></small>
 </section>
 
@@ -161,22 +165,9 @@ origin in a models of turtles swimming in a pond
 <p>Simulating long-term change in socioecological systems: application to prehistoric
 Mediterranean societies MedLanD
 <ul>
-  <li>evolution of landscape: process-based erosion modeling
+  <li>evolution of landscape: process-based erosion and deposition modeling
   <li>land use change driven by agropastoral practicies: stochastic, rule-based model
-  <li>alternatively: agent driven land use change
-  <li>ABM: agent=farming household 
-</ul>
-</section>
-
-<section>
-    <h3>ABM of farmed land use evolution</h3>
-<p>Simulating long-term change in socioecological systems: application to prehistoric
-Mediterranean societies MedLanD
-<ul>
-  <li>evolution of landscape: process-based erosion modeling
-  <li>land use change driven by agropastoral practicies: stochastic, rule-based model
-  <li>alternatively: agent driven land use change
-  <li>ABM: agent=farming household
+  <li>alternatively: agent (farming household) driven land use change
 </ul>
 Stochastic modeling of land-use: cultivated and grazed cells are allocated randomly within catchments 
 whose sizes are estimated on the basis of subsistence needs and fallow/grazing cycles. 
@@ -193,7 +184,11 @@ whose sizes are estimated on the basis of subsistence needs and fallow/grazing c
  <li>each household agent chooses the best available landscape patches 
 in a round-robin whose order is randomized each execution cycle of the model so that no household will have first access to better lands than other households. Agents also choose land cells from which to collect fuel–wood, based on household size, availability of woody vegetation, and energy costs to access a cell on foot.
 </ul>
-(Ullah and Bergin, 2012; Mayer et al., 2006; Mayer and Sarjoughian, 2009; Barton et al., 2010a). 
+Agents initial state and model developemnt is based on archeological record.
+<small>
+<p>References:
+Ullah and Bergin, 2012; Mayer et al., 2006; Mayer and Sarjoughian, 2009; Barton et al., 2010a
+</small>
 </section>
 
 <section>
