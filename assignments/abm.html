@@ -72,8 +72,8 @@ Things to download:
 </ul>
 Start GRASS in the provided Location and create new mapset.
 
-Unzip the reclassification rules to a directory and place there the script r.agropast.adaptive2.py.
-Change to the directory where the rule files and the script r.agropast.adaptive2.py is are and run the simulation for 3 iterations:
+Unzip the reclassification rules to a directory and place there the scripts r.agropast.adaptive2.py and r.landscape.evol2.py.
+Change to the directory where the rule files and the scripts are and run the simulation for 3 iterations:
 
 <pre><code>
 python r.agropast.adaptive2.py -1 numpeople=30 years=3 prefx='sim' costsurf=farm_catch_10yr_30ppl_cost_surface agcatch=farm_catch_10yr_30ppl grazecatch=graze_catch fodder_rules=fodder_rules.txt inlcov=init_veg infert=init_fert lc_rules=luse_reclass_rules.txt cfact_rules=cfactor_recode_rules.txt elev=DEM initbdrk=init_bdrk 
