@@ -1,0 +1,114 @@
+<section>
+    <h2><b>Geostatistical simulations</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+<li>motivation for geostatistical simulations
+<li>mathematical foundations
+<li>applications
+<li>open source tools
+</ul>
+</section>
+
+<section>
+    <h3>Geostatistical simulations: motivation</h3>
+<p>
+<ul>
+  <li class="fragment">we are modeling complex distribution (e.g. surface)
+  <li class="fragment">limited number of samples is available - interpolation does not capture the complexity, the result is too smooth
+  <li class="fragment">we know the statistical properties of the complex distribution
+  <li class="fragment">we generate many realizations of the surface with the given stats properties
+  <li class="fragment">the realizations are used to compute the simulated complex distribution and its uncertainty
+</ul>
+</section>
+
+<section>
+    <h3>Geostatistical simulations: motivation</h3>
+<p>
+Univariate example <img height="240px" src="img/tangible_landscape/colloboration.jpg">
+Bivariate example
+<a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">
+Nonconditional and conditional simulation, compared with kriging</a>
+</section>
+
+<section>
+    <h3>Geostatistical conditional simulations</h3>
+<p>
+<ul>
+  <li class="fragment">we are modeling complex distribution (e.g. surface)
+  <li class="fragment">limited number of samples is available - interpolation does not capture the complexity, the result is too smooth
+  <li class="fragment">auxiliary data are available 
+  <li class="fragment">we can estimate relation between the auxiliary data and the modeled variable
+  <li class="fragment">we use observed data and auxiliary data to simulate the distribution of modeled variable
+</ul>
+</section>
+
+
+<!--
+<section>
+    <h3>ABM principle</h3>
+<p>
+<p>General expression for the agent $A_i$ evolution 
+<p>
+$$
+A_i^{t+\Delta t} = F(A_i^t, A_j^t, E^t, R)
+$$
+<p>
+Agent state (location, attributes) at time $t+\Delta t$ is a function of 
+<ul>
+ <li>its state at time $t$, 
+ <li>state of the interacting agent(s) $A_j^t$
+ <li>state of the environment $E$ 
+ <li>interaction rules $R$
+</ul>
+<p><small>Space is often tesselated into grid cells with initial environmental state. 
+Agents are modeled as grid cells, patches, oriented lines, or points</small>
+<img height="240px" src="img/tangible_landscape/collaboration_computer.JPG">
+</section>
+
+<section>
+    <h3>Emergence and self-organization</h3>
+<p> Applies to both CA and ABM
+<ul>
+<li>Emergent behavior: behavior of the modeled system is more complex than the behavior of the parts
+<li><small>recall <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Puffer breeder CA</a></small>
+ <li class="fragment">synchronization, cooperation or chaos, turbulence 
+ <li class="fragment">self-organization: feedback and adaptive behavior
+ <li class="fragment">behavior of a component depends on the behavior of the system
+ <li class="fragment">different initial conditions and randomness may lead to different results 
+</ul>
+<p>
+</section>
+
+<section>
+    <h3>ABM and modeling of processes</h3>
+<p>Discuss disease, urban, and flood modeling and their relation to ABM
+<p>Compare the components of disease, urban or flood models to CA and ABM,
+how are these models different and what is same?
+<p>Can these models be coupled with ABM - which components could be represented by ABM?
+
+<ul>
+  <li>Group 1: ABM, CA and FUTURES
+  <li>Group 2: ABM, CA and PoPPs
+  <li>Group 3: ABM, CA and flooding
+</ul>
+</section>
+-->
+
+
+
+<div class="parent-page">
+    <!-- &#x1f3e0; -->
+    <a href="http://ncsu-geoforall-lab.github.io/geospatial-simulations-course/" title="Go to the course page">&#8962;</a>
+</div>
+
+
