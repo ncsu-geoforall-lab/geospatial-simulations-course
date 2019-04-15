@@ -1,0 +1,86 @@
+<h2>Geostatistical simulations</h2>
+This assignment was adapted from <a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">
+A Practical Guide to Geostatistical Mapping</a> by T. Hengl.
+Download and unzip dataset <tt><a href="http://spatial-analyst.net/book/system/files/elevations.zip">baranjahill</a></tt>.
+
+Start GRASS GIS and create new Location using and in the wizard select option
+<i>Specify projection and datum terms using custom PROJ.4 parameters</i>.
+Then use this projection specification:
+<pre>
++proj=tmerc +lat_0=0 +lon_0=18 +k=0.9999 +x_0=6500000 +y_0=0 +no_defs +a=6377397.155 +rf=299.1528128 +towgs84=550.499,164.116,475.142,5.80967,2.07902,-11.62386,0.99999445824  +to_meter=1
+</pre>
+
+Once GRASS opens, import the dataset (or specify full path).
+Note we use -o flag (overide projection) because the dataset doesn't have projection info.
+<pre><code>
+v.in.ogr -o input=elevations.shp
+</code></pre>
+
+Interpolate surface to get idea how it looks like:
+<pre><code>
+g.region e=6555626 w=6551786 s=5070478 n=5074348 res=30 -p
+v.surf.rst input=elevations@PERMANENT zcolumn=VALUE elevation=elevation slope=slope
+</code></pre>
+
+
+Next, we switch to R. From GRASS terminal run R. You will need packages:
+
+<pre><code>
+install.packages(c("rgdal", "gstat", "geoR", "rgrass7"))
+</code></pre>
+
+Read in libraries and vector data:
+<pre><code>
+library(rgrass7)
+library(rgdal)
+library(gstat)
+library(geoR)
+
+elevations <- readVECT("elevations")
+</code></pre>
+
+Subsample data and explore histogram:
+<pre><code>
+sel <- runif(length(elevations@data[[2]])) < 0.2
+Z.geo <- as.geodata(elevations[sel,"VALUE"])
+plot(Z.geo, qt.col=grey(runif(4)))
+</code></pre>
+
+Fit variogram:
+<pre><code>
+plot(variog4(Z.geo, max.dist=1000, messages=FALSE), lwd=2)
+Z.svar <- variog(Z.geo, max.dist=1000, messages=FALSE)
+Z.vgm <- variofit(Z.svar, ini=c(var(Z.geo$data), 1000), fix.nugget=T, nugget=0)
+env.model <- variog.model.env(Z.geo, obj.var=Z.svar, model=Z.vgm)
+plot(Z.svar, envelope=env.model); lines(Z.vgm, lwd=2);
+</code></pre>
+
+Stochastic Conditional Gaussian Simulation:
+<pre><code>    
+demgrid <- spsample(elevations, type="regular", cellsize=c(30,30))
+gridded(demgrid) <- TRUE
+fullgrid(demgrid) <- TRUE
+Z.ovgm <- vgm(psill=Z.vgm$cov.pars[1], model="Mat", range=Z.vgm$cov.pars[2], nugget=Z.vgm$nugget, kappa=1.2)
+N.sim <- 100
+DEM.sim <- krige(elevations$VALUE ~ 1, elevations, demgrid, Z.ovgm, nmax=30, nsim=N.sim)
+fullgrid(DEM.sim) <- TRUE
+spplot(DEM.sim[1:4], col.regions=grey(seq(0,1,0.025)))
+</code></pre>
+
+Save simulated elevation rasters as GRASS rasters and derive streams on each of them:
+<pre><code> 
+for(i in 1:N.sim) {writeRAST(DEM.sim[i], paste("simulated_", i, sep=""))}
+execGRASS("g.list", type="raster", pattern="simulated_*", output="tmp_list_simulated.txt")
+# compute standard deviation
+execGRASS("r.series", file="tmp_list_simulated.txt", output="simulated_std", method="stddev")
+for(i in 1:N.sim) {execGRASS("r.watershed", elevation=paste("simulated_", i, sep=""),
+ threshold=30, stream=paste("stream_", i, sep=""), flags=c("quiet"))}
+</code></pre>
+
+Compute probability and error:
+<pre><code> 
+execGRASS("g.list", type="raster", pattern="stream*", output="tmp_list.txt")
+execGRASS("r.series", file="tmp_list.txt", output="count", method="count")
+execGRASS("r.mapcalc", expression=paste("prob = count/", N.sim))
+execGRASS("r.mapcalc", expression="error = -prob * log(prob) - (1-prob)* log(1-prob)")
+</code></pre>
