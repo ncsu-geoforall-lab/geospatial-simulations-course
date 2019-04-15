@@ -13,11 +13,13 @@
 <p>
 <ul>
 <li>motivation for geostatistical simulations
-<li>mathematical foundations
-<li>applications
-<li>open source tools
+<li>Geostatistical conditional simulations
+<li>Gaussian Sequential Simulation
+<li>applications, uncertainty propagation
 </ul>
 </section>
+
+
 
 <section>
     <h3>Geostatistical simulations: motivation</h3>
@@ -33,16 +35,77 @@ Estimation versus simulation
 </section>
 
 <section>
-    <h3>Geostatistical simulations: motivation</h3>
+    <h3>Simulation versus interpolation</h3>
 <p>
-Univariate example <img height="240px" src="img/tangible_landscape/colloboration.jpg">
+What is interpolation: predict values at unsampled locations.
+<p>Methods
+<ul>
+<li>see MEA582
+</ul>
+</section>
+
+<section>
+    <h3>Splines: thin plate simulation</h3>
+<p>Splines and simulation
+<ul>
+<li>see MEA582
+</ul>
+Physical and geostatistical interpretation of splines
+</section>
+
+<section>
+    <h3>Geostatistical simulations: applications</h3>
+<p>
+Observations where sampling is limited:
+<ul>
+  <li class="fragment">subsurface: reservoir modeling, mining, soil properties, groundwater pollution
+  <li class="fragment">surface: variables not detectable by RS, e.g. some pollutants
+  <li class="fragment">uncertainty propagation studies
+</ul>
+</section>
+
+<section>
+    <h3>Geostatistical simulations</h3>
+<p>
+Univariate example: draw on board
 Bivariate example
 <a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">
 Nonconditional and conditional simulation, compared with kriging</a>
 </section>
 
 <section>
-    <h3>Geostatistical conditional simulations</h3>
+    <h3>Geostatistical simulations</h3>
+<p>Raster-based: continuous or categorical data
+<p>Object based: categorical data
+<a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">
+Nonconditional and conditional simulation, compared with kriging</a>
+</section
+
+
+<section>
+    <h3>Gaussian Sequential Simulation</h3>
+<ul>
+<li>Input: sparse, scattered point measurements
+<li>analyze the data for normality - histogram
+<li>apply transformation if needed to get normal distribution
+<li>Compute semivariogram and its nugget, range and sill
+<ul>
+</section>
+
+<section>
+    <h3>"Random walk"</h3>
+<ul>
+<li>Order of grid cells to be simulated
+<li>Each realization starts with a different seed, leading to different "random walk"
+<li>this is different random walk than what we refered to in path sampling simulations
+</ul>
+
+<p>
+</section>
+
+<!--
+<section>
+    <h3>Geostatistical simulations with auxiliary data</h3>
 <p>
 <ul>
   <li class="fragment">we are modeling complex distribution (e.g. surface)
@@ -53,8 +116,6 @@ Nonconditional and conditional simulation, compared with kriging</a>
 </ul>
 </section>
 
-
-<!--
 <section>
     <h3>ABM principle</h3>
 <p>
