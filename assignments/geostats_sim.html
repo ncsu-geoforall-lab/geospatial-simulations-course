@@ -2,8 +2,8 @@
 This assignment was adapted from <a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">
 A Practical Guide to Geostatistical Mapping</a> by T. Hengl.
 Download and unzip dataset <tt><a href="http://spatial-analyst.net/book/system/files/elevations.zip">baranjahill</a></tt>.
-
-Start GRASS GIS and create new Location using and in the wizard select option
+<p>
+Start GRASS GIS and create new Location and in the wizard select option
 <i>Specify projection and datum terms using custom PROJ.4 parameters</i>.
 Then use this projection specification:
 <pre>
@@ -81,6 +81,6 @@ Compute probability and error:
 <pre><code> 
 execGRASS("g.list", type="raster", pattern="stream*", output="tmp_list.txt")
 execGRASS("r.series", file="tmp_list.txt", output="count", method="count")
-execGRASS("r.mapcalc", expression=paste("prob = count/", N.sim))
+execGRASS("r.mapcalc", expression=paste("prob = float(count)/", N.sim))
 execGRASS("r.mapcalc", expression="error = -prob * log(prob) - (1-prob)* log(1-prob)")
 </code></pre>
