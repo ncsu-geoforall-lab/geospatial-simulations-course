@@ -13,21 +13,22 @@
 <p>
 <ul>
 <li>motivation for geostatistical simulations
-<li>Geostatistical conditional simulations
+<li>physics-based surface simulation and splines
+<li>geostatistical conditional simulations
 <li>Gaussian Sequential Simulation
-<li>applications, uncertainty propagation
+<li>simulations for uncertainty propagation
 </ul>
 </section>
 
 <section>
-    <h3>Geostatistical simulations: motivation</h3>
-<p>Derive model of spatial distribution of an (environmental) variable
-based on a limited set of discrete observations:
+    <h3>Motivation</h3>
+<p>Derive model of spatial distribution of a variable
+based on a limited set of discrete scattered observations:
 <ul>
-<li>if the measured data capture the features of the distribution at the level of detail needed
+<li>if the measured data capture features of the distribution at the level of detail needed
 for the application we can use interpolation 
-<a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/topics/spatial_interpolation.html">
-See GIS582 Spatial interpolation topic</a>
+<br><small><a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/topics/spatial_interpolation.html">
+See GIS582 Spatial interpolation topic</a></small>
 <li>if the measured data are limited and we know statistical properties of the distribution,
 we can use simulation
 <li>some interpolation methods are based on deterministic, process-based simulations: splines 
@@ -35,43 +36,103 @@ we can use simulation
 </section>
 
 <section>
-    <h3>Geostatistical simulations: motivation</h3>
+    <h3>Problem formulation</h3>
 <p>
-Estimation versus simulation
+<ul>
+<li>Given the $m$ values of a studied phenomenon $z_j$ measured
+at locations ${\bf r}_j=(x_j,y_j), \; j=1,\dots ,m$ 
+find a function $F({\bf r})$ which fulfils the following condition:
+<p>
+$$
+F({\bf r}_j)=z_j,\quad j=1,\ldots ,m 
+$$
+<li class="fragment">The problem does not have a unique solution so additional conditions are used.
+<li class="fragment">Interpolation: we use $F({\bf r}_j)$ to estimate values at unsampled locations
+<li class="fragment">Simulation: we use $F({\bf r}_j)$ to condition our simulation of a more complex surface
+</ul>
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+<img height="340px" src="img/geostats/elevrandpts.jpg">
+<img height="340px" src="img/geostats/pointstogrid.jpg">
+<p>
+<small>Interpolation: distance between grid points is similar to the average distance between the given points
+<p>Simulation: distance between grid points can be much smaller - higher resolution grid
+</small>
+</section>
+
+<section>
+    <h3>Multiple solutions</h3>
+<img height="440px" src="img/geostats/interp1d.gif">
+<p><small>draw simulation on the board</small>
+</section>
+
+<section>
+    <h3>Splines with tension</h3>
+<p>
+<p>Splines with tension simulate the behavior of a thin plate with tuneable properties 
+<p>
+$$
+F({\bf r})=T({\bf r})+\sum_{j=1}^m \lambda_j R({\bf r},{\bf r}_j)\, 
+$$
+<p>
+<ul> 
+<li>$T({\bf r})$ is a `trend' function, 
+<li>$\lambda_j$ are weights (coefficients) 
+<li>$R({\bf r},{\bf r}_j)$ is a function of distance between an unsampled and a measured point. 
+<li>$R$ is derived by minimizing the smoothness seminorm (or roughness penalty)
+</ul>
+<p><small>
+Bivariate smoothness seminorm with weighted squares of
+first and second derivatives leads to
+thin plate spline with tension, when all derivatives
+are used with decreasing weight we get
+regularized spline with tension.</small>
+</section>
+
+<section>
+    <h3>Splines with tension</h3>
+<p><small>Thin plate spline with tension is then
+$$
+F({\bf r})=a_0 + \sum_{j=1}^N \lambda_j 
+\left[ {\rm K_0} (\varphi r/2) + \ln(\varphi r/2) + C \right] 
+$$
+where $K_0(.)$ is the Bessel function and $\varphi$ is tension parameter,
+$C$ is constant. The function simulates a flexible thin steel plate (low tension) 
+through rubber sheet (high tension).
+</small>
+<img height="350" src="img/geostats/tension.gif">
+<p><small>Physical and geostatistical interpretation of splines: Learn more in GIS582
+and supplemental material</small>
+</section>
+
+<section>
+    <h3>Splines with tension</h3>
+<p>Trivariate thin plate spline with tension
+<p><img height="350" src="img/geostats/tension3d.gif">
+</section>
+
+<section>
+    <h3>Geostatistical simulations</h3>
+<p>
 <ul>
   <li class="fragment">we are modeling complex distribution (e.g. surface)
-  <li class="fragment">limited number of samples is available - interpolation does not capture the complexity, the result is too smooth
-  <li class="fragment">we know the statistical properties of the complex distribution
+  <li class="fragment">limited number of samples is available 
+   - interpolation does not capture the complexity and the result is too smooth
+  <li class="fragment">we have some knowledge of statistical properties of the modeled distribution
   <li class="fragment">we generate many realizations of the surface with the given stats properties
-  <li class="fragment">the realizations are used to compute the simulated complex distribution and its uncertainty
+  <li class="fragment">the realizations are used to compute the surface mean and uncertainty maps
 </ul>
 </section>
 
 <section>
-    <h3>Simulation versus interpolation</h3>
-<p>
-What is interpolation: predict values at unsampled locations.
-<p>Methods
-<ul>
-<li>see MEA582
-</ul>
-</section>
-
-<section>
-    <h3>Splines: thin plate simulation</h3>
-<p>Splines and simulation
-<ul>
-<li>see MEA582
-</ul>
-Physical and geostatistical interpretation of splines
-</section>
-
-<section>
-    <h3>Geostatistical simulations: applications</h3>
+    <h3>Applications</h3>
 <p>
 Observations where sampling is limited:
 <ul>
-  <li class="fragment">subsurface: reservoir modeling, mining, soil properties, groundwater pollution
+  <li class="fragment">subsurface: reservoir modeling in petroleum industry, mining, 
+   soil properties, groundwater pollution
   <li class="fragment">surface: variables not detectable by RS, e.g. some pollutants
   <li class="fragment">uncertainty propagation studies
 </ul>
@@ -80,8 +141,6 @@ Observations where sampling is limited:
 <section>
     <h3>Geostatistical simulations</h3>
 <p>
-Univariate example: draw on board
-Bivariate example
 <a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">
 Nonconditional and conditional simulation, compared with kriging</a>
 </section>
@@ -90,30 +149,88 @@ Nonconditional and conditional simulation, compared with kriging</a>
     <h3>Geostatistical simulations</h3>
 <p>Raster-based: continuous or categorical data
 <p>Object based: categorical data
-<a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">
-Nonconditional and conditional simulation, compared with kriging</a>
-</section
-
+</section>
 
 <section>
     <h3>Gaussian Sequential Simulation</h3>
 <ul>
-<li>Input: sparse, scattered point measurements
-<li>analyze the data for normality - histogram
-<li>apply transformation if needed to get normal distribution
-<li>Compute semivariogram and its nugget, range and sill
+<li>input: sparse, scattered point measurements
+<li>analyze the data for normality
+<li>apply transformation if needed to get normal distribution (log or Box-Cox transform)
+<li>compute semivariogram and its nugget, range and sill
+<li> define spatial extent and resolution of resulting grid
 <ul>
 </section>
 
 <section>
-    <h3>"Random walk"</h3>
+    <h3>Generate one realization</h3>
 <ul>
-<li>Order of grid cells to be simulated
-<li>Each realization starts with a different seed, leading to different "random walk"
+<li>assign points to closest grid cell
+<li>use "random walks" to define order of empty grid cells to be simulated
 <li>this is different random walk than what we refered to in path sampling simulations
 </ul>
-
 <p>
+</section>
+
+<section>
+    <h3>Compute mean and uncertainty</h3>
+<ul>
+<li>Each realization starts with a different seed
+<li>Compute hundreds or thousands relatizations
+<li>Mean is the simulated distribution result 
+</ul>
+<p>
+</section>
+
+<section>
+    <h3>Application example for stream extraction</h3>
+What is the spatial pattern and magnitude of stream location uncertainty caused
+by uncertainty in a DEM?
+<p>Example from  A Practical Guide to Geostatistical Mapping by T. Hengl. 
+<p>
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<ul>
+<li>Compute experimntal variogram from given elevation data
+<li>Fit Matern variogram model with smoothing parameter
+<li>equation 
+</ul>
+<p><img height="240px" src="img/geostats/scatterplots.jpg">
+<p><img height="240px" src="img/geostats/variogram.jpg">
+<p><img height="240px" src="img/geostats/variogram2.jpg">
+</section>
+
+<section>
+    <h3>Conditional simulation of DEMs</h3>
+<ul>
+<li>compute 100 relizations of DEM using GSS
+</ul>
+<p>
+</section>
+
+<section>
+    <h3>Stream uncertainty mapping</h3>
+<ul>
+<li>derive stream network for each DEM
+<li>compute count of stream presence from all DEMs
+<li>derive probability and uncertainty from the count map
+</ul>
+<p>
+</section>
+
+<section>
+    <h3>Stream uncertainty mapping</h3>
+<p>
+<p><img height="340px" src="img/geostats/stream_probability.png">
+<p><img height="340px" src="img/geostats/simulated_surface_std.png">
+</section>
+
+<section>
+    <h3>Resources</h3>
+<p>See supplemental material
+<p><a href="https://www4.stat.ncsu.edu/~reich/SpatialStats/index.html">Spatial Statistics course at NCSU, Dr. Brian Reich</a>
 </section>
 
 <!--
@@ -150,36 +267,7 @@ Agents are modeled as grid cells, patches, oriented lines, or points</small>
 <img height="240px" src="img/tangible_landscape/collaboration_computer.JPG">
 </section>
 
-<section>
-    <h3>Emergence and self-organization</h3>
-<p> Applies to both CA and ABM
-<ul>
-<li>Emergent behavior: behavior of the modeled system is more complex than the behavior of the parts
-<li><small>recall <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Puffer breeder CA</a></small>
- <li class="fragment">synchronization, cooperation or chaos, turbulence 
- <li class="fragment">self-organization: feedback and adaptive behavior
- <li class="fragment">behavior of a component depends on the behavior of the system
- <li class="fragment">different initial conditions and randomness may lead to different results 
-</ul>
-<p>
-</section>
-
-<section>
-    <h3>ABM and modeling of processes</h3>
-<p>Discuss disease, urban, and flood modeling and their relation to ABM
-<p>Compare the components of disease, urban or flood models to CA and ABM,
-how are these models different and what is same?
-<p>Can these models be coupled with ABM - which components could be represented by ABM?
-
-<ul>
-  <li>Group 1: ABM, CA and FUTURES
-  <li>Group 2: ABM, CA and PoPPs
-  <li>Group 3: ABM, CA and flooding
-</ul>
-</section>
 -->
-
-
 
 <div class="parent-page">
     <!-- &#x1f3e0; -->
