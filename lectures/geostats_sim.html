@@ -184,10 +184,12 @@ Nonconditional and conditional simulation, compared with kriging</a>
 
 <section>
     <h3>Application example for stream extraction</h3>
-What is the spatial pattern and magnitude of stream location uncertainty caused
-by uncertainty in a DEM?
-<p>Example from  A Practical Guide to Geostatistical Mapping by T. Hengl. 
-<p>
+<ul>
+<li>What is the spatial pattern and magnitude of stream location probability? 
+<li>Quantify uncertainty in the stream position when deriving streams from DEM:
+propagation of uncertainty in DEM  
+<li>Example from  A Practical Guide to Geostatistical Mapping by T. Hengl. 
+</ul>
 </section>
 
 <section>
@@ -195,11 +197,11 @@ by uncertainty in a DEM?
 <ul>
 <li>Compute experimntal variogram from given elevation data
 <li>Fit Matern variogram model with smoothing parameter
-<li>equation 
+<li><a href="https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function">Matern covariance equation </a>
 </ul>
 <p><img height="240px" src="img/geostats/scatterplots.jpg">
-<p><img height="240px" src="img/geostats/variogram.jpg">
-<p><img height="240px" src="img/geostats/variogram2.jpg">
+<img height="240px" src="img/geostats/variogram.jpg">
+<img height="240px" src="img/geostats/variogram2.jpg">
 </section>
 
 <section>
@@ -224,7 +226,7 @@ by uncertainty in a DEM?
     <h3>Stream uncertainty mapping</h3>
 <p>
 <p><img height="340px" src="img/geostats/stream_probability.png">
-<p><img height="340px" src="img/geostats/simulated_surface_std.png">
+<img height="340px" src="img/geostats/simulated_surface_std.png">
 </section>
 
 <section>
@@ -273,5 +275,3 @@ Agents are modeled as grid cells, patches, oriented lines, or points</small>
     <!-- &#x1f3e0; -->
     <a href="http://ncsu-geoforall-lab.github.io/geospatial-simulations-course/" title="Go to the course page">&#8962;</a>
 </div>
-
-
