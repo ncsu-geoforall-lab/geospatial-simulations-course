@@ -1,5 +1,6 @@
 <section>
     <h2><b>Dynamic spatial phenomena</b></h2>
+    <h3>Multitemporal Data Handling in TGRASS</h3>
     <p style="margin-top: 0.5em">
         Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
     <p class="title-foot">
@@ -8,6 +9,7 @@
     </p>
 </section>
 
+<!--
 <section>
     <h3>Learning objectives</h3>
 <p>
@@ -19,16 +21,22 @@
   <li>dynamic visualization
 </ul>
 </section>
+-->
 
 <section>
    <h3>Observation time series and multitemporal data</h3>
 <p>
+Definitions:
+<p>
 <ul>
 <li class="fragment">systematic, consistent monitoring: <b>time series </b>
+<p>
 <li class="fragment">data collected for different purpose using different technologies: <b>multitemporal data</b>
 </ul>
 </section>
 
+
+<!--
 <section>
    <h3>Your observation data</h3>
 <p>Describe your time series or multitemporal data:
@@ -42,9 +50,10 @@
   <li>processing, analysis and visualization
 </ul>
 </section>
+-->
 
 <section>
-   <h3>Your dynamic process(es)</h3>
+   <h3>Questions for monitoring dynamic process(es)</h3>
 <ul>
   <li>how fast your variable(s) change? do your data capture the full dynamics?
   <li>is the process multiscale? what is captured by your data?
@@ -65,6 +74,8 @@ multivariate interpolation to convert discrete observations into continuous dyna
   <li class="fragment">statistical modeling to relate the observed data to the studied process dynamics
 </ul>
 </section>
+
+<section> <h3>Examples monitoring data and models</h3> </section>
 
 <section>
    <h3>Observation multitemporal data</h3>
@@ -110,12 +121,14 @@ for entire Earth at 3m resolution</small>
 </section>
 
 <section>
-   <h3>Observation multitemporal data</h3>
-Additional examples
+   <h3>Many other examples</h3>
 <ul>
-<li>monthly precipitation over Amazon basin (precipitation as a surface)
+<li>meteorologocal and climate data from on-ground sensors and satellites
+<li> ....
+<!--<li>monthly precipitation over Amazon basin (precipitation as a surface)
 <li>Cape Fear and Cape hatteras (terrain over time)
 <li>Subsurface soil moisture (4D)
+-->
 </ul>
 </section>
 
@@ -137,18 +150,28 @@ GENERALIZE
 </section>
 
 <section>
- <h3>Temporal data framework</h3>
+ <h3>Temporal data framework in GRASS</h3>
 <ul>
- <li>supports efficient processing, management and analysis of space-time data sets
- <li><b>space-time dataset</b> is a set of maps (raster, vector) registered in a temporal database
- <li>space-time dataset may represent a dynamic process
- <li>individual maps represent the states of the dynamic system at a given time
+ <li class="fragment">supports efficient processing, management and analysis of space-time data sets
+ <li class="fragment"><b>space-time dataset</b> is a set of maps (raster, vector) registered in a temporal database
+ <li class="fragment">space-time dataset may represent a dynamic process
+ <li class="fragment">individual maps represent the states of the dynamic system at a given time
 </ul>
 <br>
 <p class="small">
 Gebbert, S. and Pebesma, E. (2014). <a href="https://www.sciencedirect.com/science/article/pii/S136481521300282X">
 A temporal GIS for field based environmental modeling.</a>
 Environmental Modelling and Software, 53, 1–12.</p>
+</section>
+
+<section>
+   <h3>Space-Time dataset types</h3>
+<ul>
+ <li> raster
+ <li> vector
+ <li> 3D raster
+</ul>
+<img class="stretch" src="img/geodynamics/st_dataset.jpg">
 </section>
 
 <section>
