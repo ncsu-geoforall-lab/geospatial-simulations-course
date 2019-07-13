@@ -25,8 +25,7 @@
 
 <section>
    <h3>Observation time series and multitemporal data</h3>
-<p>
-Definitions:
+<p> Definitions:
 <p>
 <ul>
 <li class="fragment">systematic, consistent monitoring: <b>time series </b>
@@ -35,7 +34,6 @@ Definitions:
 and/or using different technologies: <b>multitemporal data</b>
 </ul>
 </section>
-
 
 <!--
 <section>
@@ -121,9 +119,9 @@ for entire Earth at 3m resolution</small>
 <p> <img height="330" src="img/geodynamics/well456.gif">
 </section>
 
+<!--
 <section>
    <h3>Many other examples</h3>
-<!--
 <ul>
 <li>meteorologocal and climate data from on-ground sensors and satellites
 <li> ....
@@ -131,8 +129,8 @@ for entire Earth at 3m resolution</small>
 <li>Cape Fear and Cape hatteras (terrain over time)
 <li>Subsurface soil moisture (4D)
 </ul>
--->
 </section>
+-->
 
 <!--
 <section>
@@ -162,17 +160,16 @@ GENERALIZE
 </ul>
 <br>
 <p class="small">
-Gebbert, S. and Pebesma, E. (2014). <a href="https://www.sciencedirect.com/science/article/pii/S136481521300282X">
-A temporal GIS for field based environmental modeling.</a>
-Environmental Modelling and Software, 53, 1–12.</p>
+Gebbert, S. and Pebesma, E. (2017).  The GRASS GIS temporal framework. IJGIS, pp. 1273-1292
+</p>
 </section>
 
 <section>
    <h3>Space-Time dataset types</h3>
 <ul>
- <li> raster
- <li> vector (points, lines or areas)
- <li> 3D raster
+ <li> raster: strds
+ <li> vector (points, lines or areas): stvds
+ <li> 3D raster: str3ds
 </ul>
 <p>
 <br>
@@ -234,11 +231,11 @@ Per cell statistics computed for each cell over time:
  <li>time at minimum, time at maximum
  <li>linear regression: slopem offset, regr. coefficient
 </ul>
-<p class="small"> UPDATE
-<a href="http://www4.ncsu.edu/~hmitaso/gmslab/papers/MitasovaFinalGeoinf09.pdf">
-Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA. </a></p>
+<p class="small"> 
+Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA.</p>
 </section>
 
+<!--
 <section>
    <h3>Basic time series analysis: core, envelope</h3>
 <ul>
@@ -273,7 +270,6 @@ Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measu
 <img width="45%" src="img/geodynamics/diff_lid_uasmin2_histeq.jpg">
 </section>
 
-<!--
 <section>
    <h3>Envelope and range applications</h3>
 <p>
@@ -288,14 +284,17 @@ Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measu
 -->
 
 <section>
-   <h3>Envelope and range applications</h3>
+   <h3>Min/Max elevation over time</h3>
+Example application of per-cell analysis for UAS mapping: 
 <ul>
-<li>use envelope to show all cars ever parked at the site
-<li>core, snapshot, envelope surfaces can be used to manage parking area
+<li>max. elevation: area where cars were parked over time
+<li>min. elevation: map bare ground under cars
 </ul>
-<img width="70%" src="img/geodynamics/cars.jpg">
+<p>
+<img width="80%" src="img/geodynamics/cars.jpg">
 </section>
 
+<!--
 <section>
    <h3>Basic time series analysis: regression</h3>
 <ul>
@@ -329,7 +328,6 @@ Maps of relative elevation (0.3m, 2.0m)  above bare ground lidar for 3 time snap
 The middle map shows distortions rather than crop.
 </section>
 
-<!--
 <section>
  <h3>Estimate crop volume</h3>
 <p>Summary statistics can be used to estimate above ground crop biomass
@@ -387,7 +385,12 @@ Results have a well defined time step
 
 <section>
    <h3>Simulation output: time series</h3>
-<p>Same handling with temporal framework
+<ul>
+<li>Selected modeling and simulation modules create space-time data set 
+for the time series output
+<li>Inundation modeling using HAND method
+<p><img height="330" src="img/water_geometry/HANDFlood_mbox.gif">
+<p class="small"><a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial">GRASS-MapBox</a></p>
 </section>
 
 
