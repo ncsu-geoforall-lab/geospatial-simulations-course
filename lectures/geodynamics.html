@@ -31,7 +31,8 @@ Definitions:
 <ul>
 <li class="fragment">systematic, consistent monitoring: <b>time series </b>
 <p>
-<li class="fragment">data collected for different purpose using different technologies: <b>multitemporal data</b>
+<li class="fragment">data collected over the same location but for different purpose 
+and/or using different technologies: <b>multitemporal data</b>
 </ul>
 </section>
 
@@ -50,7 +51,6 @@ Definitions:
   <li>processing, analysis and visualization
 </ul>
 </section>
--->
 
 <section>
    <h3>Questions for monitoring dynamic process(es)</h3>
@@ -63,6 +63,7 @@ Definitions:
 Do you plan to develop a new one or improve an existing one?
 </ul>
 </section>
+-->
 
 <section>
    <h3>Modeling dynamics from multitemporal data</h3>
@@ -75,7 +76,7 @@ multivariate interpolation to convert discrete observations into continuous dyna
 </ul>
 </section>
 
-<section> <h3>Examples monitoring data and models</h3> </section>
+<section> <h3>Dynamic models from multitemporal monitoring data: examples</h3> </section>
 
 <section>
    <h3>Observation multitemporal data</h3>
@@ -122,14 +123,15 @@ for entire Earth at 3m resolution</small>
 
 <section>
    <h3>Many other examples</h3>
+<!--
 <ul>
 <li>meteorologocal and climate data from on-ground sensors and satellites
 <li> ....
-<!--<li>monthly precipitation over Amazon basin (precipitation as a surface)
+<li>monthly precipitation over Amazon basin (precipitation as a surface)
 <li>Cape Fear and Cape hatteras (terrain over time)
 <li>Subsurface soil moisture (4D)
--->
 </ul>
+-->
 </section>
 
 <!--
@@ -152,9 +154,10 @@ GENERALIZE
 <section>
  <h3>Temporal data framework in GRASS</h3>
 <ul>
+ <li>designed for massive series of satellite imagery or modeling outputs
  <li class="fragment">supports efficient processing, management and analysis of space-time data sets
- <li class="fragment"><b>space-time dataset</b> is a set of maps (raster, vector) registered in a temporal database
- <li class="fragment">space-time dataset may represent a dynamic process
+ <li class="fragment"><b>space-time dataset</b> is a set of maps registered in a temporal database
+<!-- <li class="fragment">space-time dataset may represent a dynamic process-->
  <li class="fragment">individual maps represent the states of the dynamic system at a given time
 </ul>
 <br>
@@ -168,37 +171,37 @@ Environmental Modelling and Software, 53, 1–12.</p>
    <h3>Space-Time dataset types</h3>
 <ul>
  <li> raster
- <li> vector
+ <li> vector (points, lines or areas)
  <li> 3D raster
 </ul>
-<img class="stretch" src="img/geodynamics/st_dataset.jpg">
+<p>
+<br>
+<img width="95%" src="img/geodynamics/st_dataset.jpg">
 </section>
 
 <section>
    <h3>Time stamp type</h3>
 <ul>
- <li>time stamp: assigns time to an individual map in space-time data set
- <li><b>time instant</b> - snapshot at given time: 2013-10-15 13:00:00 (absolute time)
- <li><b>time interval </b>- defined by start and end time: day, month, year (relative time)
- <li>example: a single UAS survey represents a snapshot (state) which can be agreggated into intervals
+ <li><b>time stamp</b> - assigns time to an individual map in the space-time data set
+ <li><b>time instant</b> - snapshot at given time:<br> 2013-10-15 13:00:00 (absolute time)
+ <li><b>time interval </b>- defined by start and end time: time period of a day, a month, or a year (relative time)
+ <li>example: a single UAS survey represents a snapshot (state) which can be agreggated into time intervals
 </ul>
-<img class="stretch" src="img/geodynamics/st_dataset.jpg">
 </section>
 
 <section>
-  <h3>Registered space-time dataset</h3>
-Timeline tool: time and spatial extent of registered maps
+  <h3>Timeline tool</h3>
+<p>Display time and spatial extent of registered maps
 <p>
-<img height="400" src="img/geodynamics/uas2015_timeline.jpg">
+<img height="380" src="img/geodynamics/uas2015_timeline.jpg">
 <img height="80" src="img/geodynamics/timeline_midpines15-18.png">
 </section>
 
 <section>
-   <h3>Temporal plot</h3>
-<ul>
-<li>Plot time series of measured values at a given location: April through October
-</ul>
-<p><img width="70%"  src="img/geodynamics/tplots.jpg">
+   <h3>Grid-cell temporal plot</h3>
+<p> Plot time series of measured values at a given location
+<p>Elevation from April through October 2015 derived from UAS data
+<p><img width="80%"  src="img/geodynamics/tplots.jpg">
 </section>
 
 <section>
@@ -217,7 +220,8 @@ Timeline tool: time and spatial extent of registered maps
 <li>Temporally aggregate maps over given period of time - for example to derive monthly average elevation
 </ul>
 <p>
-<img width="75%" src="img/geodynamics/aggregated_sept.jpg">
+<br>
+<img width="85%" src="img/geodynamics/aggregated_sept.jpg">
 </section>
 
 <section>
