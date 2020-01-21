@@ -9,19 +9,17 @@
     </p>
 </section>
 
-<!--
 <section>
     <h3>Learning objectives</h3>
 <p>
 <ul>
   <li>observation time series and multitemporal data
-  <li>fundamental physical, biological, and socio-economic processes
-  <li>static and dynamic simulations
+<!--  <li>fundamental physical, biological, and socio-economic processes-->
+  <li>dynamic simulations
   <li>managing geospatial multitemporal data
   <li>dynamic visualization
 </ul>
 </section>
--->
 
 <section>
    <h3>Observation time series and multitemporal data</h3>
@@ -35,13 +33,23 @@ and/or using different technologies: <b>multitemporal data</b>
 </ul>
 </section>
 
-<!--
+<section>
+   <h3>Observation time series and multitemporal data</h3>
+<p> Objectives:
+<p>
+<ul>
+<li class="fragment">gain understanding of dynamics / change / evolution of studied phenomenon or system 
+<p>
+<li class="fragment">provide input for diagnostic or predictive modeling
+</ul>
+</section>
+
 <section>
    <h3>Your observation data</h3>
 <p>Describe your time series or multitemporal data:
 <ul>
   <li>source: 
-  <br><small>in situ point measurements, satelite imagery, UAS imagery, ....</small>
+  <br><small>in situ point measurements, satellite, airborne/UAS imagery, polygon-based data ...</small>
   <li>spatial and temporal distribution, resolution, scale: 
   <br><small>image(s) at regular time step, event-based acquisition, static points, moving objects,...</small>
   <li>management of your data: 
@@ -61,13 +69,12 @@ and/or using different technologies: <b>multitemporal data</b>
 Do you plan to develop a new one or improve an existing one?
 </ul>
 </section>
--->
 
 <section>
    <h3>Modeling dynamics from multitemporal data</h3>
 <p>Examples of approaches
 <ul>
-  <li class="fragment">site data: 
+  <li class="fragment">continuous fields sampled by point data: 
 multivariate interpolation to convert discrete observations into continuous dynamic model
   <li class="fragment">classification, feature extraction, change detection and quantification
   <li class="fragment">statistical modeling to relate the observed data to the studied process dynamics
@@ -75,6 +82,26 @@ multivariate interpolation to convert discrete observations into continuous dyna
 </section>
 
 <section> <h3>Dynamic models from multitemporal monitoring data: examples</h3> </section>
+
+<section>
+   <h3>Observation time series</h3>
+<p><small>Bi-variate interpolation of monthly precipitation from point data</small>
+<p> <img height="430" src="img/geodynamics/samprec.gif">
+<p><small>Precipitation in South America </small>
+</section>
+
+<section>
+   <h3>Observation multitemporal data</h3>
+<p><small>Multitemporal point clouds with variable point distribution, densities and accuracies</small>
+<br> <img height="220" src="img/geodynamics/points_contours.jpg">
+<br> <img height="220" src="img/geodynamics/points_lidar_gps.jpg">
+<p class="fragment"><small>Data sources: digitized contours, photogrammetry mass points, lidar, GPS </small>
+</section>
+
+<section class="stretch" data-animate="1,13" data-path="img/geodynamics/JR_anim/JR_anim">
+<h3>DEM time series visualization 1974 - 2017</h3>
+
+</section>
 
 <section>
    <h3>Observation multitemporal data</h3>
@@ -94,19 +121,33 @@ for entire Earth at 3m resolution</small>
 </section>
 
 <section>
+   <h3>Observation multitemporal data</h3>
+<p><small>Bi-variate interpolation of DEMs from point clouds to surfaces</small>
+<p> <img height="430" src="img/geodynamics/bhicape2m3D_1997-2014zoom.gif">
+<p><small>Cape Fear </small>
+</section>
+
+<section>
    <h3>Observation timeseries</h3>
 <ul>
-<li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation 
-<li>From scattered space-time point data to continuous space-time model of plume evolution
+<li>Chesapeake bay monthly nitrogen concentrations - sampling sites  
+</ul>
+<img height="350" src="img/geodynamics/chesapsites.jpg">
+</section>
+
+<section>
+   <h3>Observation timeseries</h3>
+<ul>
+<li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation
 </ul>
 <p> <img height="250" src="img/geodynamics/chesaplg.jpg">
-<img height="330" src="img/geodynamics/chesapsites.jpg">
-<img height="330" src="img/geodynamics/chall4d.gif">
+&nbsp; &nbsp;
+<img height="350" src="img/geodynamics/chall4d.gif">
 </section>
 
 <section>
    <h3>Observation multitemporal data</h3>
-<p>groundwater pollution over 10 years - data
+<p>groundwater pollution over 10 years - sampling sites
 <p> <img height="330" src="img/geodynamics/wellnew.gif">
 </section>
 
@@ -119,23 +160,15 @@ for entire Earth at 3m resolution</small>
 <p> <img height="330" src="img/geodynamics/well456.gif">
 </section>
 
-<!--
 <section>
-   <h3>Many other examples</h3>
-<ul>
-<li>meteorologocal and climate data from on-ground sensors and satellites
-<li> ....
-<li>monthly precipitation over Amazon basin (precipitation as a surface)
-<li>Cape Fear and Cape hatteras (terrain over time)
-<li>Subsurface soil moisture (4D)
-</ul>
+   <h3>Observation time series </h3>
+<p>Pedestrian density from webcams
+<p> <img height="330" src="img/geodynamics/anna_amos_stc.jpg">
 </section>
--->
 
 <!--
 <section>
-   <h3>Processing time series</h3>
-GENERALIZE
+   <h3>Processing multitemporal continuous fields data</h3>
 <ul>
 <li>analyze and interpolate point clouds: DSMs with aligned, common resolution grids
 <li>raster DSMs are more suitable for time series than TIN
@@ -145,8 +178,61 @@ GENERALIZE
 </section>
 -->
 
+<section> <h3>Dynamic models from simulations</h3> </section>
+
+<section> <h3>Dynamic models from simulations</h3> 
+<p>Results of numerical modeling 
+<p>Well defined time step - depends on application, input data and numerical method
+<p> <img height="380" src="img/geodynamics/lakef1994.gif">
+</section>
+
 <section>
-   <h3>Managing multitemporal data</h3>
+<h3>Surface water flow simulations </h3>
+<p>Path sampling method: time step depends on flow velocity and resolution
+<p>
+    <img width="45%" src="img/diffusion_flows/fanimwalk.gif">
+     &nbsp; &nbsp;
+    <img width="45%" src="img/diffusion_flows/fanimhhcolp.gif">
+<p><small>Mitas and Mitasova, 1998; Mitasova, Thaxton, Hofierka, McLaughlin, Moore, Mitas, 2005</small>
+</section>
+
+<section>
+<h3>Ultra-high resolution water flow </h3>
+ <p> UAS-based surveys: cm-resolution DEMs
+<br>Path sampling simulations capture impact of microtopography: tillage, time step is fraction of a second
+<p>
+    <img height="450" src="img/geodynamics/agisoft_jan.gif">
+</section>
+
+<section>
+<h3>Water flow</h3>
+Evolution of water depth over complex terrain
+under steady rainfall and uniform surface conditions
+<p>
+<!--<img height="180" src="img/surfaces/elevationnc1_f.gif"> it is more confusing than helpful-->
+<img height="370" src="img/diffusion_flows/water1994.gif">
+<p>Geometry-based solution
+</section>
+
+<section>
+<h3>Sediment transport</h3>
+<p>Combining flow accumulation and slope:
+<br>Evolution of sediment transport capacity
+<p>
+<img height="370" src="img/geodynamics/lsfac.gif">
+<p>Geometry-based solution
+</section>
+
+
+<section>
+<h3>Fire spread</h3>
+<p>
+    <img height="420" src="img/spread_fire_disease/fire_anim_JR.gif">
+</section>
+
+
+<section>
+   <h3>Managing time series and multitemporal data</h3>
 </section>
 
 <section>
@@ -159,8 +245,10 @@ GENERALIZE
  <li class="fragment">individual maps represent the states of the dynamic system at a given time
 </ul>
 <br>
-<p class="small">
-Gebbert, S. and Pebesma, E. (2017).  The GRASS GIS temporal framework. IJGIS, pp. 1273-1292
+<p class="fragment"> <small>
+Gebbert, S., Pebesma, E., 2014. A temporal GIS for field based environmental modeling. EMS 53, 1-12.
+<br>Gebbert, S. and Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 1273-1292
+</small>
 </p>
 </section>
 
@@ -178,8 +266,8 @@ Gebbert, S. and Pebesma, E. (2017).  The GRASS GIS temporal framework. IJGIS, pp
 
 <section>
    <h3>Time stamp type</h3>
+<b> Time stamp</b> assigns time to an individual map in the space-time data set
 <ul>
- <li><b>time stamp</b> - assigns time to an individual map in the space-time data set
  <li><b>time instant</b> - snapshot at given time:<br> 2013-10-15 13:00:00 (absolute time)
  <li><b>time interval </b>- defined by start and end time: time period of a day, a month, or a year (relative time)
  <li>example: a single UAS survey represents a snapshot (state) which can be agreggated into time intervals
@@ -187,7 +275,33 @@ Gebbert, S. and Pebesma, E. (2017).  The GRASS GIS temporal framework. IJGIS, pp
 </section>
 
 <section>
-  <h3>Timeline tool</h3>
+<h3>DEM time series timeline</h3>
+<ul>
+<li>DEM time series for Jockey's Ridge dunes derived from data acquired by
+<ul>
+  <li>photogrammetry (1974-98),
+  <li>lidar (1999-2018),
+  <li>structure from motion from UAS imagery (2016-2018)
+</ul>
+</ul>
+  <img height="100" src="img/geodynamics/timeline.png">
+   <img height="150" src="img/geodynamics/timeline3D.png">
+<br>
+   <img height="130" src="img/geodynamics/temp_plot_leeward_pt.png">
+   <img height="130" src="img/geodynamics/temp_plot_windward_pt.png">
+</section>
+
+<section>
+   <h3>Temporal count</h3>
+Identify areas with complete multitemporal coverage
+<ul>
+<li>Count: number of maps (temporal snapshots) where the given cell has non-null value 
+</ul>
+<img height="400" src="img/geodynamics/surveycount13.jpg">
+</section>
+
+<section>
+  <h3>UAS data timeline</h3>
 <p>Display time and spatial extent of registered maps
 <p>
 <img height="380" src="img/geodynamics/uas2015_timeline.jpg">
@@ -195,9 +309,9 @@ Gebbert, S. and Pebesma, E. (2017).  The GRASS GIS temporal framework. IJGIS, pp
 </section>
 
 <section>
-   <h3>Grid-cell temporal plot</h3>
+   <h3>UAS data grid-cell temporal plot</h3>
 <p> Plot time series of measured values at a given location
-<p>Elevation from April through October 2015 derived from UAS data
+<p>Elevation from April through October 2015 
 <p><img width="80%"  src="img/geodynamics/tplots.jpg">
 </section>
 
@@ -335,38 +449,6 @@ The middle map shows distortions rather than crop.
 <img width="70%" src="img/geodynamicscutplane1.jpg">
 </section>
 
-<section>
-   <h3>Visualization of multitemporal data</h3>
-<p>Will be covered in GIS715, but here are some interesting examples
-<ul>
- <li><a href="https://petrasovaa.github.io/amos-STC-presentation/foss4g_presentation.html#/">Pedestrian patterns from webcams</a>
-</ul>
-</section>
-
-<section>
-   <h3>Dynamic processes</h3>
-<p> fundamental physical, biological and socio-economic processes
-</section>
-
-<section>
-   <h3>Dynamic processes</h3>
-<p>Dynamic processes in your projects
-<ul>
-  <li>development growth
-  <li>population / development migration
-  <li>algae growth /evolution
-  <li>crop growth / die out
-</ul>
-</section>
-
-<section>
-   <h3>Static and dynamic simulations</h3>
-<p>
-<ul>
-<li class="fragment">steady state for dynamic processes
-<li class="fragment"> dynamic simulations
-</ul>
-</section>
 
 <section>
    <h3>Dynamic simulations</h3>
