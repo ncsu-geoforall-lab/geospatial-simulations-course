@@ -38,8 +38,8 @@
    <h3>Motivation for simulating data</h3>
 <p>
 <ul>
-<li class="fragment">uncertainty analysis: simulating errors
 <li class="fragment">sensitivity analysis: generating model parameters
+<li class="fragment">uncertainty analysis: simulating errors
 <li class="fragment">scenario modeling
 <li class="fragment">testing algorithms
 <li class="fragment">noise and artifact detection
@@ -90,11 +90,12 @@ $z = \sin (0.4x) + 0.3 \cos(y) + 80$
 <section>
    <h3>Stochastic methods</h3>
 <ul>
-<li>Methods based on random fields, characterized by the distribution function
+<li>Methods based on random fields
 <li>Uniform random field - linear random number generator
 </ul>
 <p><img height="130" src="img/data_sim/random_0_20_3D.jpg">
-<p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
+<p class="fragment"><img height="200" src="img/data_sim/random_0_20_histogramred.png">
+<br><small>Random numbers from interval [0,20], mean=10: surface and histogram</small>
 </section>
 
 <section>
@@ -121,24 +122,25 @@ See also
 Random field with $\mu = 120$m and $\sigma = 2$m 
 <p><small>One $\sigma$ (68%) of values in the random field are within 2m range of the mean</small>
 <p><img height="180" src="img/data_sim/gauss_surf_m120s2_3dnew.jpg">
-<p><img height="180" src="img/data_sim/gauss_surf_hist.png">
+<p class="fragment"><img height="180" src="img/data_sim/gauss_surf_hist.png">
 </section>
 
 <section>
    <h3>Uniform and Gaussian random fields</h3>
-Profile and histograms:
-<br>uniform random field $z = [0,20]$ 
-<br>Gaussian random field with $\mu = 0$m and $\sigma = 20$m        
-<p><img height="150" src="img/data_sim/gauss_random_20_profiles.png">
-<p><img height="180" src="img/data_sim/random_0_20_histogramred.png">
-<img height="180" src="img/data_sim/gauss_surf_m0s20_hist.png">
+Profile and histograms of random fields:
+<p>uniform where $z = [0,20]$ 
+<p class="fragment">Gaussian $z$ where $\mu = 10$ and $\sigma = 6$        
+<p><img height="150" src="img/data_sim/random_0_20_gaussurf_10_6_prof.png">
+<br><img height="180" src="img/data_sim/random_0_20_histogramred.png">
+<img height="180" src="img/data_sim/gauss_surf_m10_s6_hist.png">
 </section>
 
 <section>
    <h3>Uniform and Gaussian random fields</h3>
-2D maps: uniform random field $z = [0,20]$ and Gaussian random field with $\mu = 0$m and $\sigma = 20$m
+2D maps: uniform random field $z = [0,20]$ and Gaussian random field with $\mu = 10$ and $\sigma = 6$m
 <p><img height="300" src="img/data_sim/random_0_20_2d.png">
-<img height="300" src="img/data_sim/gauss_surf_m0s20_2d.png">
+<img height="300" src="img/data_sim/gauss_surf_m10_s6_lghist.png">
+<img height="100" src="img/data_sim/gauss_surf_m10_s6_lghistzm.png">
 </section>
 
 <section>
@@ -193,12 +195,12 @@ how would you adjust your simulated data?
 <section>
    <h3>Fractals</h3>
 <p>Scale invariant features with infinite detail at all scales - complete computation of fractal is impossible 
-<p>Deterministic and random fractals
 <p>Fractals have non-integer dimension
+<p>Deterministic and random fractals
     <ul>
+    <li><a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">Fractals by Hausdorff dimension</a>
     <li><a href="https://www.wired.com/2010/09/fractal-patterns-in-nature/">Fractal patterns in nature</a>
     <li><a href="https://www.wired.com/2012/01/the-fractal-dimension-of-zip-codes/">Fractal dimension of zipcodes</a>
-    <li><a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">Fractals by Hausdorff dimension</a>
     </ul>
 </section>
 
