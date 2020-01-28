@@ -138,25 +138,9 @@ Profile and histograms of random fields:
 <section>
    <h3>Uniform and Gaussian random fields</h3>
 2D maps: uniform random field $z = [0,20]$ and Gaussian random field with $\mu = 10$ and $\sigma = 6$m
-<p><img height="300" src="img/data_sim/random_0_20_2d.png">
-<img height="300" src="img/data_sim/gauss_surf_m10_s6_lghist.png">
-<img height="100" src="img/data_sim/gauss_surf_m10_s6_lghistzm.png">
-</section>
-
-<section>
-   <h3>Gaussian random field</h3>
-Random field with $\mu = 0$m and $\sigma = 0.3$m, e.g., random measurement errors (noise)
-</small>
-<p><img height="280" src="img/data_sim/gauss_surf_m0s03_3d.jpg">
-<p><img height="120" src="img/data_sim/gauss_surf_m0s20_hist.png">
-</section>
-
-<section>
-   <h3>Simulation of surface with noise</h3>
-<p><small>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m added to the elevation surface:</small>
-<p><img height="380" src="img/data_sim/elev_lid_noise3d.jpg">
-<p><small>How would you test whether the noise on your lidar-based DSM has normal distribution?
-e.g., compute distribution of deviations computed by the spline function</small>
+<p><img height="320" src="img/data_sim/random_0_20_2d.png">
+<img height="320" src="img/data_sim/gauss_surf_m10_s6_lghist.png">
+<img height="120" src="img/data_sim/gauss_surf_m10_s6_lghistzm.png">
 </section>
 
 <section>
@@ -166,22 +150,71 @@ e.g., compute distribution of deviations computed by the spline function</small>
 </section>
 
 <section>
-   <h3>Random surface with spatial dependence</h3>
-<p>Gaussian random field 
+   <h3>Spatial dependence</h3>
+<p>Gaussian random field - no spatial dependence
 <p><img height="450" src="img/data_sim/gauss_surf_m0s20_2d.png">
 </section>
 
 <section>
-   <h3>Random surface with spatial dependence</h3>
+   <h3>Spatial dependence</h3>
 <p>Gaussian random field with spatial dependence $d=10$
 <p><img height="450" src="img/data_sim/random_spatiald10h255.png">
 </section>
 
 <section>
-   <h3>Random surface with spatial dependence</h3>
+   <h3>Spatial dependence</h3>
 <p>Gaussian random field spatial dependence $d=30$
 <p><img height="450" src="img/data_sim/random_spatiald30h255.png">
 </section>
+
+<!--
+<section>
+   <h3>Gaussian random field</h3>
+Random field with $\mu = 0$m and $\sigma = 0.3$m
+<br> random measurement errors (noise)
+<p><img height="280" src="img/data_sim/gauss_surf_m0s03_3d.jpg">
+<br><img height="120" src="img/data_sim/gauss_surf_m0s20_hist.png">
+</section>
+-->
+
+<section>
+   <h3>Simulation of DEM with noise</h3>
+<p><small>Elevation surface interpolated by smoothing splines</small>
+<p><img height="380" src="img/data_sim/elev_lid_smooth.jpg">
+</section>
+
+<section>
+   <h3>Simulation of DEM with noise</h3>
+<p><small>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m added to the elevation surface:</small>
+<p><img height="380" src="img/data_sim/elev_lid_noise3d.jpg">
+</section>
+
+<section>
+   <h3>Simulation of DEM with noise</h3>
+<p><small>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m and 
+spatial dependence d=10 added to the elevation surface:</small>
+<p><img height="380" src="img/data_sim/elev_lid_noise_spat3d.jpg">
+</section>
+
+
+<section>
+   <h3>Flow over smooth DEM</h3>
+<p><small>Spatial pattern of surface flow over smooth surface</small>
+<p><img height="380" src="img/data_sim/accum5k.jpg">
+</section>
+
+<section>
+   <h3>Flow over DEM with noise</h3>
+<p><small>Spatial pattern of surface flow over noisy surface</small>
+<p><img height="380" src="img/data_sim/accum5k_noise.jpg">
+</section>
+
+<section>
+   <h3>Flow over DEM with noise</h3>
+<p><small>Spatial pattern of surface flow over noisy surface with spatial dependency</small>
+<p><img height="380" src="img/data_sim/accum5k_noise_spat.jpg">
+</section>
+
 
 <section>
    <h3>Application to uncertainty analysis</h3>
