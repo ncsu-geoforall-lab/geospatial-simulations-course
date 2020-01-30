@@ -1,0 +1,10 @@
+fractal_dem_d201.1|1001
+fractal_dem_d201.2|1002
+fractal_dem_d201.3|1003
+fractal_dem_d201.4|1004
+fractal_dem_d201.5|1005
+fractal_dem_d201.6|1006
+fractal_dem_d201.7|1007
+fractal_dem_d201.8|1008
+fractal_dem_d201.9|1009
+fractal_dem_d201.10|1010
