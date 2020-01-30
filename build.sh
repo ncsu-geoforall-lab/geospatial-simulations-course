@@ -73,11 +73,6 @@ for DIR in topics assignments
 do
     mkdir -p $OUTDIR/$DIR
 
-    for FILE in `ls $DIR/*.rst|grep -v foot|grep -v head`
-    do
-        build_page_rst_subdir $FILE $DIR/`basename -s .rst $FILE`.html
-    done
-
     for FILE in `ls $DIR/*.html`
     do
         TGT_FILE=$OUTDIR/$DIR/`basename $FILE`
