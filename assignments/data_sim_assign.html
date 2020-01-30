@@ -195,6 +195,18 @@ r.univar elev_noisefractal
 r.watershed -a elev_noisefractal thresh=15000 accum=_accum_15K_noisefrac drain=draindir_15K_noisefrac basin=basin_15K_noisefrac
 </code></pre>
 
+<p>Compute elevation surface from the lidar bare ground data with different smoothing and compare 
+the impact on flow modeling. Also compare the flow pattern from simulated noise with the noise combined
+with systematic errors in lidar point cloud 
+
+<pre><code>
+g.region raster=elev_lid792_1m -p
+v.surf.rst elev_lid792_bepts elev=elev_lid_default npmin=120 
+v.surf.rst elev_lid792_bepts elev=elev_lid_t120 npmin=120 ten=120
+r.watershed -a elevation=elev_lid_default threshold=5000 accumulation=accum_5K_liddef drainage=draindir_5K_liddef basin=basin_5K_liddef
+r.watershed -a elevation=elev_lid_t120 threshold=5000 accumulation=accum_5K_lidt120 drainage="draindir_5K_lidt120 basin=basin_5K_lidt120
+</code></pre>
+
 <h3> Random point data </h3>
 r.random.cells manual page has good examples
 r.random, r.random.cells, r.sample.category,
