@@ -62,7 +62,7 @@ These processes are controled by elevation surface
 <p>
 $$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
 <p>
- <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)
+ <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)$
  <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$.  
  <li class="fragment">direction and magnitude of flow velocity over complex surface is controled 
 by the surface gradient field $\nabla f$.  
@@ -95,12 +95,18 @@ $$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial 
    <h3>Estimating gradient from raster DEM</h3>
 <p>
 <ul>
-  <li class="fragment">D8: $\Delta z_{max}$ in 3x3 window: 
-  discrete directions 0,45, deg 
+  <li class="fragment">Discrete: D8 or D16 $\Delta z_{max}$ in 3x3 or 5x5 moving window, 
+  results in discrete directions e.g., 0,45, ... deg 
 <p>
-  <li class="fragment">Dinf: partial derivatives of a suitable approximation function, such as spline or polynomial
+  <li class="fragment">Continuous D-infinity: partial derivatives of 
+a suitable approximation function, such as spline or polynomial
 </ul>
-<p class="fragment"> <small>Fitting the polynomial bellow to the 9 grid points of 3x3 window
+</section>
+
+<section>
+   <h3>Estimating gradient from raster DEM</h3>
+<p>
+<p>Fitting second order polynomial to 9 grid points of 3x3 window
 using weighted least squares leads to simple equations for estimating $f_x, f_y$:
 <p class="fragment">
 $$z(x,y)=a_0+a_1 x + a_2 y + a_3 xy + a_4 x^2 + a_5 y^2$$
@@ -108,8 +114,7 @@ $$z(x,y)=a_0+a_1 x + a_2 y + a_3 xy + a_4 x^2 + a_5 y^2$$
 $$f_x={{(z_{i-1,j-1}-z_{i+1,j-1})+2(z_{i-1,j}-z_{i+1,j})+(z_{i-1,j+1}-z_{i+1,j+1})} \over {8\Delta x}}$$
 <p class="fragment">
 $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1})} \over {8\Delta y}}$$
-</small>
-<p> <img height="120" src="img/water_geometry/3x3window_zij.png">
+<p> <img height="220" src="img/water_geometry/3x3window_zij.png">
 </section>
 
 <!--
