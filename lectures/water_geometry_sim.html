@@ -105,7 +105,7 @@ a suitable approximation function, such as spline or polynomial
 
 <section>
    <h3>Estimating gradient from raster DEM</h3>
-<p>
+<small>
 <p>Fitting second order polynomial to 9 grid points of 3x3 window
 using weighted least squares leads to simple equations for estimating $f_x, f_y$:
 <p class="fragment">
@@ -114,6 +114,7 @@ $$z(x,y)=a_0+a_1 x + a_2 y + a_3 xy + a_4 x^2 + a_5 y^2$$
 $$f_x={{(z_{i-1,j-1}-z_{i+1,j-1})+2(z_{i-1,j}-z_{i+1,j})+(z_{i-1,j+1}-z_{i+1,j+1})} \over {8\Delta x}}$$
 <p class="fragment">
 $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1})} \over {8\Delta y}}$$
+</small>
 <p> <img height="220" src="img/water_geometry/3x3window_zij.png">
 </section>
 
@@ -135,9 +136,11 @@ $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1
 <li>flowline - path of a single drop following gradient, 
 <p>
 <li class="fragment">flow accumulation 
+<p>
    <ul>
    <li class="fragment">density of flowlines generated from each grid cell, 
    <li class="fragment">cumulative drops routed from each cell,
+   <li class="fragment">upslope contributing area,
    <li class="fragment">measure of steady state flow depth
    </ul>
 <p>
@@ -151,7 +154,7 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 
 <section>
    <h3>Flow routing over complex surfaces</h3>
-<p>vector-based algorithm for generating flowlines
+<p>D-inf vector-based algorithm for generating flowlines
 <p>flowlines are perpendicular to contours
 <img height="380" src="img/water_geometry/rflowfigure.jpg">
 <img height="380" src="img/water_geometry/flowlines_and_contours.png">
@@ -161,6 +164,12 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
    <h3>Flow routing over complex surfaces</h3>
 <p>Flowlines and flow accumulation
 <img height="420" src="img/water_geometry/flowlines_flowaccum.jpg">
+</section>
+
+<section>
+   <h3>Flow accumulation across landscape</h3>
+<p>Evolution of steady state flow as water moves through the landscape with steady rainfall and uniform flow velocity
+<img height="400" src="img/water_geometry/water.gif">
 </section>
 
 <section>
