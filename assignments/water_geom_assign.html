@@ -64,7 +64,7 @@ The example is for the MFD results, do the same for the SFD and Dinf result and 
 <pre><code>
 r.mapcalc "streams_mfd = if(abs(accum_mfd5K) > 100, 1, null())"
 r.thin streams_mfd output=streams_mfd_t
-r.to.vect -s streams_mfd_t out=streams_mfd type=line
+r.to.vect -s streams_mfd_t out=streams_mfd_t type=line
 d.rast ortho_2001_t792_1m
 d.vect streams_mfd_t
 </code></pre>
