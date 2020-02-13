@@ -137,7 +137,8 @@ git clone https://github.com/ncsu-geoforall-lab/grass-web-publishing.git
 Next, find r.out.leaflet.py inside of the grass-web-publishing directory you just downloaded. Now in the GRASS terminal we will run the r.out.leaflet.py python script.
 
 <pre><code>
-python r.out.leaflet.py raster="inundation_0.0,inundation_0.5,inundation_1.0,inundation_1.5,inundation_2.0,inundation_2.5,inundation_3.0,inundation_3.5,inundation_4.0,inundation_4.5,inundation_5.0" output="./images"
+mkdir images
+python3 r.out.leaflet/r.out.leaflet.py raster="inundation_0.0,inundation_0.5,inundation_1.0,inundation_1.5,inundation_2.0,inundation_2.5,inundation_3.0,inundation_3.5,inundation_4.0,inundation_4.5,inundation_5.0" output="./images"
 </code></pre>
 You will now see a few new files in the images directory
 
