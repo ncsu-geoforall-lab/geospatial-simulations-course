@@ -1,0 +1,227 @@
+<section>
+    <h2><b>Process-based diffusion simulation</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+   <li>duality of particles and fields
+   <li>diffusion
+   <li>applications
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion and flow </h3>
+<p>Foundation of many geospatial models of natural and socioeconomic processes 
+<p>Relate change in time to change in space
+<p class="fragment">
+<img height="280" src="img/intro/apex_dry_white.png">
+<img height="280" src="img/diffusion_flows/Tobler_govfiscal.jpg">
+<p><small>Images from Laura Pagano and Waldo Tobler presentations</small>
+</section>
+
+<section>
+   <h3>Duality of particles and fields</h3>
+<p>Modeled quantities can be represented by
+<ul>
+  <li>fields - continuous distribution (scalar, vector, tensor)
+  <li>particles - discrete sampling of fields
+</ul>
+<p>Corresponce between the two representations:
+<p>density of particles - field $f(r)$
+</section>
+
+<section>
+   <h3>Duality of particles and fields</h3>
+<p>Process can be modeled as
+<ul>
+  <li>evolution of fields
+  <li>evolution of spatially distributed particles
+</ul>
+<p>
+<img height="300" src="img/diffusion_flows/fanimwalk.gif">
+<img height="300" src="img/diffusion_flows/fanimhhcolp.gif">
+<p><small>Path sampling method uses this duality to solve the governing equations</small>
+</section>
+
+<section>
+   <h3>Monte Carlo methods</h3>
+Monte Carlo methods use <b> randomness and statistical estimators</b> 
+to solve a variety of problems:
+<ul>
+  <li class="fragment"> calculations of complicated expressions, eg, multi-variate integrals
+  <li class="fragment"> finding approximate solutions of optimization or other problems that are intractable 
+by algorithms with polynomial scaling  (eg, can be NP-hard)
+  <li class="fragment"> sampling/generating possible scenarios in uncertainty and error propagation studies
+  <li class="fragment"> using stochastic processes to simulate processes that can be stochastic, 
+ deterministic or a mix of both.
+</section>
+
+<section>
+   <h3>Monte Carlo methods: random walks</h3>
+<p>Walkers move in random directions
+<p>Markov Chain Models (MCM):
+<ul>
+  <li class="fragment">Brownian motion (molecules in air, pollen in fluid)
+  <li class="fragment">Heat conduction
+  <li class="fragment">Stock prices
+  <li class="fragment">Diffusion
+</section>
+
+<!--
+<section>
+   <h3>Diffusion</h3>
+<p>REMOVE THIS SLIDE
+<p>Fick's law + mass conservation law lead to diffusion equation
+<p>Alternatively, random walks densities evolution is used to derive diffusion equation
+<p><small>some definitions
+<ul>
+<li>flux : rate of mass transport across unit point, line, or area depending on dimension
+<li>density gradient: change in density (concentration?)
+<li>Fick's law: flux (of particles, material) at a given location is proportional 
+to local change (gradient) of (particle) density (or material concentration?)
+</ul>
+</small>
+</section>
+-->
+
+<section>
+   <h3>Diffusion equation</h3>
+<p>
+<ul>
+<li>
+<ul>
+<li class="fragment">Fick's law in 1D:
+<br><small>flux $f$ is a function of change in density $n$ (concentration), empirical observation</small>
+<p>
+$$ f(x,t) = -D_0 {\partial n(x,t) \over \partial x}$$ 
+<p>
+<li class="fragment"> Continuity equation, mass preservation: 
+<br><small>change in density over time at a location =  inflow and outflow of material at this location</small>
+<p>
+$$ {\partial n(x,t) \over \partial t} + {\partial f(x,t) \over \partial x} = 0 $$
+<p>
+<li class="fragment"> Diffusion equation: 
+<br><small>change in density over time at location $x$ is proportional to change in gradient at this location</small>
+<p>
+$$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2} $$
+<li class="fragment">
+<small> $f(x,t)$ is flux, $n(x,t)$ is density, $x$ is location and $t$ is time, D_0 is diffusion constant</small>
+</ul>
+</ul>
+<!-- see also https://en.wikipedia.org/wiki/Diffusion_equation -->
+</section>
+
+<section>
+   <h3>Fundamental solution </h3>
+<ul>
+<li>Given a unit impuls $\delta(x-x_0)=n(x,t=0)$ the fundamental solution of 
+diffusion equation is 
+<p>
+<li>
+$$ n(x,t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-(x-x_0)^2} \over ({4D_0t)}}$$
+<p>
+<li class="fragment"> a Gaussian with $ N(x_0, \sigma^2 = 2D_0t) $
+</ul>
+</section>
+
+<section>
+   <h3>Green's function for diffusion</h3>
+<ul>
+<p>We can rewrite the diffusion equation using Green's function
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation 
+<p>
+<li>
+and where the Green's function for diffusion equation is the fundamental solution
+$$ G_d({\bf r},{\bf r}', \tau) = {1 \over \sqrt{4\pi D_0 \tau}} e^{{-|{\bf r}-{\bf r}'|^2} \over {4D_0\tau}}$$
+<p>
+</ul>
+<p>
+</section>
+
+<section>
+   <h3>Stochastic method of solution</h3>
+<ul>
+<p>For complex processes which cannot be solved analytically we need numerical solution
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation
+<p>
+<li>
+$${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
+<li>
+where $\eta \elem N(0, \sigma^2 = 2D_0\tau)$
+<p>
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion examples</h3>
+<ul>
+<li>Physics: drop of milk in coffee, heat propagation,
+<li>Diffusion in geosciences: diffusive hillslope evolution, 
+<li>some  financial market effects, 
+<li>your examples
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion with drift</h3>
+<p>see written notes
+</section>
+
+<section>
+   <h3>Diffusion with drift</h3>
+<ul>
+<p>For complex processes which cannot be solved analytically we need numerical solution
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation
+<p>
+<li>
+$${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
+<p>
+</ul>
+</section>
+
+<section>
+   <h3>Applications</h3>
+<ul>
+<li>natural and socio-economic processes
+<li>generalize the concept - define appropriate gradient field and density
+<li>how does your research relate to diffusion, dispersal, flux and related processes?
+</ul>
+<small>growing cities - inverse of population density or economic opportunity fields
+</section>
+
+<!--
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we have defined types of models
+</ul>
+</section>
+
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+
+<div class="parent-page">
+    <!-- &#x1f3e0; -->
+    <a href="http://ncsu-geoforall-lab.github.io/geospatial-simulations-course/" title="Go to the course page">&#8962;</a>
+</div>
+
+
+
