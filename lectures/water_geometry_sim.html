@@ -211,8 +211,10 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 <li>Hydrological flattening, enforcement, conditioning
 <li>New (and some old) algorithms do not require depression filled DEM
 </ul>
+<!--
 <p class="fragment">
 <img height="280" src="img/water_geometry/depressionfill_scheme.png">
+-->
 </section>
 
 <section>
@@ -230,39 +232,39 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 <section>
    <h3>Handling depressions</h3>
 Filling
-<p><img height="360" src="img/flow_erosion/depressions1.png">
+<p><img height="360" src="img/water_geometry/depressions1.png">
 </section>
 
 <section>
    <h3>Handling depressions</h3>
 Filling, carving
-<p><img height="360" src="img/flow_erosion/depressions2.png">
+<p><img height="360" src="img/water_geometry/depressions2.png">
 </section>
 
 <section>
    <h3>Handling depressions</h3>
 Filling, carving, hybrid
-<p><img height="360" src="img/flow_erosion/depressions3.png">
+<p><img height="360" src="img/water_geometry/depressions3.png">
 </section>
 
 <section>
    <h3>Handling depressions</h3>
 Filling, carving, hybrid, least cost path
-<p><img height="360" src="img/flow_erosion/depressions4.png">
+<p><img height="360" src="img/water_geometry/depressions4.png">
 </section>
 
 <section>
    <h3>Depressions filling: lidar DEM</h3>
 Depressions in lidar-based DEM and flow accumulation using DEM filling
-<p><img height="400" src="img/flow_erosion/depressions_lidardem.jpg">
+<p><img height="400" src="img/water_geometry/depressions_lidardem.jpg">
 <p><small>Many depressions are artificial lakes where bridges or roads create dams</small>
 </section>
 
 <section>
    <h3>Depressions filling: radar DSM</h3>
 <p>Radar (SRTM, IFSARE) DSM include vegetation surface leading to complex, nested depressions
-<p><img height="360" src="img/flow_erosion/depressions_ifsare.jpg">
-<img height="360" src="img/flow_erosion/filled_dem.jpg">
+<p><img height="360" src="img/water_geometry/depressions_ifsare.jpg">
+<img height="360" src="img/water_geometry/filled_dem.jpg">
 <p><small>Filling alters elevation in large areas</small>
 </section>
 
@@ -273,14 +275,14 @@ Depressions in lidar-based DEM and flow accumulation using DEM filling
  <li>Filling with single stream (black) and multiple parallel streams (grey) across filled depression
 <li>Least cost path stream (red) and on-ground stream location from GPS (blue points)
 </ul>
-<p><img height="350" src="img/flow_erosion/lcp_fill1_fill2_compare.jpg">
+<p><img height="350" src="img/water_geometry/lcp_fill1_fill2_compare.jpg">
 </section>
 
 <section>
    <h3>Depressions: carving</h3>
 <p>Carving streams from digitized stream data may introduce artifacts, if the digitized streams
 do not match the DEM
-<p><img height="400" src="img/flow_erosion/carved_dem.jpg">
+<p><img height="400" src="img/water_geometry/carved_dem.jpg">
 </section>
 
 <section>
@@ -302,7 +304,8 @@ Modified DEM with connected stream network where each grid cell drains into the 
   <li>Magalh˜aes, S. V. G., Andrade, M. V. A., Randolph Franklin, W., Pena, G. C., 2012. A new method for computing the drainage network based on raising the level of an ocean surrounding the terrain. In: Gensel, J., Josselin, D., Vandenbroucke, D., Cartwright, W., Gartner, G., Meng, L., Peterson, M. P. (Eds.), Bridging the Geographic Information Sciences. Lecture Notes in Geoinformation and Cartography. Springer Berlin Heidelberg, pp. 391–407. doi: http://dx.doi.org/10.1007/978-3-642-29063-3_21
   <li>Barnes, Lehman, Mulla. “Priority-Flood: An Optimal Depression-Filling and Watershed-Labeling Algorithm for Digital Elevation Models”. Computers and Geosciences. Vol 62, Jan 2014, pp 117–127. doi: “10.1016/j.cageo.2013.04.024”.
   <li>Araujo et al. 2014 Watersheds in disordered media
-  <li>Geomorphometry best paper
+  <li><a href="https://peerj.com/preprints/27099/">Barnes (2018) RichDEM</a>Geomorphometry 2018 best paper, see also 
+<a href="https://github.com/r-barnes/richdem">Code repository with design philosophy</a>
 </ul>
 </small>
 </section>
