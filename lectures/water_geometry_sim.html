@@ -278,6 +278,17 @@ Depressions in lidar-based DEM and flow accumulation using DEM filling
 </section>
 
 <section>
+   <h3>Depressions: LCP issues </h3>
+<p>
+<ul>
+ <li>Roads are elevated over bridges and culverts
+<li>Least cost path stream is routed along lower elevation, redirecting the flow away from the actual stream
+<li>Solution: carving through the road or imposed gradient, if the location of bridge/culvert is known
+</ul>
+<!--<p><img height="350" src="img/water_geometry/lcp_fill1_fill2_compare.jpg">-->
+</section>
+
+<section>
    <h3>Depressions: carving</h3>
 <p>Carving streams from digitized stream data may introduce artifacts, if the digitized streams
 do not match the DEM
