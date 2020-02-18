@@ -216,6 +216,84 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 </section>
 
 <section>
+   <h3>Flow routing through depressions</h3>
+<p>Depressions "trap" flow
+<p>Sources of depressions in DEMs:
+ <ul>
+ <li class="fragment">real topographic features
+ <li class="fragment">noise, measurements errors
+ <li class="fragment">processing artifacts
+</ul>
+<!--<p><img class="fragment" height="240" src="img/flow_erosion/depression.png">-->
+</section>
+
+<section>
+   <h3>Handling depressions</h3>
+Filling
+<p><img height="360" src="img/flow_erosion/depressions1.png">
+</section>
+
+<section>
+   <h3>Handling depressions</h3>
+Filling, carving
+<p><img height="360" src="img/flow_erosion/depressions2.png">
+</section>
+
+<section>
+   <h3>Handling depressions</h3>
+Filling, carving, hybrid
+<p><img height="360" src="img/flow_erosion/depressions3.png">
+</section>
+
+<section>
+   <h3>Handling depressions</h3>
+Filling, carving, hybrid, least cost path
+<p><img height="360" src="img/flow_erosion/depressions4.png">
+</section>
+
+<section>
+   <h3>Depressions filling: lidar DEM</h3>
+Depressions in lidar-based DEM and flow accumulation using DEM filling
+<p><img height="400" src="img/flow_erosion/depressions_lidardem.jpg">
+<p><small>Many depressions are artificial lakes where bridges or roads create dams</small>
+</section>
+
+<section>
+   <h3>Depressions filling: radar DSM</h3>
+<p>Radar (SRTM, IFSARE) DSM include vegetation surface leading to complex, nested depressions
+<p><img height="360" src="img/flow_erosion/depressions_ifsare.jpg">
+<img height="360" src="img/flow_erosion/filled_dem.jpg">
+<p><small>Filling alters elevation in large areas</small>
+</section>
+
+<section>
+   <h3>Depressions: algorithm comparison </h3>
+<p>
+<ul>
+ <li>Filling with single stream (black) and multiple parallel streams (grey) across filled depression
+<li>Least cost path stream (red) and on-ground stream location from GPS (blue points)
+</ul>
+<p><img height="350" src="img/flow_erosion/lcp_fill1_fill2_compare.jpg">
+</section>
+
+<section>
+   <h3>Depressions: carving</h3>
+<p>Carving streams from digitized stream data may introduce artifacts, if the digitized streams
+do not match the DEM
+<p><img height="400" src="img/flow_erosion/carved_dem.jpg">
+</section>
+
+<section>
+   <h3>Hydrologically enforced DEM</h3>
+<p>
+Modified DEM with connected stream network where each grid cell drains into the outlet
+<ul>
+  <li>hydrologically enforced DEM does not have depressions or flat areas
+  <li>it should not be referred to as hydrologically correct, because all wetlands are removed
+</ul>
+</section>
+
+<section>
    <h3>Flow routing for massive DEMs</h3>
 <p>Least cost path and Priority Flood methods do not require depression filling
 <small>
@@ -243,7 +321,7 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 
 <!--
 <section>
-   <h3>Watersheds</h3>
+   <h3>Flow routing and Watersheds</h3>
 skip in this context?
 <p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
 </section>
