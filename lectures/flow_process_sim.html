@@ -15,21 +15,48 @@
    <li>geospatial modeling of surface water flow
    <li>shallow water flow equations
    <li>numerical methods for solving shallow water flow equations
-   <li>coupling with stormwater networks, groundwater models, storm surge
+ <!--  <li>coupling with stormwater networks, groundwater models, storm surge-->
    <li>applications: surface runoff, dam breach
    <li>visualization of surface water flow dynamics, water depth as surface
 </ul>
 </section>
 
 <section>
-   <h3>Shallow water flow equation</h3>
-<ul>
-<li>processes modeled by SWF equation: 
+   <h3>Modeling components</h3>
+When performing simulations we need to consider:
 <p>
+<ul>
+  <li class="fragment"> <b>Modeled quantity [units]:</b> water, pollutant, vegetation, population density, individual organism, ...
+  <li class="fragment"> <b>Spatial and temporal scale</b>
+  <li class="fragment"> <b>Configuration space and interactions:</b> modeled quantity as function of environmental variables, e.g., topography, land cover, infrastructure...
+  <li class="fragment"> <b>Governing equations or rules:</b> continuity/mass conservation, diffusion, momentum conservation, ...
+</ul>
+</section>
+
+<section>
+   <h3>Modeling components: overland flow</h3>
+<ul>
+  <li>Modeled quantity [units]: 
+     <b class="fragment">water depth [m]</b> 
+  <li>Spatial and temporal scale: 
+     <b class="fragment">first order stream, 1m resolution, single storm</b> 
+  <li>Configuration space and interactions: 
+     <b class="fragment">water depth and precipitation interaction with topography, soil properties, land cover, infrastructure...</b>
+  <li>Governing equations:
+     <b class="fragment"> bivariate shallow water flow equation, Mannings equation, ... </b>
+</ul>
+</section>
+
+
+<section>
+   <h3>Shallow water flow equation</h3>
+Assuming that vertical variability in flow velocity is negligible 
+It is used to simulate:
    <ul>
    <li class="fragment">overland flow  
    <li class="fragment">dam breach flooding
    <li class="fragment">storm surge
+   <li class="fragment"><a href="https://en.wikipedia.org/wiki/Shallow_water_equations">many other flow processes </a>
    </ul>
 <p class="fragment">
 <img height="250" src="img/diffusion_flows/streambufferflood.jpg">
@@ -37,24 +64,41 @@
 </section>
 
 <section>
-   <h3>Shallow water flow equation</h3>
+   <h3>Shallow water flow equations</h3>
+<ul>
+<li class="fragment">Continuity equation: mass conservation 
+<li class="fragment">Momentum conservation equations 
+</ul>
+<p class="fragment">
+also refered to as St Venant equations.
+<p class="fragment">
+Continuity equation for flow in open channel
+<p class="fragment">
+ $$ {\partial h \over \partial t} + 
+\left( {\partial h v_x \over \partial x} + {\partial h v_y \over \partial y} \right) = 0$$
 <p>
-<small>
-bivariate form of the St Venant equation
-<p>
- $$ {\partial h({\bf r},t) \over \partial t} + \nabla \cdot {\bf v}({\bf r},t) h({\bf r},t) = i_e({\bf r},t)$$
-<p>hydraulic radius is approximated by flow depth $h({\bf r},t)$ and the unit discharge is given by:
-<p>where the flow velocity is given by the Manning's relation  
-$${\bf v}({\bf r},t)= {C\over n({\bf r})} h({\bf r},t)^{2/3} |{\bf s_f}({\bf r},t)|^{1/2} {\bf s_{f0}({\bf r},t)}$$
-</small>
 <small>
 <ul>
- <li>${\bf r}=(x,y)$ [m] is the position,
- <li>$t$ [s] is the time,
- <li>$h({\bf r},t)$ [m] is the depth of overland flow,
- <li>$i_e({\bf r},t)$ [m/s] is the rainfall excess = (rainfall $-$ infiltration $-$ vegetation intercept) [m/s],
+ <li class="fragment">$h$ [m] is the depth of flow,
+ <li class="fragment">$t$ [s] is the time,
+ <li class="fragment">${\bf v}=(v_x,v_y)$ [m/s] is the flow velocity vector
+ <li class="fragment">$(x,y)$ location in 2D space
 <!-- <li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width,-->
- <li>${\bf v}({\bf r},t)$  [m/s] is the flow velocity.
+</ul>
+</small>
+</section>
+
+<section>
+   <h3>Shallow water flow during storm</h3>
+Given rainfall excess rate $i_e$ SWF can be written as:
+<p>
+ $$ {\partial h \over \partial t} + \nabla \cdot h {\bf v} = i_e$$
+<p>where flow velocity ${\bf v}$ is given by Manning's relation
+<p>
+$${\bf v} = {C\over n} h^{2/3} |{\bf s_f}|^{1/2} {\bf s_{f0}}$$
+<small>
+<ul>
+ <li>$i_e$ [m/s] is the rainfall excess = (rainfall $-$ infiltration $-$ vegetation intercept)
 <li>$n({\bf r}) $ is the dimensionless Manning's coefficient,
 <li>C=1 [$m^{1/3}/s$] is the corresponding dimension constant
 <li>${\bf s_{f0}}({\bf r})={\bf s_f}({\bf r})/|{\bf s_f}({\bf r})|$ is the unit vector in the friction slope direction.
@@ -62,6 +106,7 @@ $${\bf v}({\bf r},t)= {C\over n({\bf r})} h({\bf r},t)^{2/3} |{\bf s_f}({\bf r},
 </small>
 </section>
 
+<!--
 <section>
    <h3>Shallow water flow equation</h3>
 <p>momentum conservation in the diffusion wave approximation: 
@@ -72,15 +117,32 @@ $$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
  <li>$z({\bf r})$ [m] is the elevation,
 </ul>
 </section>
+-->
 
 <section>
-   <h3>SWF numerical methods</h3>
+   <h3>SWF solutions</h3>
+Estimate water depth $h$ at a location $(x,y)$ and time $t$.
 <ul>
-<li>finite difference, finite element
-<li> finite volume
-<li> QMC path sampling 
+  <li>Simplified approximations for steady state
+  <li>Numerical solutions for dynamic, diffusive and kinematic wave
+   <ul>
+   <li>finite difference, finite element
+   <li> finite volume
+   <li> QMC path sampling 
+   </ul>
 </ul>
-<p>images illustrating approaches
+</section>
+
+<section>
+   <h3>SWF simplified</h3>
+Solution of continuity equation for a steady state water flow 
+<p>
+$$ \partial h({\bf r},t)/\partial t =0 $$
+$$ \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = \nabla \cdot {\bf q} = i_e({\bf r})$$
+where
+<ul>
+ <li>${\bf q}$ [$\rm m^2/s$] is the water flow per unit width
+</ul>
 </section>
 
 <section>
