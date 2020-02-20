@@ -12,7 +12,7 @@
     <h3>Learning objectives</h3>
 <p>
 <ul>
-   <li>geospatial modeling of surface water flow
+   <li>surface water flow modeling components
    <li>shallow water flow equations
    <li>numerical methods for solving shallow water flow equations
  <!--  <li>coupling with stormwater networks, groundwater models, storm surge-->
@@ -36,22 +36,59 @@ When performing simulations we need to consider:
 <section>
    <h3>Modeling components: overland flow</h3>
 <ul>
-  <li>Modeled quantity [units]: 
-     <b class="fragment">water depth [m]</b> 
+  <li>Modeled quantity: 
+     <b class="fragment">water depth [m], discharge [m$^3$/s]</b> 
   <li>Spatial and temporal scale: 
-     <b class="fragment">first order stream, 1m resolution, single storm</b> 
+     <b class="fragment">first order stream [1m resolution], single storm [minutes]</b> 
   <li>Configuration space and interactions: 
      <b class="fragment">water depth and precipitation interaction with topography, soil properties, land cover, infrastructure...</b>
   <li>Governing equations:
-     <b class="fragment"> bivariate shallow water flow equation, Mannings equation, ... </b>
+     <b class="fragment"> bivariate shallow water flow equation, Mannings equation, rational equation ... </b>
 </ul>
 </section>
 
+<section>
+   <h3>Rational equation</h3>
+<ul>
+  <li>Simplest approximation of discharge from small watersheds (few tens of acres)
+  <li>Assumes steady state, uniform rainfall excess and constant velocity
+  <li>Discharge is then sum of rainfall excess produced by each grid cell routed to the outlet
+</ul>
+</section>
+
+<section>
+   <h3>Rational equation</h3>
+<p>
+$$ Q = C \, i \, A $$
+<p>
+<ul>
+ <li class="fragment">$Q$ [$\rm m^3/s$] is maximum rate of runoff (discharge)
+<p>
+ <li class="fragment">$C$ is runoff coefficient
+ (ratio of rainfall that becomes runoff : forest 0.05-0.25, pavement 0.75-0.95)
+<p>
+ <li class="fragment">$i$ [$\rm m/s$] average rainfall intensity
+<p>
+ <li class="fragment">$A$ [$\rm m^2$] is upslope contributing area 
+</ul>
+<p class="fragment">Time to concentration is used to identify length of rainfall needed to reach the steady state
+<!-- show in mapcalc disch = 0.7 * 50 * 0.001/3600 * A * 1, general
+disch = coef * rain * A * res*res * units -->
+</section>
+
+<section>
+   <h3>Rational equation</h3>
+<p>
+$$ Q = C \, i \, A $$
+<p>
+<img height="380" src="img/water_geometry/accum_5Kmfd.jpg">
+<!--show in mapcalc disch = 0.7 * 50 * 0.001/3600 * A * 1, general disch = coef * rain * A * res*res * units -->
+</section>
 
 <section>
    <h3>Shallow water flow equation</h3>
 Assuming that vertical variability in flow velocity is negligible 
-It is used to simulate:
+it is used to simulate:
    <ul>
    <li class="fragment">overland flow  
    <li class="fragment">dam breach flooding
@@ -76,13 +113,13 @@ Continuity equation for flow in open channel
 <p class="fragment">
  $$ {\partial h \over \partial t} + 
 \left( {\partial h v_x \over \partial x} + {\partial h v_y \over \partial y} \right) = 0$$
-<p>
 <small>
 <ul>
  <li class="fragment">$h$ [m] is the depth of flow,
  <li class="fragment">$t$ [s] is the time,
  <li class="fragment">${\bf v}=(v_x,v_y)$ [m/s] is the flow velocity vector
  <li class="fragment">$(x,y)$ location in 2D space
+ <li class="fragment">$h$ and ${\bf v}$ are variable in space and time
 <!-- <li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width,-->
 </ul>
 </small>
@@ -92,7 +129,7 @@ Continuity equation for flow in open channel
    <h3>Shallow water flow during storm</h3>
 Given rainfall excess rate $i_e$ SWF can be written as:
 <p>
- $$ {\partial h \over \partial t} + \nabla \cdot h {\bf v} = i_e$$
+ $$ {\partial h \over \partial t} + \nabla \cdot h \, {\bf v} = i_e$$
 <p>where flow velocity ${\bf v}$ is given by Manning's relation
 <p>
 $${\bf v} = {C\over n} h^{2/3} |{\bf s_f}|^{1/2} {\bf s_{f0}}$$
