@@ -51,7 +51,7 @@ When performing simulations we need to consider:
    <h3>Rational equation</h3>
 <ul>
   <li>Simplest approximation of discharge from small watersheds (few tens of acres)
-  <li>Assumes steady state, uniform rainfall excess and constant velocity
+  <li>Assumes steady state, uniform rainfall excess (runoff) and constant velocity
   <li>Discharge is then sum of rainfall excess produced by each grid cell routed to the outlet
 </ul>
 </section>
@@ -81,7 +81,8 @@ disch = coef * rain * A * res*res * units -->
 <p>
 $$ Q = C \, i \, A $$
 <p>
-<img height="380" src="img/water_geometry/accum_5Kmfd.jpg">
+<img height="360" src="img/water_geometry/accum_5Kmfd.jpg">
+<img height="360" src="img/water_geometry/accum_runoffvar_30m3d.jpg">
 <!--show in mapcalc disch = 0.7 * 50 * 0.001/3600 * A * 1, general disch = coef * rain * A * res*res * units -->
 </section>
 
@@ -89,6 +90,7 @@ $$ Q = C \, i \, A $$
    <h3>Shallow water flow equation</h3>
 Assuming that vertical variability in flow velocity is negligible 
 it is used to simulate:
+<p>
    <ul>
    <li class="fragment">overland flow  
    <li class="fragment">dam breach flooding
@@ -119,7 +121,7 @@ Continuity equation for flow in open channel
  <li class="fragment">$t$ [s] is the time,
  <li class="fragment">${\bf v}=(v_x,v_y)$ [m/s] is the flow velocity vector
  <li class="fragment">$(x,y)$ location in 2D space
- <li class="fragment">$h$ and ${\bf v}$ are variable in space and time
+ <li class="fragment">$h$ and ${\bf v}$ are variable in space and time (dynamic fields)
 <!-- <li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width,-->
 </ul>
 </small>
@@ -132,13 +134,16 @@ Given rainfall excess rate $i_e$ SWF can be written as:
  $$ {\partial h \over \partial t} + \nabla \cdot h \, {\bf v} = i_e$$
 <p>where flow velocity ${\bf v}$ is given by Manning's relation
 <p>
-$${\bf v} = {C\over n} h^{2/3} |{\bf s_f}|^{1/2} {\bf s_{f0}}$$
+$${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$$
 <small>
 <ul>
- <li>$i_e$ [m/s] is the rainfall excess = (rainfall $-$ infiltration $-$ vegetation intercept)
-<li>$n({\bf r}) $ is the dimensionless Manning's coefficient,
-<li>C=1 [$m^{1/3}/s$] is the corresponding dimension constant
-<li>${\bf s_{f0}}({\bf r})={\bf s_f}({\bf r})/|{\bf s_f}({\bf r})|$ is the unit vector in the friction slope direction.
+ <li>$i_e$ [m/s] is rainfall excess (runoff)  = (rainfall $-$ infiltration $-$ vegetation intercept)
+ <li>$\nabla$ is divergence operator
+<li>$n$ is dimensionless Manning's coefficient
+<li>k=1 [$m^{1/3}/s$] is corresponding dimension constant
+<li>$s$ is slope 
+<li>${\bf s_0}$ is unit vector in the flow direction
+<li>we assume that slope of water surface (friction slope $s_f$) is the same as elevation surface slope $s$
 </ul>
 </small>
 </section>
@@ -159,17 +164,20 @@ $$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
 <section>
    <h3>SWF solutions</h3>
 Estimate water depth $h$ at a location $(x,y)$ and time $t$.
+<p>
 <ul>
   <li>Simplified approximations for steady state
-  <li>Numerical solutions for dynamic, diffusive and kinematic wave
+  <li>Numerical solutions for 
    <ul>
-   <li>finite difference, finite element
-   <li> finite volume
-   <li> QMC path sampling 
+    <li>dynamic wave: coupled continuity and momentum conservation equations
+    <li>diffusive wave: dynamic $s_f$ different from $s$ 
+    <li>kinematic wave: $s_f = s$
    </ul>
 </ul>
+Numerical methods: finite difference, finite element, finite volume, QMC path sampling 
 </section>
 
+<!--
 <section>
    <h3>SWF simplified</h3>
 Solution of continuity equation for a steady state water flow 
@@ -181,6 +189,7 @@ where
  <li>${\bf q}$ [$\rm m^2/s$] is the water flow per unit width
 </ul>
 </section>
+-->
 
 <section>
    <h3>SWF simplified</h3>
