@@ -1,5 +1,5 @@
 <section>
-    <h2><b>Geostatistical simulations</b></h2>
+    <h2><b>Geostatistical simulations and uncertainty propagation</b></h2>
     <p style="margin-top: 0.5em">
         Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
     <p class="title-foot">
@@ -13,7 +13,6 @@
 <p>
 <ul>
 <li>motivation for geostatistical simulations
-<li>physics-based surface simulation and splines
 <li>geostatistical conditional simulations
 <li>Gaussian Sequential Simulation
 <li>simulations for uncertainty propagation
@@ -66,53 +65,6 @@ $$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
 <img height="440px" src="img/geostats/interp1d.gif">
 $$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
 <p class="fragment"><small>draw simulation on the board</small>
-</section>
-
-<section>
-    <h3>Splines with tension</h3>
-<p>
-<p>Splines with tension simulate the behavior of a thin plate with tuneable properties 
-<p>
-$$
-F({\bf r})=T({\bf r})+\sum_{j=1}^m \lambda_j R({\bf r},{\bf r}_j)\, 
-$$
-<p> <small>
-<ul> 
-<li>$T({\bf r})$ is a trend function, 
-<li>$\lambda_j$ are weights (coefficients) 
-<li>$R({\bf r},{\bf r}_j)$ is a function of distance between an unsampled and a measured point. 
-<li>$R$ is derived by minimizing the smoothness seminorm (or roughness penalty)
-</ul>
-<p>
-Bivariate smoothness seminorm with weighted squares of
-first and second derivatives leads to
-<strong>thin plate spline with tension </strong>, when all derivatives
-are used with decreasing weight we get
-<strong>regularized spline with tension </strong>. We minimize curvatures / energy of the surface.
-</small>
-</section>
-
-<section>
-    <h3>Splines with tension</h3>
-<p><small>Thin plate spline with tension is then
-$$
-F({\bf r})=a_0 + \sum_{j=1}^N \lambda_j 
-\left[ {\rm K_0} (\varphi r/2) + \ln(\varphi r/2) + C \right] 
-$$
-where $K_0(.)$ is the Bessel function and $\varphi$ is tension parameter,
-$C$ is constant. The function simulates a flexible thin steel plate (low tension) 
-through rubber sheet (high tension).
-</small>
-<img height="350" src="img/geostats/tension.gif">
-<p><small>Splines have both physical and geostatistical interpretation:
-see supplemental material</small>
-</section>
-
-<section>
-    <h3>Splines with tension</h3>
-<p>Trivariate thin plate spline with tension
-<p><img height="350" src="img/geostats/tension3d.gif">
-<p>Distribution of nitrogen concentrations in Chesapeake Bay
 </section>
 
 <section>
