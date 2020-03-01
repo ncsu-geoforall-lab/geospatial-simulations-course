@@ -1,0 +1,118 @@
+<section>
+    <h2><b>Splines</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+<li>physics-based surface simulation and splines
+</ul>
+</section>
+
+<section>
+    <h3>Motivation</h3>
+<p>Derive model of spatial distribution of a variable
+based on a limited set of discrete scattered observations:
+<ul>
+<li class="fragment">if the measured data capture features of the distribution at the level of detail needed
+for the application we can use interpolation 
+<br><small><a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/topics/spatial_interpolation.html">
+See GIS582 Spatial interpolation topic</a></small>
+<li class="fragment">if the measured data are limited and we know statistical properties of the distribution,
+we can use simulation
+<li class="fragment">some interpolation methods are based on deterministic, process-based simulations: splines 
+</ul>
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+<p>
+<ul>
+<li>Given the $m$ values of a studied phenomenon $z_j$ measured
+at locations ${\bf r}_j=(x_j,y_j), \; j=1,\dots ,m$ 
+find a function $F({\bf r})$ which fulfils the following condition:
+<p>
+$$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
+<li class="fragment">The problem does not have a unique solution so additional conditions are used.
+<li class="fragment">Interpolation: we use $F({\bf r}_j)$ to estimate values at unsampled locations
+<li class="fragment">Simulation: we use $F({\bf r}_j)$ to condition our simulation of a more complex surface
+</ul>
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+<img height="340px" src="img/geostats/elevrandpts.jpg">
+<img height="340px" src="img/geostats/pointstogrid.jpg">
+<p>
+<small>Interpolation: distance between grid points is similar to the average distance between the given points
+<p>Simulation: distance between grid points can be much smaller - higher resolution grid
+</small>
+</section>
+
+<section>
+    <h3>Multiple solutions</h3>
+<p class="fragment">
+<img height="440px" src="img/geostats/interp1d.gif">
+$$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
+<p class="fragment"><small>draw simulation on the board</small>
+</section>
+
+<section>
+    <h3>Splines with tension</h3>
+<p>
+<p>Splines with tension simulate the behavior of a thin plate with tuneable properties 
+<p>
+$$
+F({\bf r})=T({\bf r})+\sum_{j=1}^m \lambda_j R({\bf r},{\bf r}_j)\, 
+$$
+<p> <small>
+<ul> 
+<li>$T({\bf r})$ is a trend function, 
+<li>$\lambda_j$ are weights (coefficients) 
+<li>$R({\bf r},{\bf r}_j)$ is a function of distance between an unsampled and a measured point. 
+<li>$R$ is derived by minimizing the smoothness seminorm (or roughness penalty)
+</ul>
+<p>
+Bivariate smoothness seminorm with weighted squares of
+first and second derivatives leads to
+<strong>thin plate spline with tension </strong>, when all derivatives
+are used with decreasing weight we get
+<strong>regularized spline with tension </strong>. We minimize curvatures / energy of the surface.
+</small>
+</section>
+
+<section>
+    <h3>Splines with tension</h3>
+<p><small>Thin plate spline with tension is then
+$$
+F({\bf r})=a_0 + \sum_{j=1}^N \lambda_j 
+\left[ {\rm K_0} (\varphi r/2) + \ln(\varphi r/2) + C \right] 
+$$
+where $K_0(.)$ is the Bessel function and $\varphi$ is tension parameter,
+$C$ is constant. The function simulates a flexible thin steel plate (low tension) 
+through rubber sheet (high tension).
+</small>
+<img height="350" src="img/geostats/tension.gif">
+<p><small>Splines have both physical and geostatistical interpretation:
+see supplemental material</small>
+</section>
+
+<section>
+    <h3>Splines with tension</h3>
+<p>Trivariate thin plate spline with tension
+<p><img height="350" src="img/geostats/tension3d.gif">
+<p>Distribution of nitrogen concentrations in Chesapeake Bay
+</section>
+
+
+<div class="parent-page">
+    <!-- &#x1f3e0; -->
+    <a href="http://ncsu-geoforall-lab.github.io/geospatial-simulations-course/" title="Go to the course page">&#8962;</a>
+</div>
