@@ -35,6 +35,7 @@ library(rgrass7)
 library(rgdal)
 library(gstat)
 library(geoR)
+use_sp()
 
 elevations <- readVECT("elevations")
 </code></pre>
@@ -56,7 +57,7 @@ plot(Z.svar, envelope=env.model); lines(Z.vgm, lwd=2);
 </code></pre>
 
 Stochastic Conditional Gaussian Simulation:
-<pre><code>    
+<pre><code>
 demgrid <- spsample(elevations, type="regular", cellsize=c(30,30))
 gridded(demgrid) <- TRUE
 fullgrid(demgrid) <- TRUE
@@ -68,7 +69,7 @@ spplot(DEM.sim[1:4], col.regions=grey(seq(0,1,0.025)))
 </code></pre>
 
 Save simulated elevation rasters as GRASS rasters and derive streams on each of them:
-<pre><code> 
+<pre><code>
 for(i in 1:N.sim) {writeRAST(DEM.sim[i], paste("simulated_", i, sep=""))}
 execGRASS("g.list", type="raster", pattern="simulated_*", output="tmp_list_simulated.txt")
 # compute standard deviation
@@ -78,7 +79,7 @@ for(i in 1:N.sim) {execGRASS("r.watershed", elevation=paste("simulated_", i, sep
 </code></pre>
 
 Compute probability and error:
-<pre><code> 
+<pre><code>
 execGRASS("g.list", type="raster", pattern="stream*", output="tmp_list.txt")
 execGRASS("r.series", file="tmp_list.txt", output="count", method="count")
 execGRASS("r.mapcalc", expression=paste("prob = float(count)/", N.sim))
