@@ -85,3 +85,10 @@ execGRASS("r.series", file="tmp_list.txt", output="count", method="count")
 execGRASS("r.mapcalc", expression=paste("prob = float(count)/", N.sim))
 execGRASS("r.mapcalc", expression="error = -prob * log(prob) - (1-prob)* log(1-prob)")
 </code></pre>
+
+Visualize the probability:
+<pre><code>
+r.colors map=prob color=magma -n
+</code></pre>
+
+Use for example 3D view to drape the probability raster over elevation layer.
