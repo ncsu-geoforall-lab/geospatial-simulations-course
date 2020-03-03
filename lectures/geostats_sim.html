@@ -16,7 +16,44 @@
 <li>geostatistical conditional simulations
 <li>Gaussian Sequential Simulation
 <li>simulations for uncertainty propagation
+<li>coupling GRASS and R for geostatistics
 </ul>
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+<p>In previous units we generated DEMs with simulated noise
+by adding random values to the DEM with:
+<ul>
+  <li class="fragment">uniform distribution
+  <li class="fragment">gaussian distribution
+  <li class="fragment">distribution with spatial autocorrelation
+  <li class="fragment">fractal
+</ul>
+<p class="fragment">
+We then visualy evaluated the impact of different noise distribution 
+on the flow pattern modeling and stream extraction. 
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+Different patterns of flow accumulation from noisy DEMs
+<img height="210" src="img/data_sim/accum5k_noise.jpg">
+<img height="210" src="img/data_sim/accum5k_noise_frac.jpg">
+<img height="210" src="img/data_sim/accum5k_noise_spat.jpg">
+<p>How to quantify uncertainty in the spatial pattern of the modeled variable
+due to uncertainty in elevation values?
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+<p>To quantitatively evaluate uncertainty in parameters derived from a DEM     
+we can generate multiple realizations of a DEM by starting with different seed
+<p class="fragment">
+This approach does not take into account the spatial correlation of the elevation values in our DEM
+<p class="fragment">
+We can use geostatistical simulation to generate the DEM realizations
+
 </section>
 
 <section>
@@ -25,30 +62,35 @@
 based on a limited set of discrete scattered observations:
 <ul>
 <li class="fragment">if the measured data capture features of the distribution at the level of detail needed
-for the application we can use interpolation 
+for the application we can use <b>interpolation</b> 
 <br><small><a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/topics/spatial_interpolation.html">
 See GIS582 Spatial interpolation topic</a></small>
-<li class="fragment">if the measured data are limited and we know statistical properties of the distribution,
-we can use simulation
 <li class="fragment">some interpolation methods are based on deterministic, process-based simulations: splines 
+<li class="fragment">if the measured data are limited and we know statistical properties of the distribution,
+we can use <b>simulation</b>
 </ul>
 </section>
 
 <section>
     <h3>Problem formulation</h3>
 <p>
+Given $m$-points $(x_i, y_i, z_i), i=1,m$ find such $F(x,y)$ that for each $i=1,m$
+<p class="fragment">
+           $$z_i=F(x_i,y_i) + e(x_i,y_i)$$
+<p  class="fragment">
+and compute $z_k=F(x_k,y_k)$ where $(x_k,y_k)$ are grid points
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
 <ul>
-<li>Given the $m$ values of a studied phenomenon $z_j$ measured
-at locations ${\bf r}_j=(x_j,y_j), \; j=1,\dots ,m$ 
-find a function $F({\bf r})$ which fulfils the following condition:
-<p>
-$$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
 <li class="fragment">The problem does not have a unique solution so additional conditions are used.
-<li class="fragment">Interpolation: we use $F({\bf r}_j)$ to estimate values at unsampled locations
-<li class="fragment">Simulation: we use $F({\bf r}_j)$ to condition our simulation of a more complex surface
+<li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations
+<li class="fragment">Simulation: we use $F(x,y)$ to condition our simulation of a more complex surface
 </ul>
 </section>
 
+<!--
 <section>
     <h3>Problem formulation</h3>
 <img height="340px" src="img/geostats/elevrandpts.jpg">
@@ -66,6 +108,7 @@ $$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
 $$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
 <p class="fragment"><small>draw simulation on the board</small>
 </section>
+-->
 
 <section>
     <h3>Geostatistical simulations</h3>
@@ -76,7 +119,7 @@ $$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
    - interpolation does not capture the complexity, result is too smooth
   <li class="fragment">we have some knowledge of statistical properties of the modeled distribution
   <li class="fragment">we generate many realizations of the surface using the given statistical properties
-  <li class="fragment">the realizations are used to compute the simulated distribution mean and uncertainty maps
+  <li class="fragment">the realizations are used to compute the simulated distribution <b>mean and uncertainty maps</b>
 </ul>
 </section>
 
@@ -88,7 +131,7 @@ Observations where sampling is limited:
   <li class="fragment">subsurface: reservoir modeling in petroleum industry, mining, 
    soil properties, groundwater pollution
   <li class="fragment">surface: variables not detectable by RS, e.g. some pollutants
-  <li class="fragment">generate multiple realizations of modeled distribution for uncertainty propagation studies
+  <li class="fragment">generate multiple realizations of modeled distribution for <b>uncertainty propagation studies</b>
 </ul>
 </section>
 
@@ -99,11 +142,13 @@ Observations where sampling is limited:
 Conditional simulation</a>
 </section>
 
+<!--
 <section>
     <h3>Geostatistical simulations</h3>
 <p>Raster-based: continuous or categorical data
 <p>Object based: categorical data
 </section>
+-->
 
 <section>
     <h3>Gaussian Sequential Simulation</h3>
@@ -154,14 +199,26 @@ propagation of uncertainty in DEM
 
 <section>
     <h3>Elevation data analysis </h3>
+<p>Baranja region DEM and slope map
+<img height="340px" src="img/geostats/baranja_slope.jpg">
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<p>Plot distribution of given points $(x_i,y_i,z_i)$
+<p><img height="340px" src="img/geostats/scatterplots.jpg">
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<p>Plot distribution of given points $(x_i,y_i,z_i)$
 <ul>
-<li>Compute experimental variogram from given elevation data
+<li>Compute anisotropic and isotropic experimental variogram from given elevation data
 <li>Fit Matern variogram model with smoothing parameter
 <li><a href="https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function">Matern covariance equation </a>
 </ul>
-<p><img height="240px" src="img/geostats/scatterplots.jpg">
-<img height="240px" src="img/geostats/variogram.jpg">
-<img height="240px" src="img/geostats/variogram2.jpg">
+<img height="340px" src="img/geostats/variogram.jpg">
+<img height="340px" src="img/geostats/variogram2.jpg">
 </section>
 
 <section>
@@ -187,12 +244,46 @@ propagation of uncertainty in DEM
 <p>
 <p><img height="200px" src="img/geostats/stream_probability.png">
 <img height="200px" src="img/geostats/simulated_surface_std.png">
+In the assignment evaluate the relationship between stream uncertainty and slope
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<p>Lake Wheeler SECREF watershed 
+<p><img height="340px" src="img/geostats/elevation.jpg">
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<p>Plot distribution of given points $(x_i,y_i,z_i)$
+<p><img height="340px" src="img/geostats/Inglis_secrefpoints.jpg">
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<ul>
+<li>Compute anisotropic and isotropic experimental variogram from given elevation data
+<li>Fit Matern variogram model with smoothing parameter
+<li><a href="https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function">Matern covariance equation </a>
+</ul>
+<img height="340px" src="img/geostats/inglis_variogram_anis.jpg">
+<img height="340px" src="img/geostats/inglis_variogram_model.jpg">
+Generate DEMs at 2m resolution or better
+</section>
+
+<section>
+    <h3>Stream uncertainty mapping</h3>
+<p>
+<p><img height="200px" src="img/geostats/inglis_probability_stream.jpg">
 </section>
 
 <section>
     <h3>Resources</h3>
-<p>See supplemental material
+<p>
+<a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">
+Conditional simulation</a>
 <p><a href="https://www4.stat.ncsu.edu/~reich/SpatialStats/index.html">Spatial Statistics course at NCSU, Dr. Brian Reich</a>
+<p>See supplemental material
 </section>
 
 <!--
@@ -206,27 +297,6 @@ propagation of uncertainty in DEM
   <li class="fragment">we can estimate relation between the auxiliary data and the modeled variable
   <li class="fragment">we use observed data and auxiliary data to simulate the distribution of modeled variable
 </ul>
-</section>
-
-<section>
-    <h3>ABM principle</h3>
-<p>
-<p>General expression for the agent $A_i$ evolution 
-<p>
-$$
-A_i^{t+\Delta t} = F(A_i^t, A_j^t, E^t, R)
-$$
-<p>
-Agent state (location, attributes) at time $t+\Delta t$ is a function of 
-<ul>
- <li>its state at time $t$, 
- <li>state of the interacting agent(s) $A_j^t$
- <li>state of the environment $E$ 
- <li>interaction rules $R$
-</ul>
-<p><small>Space is often tesselated into grid cells with initial environmental state. 
-Agents are modeled as grid cells, patches, oriented lines, or points</small>
-<img height="240px" src="img/tangible_landscape/collaboration_computer.JPG">
 </section>
 
 -->
