@@ -83,16 +83,6 @@ and compute $z_k=F(x_k,y_k)$ where $(x_k,y_k)$ are grid points
 
 <section>
     <h3>Problem formulation</h3>
-<ul>
-<li class="fragment">The problem does not have a unique solution so additional conditions are used.
-<li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations
-<li class="fragment">Simulation: we use $F(x,y)$ to condition our simulation of a more complex surface
-</ul>
-</section>
-
-<!--
-<section>
-    <h3>Problem formulation</h3>
 <img height="340px" src="img/geostats/elevrandpts.jpg">
 <img height="340px" src="img/geostats/pointstogrid.jpg">
 <p>
@@ -101,6 +91,16 @@ and compute $z_k=F(x_k,y_k)$ where $(x_k,y_k)$ are grid points
 </small>
 </section>
 
+<section>
+    <h3>Problem formulation</h3>
+<ul>
+<li class="fragment">The problem does not have a unique solution so additional conditions are used.
+<li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations
+<li class="fragment">Simulation: we use $F(x,y)$ to condition our simulation of a more complex surface
+</ul>
+</section>
+
+<!--
 <section>
     <h3>Multiple solutions</h3>
 <p class="fragment">
@@ -168,7 +168,7 @@ Conditional simulation</a>
 <li class="fragment">select random unsampled grid location and compute kriged estimate + random residual to get simulated value
 using the neighboring given points
 <li class="fragment">use "random path" to define order of empty grid cells to be simulated
-<li class="fragment">at each new unsampled grid location use the nearby given points and previously simulated values 
+<li class="fragment">at each new unsampled grid location use the nearby <b>given points and previously simulated values</b> 
 to compute the simulated values
 </ul>
 <p><small>this is different random walk than what we refered to in path sampling simulations</small>
@@ -206,7 +206,7 @@ propagation of uncertainty in DEM
 <section>
     <h3>Elevation data analysis </h3>
 <p>Plot distribution of given points $(x_i,y_i,z_i)$
-<p><img height="380px" src="img/geostats/scatterplots.jpg">
+<p><img height="400" src="img/geostats/scatterplots.jpg">
 </section>
 
 <section>
@@ -230,6 +230,7 @@ propagation of uncertainty in DEM
 
 <section>
     <h3>Stream uncertainty mapping</h3>
+<p>
 <ul>
 <li>derive stream network for each DEM
 <li>compute count of stream presence from all DEMs
@@ -249,7 +250,7 @@ propagation of uncertainty in DEM
 <section>
     <h3>Elevation data analysis </h3>
 <p>Lake Wheeler SECREF watershed 
-<p><img height="340px" src="img/geostats/elevation.jpg">
+<p><img height="340px" src="img/data_sim/elev_lid_smooth.jpg">
 </section>
 
 <section>
@@ -264,9 +265,10 @@ propagation of uncertainty in DEM
 <li>Compute anisotropic and isotropic experimental variogram from given elevation data
 <li>Fit Matern variogram model with smoothing parameter
 </ul>
-<img height="340px" src="img/geostats/inglis_variogram_anis.jpg">
-<img height="340px" src="img/geostats/inglis_variogram_model.jpg">
-<p>Generate DEMs at 2m resolution or better
+<img height="320px" src="img/geostats/inglis_variogram_anis.jpg">
+<img height="320px" src="img/geostats/inglis_variogram_model.jpg">
+<br>Generate DEMs at 2m resolution or better
+<p><small>Inglis N., 2019, GIS714 course assignment report.</small>
 </section>
 
 <section>
