@@ -153,22 +153,22 @@ Conditional simulation</a>
 <section>
     <h3>Gaussian Sequential Simulation</h3>
 <ul>
-<li>input: sparse, scattered point measurements
-<li>analyze the data for normality
-<li>apply transformation if needed to get normal distribution (log or Box-Cox transform)
-<li>compute semivariogram and its nugget, range and sill
-<li> define spatial extent and resolution of resulting grid
+<li class="fragment">input: sparse, scattered point measurements
+<li class="fragment">analyze the data for normality
+<li class="fragment">apply transformation if needed to get normal distribution (log or Box-Cox transform)
+<li class="fragment">compute semivariogram and its nugget, range and sill
+<li class="fragment"> define spatial extent and resolution of resulting grid
 <ul>
 </section>
 
 <section>
     <h3>Generate one realization</h3>
 <ul>
-<li>assign data points to closest grid cell (nearest neighbor point binning)
-<li>select random unsampled grid location and compute kriged estimate + random residual to get simulated value
+<li class="fragment">assign data points to closest grid cell (nearest neighbor point binning)
+<li class="fragment">select random unsampled grid location and compute kriged estimate + random residual to get simulated value
 using the neighboring given points
-<li>use "random path" to define order of empty grid cells to be simulated
-<li>at each new unsampled grid location use the nearby given points and previously simulated values 
+<li class="fragment">use "random path" to define order of empty grid cells to be simulated
+<li class="fragment">at each new unsampled grid location use the nearby given points and previously simulated values 
 to compute the simulated values
 </ul>
 <p><small>this is different random walk than what we refered to in path sampling simulations</small>
@@ -178,9 +178,9 @@ to compute the simulated values
 <section>
     <h3>Compute mean and uncertainty</h3>
 <ul>
-<li>Each realization starts with a different seed
-<li>Compute hundreds or thousands realizations
-<li>Mean is the simulated distribution result 
+<li class="fragment">Each realization starts with a different seed
+<li class="fragment">Compute hundreds or thousands realizations
+<li class="fragment">Mean is the simulated distribution result 
 </ul>
 <p>
 See also <a href="https://github.com/GeostatsGuy/2DayCourse/blob/master/07_SpatialSimulation.pdf">Prof. Pyrcz's (GeostatsGuy)
@@ -200,25 +200,24 @@ propagation of uncertainty in DEM
 <section>
     <h3>Elevation data analysis </h3>
 <p>Baranja region DEM and slope map
-<img height="340px" src="img/geostats/baranja_slope.jpg">
+<img height="360px" src="img/geostats/baranja_slope.jpg">
 </section>
 
 <section>
     <h3>Elevation data analysis </h3>
 <p>Plot distribution of given points $(x_i,y_i,z_i)$
-<p><img height="340px" src="img/geostats/scatterplots.jpg">
+<p><img height="380px" src="img/geostats/scatterplots.jpg">
 </section>
 
 <section>
     <h3>Elevation data analysis </h3>
-<p>Plot distribution of given points $(x_i,y_i,z_i)$
 <ul>
 <li>Compute anisotropic and isotropic experimental variogram from given elevation data
 <li>Fit Matern variogram model with smoothing parameter
 <li><a href="https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function">Matern covariance equation </a>
 </ul>
-<img height="340px" src="img/geostats/variogram.jpg">
-<img height="340px" src="img/geostats/variogram2.jpg">
+<img height="360px" src="img/geostats/variogram.jpg">
+<img height="360px" src="img/geostats/variogram2.jpg">
 </section>
 
 <section>
@@ -244,7 +243,7 @@ propagation of uncertainty in DEM
 <p>
 <p><img height="200px" src="img/geostats/stream_probability.png">
 <img height="200px" src="img/geostats/simulated_surface_std.png">
-In the assignment evaluate the relationship between stream uncertainty and slope
+<p>In the assignment evaluate the relationship between stream uncertainty and slope
 </section>
 
 <section>
@@ -256,7 +255,7 @@ In the assignment evaluate the relationship between stream uncertainty and slope
 <section>
     <h3>Elevation data analysis </h3>
 <p>Plot distribution of given points $(x_i,y_i,z_i)$
-<p><img height="340px" src="img/geostats/Inglis_secrefpoints.jpg">
+<p><img height="380px" src="img/geostats/Inglis_secrefpoints.jpg">
 </section>
 
 <section>
@@ -264,17 +263,17 @@ In the assignment evaluate the relationship between stream uncertainty and slope
 <ul>
 <li>Compute anisotropic and isotropic experimental variogram from given elevation data
 <li>Fit Matern variogram model with smoothing parameter
-<li><a href="https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function">Matern covariance equation </a>
 </ul>
 <img height="340px" src="img/geostats/inglis_variogram_anis.jpg">
 <img height="340px" src="img/geostats/inglis_variogram_model.jpg">
-Generate DEMs at 2m resolution or better
+<p>Generate DEMs at 2m resolution or better
 </section>
 
 <section>
     <h3>Stream uncertainty mapping</h3>
 <p>
-<p><img height="200px" src="img/geostats/inglis_probability_stream.jpg">
+<p><img height="420px" src="img/geostats/inglis_probability_stream.jpg">
+<p><small>Inglis N., 2019, GIS714 course assignment report.</small>
 </section>
 
 <section>
