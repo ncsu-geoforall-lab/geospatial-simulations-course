@@ -1,29 +1,96 @@
 <h2>Geostatistical simulations</h2>
 This assignment was adapted from <a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">
 A Practical Guide to Geostatistical Mapping</a> by T. Hengl.
-Download and unzip dataset <tt><a href="http://spatial-analyst.net/book/system/files/elevations.zip">baranjahill</a></tt>.
+Download and unzip dataset 
+<tt><a href="./data/baranja_elevations.zip">baranjahill</a></tt>.
+<!--<tt><a href="http://spatial-analyst.net/book/system/files/elevations.zip">baranjahill</a></tt>.-->
+
 <p>
-Start GRASS GIS and create new Location and in the wizard select option
-<i>Specify projection and datum terms using custom PROJ.4 parameters</i>.
-Then use this projection specification:
+Start GRASS GIS and create new Location. Going through the wizard replace 
+for <i>Project Location</i> newLocation with baranja,
+and then for 
+<i>Chose method for creating a new location.</i>
+select advanced method
+<i>Specify projection and datum terms using custom PROJ.4 parameters</i>. 
+Then use this PROJ.4 projection specification:
 <pre>
 +proj=tmerc +lat_0=0 +lon_0=18 +k=0.9999 +x_0=6500000 +y_0=0 +no_defs +a=6377397.155 +rf=299.1528128 +towgs84=550.499,164.116,475.142,5.80967,2.07902,-11.62386,0.99999445824  +to_meter=1
 </pre>
 
-Once GRASS opens, import the dataset (or specify full path).
-Note we use -o flag (overide projection) because the dataset doesn't have projection info.
+Once GRASS opens, change to the directory where you have unziped the downloaded data:
+type <code>cd</code> in the console, hit Enter and browse to the directory where your shapefile data are.
+Import the dataset, note that we need to use -o flag (overide projection) because 
+the dataset doesn't have projection info.
 <pre><code>
 v.in.ogr -o input=elevations.shp
 </code></pre>
 
-Interpolate surface to get idea how it looks like:
+<h3>Compute a smooth DEM and extract stream network</h3>
+
+Get the basic information about the data, such as number of points,
+attribute names, and univariate statistics. 
+Then explore the spatial pattern of the data points: first display selected subsets
+of points and then display all points.
+Add 1km grid to your display to understand the scale of the dataset.
+
 <pre><code>
-g.region e=6555626 w=6551786 s=5070478 n=5074348 res=30 -p
-v.surf.rst input=elevations@PERMANENT zcolumn=VALUE elevation=elevation slope=slope
+v.info -c elevations
+v.univar elevations column=VALUE
+d.vect map=elevations where="cat<800" color=grey
+d.vect map=elevations where="VALUE=180" color=brown
+d.vect map=elevations size=1
+d.grid 1000
 </code></pre>
 
+<span class="question">What can you tell about the data? 
+Looking at the spatial pattern, how they might have been acquired?</span>
 
-Next, we switch to R. From GRASS terminal run R. You will need packages:
+<p>
+To compute a histogram of the given data distribution we can bin the 
+points to 10m resolution grid and then run the histogram.
+
+<pre><code>
+g.region e=6555626 w=6551786 s=5070478 n=5074348 res=10 -p
+v.to.rast elevations out=elevations_bin10m type=point use=attr attr="VALUE"
+d.histogram elevations_bin10m
+</code></pre>
+
+<span class="question">Can you explain the discrete spikes in the histogram?</span>
+
+Interpolate a smooth DEM using spline with tension with simultaneous computation of slope, aspect and curvatures
+to visualize the surface and its parameters. 
+
+<pre><code>
+v.surf.rst input=elevations zcolumn=VALUE elevation=elevation_10 slope=slope_10 aspect=aspect_10 pcurv=pcurv_10 tcurv=tcurv_10
+d.histogram elevation_10
+</code></pre>
+
+<span class="question">Why is the histogram of interpolated DEM so different from the histogram of binned given data?</span>
+
+Extract the streams. 
+<span class="question">Which method for extracting streams are we using in terms of method 
+used for flow direction, flow routing and handling of depressions?  What does the threshold 300 mean?</span>
+
+<pre><code>
+r.watershed elevation=elevation_10 threshold=300 stream=stream10_300 accum=accum10
+r.thin stream10_300 out=stream10_300t --o
+r.to.vect stream10_300t out=stream10_300t type=line
+d.vect stream10_300t co=blue
+</code></pre>
+
+<h3>Estimate the uncertainty in extracted streams</h3>
+
+We will estimate uncertainty in the extracted streams
+due to errors in elevation using a combination of R and GRASS GIS tools. 
+
+<!--
+The contour step is 10m so what is the accuracy of the points
+along the contourlines? What is the RMS deviation of the smoothed, interpolated surface from the given
+data points (hint: run <code>r.info elevation_10</code>)?
+-->
+
+To start R from GRASS type <code>R</code> in the GRASS terminal. 
+<br>You will need several packages:
 
 <pre><code>
 install.packages(c("rgdal", "gstat", "geoR", "rgrass7"))
@@ -40,14 +107,22 @@ use_sp()
 elevations <- readVECT("elevations")
 </code></pre>
 
-Subsample data and explore histogram:
+Subsample data and explore distribution of values in the data.
+
 <pre><code>
 sel <- runif(length(elevations@data[[2]])) < 0.2
 Z.geo <- as.geodata(elevations[sel,"VALUE"])
 plot(Z.geo, qt.col=grey(runif(4)))
 </code></pre>
 
-Fit variogram:
+<span class="question">How many points are subsampled and displayed out of 6367? 
+What is the method used for subsampling? 
+What does Density in the histogram mean?
+Why is the histogram different from the  histograms derived in GRASS GIS?</span>
+<!--should we keep more points?-->
+<p>
+We plot empirical variogram in four directions using the subsampled data and then we fit 
+isotropic model variogram using the Matern covariance function:
 <pre><code>
 plot(variog4(Z.geo, max.dist=1000, messages=FALSE), lwd=2)
 Z.svar <- variog(Z.geo, max.dist=1000, messages=FALSE)
@@ -56,9 +131,15 @@ env.model <- variog.model.env(Z.geo, obj.var=Z.svar, model=Z.vgm)
 plot(Z.svar, envelope=env.model); lines(Z.vgm, lwd=2);
 </code></pre>
 
-Stochastic Conditional Gaussian Simulation:
+We used max distance 1000m, compute the variogram with 3000m and discuss the differences. 
+<span class="question">Given that we will be using the variogram for GSS (recall how it works)
+which max value would you recommend?</span>
+
+<p>
+Compute 100 realizations of a DEM (10m resolution) using Stochastic Conditional Gaussian Simulation
+(this may take few minutes so be patient):
 <pre><code>
-demgrid <- spsample(elevations, type="regular", cellsize=c(30,30))
+demgrid <- spsample(elevations, type="regular", cellsize=c(10,10))
 gridded(demgrid) <- TRUE
 fullgrid(demgrid) <- TRUE
 Z.ovgm <- vgm(psill=Z.vgm$cov.pars[1], model="Mat", range=Z.vgm$cov.pars[2], nugget=Z.vgm$nugget, kappa=1.2)
@@ -68,27 +149,59 @@ fullgrid(DEM.sim) <- TRUE
 spplot(DEM.sim[1:4], col.regions=grey(seq(0,1,0.025)))
 </code></pre>
 
-Save simulated elevation rasters as GRASS rasters and derive streams on each of them:
+Save simulated elevation rasters as GRASS rasters, compute a mean simulated DEM and
+its standard deviation. Derive streams from each of the simulated DEMs:
+
 <pre><code>
 for(i in 1:N.sim) {writeRAST(DEM.sim[i], paste("simulated_", i, sep=""))}
 execGRASS("g.list", type="raster", pattern="simulated_*", output="tmp_list_simulated.txt")
-# compute standard deviation
+execGRASS("r.series", file="tmp_list_simulated.txt", output="simulated_mean", method="average")
 execGRASS("r.series", file="tmp_list_simulated.txt", output="simulated_std", method="stddev")
 for(i in 1:N.sim) {execGRASS("r.watershed", elevation=paste("simulated_", i, sep=""),
  threshold=30, stream=paste("stream_", i, sep=""), flags=c("quiet"))}
 </code></pre>
 
-Compute probability and error:
+Compute number of streams extracted at each cell (count), derive probability that a grid cell
+has a stream and associated error map:
+
 <pre><code>
-execGRASS("g.list", type="raster", pattern="stream*", output="tmp_list.txt")
-execGRASS("r.series", file="tmp_list.txt", output="count", method="count")
+execGRASS("g.list", type="raster", pattern="stream*", output="tmp_list_stream.txt")
+execGRASS("r.series", file="tmp_list_stream.txt", output="count", method="count")
 execGRASS("r.mapcalc", expression=paste("prob = float(count)/", N.sim))
 execGRASS("r.mapcalc", expression="error = -prob * log(prob) - (1-prob)* log(1-prob)")
 </code></pre>
 
-Visualize the probability:
+Quit R <code>quit()</code> and we can now visualize and analyze our results in GRASS GIS.
+<p>
+First, we compare the smooth DEM with the simulated mean and a single realization i=10.
+We use aspect to visualy compare the roughness of the DEMs. We cmpute the difference 
+between the interpolated and simulated DEM.
+
 <pre><code>
-r.colors map=prob color=magma -n
+r.colors simulated_mean rast=elevation_10
+r.colors simulated_10 rast=elevation_10
+r.colors simulated_std co=bcyr -e
+r.colors aspect_10 co=aspect
+r.slope.aspect simulated_mean slo=slp_mean asp=asp_mean
+r.slope.aspect simulated_10 slo=slp_10 asp=asp_10
+r.mapcalc "diff_spline_gsim = elevation_10 - simulated10m_mean"
+r.colors diff_spline_gsim co=differences
 </code></pre>
 
-Use for example 3D view to drape the probability raster over elevation layer.
+<span class="question">What are the white spots in the <code>simulated_mean</code> map?
+Can you explain the pattern of standard deviations in <code>simulated_std</code> 
+(hint: switch on the elevations point layer)?</span>
+You can use <tt>File > mapswipe</tt> to compare <code>asp10_10, asp10_mean</code> and <code>asp10_mean, aspect_10</code>.
+
+Assign blues color ramp and visualize the stream probability map along with the streams extracted 
+from the smooth DEM.
+<pre><code>
+r.colors prob co=blues
+d.rast prob 
+d.vect stream10_300t
+</code></pre>
+Use 3D view to drape the probability raster <code>prob</code> over elevation layer <code>simulated_mean</code>.
+<span class="question">Where is the high probability of streams and where we cannot map the streams reliably?
+Can you quantify the relationship between the slope and stream extraction uncertainty? How does the stream probability
+map compare with the streams extracted from the smooth DEM <code>stream10_300t</code>?</span>
+
