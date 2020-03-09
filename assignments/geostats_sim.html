@@ -56,7 +56,7 @@ d.histogram elevations_bin10m
 </code></pre>
 
 <span class="question">Can you explain the discrete spikes in the histogram?</span>
-
+<p>
 Interpolate a smooth DEM using spline with tension with simultaneous computation of slope, aspect and curvatures
 to visualize the surface and its parameters. 
 
@@ -67,6 +67,7 @@ d.histogram elevation_10
 
 <span class="question">Why is the histogram of interpolated DEM so different from the histogram of binned given data?</span>
 
+<p>
 Extract the streams. 
 <span class="question">Which method for extracting streams are we using in terms of method 
 used for flow direction, flow routing and handling of depressions?  What does the threshold 300 mean?</span>
@@ -90,7 +91,7 @@ data points (hint: run <code>r.info elevation_10</code>)?
 -->
 
 To start R from GRASS type <code>R</code> in the GRASS terminal. 
-<br>You will need several packages:
+You will need several packages:
 
 <pre><code>
 install.packages(c("rgdal", "gstat", "geoR", "rgrass7"))
@@ -115,13 +116,13 @@ Z.geo <- as.geodata(elevations[sel,"VALUE"])
 plot(Z.geo, qt.col=grey(runif(4)))
 </code></pre>
 
-<span class="question">How many points are subsampled and displayed out of 6367? 
+<span class="question">How many points are subsampled and displayed out of the given 6367? 
 What is the method used for subsampling? 
 What does Density in the histogram mean?
 Why is the histogram different from the  histograms derived in GRASS GIS?</span>
 <!--should we keep more points?-->
 <p>
-We plot empirical variogram in four directions using the subsampled data and then we fit 
+We plot empirical variogram in four directions using the subsampled data, Then we fit 
 isotropic model variogram using the Matern covariance function:
 <pre><code>
 plot(variog4(Z.geo, max.dist=1000, messages=FALSE), lwd=2)
@@ -131,13 +132,16 @@ env.model <- variog.model.env(Z.geo, obj.var=Z.svar, model=Z.vgm)
 plot(Z.svar, envelope=env.model); lines(Z.vgm, lwd=2);
 </code></pre>
 
-We used max distance 1000m, compute the variogram with 3000m and discuss the differences. 
-<span class="question">Given that we will be using the variogram for GSS (recall how it works)
-which max value would you recommend?</span>
+<span class="question">Why could we use isotropic model variogram?</span>
+We used max distance 1000, compute the variogram with 3000 and discuss the differences. 
+<span class="question">Which max.dist value would you recommend for interpolating or simulating 
+a DEM from our point data set?</span>
 
 <p>
 Compute 100 realizations of a DEM (10m resolution) using Stochastic Conditional Gaussian Simulation
-(this may take few minutes so be patient):
+with Matern covariance function (this may take few minutes so be patient):
+<!-- add parameter bounding box bb to ensure alignment with region?)see more at
+https://www.rdocumentation.org/packages/sp/versions/1.4-0/topics/spsample-->
 <pre><code>
 demgrid <- spsample(elevations, type="regular", cellsize=c(10,10))
 gridded(demgrid) <- TRUE
@@ -161,7 +165,7 @@ for(i in 1:N.sim) {execGRASS("r.watershed", elevation=paste("simulated_", i, sep
  threshold=30, stream=paste("stream_", i, sep=""), flags=c("quiet"))}
 </code></pre>
 
-Compute number of streams extracted at each cell (count), derive probability that a grid cell
+Compute number of streams extracted at each 10m grid cell (count), derive probability that a grid cell
 has a stream and associated error map:
 
 <pre><code>
@@ -174,7 +178,7 @@ execGRASS("r.mapcalc", expression="error = -prob * log(prob) - (1-prob)* log(1-p
 Quit R <code>quit()</code> and we can now visualize and analyze our results in GRASS GIS.
 <p>
 First, we compare the smooth DEM with the simulated mean and a single realization i=10.
-We use aspect to visualy compare the roughness of the DEMs. We cmpute the difference 
+We use aspect to visualy compare the roughness of the DEMs. We compute the difference 
 between the interpolated and simulated DEM.
 
 <pre><code>
@@ -192,16 +196,16 @@ r.colors diff_spline_gsim co=differences
 Can you explain the pattern of standard deviations in <code>simulated_std</code> 
 (hint: switch on the elevations point layer)?</span>
 You can use <tt>File > mapswipe</tt> to compare <code>asp10_10, asp10_mean</code> and <code>asp10_mean, aspect_10</code>.
-
-Assign blues color ramp and visualize the stream probability map along with the streams extracted 
+<p>
+Assign new color ramp and visualize the stream probability map along with the streams extracted 
 from the smooth DEM.
 <pre><code>
-r.colors prob co=blues
-d.rast prob 
+r.colors prob co=viridis -i
+d.rast prob values=0.001-1.0
 d.vect stream10_300t
 </code></pre>
 Use 3D view to drape the probability raster <code>prob</code> over elevation layer <code>simulated_mean</code>.
 <span class="question">Where is the high probability of streams and where we cannot map the streams reliably?
-Can you quantify the relationship between the slope and stream extraction uncertainty? How does the stream probability
-map compare with the streams extracted from the smooth DEM <code>stream10_300t</code>?</span>
+Which topographic parameter may explain the stream extraction uncertainty?
+How does the stream probability map compare with the streams extracted from the smooth DEM <code>stream10_300t</code>?</span>
 
