@@ -1,5 +1,5 @@
 <section>
-    <h2><b>Geostatistical simulations and uncertainty propagation</b></h2>
+    <h2><b>Geostatistical simulations and error propagation</b></h2>
     <p style="margin-top: 0.5em">
         Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
     <p class="title-foot">
@@ -15,7 +15,7 @@
 <li>motivation for geostatistical simulations
 <li>geostatistical conditional simulations
 <li>Gaussian Sequential Simulation
-<li>simulations for uncertainty propagation
+<li>simulations for error propagation
 <li>coupling GRASS and R for geostatistics
 </ul>
 </section>
@@ -52,12 +52,12 @@ we can generate multiple realizations of a DEM by starting with different seed
 <p class="fragment">
 This approach does not take into account the spatial correlation of the elevation values in our DEM
 <p class="fragment">
-We can use geostatistical simulation to generate the DEM realizations
+We can use <b>geostatistical simulation</b> to generate multiple DEM realizations
 
 </section>
 
 <section>
-    <h3>Motivation</h3>
+    <h3>Computing the surface model</h3>
 <p>Derive model of spatial distribution of a variable
 based on a limited set of discrete scattered observations:
 <ul>
@@ -65,34 +65,43 @@ based on a limited set of discrete scattered observations:
 for the application we can use <b>interpolation</b> 
 <br><small><a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/topics/spatial_interpolation.html">
 See GIS582 Spatial interpolation topic</a></small>
-<li class="fragment">some interpolation methods are based on deterministic, process-based simulations: splines 
+<p>
 <li class="fragment">if the measured data are limited and we know statistical properties of the distribution,
 we can use <b>simulation</b>
 </ul>
+<p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations 
+of ia thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
+determined by a roughness penalty (smoothness seminorm)
+see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_1999_2005.pdf">Mitas 1999</a></small>
 </section>
 
 <section>
-    <h3>Problem formulation</h3>
+    <h3>Computing the surface model</h3>
 <p>
-Given $m$-points $(x_i, y_i, z_i), i=1,m$ find such $F(x,y)$ that for each $i=1,m$
+Given $m$-points $(x_i, y_i, z_i), i=1,m$ 
+<br>find such $F(x,y)$ that for each $i=1,m$
 <p class="fragment">
            $$z_i=F(x_i,y_i) + e(x_i,y_i)$$
 <p  class="fragment">
-and compute $z_k=F(x_k,y_k)$ where $(x_k,y_k)$ are grid points
+then compute $z_k=F(x_k,y_k), k=1,n$, where $(x_k,y_k)$ are grid points.
 </section>
 
 <section>
-    <h3>Problem formulation</h3>
-<img height="340px" src="img/geostats/elevrandpts.jpg">
-<img height="340px" src="img/geostats/pointstogrid.jpg">
+    <h3>Computing the surface model</h3>
+From scattered points (red)  to regular grid representation (blue)
 <p>
-<small>Interpolation: distance between grid points is similar to the average distance between the given points
-<p>Simulation: distance between grid points can be much smaller - higher resolution grid
+<img height="360px" src="img/geostats/elevrandpts.jpg">
+<img height="360px" src="img/geostats/pointstogrid.jpg">
+<p>
+<!--
+<small>Interpolation: distance between grid points similar to average distance between given points
+<p>Simulation: distance between grid points can be much smaller than distance between given points
 </small>
+-->
 </section>
 
 <section>
-    <h3>Problem formulation</h3>
+    <h3>Interpolation or simulation?</h3>
 <ul>
 <li class="fragment">The problem does not have a unique solution so additional conditions are used.
 <li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations
@@ -164,7 +173,7 @@ Conditional simulation</a>
 <section>
     <h3>Generate one realization</h3>
 <ul>
-<li class="fragment">assign data points to closest grid cell (nearest neighbor point binning)
+<li class="fragment">assign data points to closest grid cell 
 <li class="fragment">select random unsampled grid location and compute kriged estimate + random residual to get simulated value
 using the neighboring given points
 <li class="fragment">use "random path" to define order of empty grid cells to be simulated
