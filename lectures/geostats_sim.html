@@ -188,8 +188,8 @@ to compute the simulated values
     <h3>Compute mean and uncertainty</h3>
 <ul>
 <li class="fragment">Each realization starts with a different seed
-<li class="fragment">Compute hundreds or thousands realizations
-<li class="fragment">Mean is the simulated distribution result 
+<li class="fragment">Compute hundreds or thousands realizations 
+<li class="fragment">Mean and standard deviation is the simulated distribution result 
 </ul>
 <p>
 See also <a href="https://github.com/GeostatsGuy/2DayCourse/blob/master/07_SpatialSimulation.pdf">Prof. Pyrcz's (GeostatsGuy)
@@ -198,34 +198,88 @@ lecture and code</a>
 
 <section>
     <h3>Application example for stream extraction</h3>
-<ul>
-<li>What is the spatial pattern and magnitude of stream location probability? 
-<li>Quantify uncertainty in the stream position when deriving streams from DEM:
-propagation of uncertainty in DEM  
-<li>Assignment Example from  A Practical Guide to Geostatistical Mapping by T. Hengl. 
-</ul>
+
+<p>
+Given a set of elevation points quantify uncertainty in the stream position derived from DEM
+computed from these points while taking into account DEM errors.
+<p>
+Assignment Example from  A Practical Guide to Geostatistical Mapping by T. Hengl. 
 </section>
 
 <section>
     <h3>Elevation data analysis </h3>
-<p>Baranja region DEM and slope map
-<img height="360px" src="img/geostats/baranja_slope.jpg">
+Distribution of all points and related histogram
+<p>
+<img height="340px" src="img/geostats/bar_pts_all.png">
+<img height="250px" src="img/geostats/bar_binnedpts_hist2crop.png">
+<p><small>Note that for $z>90m$ there are many points with values at 5m intervals while there are
+very few points with values in-between. We don't see this pattern for $z<90m$</small> 
+</section>
+
+<!--
+<section>
+    <h3>Elevation data analysis </h3>
+Distribution of all points 
+<p> <img height="450" src="img/geostats/bar_pts_all.png">
 </section>
 
 <section>
     <h3>Elevation data analysis </h3>
-<p>Plot distribution of given points $(x_i,y_i,z_i)$
+</section>
+-->
+
+<section>
+    <h3>Elevation data analysis </h3>
+Distribution of points with non-integer elevation values and with a selected integer value (180m).
+<p> <img height="380" src="img/geostats/bar_pts_cat800.png">
+ <img height="380" src="img/geostats/bar_pts_val180.png">
+<p><small>Our data set includes a combination of points along contour lines and set of scattered points along ridge lines 
+and valleys and in the floodplain. Spatial distribution of points in the hilly area and on the plain 
+is quite different</small>
+</section>
+
+<section>
+    <h3>Smooth DEM interpolation</h3>
+DEM interpolated by spline with tension and its histogram
+<p> <img height="380" src="img/geostats/bar_demrst.png">
+<p> <img height="150" src="img/geostats/bar_demrst_hist.png">
+<p><small>Note that the histogram of interpolated DEM is quite different from the 
+<a href="./geostats_sim.html#/16">histogram from the data</a></small>
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<p>Plot distribution for 20% and 80% of randomly sampled points
 <p><img height="400" src="img/geostats/scatterplots.jpg">
+<img height="400" src="img/geostats/bar_ptsplot0.8_Rplot.png">
+<br><small>Note that the histogram is is different from the previous one: it does not capture
+the difference between the number of points on contours and the scattered points because
+of aggregation in smaller number of histogram binns (20 versus 255).</small>
 </section>
 
 <section>
     <h3>Elevation data analysis </h3>
 <ul>
-<li>Compute anisotropic and isotropic experimental variogram from given elevation data
-<li>Fit Matern variogram model with smoothing parameter
+<li>Anisotropic experimental variogram from given elevation data
+using 20% and 80% randomly sampled points
+<li>Compare 1000m and 3000m maximum distance
+</ul>
+<p>
+<img height="300px" src="img/geostats/bar_variogrRplot.png">
+<img height="300px" src="img/geostats/bar_variogr0.8_Rplot.png">
+<img height="300px" src="img/geostats/bar_variogr_3km_Rplot.png">
+<p><small>The 80% subsample leeads to smoother variogram, 
+the variogram becomes problematic with distances $d>1km$</small>
+</section>
+
+<section>
+    <h3>Model variogram </h3>
+<ul>
+<li>Matern model variogram is needed because the simpler functions (exponential, linear)
+ produce DEMs with artifacts - see Hengel et al. 
+<li>Matern variogram model with smoothing parameter is fitted using the weighted least squares and shown with confidence bands 
 <li><a href="https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function">Matern covariance equation </a>
 </ul>
-<img height="360px" src="img/geostats/variogram.jpg">
 <img height="360px" src="img/geostats/variogram2.jpg">
 </section>
 
