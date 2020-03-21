@@ -276,9 +276,9 @@ for 1000m and 3000m maximum distance
 <p>
 <img height="350px" src="img/geostats/bar_variogr0.8_Rplot.png">
 <img height="350px" src="img/geostats/bar_variogr_3km_Rplot.png">
-<!--
-<p><small>The variogram becomes problematic with distances $d>1km$</small>
--->
+<p><small>The variogram show stronger anisotropy for distances over 1km. 
+When applying GSS, the variogram is used locally (10s-100s of meters)
+so we can use isotropic variogram model</small>
 </section>
 
 <section>
@@ -290,6 +290,17 @@ Matern model variogram with smoothing </a> is needed to avoid DEMs with artifact
 <li>Model variogram is fitted using the weighted least squares, shown with confidence bands 
 </ul>
 <img height="380px" src="img/geostats/bar_modelvar0.8_envel_Rplot.png">
+</section>
+
+<section>
+    <h3>Conditional simulation of DEMs</h3>
+<ul>
+<li>Four out of 100 realizations of a DEM in R
+</ul>
+<p>
+<img height="450px" src="img/geostats/bar_simDEM10mRplot_new.jpg">
+<p><small>Note the JPEG effect(?) in the BW image at low elevation
+</small>
 </section>
 
 <section>
@@ -313,7 +324,10 @@ is above or below the range of interpolated DEM, but within the range of given d
 <p>
 <img height="350px" src="img/geostats/bar_simdem10m_mean.png">
 <img height="350px" src="img/geostats/bar_simdem10m_std.png">
-<p><small>Standard deviation is much higher in the flat area and along edges, indicating insufficient sampling.
+<p><small>Standard deviation is much higher in the floodplain and along edges, 
+indicating insufficient sampling. This is already indicated by comparing the  
+<a href="./geostats_sim.html#/17">histogram from the data</a> and 
+<a href="./geostats_sim.html#/18">histogram from the interpolated DEM</a>. 
 </small>
 </section>
 
@@ -323,17 +337,36 @@ Difference between DEM interpolated in GRASS and DEM simulated in R indicates sh
 Problem during export/import?
 <p>
 <img height="380px" src="img/geostats/bar_diffsimrst.png">
+<img height="250" src="img/geostats/profile_demrstsim_shift.png">
+</section>
+
+<section>
+    <h3>Stream extraction uncertainty</h3>
+<p> How does the error in DEM influence the uncertainty in the location of extracted streams?
+<ul>
+<li>derive stream network for each 10m resolution DEM realization
+<li>compute count of stream presence from all derived stream networks 
+<li>derive probability of stream location and the propagated error from the count map
+</ul>
+<p>
+</section>
+
+<section>
+    <h3>Streams derived from smooth DEM</h3>
+<p>Flow accumulation and streams derived from the smooth DEM using D8-MFD-LCP method
+and threshold XXX: deterministic result
+<p>
+<img height="380" src="img/geostats/bar_accum10.png">
+<img height="380" src="img/geostats/simulated_surface_std.png">
+<p>In the assignment evaluate the relationship between stream uncertainty and slope
 </section>
 
 <section>
     <h3>Stream uncertainty mapping</h3>
-<p>
-<ul>
-<li>derive stream network for each DEM
-<li>compute count of stream presence from all DEMs
-<li>derive probability and uncertainty from the count map
-</ul>
-<p>
+<p>Stream count 
+<p><img height="200px" src="img/geostats/stream_probability.png">
+<img height="200px" src="img/geostats/simulated_surface_std.png">
+<p>In the assignment evaluate the relationship between stream uncertainty and slope
 </section>
 
 <section>
