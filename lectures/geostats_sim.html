@@ -160,36 +160,39 @@ Conditional simulation</a>
 -->
 
 <section>
-    <h3>Gaussian Sequential Simulation</h3>
+    <h3>Analyze the input data</h3>
 <ul>
 <li class="fragment">input: sparse, scattered point measurements
 <li class="fragment">analyze the data for normality
 <li class="fragment">apply transformation if needed to get normal distribution (log or Box-Cox transform)
-<li class="fragment">compute semivariogram and its nugget, range and sill
+<li class="fragment">compute experimental and model semivariogram
 <li class="fragment"> define spatial extent and resolution of resulting grid
 <ul>
 </section>
 
 <section>
-    <h3>Generate one realization</h3>
+    <h3>Generate one grid realization</h3>
+Workflow for Gaussian Sequential Simulation
 <ul>
-<li class="fragment">assign data points to closest grid cell 
-<li class="fragment">select random unsampled grid location and compute kriged estimate + random residual to get simulated value
+<li class="fragment">assign data points to closest grid cell (nn binning) 
+<li class="fragment">select random unsampled grid cell and compute kriged estimate + random residual to get simulated value
 using the neighboring given points
 <li class="fragment">use "random path" to define order of empty grid cells to be simulated
-<li class="fragment">at each new unsampled grid location use the nearby <b>given points and previously simulated values</b> 
+<li class="fragment">at each new unsampled grid cell use the nearby <b>given points and previously simulated values</b> 
 to compute the simulated values
 </ul>
-<p><small>this is different random walk than what we refered to in path sampling simulations</small>
+<p><small>
+nn binning assumes that the grid cell size is smaller than the min distance between points, otherwise we would need 
+to aggregate some points, e.g. using mean </small>
 <p>
 </section>
 
 <section>
-    <h3>Compute mean and uncertainty</h3>
+    <h3>Gaussian Sequential Simulation</h3>
 <ul>
 <li class="fragment">Each realization starts with a different seed
 <li class="fragment">Compute hundreds or thousands realizations 
-<li class="fragment">Mean and standard deviation is the simulated distribution result 
+<li class="fragment">Mean simulated values grid and standard deviation grid are the simulation result 
 </ul>
 <p>
 See also <a href="https://github.com/GeostatsGuy/2DayCourse/blob/master/07_SpatialSimulation.pdf">Prof. Pyrcz's (GeostatsGuy)
@@ -197,98 +200,129 @@ lecture and code</a>
 </section>
 
 <section>
-    <h3>Application example for stream extraction</h3>
+    <h3>Error propagation application</h3>
 
-<p>
-Given a set of elevation points quantify uncertainty in the stream position derived from DEM
+<ul>
+  <li>Given a set of elevation points quantify uncertainty in the stream position derived from DEM
 computed from these points while taking into account DEM errors.
-<p>
+<li>
 Assignment Example from  A Practical Guide to Geostatistical Mapping by T. Hengl. 
+</ul>
 </section>
 
 <section>
     <h3>Elevation data analysis </h3>
-Distribution of all points and related histogram
+Distribution of all points, points with non-integer $z$ values 
+and points with $z=180$ 
 <p>
 <img height="340px" src="img/geostats/bar_pts_all.png">
-<img height="250px" src="img/geostats/bar_binnedpts_hist2crop.png">
-<p><small>Note that for $z>90m$ there are many points with values at 5m intervals while there are
-very few points with values in-between. We don't see this pattern for $z<90m$</small> 
-</section>
-
-<!--
-<section>
-    <h3>Elevation data analysis </h3>
-Distribution of all points 
-<p> <img height="450" src="img/geostats/bar_pts_all.png">
+<img height="280" src="img/geostats/bar_pts_cat800.png">
+ <img height="280" src="img/geostats/bar_pts_val180.png">
+<p><small>Our data set includes points along contour lines 
+combined with scattered points along ridge lines and valleys and in the floodplain. </small>
 </section>
 
 <section>
     <h3>Elevation data analysis </h3>
-</section>
--->
-
-<section>
-    <h3>Elevation data analysis </h3>
-Distribution of points with non-integer elevation values and with a selected integer value (180m).
-<p> <img height="380" src="img/geostats/bar_pts_cat800.png">
- <img height="380" src="img/geostats/bar_pts_val180.png">
-<p><small>Our data set includes a combination of points along contour lines and set of scattered points along ridge lines 
-and valleys and in the floodplain. Spatial distribution of points in the hilly area and on the plain 
-is quite different</small>
+Given points assigned to nearest 10m grid cell and a related histogram
+<p><img height="350px" src="img/geostats/bar_binnedpts_nn.png">
+<img height="200px" src="img/geostats/bar_binnedpts_hist2crop.png">
+</small>
+<p><small>Note that for $z>90m$ there are many points with values at 5m intervals 
+while there are very few points with values in-between, 
+reflecting the sampling along contours</small> 
 </section>
 
 <section>
     <h3>Smooth DEM interpolation</h3>
 DEM interpolated by spline with tension and its histogram
-<p> <img height="380" src="img/geostats/bar_demrst.png">
-<p> <img height="150" src="img/geostats/bar_demrst_hist.png">
+<p> <img height="360" src="img/geostats/bar_demrst.png">
+<img height="250" src="img/geostats/bar_demrst_hist.png">
 <p><small>Note that the histogram of interpolated DEM is quite different from the 
 <a href="./geostats_sim.html#/16">histogram from the data</a></small>
 </section>
 
 <section>
-    <h3>Elevation data analysis </h3>
-<p>Plot distribution for 20% and 80% of randomly sampled points
+    <h3>Elevation data analysis in R</h3>
+<p>Plot distribution for 20% and 80% of sub-sampled points
 <p><img height="400" src="img/geostats/scatterplots.jpg">
 <img height="400" src="img/geostats/bar_ptsplot0.8_Rplot.png">
-<br><small>Note that the histogram is is different from the previous one: it does not capture
+<br><small>Note that the histogram is is different from the previous two: it does not capture
 the difference between the number of points on contours and the scattered points because
-of aggregation in smaller number of histogram binns (20 versus 255).</small>
+of aggregation in smaller number of histogram binns (20 in R versus 255 in GRASS).</small>
 </section>
 
 <section>
     <h3>Elevation data analysis </h3>
 <ul>
 <li>Anisotropic experimental variogram from given elevation data
-using 20% and 80% randomly sampled points
-<li>Compare 1000m and 3000m maximum distance
+using 20% and 80% sub-sampled points
 </ul>
 <p>
-<img height="300px" src="img/geostats/bar_variogrRplot.png">
-<img height="300px" src="img/geostats/bar_variogr0.8_Rplot.png">
-<img height="300px" src="img/geostats/bar_variogr_3km_Rplot.png">
-<p><small>The 80% subsample leeads to smoother variogram, 
-the variogram becomes problematic with distances $d>1km$</small>
+<img height="350px" src="img/geostats/bar_variogrRplot.png">
+<img height="350px" src="img/geostats/bar_variogr0.8_Rplot.png">
+<p><small>The 80% subsample leads to smoother variogram, but as little as 20% points captures
+the characteristics of spatial dependence (autocorrelation). 
+Note slight anisotropy in 45 degrees direction
+(direction of floodplain edge has lower sill) </small>
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<ul>
+<li>Experimental variogram from given elevation data
+for 1000m and 3000m maximum distance
+</ul>
+<p>
+<img height="350px" src="img/geostats/bar_variogr0.8_Rplot.png">
+<img height="350px" src="img/geostats/bar_variogr_3km_Rplot.png">
+<!--
+<p><small>The variogram becomes problematic with distances $d>1km$</small>
+-->
 </section>
 
 <section>
     <h3>Model variogram </h3>
 <ul>
-<li>Matern model variogram is needed because the simpler functions (exponential, linear)
- produce DEMs with artifacts - see Hengel et al. 
-<li>Matern variogram model with smoothing parameter is fitted using the weighted least squares and shown with confidence bands 
-<li><a href="https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function">Matern covariance equation </a>
+<li>
+<a href="https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function">
+Matern model variogram with smoothing </a> is needed to avoid DEMs with artifacts - see Hengel et al. 
+<li>Model variogram is fitted using the weighted least squares, shown with confidence bands 
 </ul>
-<img height="360px" src="img/geostats/variogram2.jpg">
+<img height="380px" src="img/geostats/bar_modelvar0.8_envel_Rplot.png">
 </section>
 
 <section>
     <h3>Conditional simulation of DEMs</h3>
 <ul>
-<li>compute 100 relizations of DEM using GSS
+<li>One of 100 realizations of DEM and the resulting mean DEM from GSS
 </ul>
 <p>
+<img height="350px" src="img/geostats/bar_simdem10m_10.png">
+<img height="350px" src="img/geostats/bar_simdem10m_mean.png">
+<p><small>The white spots indicate locations where the simulated DEM 
+is above or below the range of interpolated DEM, but within the range of given data.
+</small>
+</section>
+
+<section>
+    <h3>Conditional simulation of DEMs</h3>
+<ul>
+<li>Mean simulated DEM and its standard deviation map
+</ul>
+<p>
+<img height="350px" src="img/geostats/bar_simdem10m_mean.png">
+<img height="350px" src="img/geostats/bar_simdem10m_std.png">
+<p><small>Standard deviation is much higher in the flat area and along edges, indicating insufficient sampling.
+</small>
+</section>
+
+<section>
+    <h3>Interpolated and simulated DEMs</h3>
+Difference between DEM interpolated in GRASS and DEM simulated in R indicates shift of approx 1 grid cell.
+Problem during export/import?
+<p>
+<img height="380px" src="img/geostats/bar_diffsimrst.png">
 </section>
 
 <section>
