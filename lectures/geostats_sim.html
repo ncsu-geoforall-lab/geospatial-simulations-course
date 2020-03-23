@@ -358,10 +358,11 @@ reflecting insufficient sampling. This is already indicated by comparing the
 <p> How does the error in DEM influence the uncertainty in the location of extracted streams?
 <ul>
 <li>derive $n$ stream networks from $n$ DEM realizations 
-<li>compute per-cell count $m$ of stream presence from all derived stream networks 
-<li>derive probability of stream location at each grid cell $p = m/n$
+<li>compute per-cell count $m$ of stream presence from $n$ derived stream networks 
+<li>derive probability of stream location at each grid cell as $p = m/n$
 </ul>
-Propgated error of extracted streams
+<p>
+Then propagated error of extracted streams is
 $$e = -(1-p) \ln(1-p) - p \ln(p)$$
 <p>
 </section>
@@ -371,25 +372,41 @@ $$e = -(1-p) \ln(1-p) - p \ln(p)$$
 <p>Flow accumulation and streams derived from the smooth DEM using D8-MFD-LCP method
 and threshold 300 of 10m resolution cells: deterministic result
 <p>
-<img height="380" src="img/geostats/bar_accum10.png">
-<img height="380" src="img/geostats/bar_streams10_300.png">
+<img height="350" src="img/geostats/bar_accum10.png">
+<img height="350" src="img/geostats/bar_streams10_300.png">
 </section>
 
 <section>
     <h3>Stream probability map</h3>
-<p>Stream probability map with $p>0$, and the highest uncertainty map with $0.4 < p < 0.6$
+<p>Stream probability map with $p>0$ and the probable streams with $p>0.5$
 <p>
-<img height="300px" src="img/geostats/bar_streamprob_vir_no0b.png">
-<img height="300px" src="img/geostats/bar_streamuncert.png">
+<img height="350" src="img/geostats/bar_streamprob_vir_no0b.png">
+<img height="350" src="img/geostats/bar_stream_05_1.png">
 </section>
 
+<!--
 <section>
     <h3>Deterministic and stochastic result</h3>
 <p>Stream probability map with streams extracted from smooth DEM:
 <p><img height="200px" src="img/geostats/stream_probability.png">
 <p>Find the grid cells where the highest probability does not match the deterministic result
 </section>
+-->
 
+<section>
+    <h3>Examples of Applications</h3>
+The approach can be applied to estimate uncertainty and error propagation for 
+other analysis and modeling problems using the $n$ DEM realizations: 
+<ul>
+  <li>flood extent prediction
+  <li>viewshed mapping  and visibility analysis
+  <li>cast shadows and solar radiation
+  <li>least cost path
+  <li>soil erosion and mass transport
+</ul>
+</section>
+
+<!--
 <section>
     <h3>Elevation data analysis </h3>
 <p>Lake Wheeler SECREF DEM and plot of given points 
@@ -415,6 +432,7 @@ and threshold 300 of 10m resolution cells: deterministic result
 <p><img height="420px" src="img/geostats/inglis_probability_stream.jpg">
 <p><small>Inglis N., 2019, GIS714 course assignment report.</small>
 </section>
+-->
 
 <section>
     <h3>Resources</h3>
@@ -422,7 +440,8 @@ and threshold 300 of 10m resolution cells: deterministic result
 <a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">
 Conditional simulation</a>
 <p><a href="https://www4.stat.ncsu.edu/~reich/SpatialStats/index.html">Spatial Statistics course at NCSU, Dr. Brian Reich</a>
-<p>See supplemental material
+<p>See supplemental material, especially Hengl et al.: Geomorphometry (Chapter 5 by Temme et al), and Hengl: A Practical Guide 
+to Geostatistical Mapping
 </section>
 
 <!--
