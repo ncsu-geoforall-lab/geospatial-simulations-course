@@ -50,9 +50,10 @@ due to uncertainty in elevation values?
 <p>To quantitatively evaluate uncertainty in parameters derived from a DEM     
 we can generate multiple realizations of a DEM by starting with different seed
 <p class="fragment">
-This approach does not take into account the spatial correlation of the elevation values in our DEM
+This approach does not take into account the spatial dependency of the elevation values in our DEM
 <p class="fragment">
-We can use <b>geostatistical simulation</b> to generate multiple DEM realizations
+We can use <b>geostatistical simulation</b> to generate multiple DEM realizations and use them
+to estimate error propagation in derived variables
 
 </section>
 
@@ -70,7 +71,7 @@ See GIS582 Spatial interpolation topic</a></small>
 we can use <b>simulation</b>
 </ul>
 <p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations 
-of ia thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
+of a thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
 determined by a roughness penalty (smoothness seminorm)
 see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_1999_2005.pdf">Mitas 1999</a></small>
 </section>
@@ -80,15 +81,27 @@ see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_199
 <p>
 Given $m$-points $(x_i, y_i, z_i), i=1,m$ 
 <br>find such $F(x,y)$ that for each $i=1,m$
-<p class="fragment">
+<p>
            $$z_i=F(x_i,y_i) + e(x_i,y_i)$$
-<p  class="fragment">
-then compute $z_k=F(x_k,y_k), k=1,n$, where $(x_k,y_k)$ are grid points.
+<p> where 
+$$
+F(r) = T(r) + \sum_i^m \lambda_i R(r,r_i)
+$$
+<small>
+<ul>
+<li> $r = (x,y)$ is unsampled point and $r_i=(x_i,y_i)$ is a measured point
+<li>$T(r)$ is trend (low order polynomial),
+<li>$λ_i$ are coefficients computed by solving a system of linear equations 
+<li>$R(r,r_i)$ is a function of distance between unsampled and measured points (e.g. radial basis function, model variogram)
+<li>$e(r_i)$ is estimate of measurement error
+</ul>
+<p>then use  $F(r)$ to compute $z$ at unsampled grid points
+</small>
 </section>
 
 <section>
     <h3>Computing the surface model</h3>
-From scattered points (red)  to regular grid representation (blue)
+From scattered points (red) to regular grid (blue)
 <p>
 <img height="360px" src="img/geostats/elevrandpts.jpg">
 <img height="360px" src="img/geostats/pointstogrid.jpg">
@@ -163,7 +176,7 @@ Conditional simulation</a>
     <h3>Analyze the input data</h3>
 <ul>
 <li class="fragment">input: sparse, scattered point measurements
-<li class="fragment">analyze the data for normality
+<li class="fragment">analyze the data for normality (compute histogram)
 <li class="fragment">apply transformation if needed to get normal distribution (log or Box-Cox transform)
 <li class="fragment">compute experimental and model semivariogram
 <li class="fragment"> define spatial extent and resolution of resulting grid
@@ -192,7 +205,7 @@ to aggregate some points, e.g. using mean </small>
 <ul>
 <li class="fragment">Each realization starts with a different seed
 <li class="fragment">Compute hundreds or thousands realizations 
-<li class="fragment">Mean simulated values grid and standard deviation grid are the simulation result 
+<li class="fragment">Result: mean simulated values grid and standard deviation grid 
 </ul>
 <p>
 See also <a href="https://github.com/GeostatsGuy/2DayCourse/blob/master/07_SpatialSimulation.pdf">Prof. Pyrcz's (GeostatsGuy)
@@ -215,9 +228,9 @@ Assignment Example from  A Practical Guide to Geostatistical Mapping by T. Hengl
 Distribution of all points, points with non-integer $z$ values 
 and points with $z=180$ 
 <p>
-<img height="340px" src="img/geostats/bar_pts_all.png">
-<img height="280" src="img/geostats/bar_pts_cat800.png">
- <img height="280" src="img/geostats/bar_pts_val180.png">
+<img height="300px" src="img/geostats/bar_pts_all.png">
+<img height="300" src="img/geostats/bar_pts_cat800.png">
+ <img height="300" src="img/geostats/bar_pts_val180.png">
 <p><small>Our data set includes points along contour lines 
 combined with scattered points along ridge lines and valleys and in the floodplain. </small>
 </section>
@@ -225,12 +238,12 @@ combined with scattered points along ridge lines and valleys and in the floodpla
 <section>
     <h3>Elevation data analysis </h3>
 Given points assigned to nearest 10m grid cell and a related histogram
-<p><img height="350px" src="img/geostats/bar_binnedpts_nn.png">
+<p><img height="320px" src="img/geostats/bar_binnedpts_nn.png">
 <img height="200px" src="img/geostats/bar_binnedpts_hist2crop.png">
 </small>
 <p><small>Note that for $z>90m$ there are many points with values at 5m intervals 
 while there are very few points with values in-between, 
-reflecting the sampling along contours</small> 
+reflecting the dense sampling along contours. Histogram $x$ is in tens of meters and $y$ in hundreds of cells</small> 
 </section>
 
 <section>
@@ -247,7 +260,7 @@ DEM interpolated by spline with tension and its histogram
 <p>Plot distribution for 20% and 80% of sub-sampled points
 <p><img height="400" src="img/geostats/scatterplots.jpg">
 <img height="400" src="img/geostats/bar_ptsplot0.8_Rplot.png">
-<br><small>Note that the histogram is is different from the previous two: it does not capture
+<br><small>Note that the histogram is different from the previous two: it does not capture
 the difference between the number of points on contours and the scattered points because
 of aggregation in smaller number of histogram binns (20 in R versus 255 in GRASS).</small>
 </section>
@@ -261,7 +274,7 @@ using 20% and 80% sub-sampled points
 <p>
 <img height="350px" src="img/geostats/bar_variogrRplot.png">
 <img height="350px" src="img/geostats/bar_variogr0.8_Rplot.png">
-<p><small>The 80% subsample leads to smoother variogram, but as little as 20% points captures
+<p><small>The 80% subsample leads to a smoother variogram, but as little as 20% points captures
 the characteristics of spatial dependence (autocorrelation). 
 Note slight anisotropy in 45 degrees direction
 (direction of floodplain edge has lower sill) </small>
@@ -270,15 +283,14 @@ Note slight anisotropy in 45 degrees direction
 <section>
     <h3>Elevation data analysis </h3>
 <ul>
-<li>Experimental variogram from given elevation data
-for 1000m and 3000m maximum distance
+<li>Anisotropic experimental variogram for 1000m and 3000m maximum distance
 </ul>
 <p>
 <img height="350px" src="img/geostats/bar_variogr0.8_Rplot.png">
 <img height="350px" src="img/geostats/bar_variogr_3km_Rplot.png">
-<p><small>The variogram show stronger anisotropy for distances over 1km. 
+<p><small>The variogram shows stronger anisotropy for distances over 1km. 
 When applying GSS, the variogram is used locally (10s-100s of meters)
-so we can use isotropic variogram model</small>
+so we can use an isotropic variogram model</small>
 </section>
 
 <section>
@@ -306,7 +318,7 @@ Matern model variogram with smoothing </a> is needed to avoid DEMs with artifact
 <section>
     <h3>Conditional simulation of DEMs</h3>
 <ul>
-<li>One of 100 realizations of DEM and the resulting mean DEM from GSS
+<li>One of 100 DEM realizations and the mean DEM 
 </ul>
 <p>
 <img height="350px" src="img/geostats/bar_simdem10m_10.png">
@@ -325,7 +337,7 @@ is above or below the range of interpolated DEM, but within the range of given d
 <img height="350px" src="img/geostats/bar_simdem10m_mean.png">
 <img height="350px" src="img/geostats/bar_simdem10m_std.png">
 <p><small>Standard deviation is much higher in the floodplain and along edges, 
-indicating insufficient sampling. This is already indicated by comparing the  
+reflecting insufficient sampling. This is already indicated by comparing the  
 <a href="./geostats_sim.html#/17">histogram from the data</a> and 
 <a href="./geostats_sim.html#/18">histogram from the interpolated DEM</a>. 
 </small>
@@ -333,76 +345,72 @@ indicating insufficient sampling. This is already indicated by comparing the
 
 <section>
     <h3>Interpolated and simulated DEMs</h3>
-Difference between DEM interpolated in GRASS and DEM simulated in R indicates shift of approx 1 grid cell.
-Problem during export/import?
+<ul>
+<li><small>Difference between DEM interpolated in GRASS and DEM simulated in R indicates shift of approx 1 grid cell.  Problem during export/import?</small>
+</ul>
 <p>
-<img height="380px" src="img/geostats/bar_diffsimrst.png">
-<img height="250" src="img/geostats/profile_demrstsim_shift.png">
+<img height="300" src="img/geostats/bar_diffsimrst.png">
+<img height="200" src="img/geostats/profile_demrstsim_shift.png">
 </section>
 
 <section>
     <h3>Stream extraction uncertainty</h3>
 <p> How does the error in DEM influence the uncertainty in the location of extracted streams?
 <ul>
-<li>derive stream network for each 10m resolution DEM realization
-<li>compute count of stream presence from all derived stream networks 
-<li>derive probability of stream location and the propagated error from the count map
+<li>derive $n$ stream networks from $n$ DEM realizations 
+<li>compute per-cell count $m$ of stream presence from all derived stream networks 
+<li>derive probability of stream location at each grid cell $p = m/n$
 </ul>
+Propgated error of extracted streams
+$$e = -(1-p) \ln(1-p) - p \ln(p)$$
 <p>
 </section>
 
 <section>
     <h3>Streams derived from smooth DEM</h3>
 <p>Flow accumulation and streams derived from the smooth DEM using D8-MFD-LCP method
-and threshold XXX: deterministic result
+and threshold 300 of 10m resolution cells: deterministic result
 <p>
 <img height="380" src="img/geostats/bar_accum10.png">
-<img height="380" src="img/geostats/simulated_surface_std.png">
-<p>In the assignment evaluate the relationship between stream uncertainty and slope
+<img height="380" src="img/geostats/bar_streams10_300.png">
 </section>
 
 <section>
-    <h3>Stream uncertainty mapping</h3>
-<p>Stream count 
-<p><img height="200px" src="img/geostats/stream_probability.png">
-<img height="200px" src="img/geostats/simulated_surface_std.png">
-<p>In the assignment evaluate the relationship between stream uncertainty and slope
-</section>
-
-<section>
-    <h3>Stream uncertainty mapping</h3>
+    <h3>Stream probability map</h3>
+<p>Stream probability map with $p>0$, and the highest uncertainty map with $0.4 < p < 0.6$
 <p>
+<img height="300px" src="img/geostats/bar_streamprob_vir_no0b.png">
+<img height="300px" src="img/geostats/bar_streamuncert.png">
+</section>
+
+<section>
+    <h3>Deterministic and stochastic result</h3>
+<p>Stream probability map with streams extracted from smooth DEM:
 <p><img height="200px" src="img/geostats/stream_probability.png">
-<img height="200px" src="img/geostats/simulated_surface_std.png">
-<p>In the assignment evaluate the relationship between stream uncertainty and slope
+<p>Find the grid cells where the highest probability does not match the deterministic result
 </section>
 
 <section>
     <h3>Elevation data analysis </h3>
-<p>Lake Wheeler SECREF watershed 
+<p>Lake Wheeler SECREF DEM and plot of given points 
 <p><img height="340px" src="img/data_sim/elev_lid_smooth.jpg">
-</section>
-
-<section>
-    <h3>Elevation data analysis </h3>
-<p>Plot distribution of given points $(x_i,y_i,z_i)$
-<p><img height="380px" src="img/geostats/Inglis_secrefpoints.jpg">
+<img height="380px" src="img/geostats/Inglis_secrefpoints.jpg">
 </section>
 
 <section>
     <h3>Elevation data analysis </h3>
 <ul>
-<li>Compute anisotropic and isotropic experimental variogram from given elevation data
-<li>Fit Matern variogram model with smoothing parameter
+<li>Anisotropic experimental variogram from given elevation data
+<li>Matern variogram model with smoothing parameter
 </ul>
 <img height="320px" src="img/geostats/inglis_variogram_anis.jpg">
 <img height="320px" src="img/geostats/inglis_variogram_model.jpg">
-<br>Generate DEMs at 2m resolution or better
+<br>Generate 100 DEMs (2m resolution) and extract streams from each
 <p><small>Inglis N., 2019, GIS714 course assignment report.</small>
 </section>
 
 <section>
-    <h3>Stream uncertainty mapping</h3>
+    <h3>Stream probability map</h3>
 <p>
 <p><img height="420px" src="img/geostats/inglis_probability_stream.jpg">
 <p><small>Inglis N., 2019, GIS714 course assignment report.</small>
