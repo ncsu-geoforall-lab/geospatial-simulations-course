@@ -48,9 +48,10 @@ Looking at the spatial pattern, how they might have been acquired?</span>
 <p>
 To compute a histogram of the given data distribution we can bin the 
 points to 10m resolution grid and then run the histogram.
+The region is set to match grid created by R spsample function used later on.
 
 <pre><code>
-g.region e=6555626 w=6551786 s=5070478 n=5074348 res=10 -p
+g.region n=5074351 s=5070471 e=6555639 w=6551799 res=10 -p
 v.to.rast elevations out=elevations_bin10m type=point use=attr attr="VALUE"
 d.histogram elevations_bin10m
 </code></pre>
@@ -143,7 +144,7 @@ with Matern covariance function (this may take few minutes so be patient):
 <!-- add parameter bounding box bb to ensure alignment with region?)see more at
 https://www.rdocumentation.org/packages/sp/versions/1.4-0/topics/spsample-->
 <pre><code>
-demgrid <- spsample(elevations, type="regular", cellsize=c(10,10))
+demgrid <- spsample(elevations, type="regular", cellsize=c(10,10), offset=c(0.5,0.5))
 gridded(demgrid) <- TRUE
 fullgrid(demgrid) <- TRUE
 Z.ovgm <- vgm(psill=Z.vgm$cov.pars[1], model="Mat", range=Z.vgm$cov.pars[2], nugget=Z.vgm$nugget, kappa=1.2)
@@ -188,7 +189,7 @@ r.colors simulated_std co=bcyr -e
 r.colors aspect_10 co=aspect
 r.slope.aspect simulated_mean slo=slp_mean asp=asp_mean
 r.slope.aspect simulated_10 slo=slp_10 asp=asp_10
-r.mapcalc "diff_spline_gsim = elevation_10 - simulated10m_mean"
+r.mapcalc "diff_spline_gsim = elevation_10 - simulated_mean"
 r.colors diff_spline_gsim co=differences
 </code></pre>
 
