@@ -104,7 +104,7 @@ r.watershed elevation=elevation accumulation=flowacc drainage=drainage stream=st
 r.to.vect input=streams output=streams type=line
 </code></pre>
 
-Now we use r.stream.distance without output parameter difference to compute new raster where each cell is the elevation difference between the cell and the the cell on the stream where the cell drains.
+Now we use r.stream.distance with output parameter difference to compute new raster where each cell is the elevation difference between the cell and the the cell on the stream where the cell drains.
 
 <pre><code>
 r.stream.distance stream_rast=streams direction=drainage elevation=elevation method=downstream difference=above_stream
