@@ -2,7 +2,7 @@
     <h2><b>Urban Growth Models:</b></h2>
     <h3>From cellular automata to growing patches</h3>
     <p style="margin-top: 0.5em">
-        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+        Anna Petrasova, Vaclav Petras, Helena Mitasova</p>
     <p class="title-foot">
         GIS714 Geosimulations
         <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
@@ -13,11 +13,12 @@
     <h3>Learning objectives</h3>
 <p>
 <ul>
-   <li>evolution of urban growth models
-   <li>current approaches 
-   <li>cellular automata: rule-based
-   <li>cellular automata: probabilistic
-   <li>metrics for spatial model evaluation
+    <li>evolution of urban growth models: from cellular automata to patch-based stochastic simulations
+    <li>FUTURES modeling framework
+    <li>demand and development potential
+    <li>calibration
+    <li>development pressure and patch growing algorithm
+    <li>creating scenarios
 </ul>
 </section>
 
@@ -25,86 +26,76 @@
     <h3>Urban growth models evolution</h3>
 <p>
 <ul>
-   <li>theoretical concepts
-   <li>computational foundation: 
+   <li>computational foundation: Tobler's Detroit growth model (1970), Conway's Game of life (1970) 
 <p>
-   <ul>
-      <li>Tobler's Detroit growth model (1970)
-      <li>Conway's Game of life (1970) 
-  </ul>
-<p>
-   <li>cellular automata 
-   <li>land change models
-   <li>agent-based modeling
+   <li class="fragment">rule-based cellular automata 
+   <li class="fragment">probabilistic land change models
+   <li class="fragment">coupling with agent-based models
+   <li class="fragment">inputs, calibration and validation based on time series of RS and GIS data
 </ul>
-   <p>From rule-based to probability driven with stochastic perturbations, calibration and validation based
-on time series of RS and GIS data
-</section>
-
-<section>
-    <h3>Urban growth models evolution</h3>
-<p>
-IMG from Li and Gong
+For comprehensive overview see Li and Gong, 2016,
+<a href="https://www.sciencedirect.com/science/article/pii/S2095927316305540">Urban growth models: progress and perspective</a>
 </section>
 
 <section>
     <h3>Cellular automata principle</h3>
 <p>
-Space is tesselated into grid cells $(i,j)$ (usually square) with initial state $C_{i,j}^{t=0}$
-<p>General expression for the cell state evolution:
+Space is tesselated into grid cells with initial state $C_{i,j}^{t=0}$
+<p>State of cell $(i,j)$ at time $t+\Delta t$ can be expressed as:
 <p>
 $$
 C_{ij}^{t+\Delta t} = F(C_{ij}^{t}, O_{ij}^{t}, R)
 $$
-<p>
-State of cell $(i,j)$ at time $t+\Delta t$ is a function of 
+<p>where
 <ul>
- <li>its state at time $t$, 
- <li>state of cells in its neighborhood $O_{ij}^{t}$
- <li>transition rules $R$
- <li>$\Delta t$ is small 
+ <li>$C_{ij}^{t}$ is the cell state at time $t$, 
+ <li>$O_{ij}^{t}$ is the state of cells in its neighborhood
+ <li>$R$ represents transition rules 
+ <li>note that $\Delta t$ is small 
 </ul>
 </section>
 
 <section>
-    <h3>Game of life rules</h3>
-<p>
+    <h3>Game of life</h3>
+<p>Developed by Conway in 1970, the game has the following simple rules:
+<small>
 <ul>
-  <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-  <li>Any live cell with two or three live neighbours lives on to the next generation.
-  <li>Any live cell with more than three live neighbours dies, as if by overpopulation.
-  <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+  <li class="fragment">Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+  <li class="fragment">Any live cell with two or three live neighbours lives on to the next generation.
+  <li class="fragment">Any live cell with more than three live neighbours dies, as if by overpopulation.
+  <li class="fragment">Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 </ul>
-<p>
-For the given rules, the resulting pattern is dependent only on the initial configuration:
-example of <strong>emergence and self-organization </strong>
+</small>
+<p class="fragment">
+The resulting pattern is dependent only on the initial configuration:
+example of <strong>emergence and self-organization </strong> leading to many
+surprising evolution patterns
 </section>
 
 <section>
-    <h3>Game of life example</h3>
+    <h3>Game of life examples</h3>
 <p>
 <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of life in wikipedia</a>: from simple 
 still lifes and oscilators to complex and surprising evolution (e.g. play puffer-type breeder)
 <p>
-<a href="https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of different configurations</a>
-
+<a href="https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of many different configurations</a> on YouTube
 </section>
 
 <section>
     <h3>Geospatial cellular automata</h3>
 <ul>
-  <li>initial state is based on land use / land cover data, usually from RS or GIS
-  <li>rules are derived from socio-economic data and interactions between humans and environment 
-  <li>models are calibrated and validated using time series of land use data 
+  <li class="fragment">initial state is based on land use / land cover data, usually from RS or GIS
+  <li class="fragment">rules are derived from socio-economic data and interactions between humans and environment 
+  <li class="fragment">models are calibrated and validated using time series of land use data 
 </ul>
 </section>
 
 <section>
     <h3>SLEUTH urban growth model</h3>
 <ul>
-  <li>started as wildfire spread model
+<!--  <li>started as wildfire spread model-->
   <li>couples Urban Growth Model (UGM) and Land Cover Deltatron Model (LCD)
-  <li>SLEUTH: acronym for inputs:
+  <li>SLEUTH is an acronym for inputs:
 <p>
   <ul>
     <li>Slope
@@ -123,17 +114,16 @@ Open source model - many researchers contributed
     <h3>SLEUTH principle</h3>
 Urban areas behave like a living organism trained by transition rules:
 <ul>
-  <li>class to class transition matrix derived from 2 LU maps
-  <li>time series of 4 urban maps is used for calibration
-  <li>parameters derived from past growth: 
-      dispersion, breed, spread, slope resistance, road gravity
-  <li>growth types: diffusive, new spreading center, organic, road influenced 
+  <li class="fragment">class to class transition matrix derived from 2 LU maps
+  <li class="fragment">time series of 4 urban maps is used for calibration
+  <li class="fragment">parameters derived from past growth: dispersion, breed, spread, slope resistance, road gravity
+  <li class="fragment">growth types: diffusive, new spreading center, organic, road influenced 
 </ul>
 </section>
 
 <section>
     <h3>SLEUTH applications and innovation</h3>
-<p>Read more at
+<p>Learn more about SLEUTH at
 <a href="http://www.ncgia.ucsb.edu/projects/gig/index.html">Project Gigalopolis</a>
 <p>
 Chaudhuri, Gargi and Clarke, Keith. (2013). 
@@ -145,30 +135,13 @@ The SLEUTH land use change model: A review. International Journal Of Environment
 <section>
     <h3>Probabilistic CA urban growth models</h3>
 <ul>
-<li>Probabilistic transition rules and a stochastic perturbation term
-<li>Statistical methods are used to develop the transition rules, based on past time series
-<li>Logistic regression, neural networks, decision trees
+<li class="fragment">Probabilistic transition rules and a stochastic perturbation term
+<li class="fragment">Statistical methods are used to develop the transition rules, based on past time series
+<li class="fragment">Logistic regression, neural networks, decision trees
+<li class="fragment">Beyond square grids: hexagons, irregular probabilistic patches
+<li class="fragment">Interactions and spread beyond the immediate neighborhood
 </ul>
-<p>
-New states are generated based on a probabilistic distribution
 </section>
-
-<!--
-<section>
-    <h3>Probabilistic CA urban growth models</h3>
-EXAMPLES
-</section>
--->
-
-<section>
-    <h3>CA models with generalized tesselations</h3>
-<p>
-Beyond square grids: hexagons, irregular probabilistic patches
-<p>
-Interactions and spread beyond the immediate neighborhood
-
-</section>
-
 
 <div class="parent-page">
     <!-- &#x1f3e0; -->
