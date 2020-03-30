@@ -148,12 +148,12 @@ The SLEUTH land use change model: A review. International Journal Of Environment
 (Meentemeyer et al., 2013)</p>
 <div class="left" style="max-width: 65% !important">
 <ul>
-<li>urban growth model</li>
-<li>patch-based</li>
-<li>stochastic</li>
-<li>accounts for location, quantity, and pattern of change</li>
-<li>positive feedbacks (new development attracts more development)</li>
-<li>allows spatial non-stationarity</li>
+<li class="fragment">urban growth model</li>
+<li class="fragment">patch-based</li>
+<li class="fragment">stochastic</li>
+<li class="fragment">accounts for location, quantity, pattern of change</li>
+<li class="fragment">positive feedbacks (new development attracts more development)</li>
+<li class="fragment">allows spatial non-stationarity</li>
 </ul>
 </div>
 
@@ -166,15 +166,15 @@ The SLEUTH land use change model: A review. International Journal Of Environment
 <br>
 <img class="stretch" src="img/urban/r_futures_detail.png">
 <p><small>
-The numbers represent the year since the start of simulation when the cell was developed:
+The numbers represent the year when the cell was developed since the start of simulation:
 -1: undeveloped, 0: initial development, 1: developed in the first year, &hellip;
 </small></p>
 </section>
 
 <section>
 <h3>Modeling framework</h3>
-<img style="margin-top:2em;margin-left:5em; max-width: 58% !important;"
- src="img/urban/FUTURES_schema.png">
+<!--<img style="margin-top:2em;margin-left:5em; max-width: 58% !important;" src="img/urban/FUTURES_schema.png">-->
+<img height="450" src="img/urban/FUTURES_schema.png">
 <aside class="notes">
 This is a basic schema of FUTURES, where the modeling framework is
 based on 3 components: POTENTIAL submodel providing the information
@@ -265,7 +265,7 @@ $h$ is a predictor,<br>
 $n$ is the number of predictor variables, <br>
 $a_{j,i}$ is intercept, <br>
 $\beta_{j, i, h}$ is regression coefficient, <br>
-$x_{ih}$ is the value of $h$ at $i$
+$x_{i, h}$ is the value of $h$ at $i$
 
 </div>
 </section>
@@ -273,12 +273,12 @@ $x_{ih}$ is the value of $h$ at $i$
 <section>
 <h3>Potential submodel: workflow</h3>
 <ol>
-    <li>stratified random sampling of predictors and response variable (developed/undeveloped raster)</li>
-    <li>multilevel logistic regression is used to relate cell suitability factors (predictors)
-        to the probability of a cell becoming developed for each subregion
-    <li><code>glm(developed ~ (1|subregion) + distance_to_water + development_pressure + road_density + ...)</code></li>
-    <ul><li>automatic model selection is based on Akaike information criterion (AIC)</li></ul>
-    <li>development probability surface from regression coefficients</li>
+    <li class="fragment">stratified random sampling of predictors and response variable (developed/undeveloped raster)</li>
+    <li class="fragment">multilevel logistic regression to relate cell suitability factors (predictors)
+        to the probability of a cell becoming developed for each subregion:
+    <br><code>glm(developed ~ (1|subregion) + distance_to_water + development_pressure + road_density + ...)</code></li>
+    <br>automatic model selection is based on Akaike information criterion (AIC)
+    <li class="fragment">development probability surface from regression coefficients</li>
 </ol>
 </section>
 
@@ -306,15 +306,16 @@ $$pressure = \sum^{n_i}_{k=1} \frac{state_k} {d^{\gamma}_{ik}}$$
 
 <section>
 <h3>Development pressure</h3>
+Surface represents the development pressure, color is the initial development
 <img src="img/urban/r_futures_devpressure_3D.png" class="stretch">
 </section>
 
 <section class="textimg">
 <h3>Patch Growing Algorithm</h3>
 <ul>
-<li>stochastic algorithm</li>
-<li>converts land in discrete patches</li>
-<li>inputs are patch characteristics (distribution of patch sizes and compactness)
+<li class="fragment">stochastic algorithm</li>
+<li class="fragment">converts land in discrete patches</li>
+<li class="fragment">inputs are patch characteristics (distribution of patch sizes and compactness)
 derived from historical data</li>
 </ul>
 <img src="img/urban/PGA.gif">
@@ -372,6 +373,7 @@ $$P_{new} = P + S - P.S, \quad S \in \langle 0, 1 \rangle$$
 <h3>r.futures</h3>
 Information flow diagram for the set of modules implementing FUTURES
 <img src="img/urban/grass_futures_diagram.png" class="stretch">
+<p>
 <a href="https://grass.osgeo.org/grass78/manuals/addons/r.futures.html">r.futures manual</a>
 <p><small>
 Additionally, <em>r.futures.parallelpga</em> can be used instead of <em>r.futures.pga</em>.
