@@ -1,5 +1,31 @@
-<h2>PoPS calibration and validation</h2>
+<h2>PoPS calibration</h2>
 
+Resources to download:
+<ul>
+<li><a href="http://fatra.cnr.ncsu.edu/pops/data/SOD_ABC_calibration.zip">test data</a></li>
+<li><a href="../resources/SOD_ABC_calibration.R">PoPS calibration R script</a></li>
+</ul>
+
+R software:
+<ul>
+<li>install rpops, follow <a href="https://github.com/ncsu-landscape-dynamics/rpops#how-to-install"> installation instructions</a></li>
+<li>install <a href="https://cran.r-project.org/web/packages/folderfun/index.html">folderfun</a> package
+</ul>
+
+
+
+<h3>Tasks</h3>
+Run the calibration code to derive parameters for spore rate, distance and direction strength for SOD based on 2018.
+Unzip the dataset to a folder and change the path to that folder in the R script.
+The script will output information about the progress of calibration.
+<ul>
+<li>What role does generation size and number of generations play in the calibration process?
+    Change them and observe the impacts.</li>
+<li>Change the thresholds of accepting a parameter set (checks variable).
+    Observe the impacts.</li>
+<li>Inspect the results of the calibration.</li>
+</ul>
+<!--
 <p>Outline:
 <ul>
     <li>Use provided test data to calibrate PoPS model</li>
@@ -18,7 +44,7 @@ Resources to download:
 Run each block in the provided R scripts step by step and see the associated instructions as comments in the code.
 
 <h3>Calibration</h3>
-Run the calibration code to derive parameters for spore rate and distance for the PoPs model. 
+Run the calibration code to derive parameters for spore rate and distance for the PoPs model.
 <ul>
 <li>What are the parameters?</li>
 <li>How many times were the spore rate and distance parameters used out of the total number of calibration iterations?</li>
@@ -52,3 +78,4 @@ Optional:
     </ul>
 </li>
 </ul>
+-->
