@@ -1,0 +1,153 @@
+<section>
+<h2>Plant, Pest and Pathogen Spread Modeling</h2>
+<p style="margin-top: 0.5em">
+    Anna Petrasova, Vaclav Petras, Devon Gaydos, Chris Jones, Helena Mitasova</p>
+<p class="title-foot">
+    GIS714 Geosimulations
+    <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+</p>
+</section>
+
+
+<section>
+<h3>Motivation</h3>
+
+<ul>
+    <li>Plant diseases and pests threaten production of food and plant-based materials.
+    <li>NCSU CGA &amp; USDA APHIS investigating the spread of pests and pathogens.
+</ul>
+
+<br>
+<img src="img/spotted_lanternfly_grape.jpg" class="stretch">
+
+</section>
+
+
+<section class="textimg">
+<h3>PoPS Model</h3>
+
+<div>
+<p>
+<em>Pest or Pathogen Spread Model</em>
+</p>
+Simulates spread of pests and pathogens over a landscape
+in a spatially-explicit way
+<p>
+Main inputs include
+<ul>
+    <li>host density
+    <li>weather conditions
+    <li>infected locations
+</ul>
+</div>
+
+<img src="img/pops/pops_logo.png" alt="PoPS logo">
+
+</section>
+
+<section>
+<h3>Mechanics</h3>
+<ol>
+  <li>generating dispersers (spores or insect)</li>
+  <li>spreading dispersers</li>
+  <li>establishment of dispersers</li>
+</ol>
+<p>
+Repeated in each step (daily, weekly, monthly, ...)
+</p>
+<img src="img/pops/model_overview.png" class="stretch">
+</section>
+
+
+<section>
+<h3>Generating dispersers </h3>
+Number of dispersers each infected host produces:
+<p>
+$$ S \sim Pois(\lambda), \lambda = r w_i$$
+<p>
+<small>$r$ is reproductive rate, $w_i$ is weather condition in cell $i$</small>
+</p>
+<img src="img/pops/model_generation.png" class="stretch">
+</section>
+
+
+<section>
+<h3>Spreading the dispersers</h3>
+to a distance $D$ in the direction $\theta$ sampled from:
+<p>
+ $$D∼Cauchy(0,\gamma) \quad \theta∼vonMises(\mu,\kappa)$$
+<p>
+ <small> with distance scale $\gamma$,
+ mean angle $\mu$ and
+ strength of direction $\kappa$,
+ von Mises is circular normal distribution</small>
+</p>
+<img src="img/pops/model_spread.png" class="stretch">
+</section>
+
+
+<section>
+<h3>Establishment of dispersers</h3>
+The probability $P$ that a spore infects a susceptible host
+in a cell $j$
+<p>
+$$P_j = w_j * S_j/N_j $$
+<p>
+<small>where $S$ is the number of susceptible hosts and $N$ is the number of all hosts</small>
+</p>
+<img src="img/pops/model_establishment.png" class="stretch">
+</section>
+
+
+<section>
+<h3>Scenario modeling</h3>
+PoPS allows spatial management input at specific times of the simulation
+<br>
+<img src="img/pops/spread_barrier.jpg" class="stretch">
+</section>
+
+
+<section>
+<h3>Software</h3>
+
+<ul>
+    <li><a href="https://github.com/ncsu-landscape-dynamics/PoPS">PoPS</a> (C++ library)
+    <li><a href="https://github.com/ncsu-landscape-dynamics/rpops">rpops</a> R package (uses Rcpp for R C++ integration)
+    <li><a href="https://grass.osgeo.org/grass7/manuals/addons/r.pops.spread.html">r.pops.spread</a> GRASS GIS Addon in C++
+</ul>
+<p>
+All open source, hosted on GitHub
+</p>
+<img src="img/pops/r_logo.svg" height="150px">&nbsp;
+<img src="img/pops/grass_gis_logo.svg" height="150px">
+
+</section>
+
+<section>
+<h3>User Interfaces</h3>
+<ul>
+  <li>PoPS Web Platform</li>
+  <li>Tangible Landscape</li>
+</ul>
+<br>
+  <img src="img/pops/PoPS_Dashboard_Example.png" height="250px">&nbsp;&nbsp;&nbsp;
+  <img src="img/pops/workshop.jpg" height="250px">
+
+</section>
+
+<section>
+<h3>PoPS Forecasting and Control System</h3>
+  <p style="text-align:left">Interconnected components:
+<ul>
+  <li><strong>PoPS model:</strong> predicts probability of infection
+  <li><strong>Spatial Decision Support System:</strong> interactive dashboard for stakeholders
+  <li><strong>Iterative sampling and management:</strong> validation of forecasts and improving calibration
+  <li><strong>Pest/Pathogen parameter library:</strong> biological characteristics influencing spread
+  <li><strong>Host map library:</strong> satellite data + machine learning algorithms
+</ul>
+</p>
+</section>
+
+<section>
+    <h3>Calibration and validation</h3>
+</section>
