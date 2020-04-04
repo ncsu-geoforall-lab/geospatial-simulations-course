@@ -355,8 +355,8 @@ derived from historical data</li>
     <li class="fragment">randomly pick patch size</li>
     <li class="fragment">grow patch</li>
         <ol>
-            <li class="fragment">add neighbors to a list and sort it based on $p_i / d^c$, where $d$ is distance from $i$ and $c$ is compactness value</li>
-            <li class="fragment">pick first neighboring cell and try to add it to the patch if $p_i$ &gt; random number</li>
+            <li class="fragment">add neighbors ($p_j$) to a list and sort it based on $p_j / d_{ij}^c$, where $d_{ij}$ is distance from $i$ and $c$ is compactness value</li>
+            <li class="fragment">pick first neighboring cell and try to add it to the patch if $p_j$ &gt; random number</li>
             <li class="fragment">if added, add surrounding neighboring cells to the list</li>
             <li class="fragment">repeat until the patch size is met</li>
         </ol>
