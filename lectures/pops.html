@@ -284,9 +284,154 @@ See <a href="https://doi.org/10.1016/j.compenvurbsys.2019.101366">Pickard et al.
 </section>
 
 <section>
+    <h3>Calibration methods</h3>
+    <ul>
+      <li>Monte Carlo Markov Chains (MCMC)</li>
+      <li>Approximate Bayesian Computation (ABC)</li>
+    </ul>
+<p style="text-align:left">
+<strong>Assumptions:</strong>
+<ul>
+  <li>Simulation and data are comparable (i.e., the output from the simulation is
+     something that is recorded in the data)
+  or can be compared from summary statistics.</li>
+</ul>
+
+</section>
+
+<section>
     <h3>Calibration using MCMC</h3>
+<dl>
+  <dt>Markov Chains:</dt>
+    <dd>sequences of events that are probabilistically related to each other.
+    Each event comes from a set of outcomes, and each outcome determines
+    which outcome occurs next, according to some fixed probability set.
+    <ul>
+      <li>They are memoryless: everything you need to know for the next state
+      is available in the current state.</li>
+      <li>Over the long run, it settles into a pattern.</li>
+    </ul>
+  </dd>
+       <br>
+  <dt>Monte Carlo simulations</dt>
+      <dd>repeatedly generating random numbers to estimate some fixed parameter value</dd>
+</dl>
+</section>
+
+<section>
+    <h3>Calibration using MCMC</h3>
+  <ol>
+    <li>generate a random parameter set and run the model</li>
+    <li>if the new parameter performs better, it is added to the chain of parameter values with a certain probability determined by how much better it is</li>
+    <li>repeat this sequence many times to get a distribution of possible parameters</li>
+    <li>take the most common parameter from this distribution</li>
+  </ol>
 </section>
 
 <section>
     <h3>Calibration using ABC</h3>
+    <dl>
+      <dt>Generations</dt>
+          <dd>number of times to iterate</dd>
+      <dt>Particles</dt>
+          <dd>number of parameter sets to keep in each generation</dd>
+      <dt>Epsilon</dt>
+          <dd>the threshold that determines if a parameter set is kept or rejected</dd>
+    </dl>
+</section>
+
+<section>
+    <h3>Calibration using ABC</h3>
+    <ol>
+    <li>Choose number of Particles (P)</li>
+    <li>Choose epsilon $\epsilon$</li>
+    <li>Calculate summary statistics for observed data $S_d$</li>
+    <li>Draw parameters from a uniform distribution</li>
+    <li>Run model</li>
+    <li>Calculate summary statistics for simulated data $S_s$</li>
+    <li>$D(S_d, S_s) ≦ \epsilon$</li>
+    <ol><li>Keep (increase p by 1)</li>
+    <li>Else reject</li></ol>
+    <li>Repeat 4 - 7 until p = P</li>
+    </ol>
+
+</section>
+
+<section>
+  <h3>Basic ABC example</h3>
+  <small>$S_d = 7$, $\epsilon=5$, $P=3$</small>
+  <br>
+  <table width="30%" style="font-size: 70%" >
+    <tr>
+      <th>$S_s$</th>
+      <th>$D(S_d,S_s)$</th>
+      <th>Kept</th>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>2</td>
+      <td>&#x2713;</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>6</td>
+      <td>&#x2715;</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>10</td>
+      <td>&#x2715;</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>0</td>
+      <td>&#x2713;</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>1</td>
+      <td>&#x2713;</td>
+    </tr>
+  </table>
+<p style="text-align:left">Simple, but requires lot of user input to test for best $\epsilon$,
+  computationally slow if $\epsilon$ is low.
+</section>
+
+<section>
+    <h3>Calibration using ABC-SMC</h3>
+    ABC with sequential Monte Carlo sampling:
+    <ul>
+      <li>a sequence of distributions is constructed by gradually
+         decreasing $\epsilon$ in each generation
+         <small>($\epsilon_1, \epsilon_2, \epsilon_3,$...
+         can be pre-selected or derived based on the previous generation)</small></li>
+      <li>each generation is obtained as a weighted sample from the previous distribution
+         that has been perturbed through a kernel</li>
+      <li>perturbation kernel can be uniform distribution,
+      multivariate normal distribution</li>
+</section>
+
+<section>
+<h3>Calibration using ABC-SMC MNN</h3>
+Adaptive routines to find optimal perturbation kernel:
+<ul>
+  <li>ABC-SMC MNN uses multivariate normal distribution
+  based on covariance matrix</li>
+  <li>covariance matrix calculated using M nearest neighbors (MNN) of
+  a particle</li>
+  <li>normalised Euclidean distance can be used when searching
+    for the nearest neighbours</li>
+</ul>
+</section>
+
+<section>
+<h3>Bayesian Updating</h3>
+<p style="text-align:left">
+  Quickly incorporate new data:
+<ol>
+  <li>use previous posterior means and covariance matrix as priors for next time</li>
+  <li>use ABC_SMC MNN to calibrate for new year of data</li>
+  <li>calculate weights, e.g., based on number of observations</li>
+  <li>calculate posteriors from priors, calibrated parameters and weights</li>
+</ol>
 </section>
