@@ -25,8 +25,11 @@
 <p>
 <ul>
   <li>evolved from cellular automata, game of life
+<p>
   <li class="fragment">introduces agent acting within an environment
-  <li class="fragment">agents move through space across time while interacting with the environment and with each other
+<p>
+  <li class="fragment">agents move through space and across time while interacting with the environment and with each other
+<p>
   <li class="fragment">in geospatial applications ABM simulates behavior of intelligent agents within a geographic space
 </ul>
 </section>
@@ -47,8 +50,14 @@ Agent state (location, attributes) at time $t+\Delta t$ is a function of
  <li>state of the environment $E$ 
  <li>interaction rules $R$
 </ul>
-<p><small>Space is often tesselated into grid cells with initial environmental state. 
-Agents are modeled as grid cells, patches, oriented lines, or points</small>
+</section>
+
+<section>
+    <h3>ABM space and agents</h3>
+<p>Space is often tesselated into grid cells with initial environmental state.
+<p>Agents are modeled as grid cells, patches, points or oriented lines
+<p><img height="340" src="img/abm/abm_grid.png">
+ <img height="330" src="img/abm/abm_points.png">
 </section>
 
 <section>
@@ -62,7 +71,7 @@ Agents are modeled as grid cells, patches, oriented lines, or points</small>
 <p>
 <small>
 There is a continuum of models between CA and ABM. Some models can be interpreted as special cases
-of solutions to processes, described by partial differential equations: diffusion, fire
+of solutions to processes described by partial differential equations
 </small>
 </section>
 
@@ -70,14 +79,16 @@ of solutions to processes, described by partial differential equations: diffusio
     <h3>Agents and their interaction</h3>
 <p>
 <ul>
-<li class="fragment">autonomous interacting units
+<li class="fragment">agents are autonomous interacting units
 <li class="fragment">active features of agents (Crooks et al. 2012): 
+<p>
 <ul>
   <li class="fragment">pro-active, reactive, bounded rationality
   <li class="fragment">interaction with other agents and the environment
   <li class="fragment">mobile or stationary
   <li class="fragment">adaptation and learning
 </ul>
+<p>
 <li class="fragment">population of agents can be heterogeneous
 </ul>
 </section>
@@ -101,12 +112,12 @@ Propose interactions
     <h3>Emergence and self-organization</h3>
 <p> Applies to both CA and ABM
 <ul>
-<li>Emergent behavior: behavior of the modeled system is more complex than the behavior of the parts
-<li><small>recall <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Puffer breeder CA</a></small>
+<li>Emergent behavior: behavior of the modeled system is more complex than the behavior of the parts:
+recall <a href="https://en.wikipedia.org/wiki/File:Conways_game_of_life_breeder_animation.gif">Puffer breeder CA</a>
  <li class="fragment">synchronization, cooperation or chaos, turbulence 
  <li class="fragment">self-organization: feedback and adaptive behavior
  <li class="fragment">behavior of a component depends on the behavior of the system
- <li class="fragment">different initial conditions and randomness may lead to different results 
+<!-- <li class="fragment">different initial conditions and randomness may lead to different results -->
 </ul>
 <p>
 </section>
@@ -129,29 +140,106 @@ and <a href="http://netlogoweb.org/">NetLogoWeb</a>
 <section>
     <h3>ABM examples</h3>
 <a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
-<br>
-<small><a href="https://lectures.quantecon.org/jl/schelling.html">the model as Jupyter notebook</a>
+<p>
 <ul>
-<li>2 groups in randomly distributed patches
-<li>Each agent is happy if it has $n%$ of neighbors from the same group
-<li>Unhappy agent moves until it finds happy location
-<li>System segregates into more homogeneus groups even for $n$ less than 50% 
-<br>(compare n = 20,30,45 %, also try to start with 25% empty and 60% neighbors)
-<li>how to measure the system seggregation/integration?
+<li class="fragment">Two groups in randomly distributed patches
+<li class="fragment">Agent is happy if it has $n%$ of neighbors from the same group
+<li class="fragment">Unhappy agent moves until it finds happy location
+<li class="fragment">System segregates into more homogeneus groups even for $n$ less than 50% 
 </ul>
+<!--
 <p><a href="https://ccl.northwestern.edu/netlogo/docs/programming.html">Terminology and programming in Netlogo</a>
 <br>Agents: turtles, patches, links and observer; see more in the manual, the terminology has its
 origin in a models of turtles swimming in a pond
-<p><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+-->
+<p><small><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
 <p><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
 </a></small>
 </section>
 
 <section>
     <h3>ABM examples</h3>
-<p>Flocking
+<a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<p><img height="380" src="img/abm/segregation0.png">
+<p><small><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
+</a></small>
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<p><img height="380" src="img/abm/segregation_fin93.png">
+<p><small><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
+</a></small>
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<p><img height="380" src="img/abm/segregation0_50.png">
+<p><small><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
+</a></small>
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<p><img height="380" src="img/abm/segregation0_50_fin.png">
+<p><small><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
+</a></small>
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+Explore your scenarios in <a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<p>Compare n = 20,30,45 %, also try to start with 25% empty and 60% neighbors
+<!--how to measure the system seggregation/integration?-->
+</section>
+
+<section>
+    <h3>ABM examples</h3>
 <p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Alternative%20Visualizations/Flocking%20-%20Alternative%20Visualizations.nlogo">Flocking in Netlogo</a>
-<p>Many interesting models in Social science, Biology, Chemistry, Physics, Computer Science and other disciplines
+<p><img height="380" src="img/abm/flocking0.png">
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Alternative%20Visualizations/Flocking%20-%20Alternative%20Vi
+sualizations.nlogo">Flocking in Netlogo</a>
+<p><img height="380" src="img/abm/flocking2.png">
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
+Basic Epidemic Model</a>
+<p><img height="380" src="img/abm/epidem_basic0.png">
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
+Basic Epidemic Model</a>
+<p><img height="380" src="img/abm/epidem_basic2.png">
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
+Basic Epidemic Model</a>
+<p><img height="380" src="img/abm/epidem_basic3.png">
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
+Basic Epidemic Model</a>
+<p><img height="380" src="img/abm/epidem_basic4.png">
+<p>see also <a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Travel%20and%20Control.nlogo">Epidemic model with travel</a>
 </section>
 
 <section>
@@ -175,12 +263,11 @@ origin in a models of turtles swimming in a pond
  <li class="fragment">natural systems component: process-based simulations
  <li class="fragment">human components: ABM
 </ul>
-<p><small>
+<p class="fragment"><small>
 <a href="https://www.earth-syst-dynam.net/9/895/2018/">Robinson et al. 2018, Modelling feedbacks between human and natural processes in the land system</a>, two (out of four) use ABM to model the human component
-<p>
 <ul>
-  <li>MedLanD (ABM+CA+process-based): spread of agriculture in Neolithic societies
-  <li>BIOME-BGC+DEED (dynamic global vegetation model + Dynamic Ecological Exurban Development)
+  <li class="fragment">MedLanD (ABM+CA+process-based): spread of agriculture in Neolithic societies
+  <li class="fragment">BIOME-BGC+DEED (dynamic global vegetation model + Dynamic Ecological Exurban Development)
 </ul>
 </small>
 </section>
@@ -190,23 +277,24 @@ origin in a models of turtles swimming in a pond
 <p>Simulating long-term change in socioecological systems: application to prehistoric
 Mediterranean societies
 <ul>
-  <li>evolution of landscape: process-based erosion and deposition modeling
-  <li>land use change driven by agropastoral practicies: stochastic, rule-based model
-  <li>or: agent (farming household) driven land use change
+  <li class="fragment">evolution of landscape: process-based erosion and deposition modeling
+  <li class="fragment">land use change driven by agropastoral practicies: stochastic, rule-based model
+  <li class="fragment">or: agent (farming household) driven land use change
 </ul>
+<p class="fragment"><small>
 Stochastic modeling of land-use: cultivated and grazed cells are allocated randomly within catchments 
-whose sizes are estimated on the basis of subsistence needs and fallow/grazing cycles. 
+whose sizes are estimated on the basis of subsistence needs and fallow/grazing cycles. </small>
 </section>
 
 <section>
     <h3>Neolithic farming spread ABM </h3>
 <p>Agents employ decision rules to choose land cells to farm or graze based on:
 <ul>
- <li>their farming returns  (affect borth and death rate) 
- <li>needs (based on household size), 
- <li>the potential productivity of land for agropastoral use (soil depth and fertility, slope, current vegetation),
- <li>costs to use the land (including access on foot) 
- <li><small>each household agent chooses the best available landscape patches 
+ <li class="fragment">their farming returns  (affect borth and death rate) 
+ <li class="fragment">needs (based on household size), 
+ <li class="fragment">the potential productivity of land for agropastoral use (soil depth and fertility, slope, current vegetation),
+ <li class="fragment">costs to use the land (including access on foot) 
+ <li class="fragment"><small>each household agent chooses the best available landscape patches 
 in a round-robin whose order is randomized each execution cycle of the model so that no household will have first access to better lands than other households. Agents also choose land cells from which to collect fuel–wood, based on household size, availability of woody vegetation, and energy costs to access a cell on foot.</small>
 </ul>
 Agents initial state and model developemnt is based on archeological record.
