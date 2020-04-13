@@ -243,6 +243,59 @@ Basic Epidemic Model</a>
 </section>
 
 <section>
+    <h3>Coupling human and natural systems</h3>
+<ul>
+ <li class="fragment">natural systems component: process-based simulations
+ <li class="fragment">human components: ABM
+</ul>
+<p class="fragment">
+<a href="https://www.earth-syst-dynam.net/9/895/2018/">Robinson et al. 2018, Modelling feedbacks between human and natural processes in the land system</a>, two (out of four) use ABM to model the human component
+<ul>
+  <li class="fragment">MedLanD (ABM+CA+process-based): spread of agriculture in Neolithic societies
+  <li class="fragment">BIOME-BGC+DEED (Dynamic Global Vegetation Model + Dynamic Ecological Exurban Development)
+</ul>
+</section>
+
+<section>
+    <h3>Coupling human and natural systems</h3>
+<p>MedLanD simulates long-term change in socioecological systems: prehistoric
+Mediterranean societies
+<ul>
+  <li class="fragment">evolution of landscape: process-based erosion and deposition modeling
+  <li class="fragment">land use change driven by agropastoral practicies (two options): 
+  <ul>
+     <li class="fragment">stochastic, rule-based model
+     <li class="fragment">agent (farming household) driven land use change
+  <ul>
+</ul>
+<!--
+<p class="fragment"><small>
+Stochastic modeling of land-use: cultivated and grazed cells are allocated randomly within catchments 
+whose sizes are estimated on the basis of subsistence needs and fallow/grazing cycles. </small>
+-->
+</section>
+
+<section>
+    <h3>Neolithic farming spread ABM </h3>
+<p>Agents employ decision rules to covert land to farming or grazing based on:
+<ul>
+ <li class="fragment">their farming returns  (affect birth and death rate) 
+ <li class="fragment">needs (based on household size), 
+ <li class="fragment">the potential productivity of land (soil depth and fertility, slope, current vegetation),
+ <li class="fragment">costs to use the land (including access on foot) 
+ <li class="fragment">randomized access to the best available land patches
+<!-- <li class="fragment"><small>each household agent chooses the best available landscape patches 
+in a round-robin whose order is randomized each execution cycle of the model so that no household will have first access to better lands than other households. Agents also choose land cells from which to collect fuel–wood, based on household size, availability of woody vegetation, and energy costs to access a cell on foot.</small>
+-->
+</ul>
+<p class="fragment">Agents initial state and rules are based on archeological record.
+<small>
+<p>References:
+Ullah and Bergin, 2012; Mayer et al., 2006; Mayer and Sarjoughian, 2009; Barton et al., 2010a
+</small>
+</section>
+
+<section>
     <h3>ABM advantages and limitations</h3>
 <p>Advantages
 <ul>
@@ -257,53 +310,7 @@ Basic Epidemic Model</a>
 </ul>
 </section>
 
-<section>
-    <h3>Coupling human and natural systems</h3>
-<ul>
- <li class="fragment">natural systems component: process-based simulations
- <li class="fragment">human components: ABM
-</ul>
-<p class="fragment"><small>
-<a href="https://www.earth-syst-dynam.net/9/895/2018/">Robinson et al. 2018, Modelling feedbacks between human and natural processes in the land system</a>, two (out of four) use ABM to model the human component
-<ul>
-  <li class="fragment">MedLanD (ABM+CA+process-based): spread of agriculture in Neolithic societies
-  <li class="fragment">BIOME-BGC+DEED (dynamic global vegetation model + Dynamic Ecological Exurban Development)
-</ul>
-</small>
-</section>
-
-<section>
-    <h3>Coupling human and natural systems</h3>
-<p>Simulating long-term change in socioecological systems: application to prehistoric
-Mediterranean societies
-<ul>
-  <li class="fragment">evolution of landscape: process-based erosion and deposition modeling
-  <li class="fragment">land use change driven by agropastoral practicies: stochastic, rule-based model
-  <li class="fragment">or: agent (farming household) driven land use change
-</ul>
-<p class="fragment"><small>
-Stochastic modeling of land-use: cultivated and grazed cells are allocated randomly within catchments 
-whose sizes are estimated on the basis of subsistence needs and fallow/grazing cycles. </small>
-</section>
-
-<section>
-    <h3>Neolithic farming spread ABM </h3>
-<p>Agents employ decision rules to choose land cells to farm or graze based on:
-<ul>
- <li class="fragment">their farming returns  (affect borth and death rate) 
- <li class="fragment">needs (based on household size), 
- <li class="fragment">the potential productivity of land for agropastoral use (soil depth and fertility, slope, current vegetation),
- <li class="fragment">costs to use the land (including access on foot) 
- <li class="fragment"><small>each household agent chooses the best available landscape patches 
-in a round-robin whose order is randomized each execution cycle of the model so that no household will have first access to better lands than other households. Agents also choose land cells from which to collect fuel–wood, based on household size, availability of woody vegetation, and energy costs to access a cell on foot.</small>
-</ul>
-Agents initial state and model developemnt is based on archeological record.
-<small>
-<p>References:
-Ullah and Bergin, 2012; Mayer et al., 2006; Mayer and Sarjoughian, 2009; Barton et al., 2010a
-</small>
-</section>
-
+<!--
 <section>
     <h3>ABM and modeling of processes</h3>
 <p>Discuss disease, urban, and flood modeling and their relation to ABM
@@ -318,6 +325,7 @@ how are these models different and what is same?
 </ul>
 
 </section>
+-->
 
 
 
