@@ -13,10 +13,9 @@
 <p>
 <ul>
 <li>principles of agent-based modeling
-<li>methods, techniques and tools
+<li>simulation examples
+<li>software platforms and tools
 <li>simulating coupled human and natural systems
-<li>applications
-<li>open source tools
 </ul>
 </section>
 
@@ -112,8 +111,8 @@ Propose interactions
     <h3>Emergence and self-organization</h3>
 <p> Applies to both CA and ABM
 <ul>
-<li>Emergent behavior: behavior of the modeled system is more complex than the behavior of the parts:
-recall <a href="https://en.wikipedia.org/wiki/File:Conways_game_of_life_breeder_animation.gif">Puffer breeder CA</a>
+<li>Emergent behavior: behavior of the modeled system is more complex than the behavior of the parts 
+(recall <a href="https://en.wikipedia.org/wiki/File:Conways_game_of_life_breeder_animation.gif">Puffer breeder CA</a>)
  <li class="fragment">synchronization, cooperation or chaos, turbulence 
  <li class="fragment">self-organization: feedback and adaptive behavior
  <li class="fragment">behavior of a component depends on the behavior of the system
@@ -128,12 +127,12 @@ recall <a href="https://en.wikipedia.org/wiki/File:Conways_game_of_life_breeder_
 <li><a href="https://github.com/projectmesa/mesa/">MESA: ABM in python 3+</a>
 <li><a href="https://ccl.northwestern.edu/netlogo/">NetLogo</a>
 and <a href="http://netlogoweb.org/">NetLogoWeb</a>
-<li><a href="https://repast.github.io/">REPAST</a>
-<li><a href="https://cs.gmu.edu/~eclab/projects/mason/">MASON</a>
-<li><a href="https://gama-platform.github.io/">GAMA platform</a>
-<li>GRASS GIS ABM library
+<li><a href="https://repast.github.io/">REPAST</a>, screenshots with <a href="https://repast.github.io/screenshots.html">GIS Integration</a>
+<li><a href="https://cs.gmu.edu/~eclab/projects/mason/">MASON:</a> Multi-agent Simulation Toolkit
+<li><a href="https://gama-platform.github.io/">GAMA platform</a> with a <a href="https://gama-platform.github.io/covid19">new model for Covid-19 modeling</a>
 <li><a href="http://www.geosimulation.org/geosim/abms.htm">ABM at geosimulation labs</a>
 <li><a href="https://www.comses.net/">CoMSES/OpenABM</a>: collection of resources for computational model-based science
+<li>GRASS GIS ABM library
 </ul>
 </section>
 
@@ -143,7 +142,7 @@ and <a href="http://netlogoweb.org/">NetLogoWeb</a>
 <p>
 <ul>
 <li class="fragment">Two groups in randomly distributed patches
-<li class="fragment">Agent is happy if it has $n%$ of neighbors from the same group
+<li class="fragment">Agent is happy if it has $n%$ neighbors from the same group
 <li class="fragment">Unhappy agent moves until it finds happy location
 <li class="fragment">System segregates into more homogeneus groups even for $n$ less than 50% 
 </ul>
@@ -160,8 +159,10 @@ origin in a models of turtles swimming in a pond
 <section>
     <h3>ABM examples</h3>
 <a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
-<p><img height="380" src="img/abm/segregation0.png">
-<p><small><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><img height="380" src="img/abm/segregation0.png">
+<br><small>
+30% similar wanted
+<br><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
 <br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
 </a></small>
 </section>
@@ -169,8 +170,10 @@ origin in a models of turtles swimming in a pond
 <section>
     <h3>ABM examples</h3>
 <a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
-<p><img height="380" src="img/abm/segregation_fin93.png">
-<p><small><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><img height="380" src="img/abm/segregation_fin93.png">
+<br><small>
+30% similar wanted
+<br><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
 <br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
 </a></small>
 </section>
@@ -178,8 +181,10 @@ origin in a models of turtles swimming in a pond
 <section>
     <h3>ABM examples</h3>
 <a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
-<p><img height="380" src="img/abm/segregation0_50.png">
-<p><small><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><img height="380" src="img/abm/segregation0_50.png">
+<br><small>
+50% similar wanted
+<br><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
 <br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
 </a></small>
 </section>
@@ -187,8 +192,10 @@ origin in a models of turtles swimming in a pond
 <section>
     <h3>ABM examples</h3>
 <a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
-<p><img height="380" src="img/abm/segregation0_50_fin.png">
-<p><small><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><img height="380" src="img/abm/segregation0_50_fin.png">
+<br><small>
+50% similar wanted
+<br><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
 <br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
 </a></small>
 </section>
@@ -197,6 +204,7 @@ origin in a models of turtles swimming in a pond
     <h3>ABM examples</h3>
 Explore your scenarios in <a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
 <p>Compare n = 20,30,45 %, also try to start with 25% empty and 60% neighbors
+<p>Read the model description to understand the model set up and behavior, check out the code to see how it is implemented
 <!--how to measure the system seggregation/integration?-->
 </section>
 
@@ -204,6 +212,7 @@ Explore your scenarios in <a href="http://netlogoweb.org/launch#http://netlogowe
     <h3>ABM examples</h3>
 <p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Alternative%20Visualizations/Flocking%20-%20Alternative%20Visualizations.nlogo">Flocking in Netlogo</a>
 <p><img height="380" src="img/abm/flocking0.png">
+<p>Learn more in the NetLogo Model Description Tab
 </section>
 
 <section>
@@ -211,6 +220,7 @@ Explore your scenarios in <a href="http://netlogoweb.org/launch#http://netlogowe
 <p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Alternative%20Visualizations/Flocking%20-%20Alternative%20Vi
 sualizations.nlogo">Flocking in Netlogo</a>
 <p><img height="380" src="img/abm/flocking2.png">
+<p>Learn more in the NetLogo Model Description Tab
 </section>
 
 <section>
@@ -218,6 +228,7 @@ sualizations.nlogo">Flocking in Netlogo</a>
 <p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
 Basic Epidemic Model</a>
 <p><img height="380" src="img/abm/epidem_basic0.png">
+<p>Learn more in the NetLogo Model Description Tab
 </section>
 
 <section>
@@ -225,6 +236,7 @@ Basic Epidemic Model</a>
 <p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
 Basic Epidemic Model</a>
 <p><img height="380" src="img/abm/epidem_basic2.png">
+<p>Learn more in the NetLogo Model Description Tab
 </section>
 
 <section>
@@ -232,6 +244,7 @@ Basic Epidemic Model</a>
 <p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
 Basic Epidemic Model</a>
 <p><img height="380" src="img/abm/epidem_basic3.png">
+<p>Learn more in the NetLogo Model Description Tab
 </section>
 
 <section>
@@ -258,21 +271,27 @@ Basic Epidemic Model</a>
 
 <section>
     <h3>Coupling human and natural systems</h3>
-<p>MedLanD simulates long-term change in socioecological systems: prehistoric
-Mediterranean societies
+<p><a href="http://medland.asu.edu/"><b>MedLanD</b></a> 
+simulates long-term change in socioecological systems: prehistoric Mediterranean societies
 <ul>
   <li class="fragment">evolution of landscape: process-based erosion and deposition modeling
-  <li class="fragment">land use change driven by agropastoral practicies (two options): 
+  <li class="fragment">land use change driven by agropastoral practicies: 
+<p>
   <ul>
      <li class="fragment">stochastic, rule-based model
+<p class="fragment"> or
      <li class="fragment">agent (farming household) driven land use change
-  <ul>
+  </ul>
 </ul>
 <!--
 <p class="fragment"><small>
 Stochastic modeling of land-use: cultivated and grazed cells are allocated randomly within catchments 
 whose sizes are estimated on the basis of subsistence needs and fallow/grazing cycles. </small>
 -->
+<p><small>
+<a href="https://doi.org/10.1016/j.ecolmodel.2012.02.010">
+Barton et al., 2012, Looking for the future in the past: Long-term change in socioecological systems, Ecological Modelling, 241, p 42-53</a>
+</small>
 </section>
 
 <section>
@@ -289,10 +308,18 @@ in a round-robin whose order is randomized each execution cycle of the model so 
 -->
 </ul>
 <p class="fragment">Agents initial state and rules are based on archeological record.
-<small>
-<p>References:
-Ullah and Bergin, 2012; Mayer et al., 2006; Mayer and Sarjoughian, 2009; Barton et al., 2010a
+<p> <small>
+Mayer G, Hessam S, (2007) Complexities of Simulating a Hybrid Agent-Landscape Model Using Multi-Formalism Composability, 
+Agent-Directed Simulation, Spring Simulation Multi-conference, pp. 161-168, Norfolk, Virginia.
+see <a href="http://medland.asu.edu/papers">Complete list references (2004 - present)</a>
 </small>
+</section>
+
+<section>
+    <h3>Coupling human and natural systems</h3>
+Medlands Components
+<p><img height="400" src="img/abm/MedLands.png">
+<p><small><a href="http://medland.asu.edu/papers">MedLands Complete list of references (2004 - present)</a></small>
 </section>
 
 <section>
@@ -326,8 +353,6 @@ how are these models different and what is same?
 
 </section>
 -->
-
-
 
 <div class="parent-page">
     <!-- &#x1f3e0; -->
