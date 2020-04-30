@@ -596,8 +596,8 @@ def main():
     maxfields = int(round(totlabor / fieldlabor))
 
     # These are various rates with min and max values entered in the gui that we need to parse
-    farmimpact = map(float, options['farmimpact'].split(','))
-    fertilrate = map(float, options['fertilrate'].split(','))
+    farmimpact = list(map(float, options['farmimpact'].split(',')))
+    fertilrate = list(map(float, options['fertilrate'].split(',')))
 
     # Setting up Landscape Evol variables to write the r.landscape.evol command later
     elev = options["elev"]
@@ -808,35 +808,36 @@ def main():
 
         # Calculate the wheat yield map (kg/cell)
         tempwheatreturn = "%stemporary_wheat_yields_map" % pid
-        e = '''${tempwheatreturn} = eval(x = if(${precip} > 0, (0.51*log(${precip}))+1.03, 0), \
-                                         y = if(${sfertil} > 0, (0.28*log(${sfertil}))+0.87, 0), \
-                                         z = if(${sdepth} > 0, (0.19*log(${sdepth}))+1, 0), \
-                                         a = if(x <= 0 || z <= 0, 0, ((((x*y*z)/3)*${maxwheat})/${fieldsperhectare})), \
+        e = '''{tempwheatreturn} = eval(x = if({precip} > 0, (0.51*log({precip}))+1.03, 0), \
+                                         y = if({sfertil} > 0, (0.28*log({sfertil}))+0.87, 0), \
+                                         z = if({sdepth} > 0, (0.19*log({sdepth}))+1, 0), \
+                                         a = if(x <= 0 || z <= 0, 0, ((((x*y*z)/3)*{maxwheat})/{fieldsperhectare})), \
                                          if(a < 0, 0, a))'''
-        twr = grass.mapcalc_start (e,  quiet = True,
+        twr = grass.mapcalc(e.format(  
                       tempwheatreturn = tempwheatreturn,
                       precip = precip,
                       sfertil = oldfert,
                       sdepth = oldsdepth,
                       maxwheat = maxwheat,
-                      fieldsperhectare = fieldsperhectare)
+                      fieldsperhectare = fieldsperhectare),
+                      quiet = True)
 
         # Calculate barley yield map (kg/cell)
         tempbarleyreturn = "%stemporary_barley_yields_map" % pid
-        e = '''${tempbarleyreturn} = eval(x = if(${precip} > 0, (0.48*log(${precip}))+1.51, 0), \
-                                          y = if(${sfertil} > 0, (0.34*log(${sfertil}))+1.09, 0), \
-                                          z = if(${sdepth} > 0, (0.18*log(${sdepth}))+0.98, 0), \
-                                          a = if(x <= 0 || z <= 0, 0, ((((x*y*z)/3)*${maxbarley})/${fieldsperhectare})), \
+        e = '''{tempbarleyreturn} = eval(x = if({precip} > 0, (0.48*log({precip}))+1.51, 0), \
+                                          y = if({sfertil} > 0, (0.34*log({sfertil}))+1.09, 0), \
+                                          z = if({sdepth} > 0, (0.18*log({sdepth}))+0.98, 0), \
+                                          a = if(x <= 0 || z <= 0, 0, ((((x*y*z)/3)*{maxbarley})/{fieldsperhectare})), \
                                           if(a < 0, 0, a))'''
-        tbr = grass.mapcalc_start(e, quiet = True,
+        tbr = grass.mapcalc(e.format(
                       tempbarleyreturn = tempbarleyreturn,
                       precip = precip,
                       sfertil = oldfert,
                       sdepth = oldsdepth,
                       maxbarley = maxbarley,
-                      fieldsperhectare = fieldsperhectare)
+                      fieldsperhectare = fieldsperhectare),
+                      quiet = True)
 
-        twr.wait(), tbr.wait()
 
         # Create the desired cereal mix
         tempcerealreturn = "%stemporary_cereal_yields_map" %pid
@@ -1228,17 +1229,17 @@ def main():
             medprobmap = "%stemp_fireprob_med" % pid
             hiprobmap = "%stemp_fireprob_hi" % pid
             # Hardcoding cutoffs for no, low, medium, high probability based on histogram of spanish fire probability map.
-            e = '''${lowprobmap} = if(${fireprob} <= 0.2, 1, null())'''
+            e = b'''${lowprobmap} = if(${fireprob} <= 0.2, 1, null())'''
             lpm = grass.mapcalc_start(e, quiet = "True",
                           fireprob=fireprob,
                           lowprobmap=lowprobmap)
 
-            e = '''${medprobmap} = if(${fireprob} > 0.2 || ${fireprob} <= 0.6, 1, null())'''
+            e = b'''${medprobmap} = if(${fireprob} > 0.2 || ${fireprob} <= 0.6, 1, null())'''
             mpm = grass.mapcalc_start(e, quiet = True,
                           fireprob=fireprob,
                           medprobmap=medprobmap)
 
-            e = '''${hiprobmap}=if(${fireprob} > 0.6, 1, null())'''
+            e = b'''${hiprobmap}=if(${fireprob} > 0.6, 1, null())'''
             hpm = grass.mapcalc_start(e, quiet = True,
                           fireprob=fireprob,
                           hiprobmap=hiprobmap)
@@ -1308,9 +1309,7 @@ def main():
                           tempfertil = tempfertil)
 
         fertcolors = ['0 white', '20 grey', '40 yellow', '60 orange', '80 brown', '100 black']
-        fc = grass.feed_command('r.colors', quiet = True, map = outfert, rules = "-")
-        fc.stdin.write('\n'.join(fertcolors))
-        fc.stdin.close()
+        grass.write_command('r.colors', quiet = True, map = outfert, rules = "-", stdin='\n'.join(fertcolors))
 
         # Update landcover
         # Calculating rate of regrowth based on current soil fertility, spil depths, and precipitation. Recoding fertility (0 to 100%), depth (0 to >= 1m), and precip (0 to >= 1000mm) with a power regression curve from 0 to 1, then taking the mean of the two as the regrowth rate
@@ -1373,9 +1372,7 @@ def main():
             grass.warning("No landcover labling rules found at path \"%s\"\nOutput landcover map will not have text labels in queries" % lc_rules)
 
         lccolors = ['0 grey', '10 red', '20 orange', '30 brown', '40 yellow', '%s green' % maxval]
-        lcc = grass.feed_command('r.colors', quiet = True, map = outlcov, rules = "-")
-        lcc.stdin.write('\n'.join(lccolors))
-        lcc.stdin.close()
+        grass.write_command('r.colors', quiet = True, map = outlcov, rules = "-", stdin='\n'.join(lccolors))
 
         # Collect and write landcover and fertiltiy temporal matrices
         grass.message('Collecting some landcover and fertility stats from this year....')
@@ -1443,9 +1440,7 @@ def main():
             sys.exit(1)
 
         cfcolors = ['0.1 grey', '0.05 red', '0.03 orange', '0.01 brown', '0.008 yellow', '0.005 green']
-        cfc = grass.feed_command('r.colors', quiet = True, map = outcfact, rules = "-")
-        cfc.stdin.write('\n'.join(cfcolors))
-        cfc.stdin.close()
+        grass.write_command('r.colors', quiet = True, map = outcfact, rules = "-", stdin='\n'.join(cfcolors))
 
         # Run r.landscape.evol with this years' cfactor map
         landEvolve(m, outcfact, outxs, r, rain, storms, stormlength, statsout, levol_flags)
@@ -1635,7 +1630,7 @@ def landEvolve(m, outcfact, outxs, r, rain, storms, stormlength, statsout, levol
             inelev = "%sElevation_Map0001" % (p)
 
         try:
-            grass.run_command('r.landscape.evol2.py', quiet = True, number = 1, prefx = options["prefx"], c = outcfact, elev = inelev, initbdrk = initbdrk, outdem = "Elevation_Map", outsoil = "Soil_Depth_Map", r = r, k = k, sdensity = sdensity, kappa = kappa, manningn = manningn, flowcontrib = outxs, cutoff1 = cutoff1, cutoff2 = cutoff2, cutoff3 = cutoff3, rain = rain, storms = storms, stormlength = stormlength, speed = speed, kt = kt, loadexp = loadexp, smoothing = smoothing, statsout = statsout, flags = ''.join(levol_flags))
+            grass.run_command('./r.landscape.evol2.py', quiet = True, number = 1, prefx = options["prefx"], c = outcfact, elev = inelev, initbdrk = initbdrk, outdem = "Elevation_Map", outsoil = "Soil_Depth_Map", r = r, k = k, sdensity = sdensity, kappa = kappa, manningn = manningn, flowcontrib = outxs, cutoff1 = cutoff1, cutoff2 = cutoff2, cutoff3 = cutoff3, rain = rain, storms = storms, stormlength = stormlength, speed = speed, kt = kt, loadexp = loadexp, smoothing = smoothing, statsout = statsout, flags = ''.join(levol_flags))
         except:
             grass.fatal("Something is wrong with the values you sent to r.landscape.evol. Did you forget something? Check the values and try again...\nSimulation terminated with an error at time step %s" % o)
             sys.exit(1)
