@@ -17,7 +17,6 @@ Requirements
 
 - Bash
 - Python
-- Pandoc when using rst files
 
 Build and publish
 -----------------
