@@ -37,7 +37,11 @@ subentries = {}
 
 for name in files:
     if not os.path.exists(name):
-        print("WARNING: %s does not exist" % name, file=sys.stderr)
+        print(
+            "WARNING: {file} does not exist,"
+            " so it won't be included in the index".format(file=name),
+            file=sys.stderr,
+        )
         continue
     with open(name, 'r') as f:
         title = None

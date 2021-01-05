@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import os
 import sys
 import re
 
@@ -18,16 +19,21 @@ for name in files:
         for line in f:
             match = link.search(line)
             if match:
-                entries.append(match.group(1))
+                entries.append((match.group(1), name))
 
 # remove anchor part
-entries = [entry.split('#')[0] for entry in entries]
+entries = [(entry.split("#")[0], origin) for entry, origin in entries]
 
 # only unique entries, preserved only the first one
-previous = None
 unique_entries = []
-for entry in entries:
+for entry, origin in entries:
     if entry not in unique_entries:
+        if not os.path.exists(entry) and not entry.startswith("http"):
+            print(
+                "WARNING: {link} extracted from {file} does not exist as local file"
+                " and it does not look like an URL".format(link=entry, file=origin),
+                file=sys.stderr,
+            )
         unique_entries.append(entry)
 
 # print in one line
