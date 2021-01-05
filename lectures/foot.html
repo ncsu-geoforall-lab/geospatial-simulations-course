@@ -1,4 +1,5 @@
-            </div>
+
+</div>
         </div>
 
         <script src="dist/reveal.js"></script>
@@ -6,6 +7,7 @@
         <script src="plugin/markdown/markdown.js"></script>
         <script src="plugin/highlight/highlight.js"></script>
         <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
         <script>
 
             // Full list of configuration options available here:
@@ -91,6 +93,20 @@
                 // Parallax background size
                 //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
 
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
                 math: {
                     mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
                     config: 'TeX-AMS_HTML-full',
@@ -98,7 +114,12 @@
                     TeX: { Macros: { RR: "{\\bf R}" } }
                 },
 
-                plugins: [ RevealMath, RevealHighlight, RevealMarkdown ]
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
             });
         </script>
         <script src="js/jquery-3.4.1.min.js"></script>
