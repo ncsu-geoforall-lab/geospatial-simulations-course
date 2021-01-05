@@ -15,7 +15,7 @@ def error_message(*objs):
     print("ERROR: ", *objs, file=sys.stderr)
 
 def main():
-    directories = ['css', 'js', 'lib', 'plugin']
+    directories = ['css', "dist", 'js', 'plugin']
     
     parser = argparse.ArgumentParser(
         description='Copies the common files for all presentations to one directory')

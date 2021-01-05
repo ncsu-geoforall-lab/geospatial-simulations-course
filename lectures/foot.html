@@ -1,15 +1,17 @@
-        </div>  <!-- slides -->
+            </div>
+        </div>
 
-    </div>  <!-- reveal -->
-
-        <script src="lib/js/head.min.js"></script>
-        <script src="js/reveal.js"></script>
-
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
         <script>
 
             // Full list of configuration options available here:
             // https://github.com/hakimel/reveal.js#configuration
             Reveal.initialize({
+                hash: true,
                 // Display controls in the bottom right corner
                 controls: false,
 
@@ -39,9 +41,6 @@
                 // Bounds for smallest/largest possible scale to apply to content
                 minScale: 0.5,
                 maxScale: 5.0,
-
-                theme: Reveal.getQueryHash().theme,  // available themes are in /css/theme
-                transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
 
                 // Push each slide change to the browser history
                 history: true,
@@ -91,33 +90,19 @@
 
                 // Parallax background size
                 //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
-                chalkboard: { 
-        		// optionally load pre-recorded chalkboard drawing from file
-            		src: "chalkboard.json",
-            	},
-                // Optional libraries used to extend on reveal.js
-                dependencies: [
-                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-                    { src: 'plugin/math/math.js', async: true },
-                    { src: 'plugin/chalkboard/chalkboard.js' }
-                ],
-                keyboard: {
-            	    67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
-            	    66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
-            	    46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
-            	     8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
-            	    68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
-            	},
-            });
 
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [ RevealMath, RevealHighlight, RevealMarkdown ]
+            });
         </script>
-<script src="js/jquery-3.4.1.min.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/slideranim.js"></script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
     </body>
 </html>
