@@ -21,17 +21,45 @@ Requirements
 * Pandoc when using rst files
 
 
-How to use it
--------------
+Build and publish
+-----------------
 
-To build the pages, run ``./build.sh``. 
-This will create directory ``build`` on the repository root level.
-To preview the resulting website, open ``build/index.html``.
+The pages are build from the source code and placed into a separate directory.
+Web page is published using GitHub pages. The publishing step is done
+automatically.
 
-Before publishing for the first time, run script ``get-gh-pages-branch.sh``.
+Building the pages
+++++++++++++++++++
 
-To publish the changes online, run script ``publish.sh``.
+In your clone of the repository where you are in master branch,
+use ``build.sh`` script to build the pages.
 
+::
+    ./build.sh
+
+The directory where pages are build is inside the directory with
+the source code and is named ``build``.
+You can look at the pages using e.g.::
+
+    firefox build/index.html
+
+If you don't see the changes you have made, delete the file in the build
+directory and build again (the mechanism to recognize changes is not smart).
+
+To build lectures go to the lecture directory and run the ``build.sh``
+for lectures script there, i.e.::
+
+    cd lectures
+    ./build.sh
+
+It is important to always be in the directory where the ``build.sh``
+script is for each part.
+
+Publishing the pages
+++++++++++++++++++++
+
+Once the changed and committed and pushed to the master branch, the
+website will be deployed automatically using GitHub Actions.
 
 Authors
 -------
