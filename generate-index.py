@@ -78,15 +78,15 @@ sys.stdout.write('<h2>{t}</h2>\n\n'.format(t=page_title))
 sys.stdout.write(start_html)
 sys.stdout.write('<{t}>\n'.format(t=list_type))
 for (filename, title) in entries:
-    sys.stdout.write('    <li><a href="{f}">{t}</a></li>\n'.format(f=filename, t=title))
+    sys.stdout.write("    <li>\n".format(f=filename, t=title))
+    sys.stdout.write('        <a href="{f}">{t}</a>\n'.format(f=filename, t=title))
     # write the sublist
     if subheadings and filename in subentries:
-        sys.stdout.write('<{t}>\n'.format(t=sublist_type))
+        sys.stdout.write("        <{t}>\n".format(t=sublist_type))
         for subheading in subentries[filename]:
-            sys.stdout.write('    <li>{t}</li>\n'.format(t=subheading))
-            sys.stdout.write('</li>\n')
-        sys.stdout.write('</{t}>\n'.format(t=sublist_type))
-    sys.stdout.write('</li>\n')
+            sys.stdout.write("            <li>{t}</li>\n".format(t=subheading))
+        sys.stdout.write("        </{t}>\n".format(t=sublist_type))
+        sys.stdout.write("    </li>\n")
 sys.stdout.write('</{t}>\n'.format(t=list_type))
 
 sys.stdout.write(end_html)
