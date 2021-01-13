@@ -104,7 +104,51 @@ and path sampling method (r.sim.water), see the last two sections of this assign
   </ul>
 </ul>
 
-<h3>Homework 3. A and B</h3>
-Write a paper about surface water simulations - use your judgement to select what you will write about,
+<h3 id="geostats" class="subtopic">3.C Geostatistical simulations and uncertainty propagation</h3>
+Outline:
+<ul>
+    <li>mathematical foundations
+    <li>numerical techniques
+    <li>applications (stream mapping with uncertainty)
+    <li>open source tools: coupling GRASS GIS and R
+</ul>
+
+<h4>Lecture</h4>
+Slides
+<ul>
+<li><a href="../lectures/geostats_sim.html">Lecture slides: Geostatistical simulations</a>
+</ul>
+Supplemental materials:
+<ul>
+<li><a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">Jimenez: A (Non) Conditional Gaussian Simulation Example Using Python</a>
+<li><a href="https://petrowiki.org/Geostatistical_conditional_simulation">Geostatistical_conditional_simulation in petroleum industry</a>
+<li><a href="https://www.youtube.com/watch?v=NmpMWehRNZY"> Geostatistics session 5 conditional simulation video by Jef Caers, Stanford</a>
+<li><a href="http://www.spatialanalysisonline.com/HTML/kriging_interpolation.htm">Conditional simulation in Geospatial Analysis book</a>
+<li><a href="http://pro.arcgis.com/en/pro-app/help/analysis/geostatistical-analyst/key-concepts-of-geostatistical-simulation.htm">
+Geostatistical simulation in ArcGIS</a>
+<li><a href="https://www.image.ucar.edu/GSP/Software/Fields/Help/sim.Krig.html">UCAR</a>
+<li>C. Lantuejoul, 2013, Geostatistical simulation: models and algorithms, Springer
+<li><a href="https://link.springer.com/content/pdf/10.1007%2F978-3-319-78999-6.pdf">Handbook of Mathematical Geosciences</a> Springer Open, 2018</a>
+</ul>
+
+<h4>Assignment 3.C</h4>
+<ul>
+<li>Derive a probability map of stream networks using geostatistical simulation and error propagation
+techniques, following the methodology described in the Chapter 10,
+<a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">Hengl, T.: A practical guide to geostatistical mapping</a> (theory is in the chapter 2.4) and the references.
+<a href="../assignments/geostats_sim.html">Suggested workflow in GRASS and R</a>
+<li>
+Optional: apply the stream probability mapping method to our small rural watershed using the points
+in the layer "elev_lid792_randpts" in our data set or any elevation data set of your choice.
+<li>
+Optional: evaluate the uncertainty of inundation extent prediction due to errors in a DEM
+<p>
+Learn how to <a href="https://github.com/LukasGab/R_grassgis">Run GRASS from R</a>
+<!--<li>Simulate distribution of studied variable (e.g. pollutant) based on observed data and their spatial relationships. (R)-->
+</ul>
+
+<h3>Homework 3. ABC</h3>
+Write a paper about surface water simulations and stream extraction uncertainty - 
+use your judgement to select what you will write about,
 and add link(s) to dynamic visualizations that you have developed for mapbox.
 
