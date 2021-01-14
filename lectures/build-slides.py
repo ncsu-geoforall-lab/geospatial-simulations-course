@@ -52,6 +52,22 @@ def main():
                         help='Description of the material')
     parser.add_argument('--meta-author', dest='meta_author', action='store',
                         help='Author of the material')
+    parser.add_argument(
+        "--link-parent-page",
+        dest="parent_pages_dir",
+        action="store",
+        metavar="DIRECTORY",
+        help=(
+            "Replace parent-page link in foot with link to matching file"
+            " in a given DIRECTORY"
+        ),
+    )
+    parser.add_argument(
+        "--warn-parent-page-missing",
+        dest="warn_no_parent",
+        action="store_true",
+        help=("Print a warning when the parrent page is missing"),
+    )
     parser.add_argument('--skip-copy-dirs', dest='skip_copy', action='store_true',
                         help='Do not copy usualy used directories (%s), works only if the directories are in the current working directory' % ', '.join(directories))
 
@@ -105,7 +121,18 @@ def main():
                     outfile.write(line)
             outfile.write(generated_file_info)
         with open(foot) as infile:
+                parent_warning_issued = False
                 for line in infile:
+                    if args.parent_pages_dir:
+                        url = os.path.join(args.parent_pages_dir, args.outfile)
+                        if os.path.exists(url):
+                            line = re.sub(r'<a class="parent-page" href="[^"]*"', f'<a class="parent-page" href="{url}"', line)
+                        elif not parent_warning_issued and args.warn_no_parent:
+                            print(
+                                f"Parent page {url} for {args.outfile} does not exist",
+                                file=sys.stderr,
+                            )
+                            parent_warning_issued = True
                     outfile.write(line)
 
     if not args.skip_copy and os.path.abspath(outdir) != os.getcwd():
