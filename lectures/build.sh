@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+# Use the following command line option to see if the file names
+# of slides match the topics:
+# --warn-parent-page-missing
+# (Option is passed to the slide build script.)
+
 BUILD_DIR=../build/lectures
 
 mkdir -p $BUILD_DIR
@@ -6,10 +13,9 @@ mkdir -p $BUILD_DIR
 
 for FILE in `ls *.html|grep -v foot|grep -v head`
 do
-    # Add the following line to the command below to see how if the file names match.
-    # --warn-parent-page-missing \
     ./build-slides.py --outdir=$BUILD_DIR \
         --link-parent-page "../topics" \
+        "$@" \
         --outfile=$FILE $FILE
 done
 
