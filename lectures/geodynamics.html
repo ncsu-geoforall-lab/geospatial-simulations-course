@@ -59,13 +59,12 @@ and/or using different technologies: <b>multitemporal data</b>
 </section>
 
 <section>
-   <h3>Monitoring dynamic process(es)</h3>
+   <h3>Monitoring dynamic processes</h3>
+<p>
 <ul>
-  <li>how fast your variable(s) change? do your data capture the full dynamics?
-  <li>is the process multiscale? which temporal scale is captured by your data?
+  <li>How fast do your variables change? Do your data capture the full dynamics?
+  <li>Is the process multiscale? Which temporal scale is captured by your data?
   <li>what is driving the process dynamics - do you have data to capture the driving forces?
-   <li>are there models to simulate your processes? 
-Do you plan to develop a new one or improve an existing one?
 </ul>
 </section>
 
@@ -75,7 +74,7 @@ Do you plan to develop a new one or improve an existing one?
   <li class="fragment">continuous fields sampled by point data: 
 multivariate interpolation to convert discrete observations into continuous dynamic model
   <li class="fragment">classification, feature extraction, change detection and quantification
-  <li class="fragment">statistical modeling to relate the observed data to the studied process dynamics
+  <li class="fragment">statistical modeling to relate the observed data (predictors) to the studied process dynamics (response)
 </ul>
 </section>
 
@@ -96,16 +95,16 @@ multivariate interpolation to convert discrete observations into continuous dyna
 <p class="fragment"><small>Data sources: digitized contours, photogrammetry mass points, lidar, GPS </small>
 </section>
 
-<section class="stretch" data-animate="1,13" data-path="img/geodynamics/JR_anim/JR_anim">
-<h3>DEM time series 1974 - 2017</h3>
-
-</section>
-
 <section>
    <h3>Observation multitemporal data</h3>
 <p><small>Bi-variate interpolation of DEMs from point clouds to surfaces and dynamic visualization</small>
 <p> <img height="430" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
 <p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
+</section>
+
+<section class="stretch" data-animate="1,13" data-path="img/geodynamics/JR_anim/JR_anim">
+<h3>Multitemporal DEM 1974 - 2017</h3>
+
 </section>
 
 <section>
@@ -115,7 +114,7 @@ Satellite imagery (3m res), September 2017 - July 2018
 <p>
 <iframe data-autoplay width="580" height="360" src="img/geodynamics/sep17_july18.mp4" frameborder="0" allowfullscreen></iframe>
 <p><small>Planet: world’s largest constellation of Earth-imaging (micro) satellites providing daily observations
-for entire Earth at 3m resolution</small>
+for entire Earth at 1m resolution</small>
 </section>
 
 <section>
@@ -128,7 +127,7 @@ for entire Earth at 3m resolution</small>
 <section>
    <h3>Observation timeseries</h3>
 <ul>
-<li>Chesapeake bay monthly nitrogen concentrations - sampling sites  
+<li>Chesapeake bay monthly nitrogen concentrations capture seasonal trends - sampling sites  
 </ul>
 <img height="350" src="img/geodynamics/chesapsites.jpg">
 </section>
@@ -168,25 +167,14 @@ for entire Earth at 3m resolution</small>
 Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
 </section>
 
-<!--
-<section>
-   <h3>Processing multitemporal continuous fields data</h3>
-<ul>
-<li>analyze and interpolate point clouds: DSMs with aligned, common resolution grids
-<li>raster DSMs are more suitable for time series than TIN
-<li>use GCPs and permanent features to evaluate accuracy, correct errors and distortions
-<li>assign time stamps and register raster DSMs within GIS-based temporal data framework
-</ul>
-</section>
--->
-
 <section> <h3>Dynamic models from simulations</h3> </section>
 
 <section> <h3>Dynamic models from simulations</h3> 
-<p>Results of numerical modeling 
-<p>Well defined time step: 
-<br> depends on application, input data and numerical method
-<p> <img height="380" src="img/geodynamics/lakef1994.gif">
+<ul>
+<li>Results of numerical modeling 
+<li>Well defined time step: depends on application, input data and numerical method
+</ul>
+<br> <img height="400" src="img/geodynamics/lakef1994.gif">
 </section>
 
 <section>
@@ -196,7 +184,8 @@ Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
     <img width="45%" src="img/diffusion_flows/fanimwalk.gif">
      &nbsp; &nbsp;
     <img width="45%" src="img/diffusion_flows/fanimhhcolp.gif">
-<p><small>Mitas and Mitasova, 1998; Mitasova, Thaxton, Hofierka, McLaughlin, Moore, Mitas, 2005</small>
+<p><small><a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/II.6.8_Mitasova_044.pdf">
+Mitasova, Thaxton, Hofierka, McLaughlin, Moore, Mitas, 2005</a></small>
 </section>
 
 <section>
@@ -205,6 +194,8 @@ Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
 <br>Path sampling simulations capture impact of microtopography: tillage, time step is fraction of a second
 <p>
     <img height="400" src="img/geodynamics/agisoft_jan.gif">
+<p><small><a href="https://www.isprs-ann-photogramm-remote-sens-spatial-inf-sci.net/III-8/159/2016/">
+Jeziorska et al., 2016, Overalnd flow analysis using time series of UAS-derived elevation models</a></small>
 </section>
 
 <section>
