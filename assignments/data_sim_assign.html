@@ -64,9 +64,11 @@ r.mapcalc "tiltplane = 0.02*row()+0.2*col()+50"
 r.mapcalc "tiltpl_under = if(tiltplane &lt; elev_lid792_1m + 2,tiltplane,null())"
 </code></pre>
 <p>
+<span class="question">
 Generate a plane that crosses the surface along the region diagonal with 10% tilt and protrudes 5m through
 the elev_lid792_1m surface. Visualize the plane together with elev_lid792_1m in 3D. Provide the equation
 in mathematical and map algebra form.
+</span>
 
 <p>
 In the lecture we have shown mathematical surface with hills and valleys generated using the following function
@@ -76,8 +78,10 @@ r.mapcalc "waves = sin(0.4*row())+0.3*cos(col())+80"
 </code></pre>
 
 <p>
+<span class="question">
 Using map algebra generate surface with hills, depressions or valleys that is different from the one shown in lecture,
 but is close enough to the elev_lid792_1m surface that you can visualize them together in 3D.
+</span>
 
 <h3>Stochastic methods</h3>
 <p>
@@ -109,6 +113,9 @@ r.mapcalc "gauss_surfspat = (gauss_spatial_d10 - 134.441) * (0.3/254)"
 r.mapcalc "elev_lidnoise_gspat = elev_lid792_1m + gauss_surfspat"
 r.colors elev_lidnoise_gspat co=elevation
 </code></pre>
+<span class="question"> Can you explain the constants used in the mapcalc command for gauss_surfspat?
+Where do these constants come from and why are they needed?
+</span>
 
 <p>
 Visualy compare watersheds and streams derived from elev_lid792_1m, elev_lidnoise, elev_lidnoise_gauss, elev_lidnois_gspat:
@@ -121,6 +128,8 @@ r.to.vect basin_5K out=basin_5K type=area
 r.to.vect basin_10K_noisegspat out=basin_10K_noisegspat type=area
 r.to.vect basin_15K_noise out=basin_15K_noise type=area
 </code></pre>
+<span class="question">What can you say about the spatial pattern of flow accumulation derived from these three DEMs?
+</span>
 
 Optional: For quantitative comparison, you can extract selected basins and compare their area using r.report, compute distances between
 the boundaries, extract streams using r.stream.extract and compare their characteristics using the r.stream* add-ons. 
@@ -196,6 +205,10 @@ r.colors elev_noisefractal co=elevation
 r.univar elev_noisefractal
 r.watershed -a elev_noisefractal thresh=15000 accum=_accum_15K_noisefrac drain=draindir_15K_noisefrac basin=basin_15K_noisefrac
 </code></pre>
+<span class="question"> 
+Can you explain the constants used in the mapcalc command for elev_noisefractal?
+Where do these constants come from and why are they needed?
+</span>
 
 <p>Compute elevation surface from the lidar bare ground data with different smoothing and compare 
 the impact on flow modeling. Also compare the flow pattern from simulated noise with the noise combined
@@ -208,11 +221,10 @@ v.surf.rst elev_lid792_bepts elev=elev_lid_t120 npmin=120 ten=120
 r.watershed -a elevation=elev_lid_default threshold=5000 accumulation=accum_5K_liddef drainage=draindir_5K_liddef basin=basin_5K_liddef
 r.watershed -a elevation=elev_lid_t120 threshold=5000 accumulation=accum_5K_lidt120 drainage="draindir_5K_lidt120 basin=basin_5K_lidt120
 </code></pre>
+<span class="question">Which of the surfaces with simulated noise produce the flow pattern closest to the surface
+with noise from lidar point cloud? </span>
 
 <h3> Random point data </h3>
-r.random.cells manual page has good examples
-r.random, r.random.cells, r.sample.category,
-v.perturb, v.random, v.kcv 
 <p>
 In this example we analyze how errors in point position can influence viewshed analysis.
 First, install r.viewshed.cva addon:
@@ -230,9 +242,12 @@ r.viewshed.cva input=elev_lid792_1m vector=random_view_perturb output=cumulative
 r.report map=cumulative units=p
 r.report map=cumulative_perturb units=p
 </code></pre>
+<span class="question">What is the impact of error in point position on total viewshed area?  </span>
+Additional commands you can use to simulate simulate point data in raster or vector representation:
+r.random, r.random.cells, r.sample.category, v.perturb, v.random, v.kcv 
 
 <h3> Generating patches </h3>
-Note: we will be testing these add-on modules.
+Note: this section is optional - we are testing these add-on modules here.
 Create several landscape cover scenarios, for example, to explore the following scenario - 
 if we need to convert 30% of forest to development, is it better to create a single compact area
 or many smaller areas?
