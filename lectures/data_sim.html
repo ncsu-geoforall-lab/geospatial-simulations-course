@@ -13,14 +13,14 @@
 <p>
 <ul>
    <li>when we need data simulation
-   <li>selected computational techniques for data simulation
+   <li>deterministic, random, and fractal surfaces
+   <li>simulating point data and patches
    <li>generating scenarios
-   <li>generating 3D data from physical models: SfM approach
 </ul>
 </section>
 
 <section>
-   <h3>Developing process simulations</h3>
+   <h3>Steps in development of simulations</h3>
 <ul>
 <li class="fragment">definition of research question 
 <li class="fragment">identification of available data 
@@ -30,7 +30,7 @@
 <li class="fragment">model parametrization
 <li class="fragment">calibration and validation
 <li class="fragment">generating scenarios and running simulations
-<li class="fragment">uncertainty analysis
+<li class="fragment">uncertainty analysis and error propagation
 </ul>
 </section>
 
@@ -43,7 +43,6 @@
 <li class="fragment">scenario modeling
 <li class="fragment">testing algorithms
 <li class="fragment">noise and artifact detection
-<li class="fragment">add yours
 </ul>
 </section>
 
@@ -90,8 +89,10 @@ $z = \sin (0.4x) + 0.3 \cos(y) + 80$
 <section>
    <h3>Stochastic methods</h3>
 <ul>
-<li>Methods based on random fields
-<li>Uniform random field - linear random number generator
+ <ul>
+ <li>Methods based on random fields
+ <li>Uniform random field - linear random number generator
+ </ul>
 </ul>
 <p><img height="130" src="img/data_sim/random_0_20_3D.jpg">
 <p class="fragment"><img height="200" src="img/data_sim/random_0_20_histogramred.png">
@@ -100,9 +101,7 @@ $z = \sin (0.4x) + 0.3 \cos(y) + 80$
 
 <section>
    <h3>Stochastic methods</h3>
-<ul>
-<li>Independednt random variable $z$,
- is often distributed according to the normal distribution:
+<small>Independednt random variable $z$, is often distributed according to the normal distribution:
 $$
 f(z | \mu,\sigma^2) = \frac{1}{\sqrt{2\pi} \sigma} e^{-(z-\mu)^2 / 2\sigma^2} 
 $$
@@ -111,7 +110,7 @@ $\sigma^2$ is the variance, $e$ is exponential function, and $f(z | \mu,\sigma^2
 is probability density function of the normal distribution 
 <p class="fragment">
 Monte Carlo methods often require generating values that have normal distribution
-<p class="fragment"><small>
+<p class="fragment">
 See also 
 <a href="https://en.wikipedia.org/wiki/Normal_distribution">Normal distribution</a> here
 </small>
