@@ -21,7 +21,7 @@ instructions for the
 Start GRASS - click on GRASS icon or type<br>
 
 <pre><code>
-grass74
+grass78
 </code></pre>
 
 <p>
@@ -79,14 +79,15 @@ r.mapcalc "waves = sin(0.4*row())+0.3*cos(col())+80"
 
 <p>
 <span class="question">
-Using map algebra generate surface with hills, depressions or valleys that is different from the one shown in lecture,
+Using map algebra generate surface with hills, depressions or valleys that is different from the one shown in the lecture,
 but is close enough to the elev_lid792_1m surface that you can visualize them together in 3D.
 </span>
 
 <h3>Stochastic methods</h3>
 <p>
 Investiagte impact of noise with different distributions on water flow pattern, watershed and stream 
-delineation using random surfaces.
+delineation using random surfaces. Read the manual pages for the relevant commands to understand 
+the methods and parameters. 
 
 <p>First we explore different types of random surfaces: uniform with values within the interval [-3,3],
 Gaussian distribution around the mean=0 with sigma=0.3, and spatially dependent gaussian distribution with
@@ -118,7 +119,7 @@ Where do these constants come from and why are they needed?
 </span>
 
 <p>
-Visualy compare watersheds and streams derived from elev_lid792_1m, elev_lidnoise, elev_lidnoise_gauss, elev_lidnois_gspat:
+Visualy compare flow accumulation petterns and watersheds derived from elev_lid792_1m, elev_lidnoise, elev_lidnoise_gauss, elev_lidnois_gspat:
 
 <pre><code>
 r.watershed -a elev_lid792_1m thresh=5000 accum=accum_5K drain=draindir_5K basin=basin_5K
@@ -130,7 +131,7 @@ r.to.vect basin_15K_noise out=basin_15K_noise type=area
 </code></pre>
 <span class="question">What can you say about the spatial pattern of flow accumulation derived from these three DEMs?
 </span>
-
+<p>
 Optional: For quantitative comparison, you can extract selected basins and compare their area using r.report, compute distances between
 the boundaries, extract streams using r.stream.extract and compare their characteristics using the r.stream* add-ons. 
 
@@ -196,7 +197,7 @@ r.watershed -a fractal_dem_d201 thresh=15000 accum=f201_accum_15K drain=f201_dra
 <p>
 Rescale the fractal surface to [-0.3,0.3] and add to our DEM as a simulated noise. The water flow pattern may represent
 flow over rough surface, where the roughness is represented in the DEM (e.g. as a grass cover)
- rather than a constant value. 
+ rather than a constant value (e.g. Mannings coefficient). 
 
 <pre><code>
 r.univar fractal_dem_d290
@@ -210,9 +211,9 @@ Can you explain the constants used in the mapcalc command for elev_noisefractal?
 Where do these constants come from and why are they needed?
 </span>
 
-<p>Compute elevation surface from the lidar bare ground data with different smoothing and compare 
-the impact on flow modeling. Also compare the flow pattern from simulated noise with the noise combined
-with systematic errors in lidar point cloud 
+<p>Compute elevation surface from the lidar bare ground data with different tension parameter and compare 
+the impact on flow modeling. Also compare the flow pattern from simulated noise with the noise from lidar
+data preserved in the surface interpolated with higher tension parameter:
 
 <pre><code>
 g.region raster=elev_lid792_1m -p
@@ -232,7 +233,7 @@ First, install r.viewshed.cva addon:
 g.extension r.viewshed.cva
 </code></pre>
 
-Generate random points and perturb them. For both points sets compute cumulative viewshed and compare them:
+Generate random points and perturb them. For both points set compute a cumulative viewshed and compare them:
 <pre><code>
 g.region raster=elev_lid792_1m
 v.random output=random_view npoints=10 seed=4
@@ -243,6 +244,7 @@ r.report map=cumulative units=p
 r.report map=cumulative_perturb units=p
 </code></pre>
 <span class="question">What is the impact of error in point position on total viewshed area?  </span>
+<p>
 Additional commands you can use to simulate simulate point data in raster or vector representation:
 r.random, r.random.cells, r.sample.category, v.perturb, v.random, v.kcv 
 
