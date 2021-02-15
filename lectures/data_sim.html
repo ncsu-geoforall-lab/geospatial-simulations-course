@@ -89,30 +89,29 @@ $z = \sin (0.4x) + 0.3 \cos(y) + 80$
 <section>
    <h3>Stochastic methods</h3>
 <ul>
- <ul>
  <li>Methods based on random fields
  <li>Uniform random field - linear random number generator
- </ul>
 </ul>
-<p><img height="130" src="img/data_sim/random_0_20_3D.jpg">
+<br><img height="100" src="img/data_sim/random_0_20_3D.jpg">
 <p class="fragment"><img height="200" src="img/data_sim/random_0_20_histogramred.png">
 <br><small>Random numbers from interval [0,20], mean=10: surface and histogram</small>
 </section>
 
 <section>
    <h3>Stochastic methods</h3>
-<small>Independednt random variable $z$, is often distributed according to the normal distribution:
+Independent random variable $z$, is often distributed according to the normal distribution:
 $$
 f(z | \mu,\sigma^2) = \frac{1}{\sqrt{2\pi} \sigma} e^{-(z-\mu)^2 / 2\sigma^2} 
 $$
+<small>
 <p class="fragment">where $\mu$ is the mean, $\sigma$ is the standard deviation,
 $\sigma^2$ is the variance, $e$ is exponential function, and $f(z | \mu,\sigma^2)$
 is probability density function of the normal distribution 
 <p class="fragment">
 Monte Carlo methods often require generating values that have normal distribution
 <p class="fragment">
-See also 
-<a href="https://en.wikipedia.org/wiki/Normal_distribution">Normal distribution</a> here
+Learn more about 
+<a href="https://en.wikipedia.org/wiki/Normal_distribution">Normal distribution</a> 
 </small>
 </section>
 
@@ -120,7 +119,7 @@ See also
    <h3>Gaussian random field</h3>
 Random field with $\mu = 120$m and $\sigma = 2$m 
 <p><small>One $\sigma$ (68%) of values in the random field are within 2m range of the mean</small>
-<p><img height="180" src="img/data_sim/gauss_surf_m120s2_3dnew.jpg">
+<br><img height="180" src="img/data_sim/gauss_surf_m120s2_3dnew.jpg">
 <p class="fragment"><img height="180" src="img/data_sim/gauss_surf_hist.png">
 </section>
 
