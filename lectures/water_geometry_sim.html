@@ -72,6 +72,7 @@ by the surface gradient field $\nabla f$.
 <section>
    <h3>Gradient vector: slope and aspect</h3>
 <p>
+<small>
 <ul>
  <li>$- \nabla f$: vector in the steepest slope direction (aspect),
   magnitude is slope steepness
@@ -84,7 +85,6 @@ $$\alpha^\circ = {\arccos} \left( -f_y \over \sqrt{f_x^2+f_y^2} \right) $$
 $$ f_x = \tan \beta . \cos \alpha, \qquad f_y = \tan \beta . \sin \alpha$$
 </ul>
 <p>
-<small>recall that 
 $$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right), \; z = f(x,y)$$
 </small>
 </section>
@@ -93,6 +93,7 @@ $$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial 
    <h3>Estimating gradient from raster DEM</h3>
 <p>
 <ul>
+<p>
   <li class="fragment">Discrete: D8 or D16 $\Delta z_{max}$ in 3x3 or 5x5 moving window, 
   results in discrete directions e.g., 0,45, ... deg 
 <p>
@@ -105,7 +106,7 @@ a suitable approximation function, such as spline or polynomial
    <h3>Estimating gradient from raster DEM</h3>
 <small>
 <p>Fitting second order polynomial to 9 grid points of 3x3 window
-using weighted least squares leads to simple equations for estimating $f_x, f_y$:
+using weighted least squares fitting leads to simple equations for estimating $f_x, f_y$:
 <p class="fragment">
 $$z(x,y)=a_0+a_1 x + a_2 y + a_3 xy + a_4 x^2 + a_5 y^2$$
 <p class="fragment">
@@ -113,7 +114,7 @@ $$f_x={{(z_{i-1,j-1}-z_{i+1,j-1})+2(z_{i-1,j}-z_{i+1,j})+(z_{i-1,j+1}-z_{i+1,j+1
 <p class="fragment">
 $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1})} \over {8\Delta y}}$$
 </small>
-<p> <img height="220" src="img/water_geometry/3x3window_zij.png">
+<br> <img height="220" src="img/water_geometry/3x3window_zij.png">
 </section>
 
 <!--
@@ -167,7 +168,7 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 <section>
    <h3>Flow accumulation across landscape</h3>
 <p>Evolution of steady state flow  with steady rainfall and uniform flow velocity
-<img height="400" src="img/water_geometry/water.gif">
+<p><img height="400" src="img/water_geometry/water.gif">
 </section>
 
 <section>
@@ -179,13 +180,13 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 <p class="fragment">
 <img height="360" src="img/water_geometry/flowD8dem.jpg">
 <img height="360" src="img/water_geometry/flowdinfdem.jpg">
-<p><small>when D8 is sufficient? SFD over noisy surface mitigates the D8 artifact</small>
+<br><small>when D8 is sufficient? SFD over noisy surface mitigates the D8 artifact</small>
 </section>
 
 <!--add equations later on-->
 <section>
    <h3>Flow routing with dispersed flow</h3>
-<p>MFD multiple flow direction partitions flow into two or more downslope directions
+<p>MFD - multiple flow direction - partitions flow into two or more downslope directions
 <p>
 <p class="fragment">
 <!--<img height="350" src="img/water_geometry/flowdispersal.jpg">-->
@@ -205,9 +206,9 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
    <h3>Flat areas and depressions</h3>
 <ul>
 <li>What is gradient in flat area? In depressions?
-<li>Many algorithms were developed for routing through flat areas and depressions 
-<li>Hydrological flattening, enforcement, conditioning
-<li>New (and some old) algorithms do not require depression filled DEM
+<li class="fragment">Many algorithms were developed for routing through flat areas and depressions 
+<li class="fragment">Hydrological flattening, enforcement, conditioning
+<li class="fragment">New (and some old) algorithms do not require depression filled DEM
 </ul>
 <!--
 <p class="fragment">
@@ -395,11 +396,11 @@ and the the cell on the stream into which the cell drains.
 <section>
    <h3>FIMAN</h3>
 <ul>
-<li>Interpolation between water levels predicted by process based model, limited to areas near stream gauges
+<li>Scenario simulation: Interpolation between water levels predicted by process based model, limited to areas near stream gauges
 <li>Coupled with real time observations
 </ul>
 <p><img height="330" src="img/intro/FIMAN_swiftcreek_scenario.jpg">
-<p><a href="https://fiman.nc.gov/fiman/#">Flood inundation mapping and alert network</a>
+<p><small><a href="https://fiman.nc.gov/fiman/#">Flood inundation mapping and alert network</a></small>
 </section>
 
 
