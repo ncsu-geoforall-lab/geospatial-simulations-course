@@ -39,12 +39,12 @@
 <ul>
 <li class="fragment">Surface water flow - overland flow accumulation
 <li class="fragment">Flooding / inundation - spread of rising water level
-<li class="fragment">Coupled flooding and surface flow - active research area
-<li class="fragment">Coupled storm surge, river flooding and overland flow
+<li class="fragment">Coupled inundation + overland flow 
+<li class="fragment">Coupled storm surge + inundation + overland flow
 </ul>
 <p class="fragment">
-<img height="280" src="img/water_geometry/accum_5Kmfd.jpg">
-<img height="280" src="img/water_geometry/floodedarea.jpg">
+<img height="260" src="img/water_geometry/accum_5Kmfd.jpg">
+<img height="260" src="img/water_geometry/floodedarea.jpg">
 <p class="fragment">
 These processes are controled by elevation surface
 </section>
@@ -53,7 +53,7 @@ These processes are controled by elevation surface
    <h3>Flow over complex surfaces</h3>
 <p>
 <ul>
- <li>elevation surface: represented by a bivariate function:
+ <li>elevation surface - bivariate function:
 <p>
  $$z = f(x,y)$$
 <p>
@@ -62,7 +62,7 @@ These processes are controled by elevation surface
 $$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
 <p>
  <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)$
- <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$.  
+ <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$  
  <li class="fragment">direction and magnitude of flow velocity over complex surface is controled 
 by the surface gradient field $\nabla f$.  
 </ul>
@@ -73,9 +73,8 @@ by the surface gradient field $\nabla f$.
    <h3>Gradient vector: slope and aspect</h3>
 <p>
 <ul>
- <li>$- \nabla f$ is a vector in the steepest slope direction (aspect),
-  its magnitude is slope steepness (rise over run).
-<p>
+ <li>$- \nabla f$: vector in the steepest slope direction (aspect),
+  magnitude is slope steepness
  <li class="fragment">slope $\beta$ and aspect $\alpha$: 
 <p>
 $$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2}$$
@@ -167,7 +166,7 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 
 <section>
    <h3>Flow accumulation across landscape</h3>
-<p>Evolution of steady state flow as water moves through the landscape with steady rainfall and uniform flow velocity
+<p>Evolution of steady state flow  with steady rainfall and uniform flow velocity
 <img height="400" src="img/water_geometry/water.gif">
 </section>
 
