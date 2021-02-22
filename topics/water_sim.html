@@ -60,9 +60,9 @@ Outline:
     <li>surface water flow modeling components</li>
     <li>shallow water flow equations</li>
     <li>numerical methods for solving shallow water flow equations</li>
-    <li>coupling with stormwater networks, groundwater models, storm surge</li>
+<!--    <li>coupling with stormwater networks, groundwater models, storm surge</li>-->
     <li>applications: surface runoff, dam breach
-    <li>visualization of surface water flow dynamics, water depth as surface</li>
+    <li>visualization of surface water flow dynamics</li>
 </ul>
 
 <h4>Lecture</h4>
@@ -72,35 +72,42 @@ Slides
 </ul>
 Supplemental materials:
 <ul>
-<li> <a href="https://doi.org/10.1016/j.envsoft.2013.01.011"> Brooking C, Hunter, J Providing online access to hydrological model simulations through interactive geospatial animations Environmental Modelling and Software 42, May 2013, p163-168</a>, and <a href="https://www.hydroshare.org/">HydroShare</a> website
-<li><a href="https://link-springer-com.prox.lib.ncsu.edu/chapter/10.1007/978-3-319-89303-7_7">Surface Water Flow Modeling</a> Tangible Modeling book, Chapter 7
-<li><a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/II.6.8_Mitasova_044.pdf">Mitasova, H., Thaxton, C., Hofierka, J., McLaughlin, R., Moore, A., Mitas L., 2005, Path sampling method for modeling overland water flow, sediment transport and short term terrain evolution in Open Source GIS. In: C.T. Miller, M.W. Farthing, V.G. Gray, G.F. Pinder eds., Proc. CMWR XV, 13-17 June 2004, Chapel Hill, NC, USA, Elsevier, pp. 1479-1490.</a>
-<li><a href="https://www.geosci-model-dev.net/10/1835/2017/">Itzï (version 17.1): an open-source, distributed GIS model for dynamic flood simulation</a>
-<li><a href="https://oss.deltares.nl/web/delft3d">DELFT3D - open source</a> and <a href="https://publicwiki.deltares.nl/display/OET/OpenEarth">OpenEarth</a>
-<li><a href="https://adcirc.org/">ADCIRC</a>
-<li><a href="https://www.enviroware.com/">Air pollution modeling:LAPMOD, TOXFLAM</a>
+   <li> <a href="https://doi.org/10.1016/j.envsoft.2013.01.011"> Brooking C, Hunter, J Providing online access to hydrological model simulations through interactive geospatial animations Environmental Modelling and Software 42, May 2013, p163-168</a>, and <a href="https://www.hydroshare.org/">HydroShare</a> website
+   <li><a href="https://link-springer-com.prox.lib.ncsu.edu/chapter/10.1007/978-3-319-89303-7_7">Chapter 7: Surface Water Flow Modeling</a> 
+in <a href="https://link.springer.com/book/10.1007%2F978-3-319-89303-7">
+Petrasova A, Harmon B, Petras V, Tabrizian P, Mitasova H., 2018, Tangible Modeling with Open Source GIS. Second edition. </a> Springer International Publishing.
+and a <a href="https://petrasovaa.github.io/tangible-landscape-dambreak-presentation/#/">presentation</a>
+ associated with dam breach simulation (section 7.3.2 and A.1.9)
+   <li><a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/II.6.8_Mitasova_044.pdf">Mitasova, H., Thaxton, C., Hofierka, J., McLaughlin, R., Moore, A., Mitas L., 2005, Path sampling method for modeling overland water flow, sediment transport and short term terrain evolution in Open Source GIS. In: C.T. Miller, M.W. Farthing, V.G. Gray, G.F. Pinder eds., Proc. CMWR XV, 13-17 June 2004, Chapel Hill, NC, USA, Elsevier, pp. 1479-1490.</a>
+   <li><a href="https://www.geosci-model-dev.net/10/1835/2017/">Itzï (version 17.1): an open-source, distributed GIS model for dynamic flood simulation</a>
+   <li><a href="https://oss.deltares.nl/web/delft3d">DELFT3D - open source</a> and <a href="https://publicwiki.deltares.nl/display/OET/OpenEarth">OpenEarth</a>
+   <li><a href="https://adcirc.org/">ADCIRC</a>
+<!--   <li><a href="https://www.enviroware.com/">Air pollution modeling:LAPMOD, TOXFLAM</a>-->
 </ul>
 
 <h4>Assignment part 3.B</h4>
-Compare distribution of surface water flow at high resolution for various land cover and topographic conditions
-using data and tools of your choice. Optional: use scripting to generate scenarios and summarize the results.
-Use the following material for inspiration:
+Compare distribution of surface water flow at high resolution for uniform 
+and spatially variable land cover and topographic conditions.
+Optional: use scripting to generate scenarios and summarize the results.
 <ul>
 <li><a href="../assignments/simwe.html">Surface water flow modeling
 using path sampling method</a> implemented in GRASS GIS as r.sim.water
+<!--
 <li><a href="http://ncsu-geoforall-lab.github.io/uav-lidar-analytics-course/assignments/fusion_uas_lidar.html">
  Surface water flow modeling over tilled field</a> using DEM derived by fusion of lidar and UAS data 
 and path sampling method (r.sim.water), see the last two sections of this assignment from GIS595-005
-<li>Dam breach modeling: see section 7.3.2 and A.1.9 in <a href="https://link-springer-com.prox.lib.ncsu.edu/chapter/10.1007/978-3-319-89303-7_7">Tangible Landscape book</a> and this <a href="https://petrasovaa.github.io/tangible-landscape-dambreak-presentation/#/">presentation</a>
+-->
+<p>Optional
 <li><a href="../assignments/process_based_flow.html">Surface water flow modeling for urban environments: Itzi</a>
 <li>write your own overland flow simulation tool in python: see example 
   <ul>
-  <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Eric_OverlandFlow.py">Student1</a> with 
-  <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Assign_pathsampling.pdf">Instructions</a> and
-  <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Anna_OverlandFlow.py">Student2</a>,
+<!--  
+     <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Eric_OverlandFlow.py">Student1</a> with 
+     <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Assign_pathsampling.pdf">Instructions</a> and
+-->
+     <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Anna_OverlandFlow.py">Student2</a>,
       run from nc_spm_08 location and set region <code>g.region -p rast=elev_lid792_1m</code>,
-      compute dx and dy using r.slope.aspect,
-      and then use <code>g.region zoom=dx</code> to leave out NULL cells at the edge from computation.
+      compute dx and dy using r.slope.aspect, and then use <code>g.region zoom=dx</code> to leave out NULL cells at the edge from computation.
   </ul>
 </ul>
 
