@@ -257,7 +257,8 @@ or many smaller areas?
 <pre><code>
 g.extension r.pi
 g.region raster=landclass96 -p
-r.pi.nlm.circ output=circ1 landcover=30 count=20
+r.pi.nlm.circ output=circ1 landcover=30 count=20 size=526,474
+g.region raster=elevation -p
 r.pi.nlm.circ output=circ2 landcover=30 count=500 size=1500,1350
 r.pi.nlm input=landclass96 output=nlm.3 nullval=1,5,6,7 landcover=10 sharp=1.0
 r.report circ1 unit=p
