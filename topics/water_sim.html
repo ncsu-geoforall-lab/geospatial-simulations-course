@@ -82,16 +82,16 @@ and a <a href="https://petrasovaa.github.io/tangible-landscape-dambreak-presenta
    <li><a href="https://www.geosci-model-dev.net/10/1835/2017/">Itzï (version 17.1): an open-source, distributed GIS model for dynamic flood simulation</a>
    <li><a href="https://oss.deltares.nl/web/delft3d">DELFT3D - open source</a> and <a href="https://publicwiki.deltares.nl/display/OET/OpenEarth">OpenEarth</a>
    <li><a href="https://adcirc.org/">ADCIRC</a>
+   <li><a href="https://en.wikipedia.org/wiki/Shallow_water_equations">Shallow water equations in wikipedia</a>
 <!--   <li><a href="https://www.enviroware.com/">Air pollution modeling:LAPMOD, TOXFLAM</a>-->
 </ul>
 
 <h4>Assignment part 3.B</h4>
 Compare distribution of surface water flow at high resolution for uniform 
 and spatially variable land cover and topographic conditions.
-Optional: use scripting to generate scenarios and summarize the results.
+Optional: you can use scripting to generate scenarios and summarize the results.
 <ul>
-<li><a href="../assignments/simwe.html">Surface water flow modeling
-using path sampling method</a> implemented in GRASS GIS as r.sim.water
+<li><a href="../assignments/simwe.html">Surface water flow modeling using path sampling method</a> 
 <!--
 <li><a href="http://ncsu-geoforall-lab.github.io/uav-lidar-analytics-course/assignments/fusion_uas_lidar.html">
  Surface water flow modeling over tilled field</a> using DEM derived by fusion of lidar and UAS data 
@@ -99,13 +99,13 @@ and path sampling method (r.sim.water), see the last two sections of this assign
 -->
 <p>Optional
 <li><a href="../assignments/process_based_flow.html">Surface water flow modeling for urban environments: Itzi</a>
-<li>write your own overland flow simulation tool in python: see example 
+<li>Write your own overland flow simulation tool in python:  
   <ul>
 <!--  
      <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Eric_OverlandFlow.py">Student1</a> with 
      <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Assign_pathsampling.pdf">Instructions</a> and
 -->
-     <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Anna_OverlandFlow.py">Student2</a>,
+     <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Anna_OverlandFlow.py">Example code</a>,
       run from nc_spm_08 location and set region <code>g.region -p rast=elev_lid792_1m</code>,
       compute dx and dy using r.slope.aspect, and then use <code>g.region zoom=dx</code> to leave out NULL cells at the edge from computation.
   </ul>
