@@ -1,6 +1,8 @@
 <h2>Surface water flow and erosion simulation</h2>
 
-Here we compute surface runoff, and sediment transport using existing
+In this assignment we explore simulation of spatial pattern of overland flow depth 
+by running the SIMWE model which employs path sampling method to solve the shallow water flow equations.
+We also compute sediment transport and net erosion and deposition using the
 path sampling model.
 
 <p>
@@ -10,12 +12,7 @@ Resources:
 GRASS GIS overview and manual</a>
     <li><a href="http://www.grassbook.org/">GRASS book</a>
 </ul>
-<!--
 <p>
-<a href="mannings.txt">Mannings values</a><br>
-<a href="rainfallexcess.txt">Rainfall-infiltration recode table</a><br>
-<a href="erodibility.txt">Erodibility, transport capacity coef., critical sheer stress</a>
--->
 
 <p>
 For animating in GRASS GIS 7, see the
@@ -49,55 +46,50 @@ or type <code>cd</code> (stands for change directory) into the GUI
 cd
 </code></pre>
 
-<p>
-Download all text files with color rules (see above)
-to the selected directory. Now you can use the commands from the assignment requiring the text file
-without the need to specify the full path to the file.
-
 <h3>Overland flow depth and discharge</h3>
 
-<p>
-
+<p>Set the computational region to a small agricultural watershed and define the 2m resolution:
 
 <pre><code>
 g.region rural_1m res=2 -p
 </code></pre>
-<!-- r.mapcalc "man05 = 0.05"
-r.mapcalc "infil0 = 0."
-r.mapcalc "rain50mmhr = 50." -->
 <p>
-Calculate partial derivatives to define the gradient of elevation surface:
+Calculate partial derivatives to define the gradient vector of elevation surface:
 
 <pre><code>
 v.surf.rst -d input=elev_lid792_bepts elevation=elev_lid792_2m slope=dx_2m aspect=dy_2m tension=15 smooth=1.5 npmin=150
 </code></pre>
 Note that partial derivatives can be also computed using <em class="module">r.slope.aspect</em>.
+<span class="question">Why do we need to compute elevation surface gradient vector for flow simulation?
+What does it control?</span>
 
 <p>
 Compute spatial pattern of overland flow depth and discharge
 by running the SIMWE model implemented in
-the <em class="module">r.sim.water</em> module.
-We will use uniform rainfall excess, infiltration and land cover.
+the <em class="module">r.sim.water</em> module - read the manual page to understand the parameters.
+We first use uniform rainfall excess, infiltration and land cover.
 <pre><code>
 r.sim.water -t elevation=elev_lid792_2m dx=dx_2m dy=dy_2m rain_value=50 infil_value=0 man_value=0.05 depth=wdp_2m discharge=disch_2m nwalkers=100000 niterations=30 output_step=2
 </code></pre>
 
-Display the results, add legend for individual raster and whatever you think is appropriate.
-
+Display the results: 
 <pre><code>
 d.rast wdp_2m.30
 d.rast disch_2m.30
 </code></pre>
+
+Add legend to the final raster maps and save the images.
+<span class="question">Comment on the resulting pattern - where is the water ponding and what is causing it at this location?</span>
 
 <p>
 Optionally, animate the time series:
 <em>File > Animation tool</em>
 
 
-<h4>Peak runoff with predefined flow direction</h4>
+<h4>Peak runoff with preferential flow direction in the stream channel</h4>
 
 Compute peak runoff with predefined flow direction
-along the stream inluding culvert under the road.
+along the stream inluding a culvert under the road.
 
 <p>
 First, compute direction (aspect) of the given streams:
@@ -107,7 +99,7 @@ v.to.rast streams output=streams_dir_2m use=dir
 </code></pre>
 
 <p>
-Compute stream dx and dy using direction and slope equal to 2 degrees:
+Compute stream dx and dy using the stream direction angle and a slope angle equal to 2 degrees:
 
 <pre><code>
 r.mapcalc "dxstr_2m = tan(2.)*cos(streams_dir_2m)"
@@ -115,7 +107,7 @@ r.mapcalc "dystr_2m = tan(2.)*sin(streams_dir_2m)"
 </code></pre>
 
 <p>
-Compute combined DEM and stream dx and dy:
+Compute flow gradient vector by combining dx and dy derived from the DEM and stream:
 
 <pre><code>
 r.mapcalc "dxdemstr_2m = if(isnull(dxstr_2m), dx_2m, dxstr_2m)"
@@ -123,21 +115,24 @@ r.mapcalc "dydemstr_2m = if(isnull(dystr_2m), dy_2m, dystr_2m)"
 </code></pre>
 
 <p>
-Run the model:
+Run the overland flow model:
 
 <pre><code>
 r.sim.water -t elevation=elev_lid792_2m dx=dxdemstr_2m dy=dydemstr_2m rain_value=50 infil_value=0 man_value=0.05 depth=wdpstr_2m discharge=dischstr_2m nwalkers=100000 niterations=30 output_step=2
 d.rast dischstr_2m.30
 </code></pre>
+Add legend to the final raster maps and save the images.
+<span class="question">Comment on the resulting pattern - is the water still ponding? If not, why is it now flowing
+under the road?</span>
 
 <p>
-Use Animation tool to animate the discharge.
+Optionally, use Animation tool to animate the discharge.
 
 
 <h4>Runoff for spatially variable landcover and rainfall excess</h4>
 
 Compute runoff for spatially variable landcover
-represented by spatially variable Mannings and rainfall excess.
+represented by spatially variable Mannings coefficient and rainfall excess (rainfall intensity - infiltration rate).
 
 <p>
 We will use variable Mannings coefficient defined by reclassifying
