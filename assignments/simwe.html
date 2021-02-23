@@ -135,10 +135,20 @@ Compute runoff for spatially variable landcover
 represented by spatially variable Mannings coefficient and rainfall excess (rainfall intensity - infiltration rate).
 
 <p>
-We will use variable Mannings coefficient defined by reclassifying
-land cover class. Here is the content of a file called
-<a href="./data/land_to_mannings.txt"><code>land_to_mannings.txt</code></a> with reclassification rules for
-the <em class="module">r.recode</em> module.
+We will use variable Mannings coefficient defined by reclassifying land cover class. 
+Find out the land use categories in the map landcover_1m:
+
+<pre><code>
+r.category landcover_1m
+d.rast landcover_1m
+d.legend landcover_1m
+</code></pre>
+
+We assign each category a Mannings roughness coefficient (published in literature) 
+by recoding the landcover map using the <em class="module">r.recode</em> module
+and reclassification rules stored in this file 
+<a href="./data/land_to_mannings.txt"><code>land_to_mannings.txt</code></a> 
+and also shown here:
 
 <pre data-filename="land_to_mannings.txt">
 1:1:0.9:0.9
@@ -189,7 +199,7 @@ Run the model:
 r.sim.water -t elevation=elev_lid792_2m dx=dxdemstr_2m dy=dydemstr_2m rain=raincover_2m infil_value=0 man=mancover_2m depth=wdpstrcov_2m discharge=distrcov_2m nwalkers=100000 niterations=30 output_step=2
 </code></pre>
 
-Display the static results.
+Display the static results and save the images for your paper.
 
 <pre><code>
 d.rast wdpstrcov_2m.30
@@ -197,9 +207,12 @@ d.legend wdpstrcov_2m.30
 d.rast distrcov_2m.30
 d.legend distrcov_2m.30
 </code></pre>
+<span class="question">Comment on the resulting pattern - how is the flow depth related to the landcover?
+Which landcover holds most water?
+</span>
 
 <p>
-Animate the time series using the Animation tool.
+Optionaly animate the time series using the Animation tool.
 
 
 <h3>Sediment flow rate, erosion and deposition</h3>
