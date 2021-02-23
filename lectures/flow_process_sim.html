@@ -212,6 +212,30 @@ $$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({
 </section>
 -->
 
+<section>
+   <h3>Duality of particles and fields</h3>
+<p>Modeled quantities can be represented by
+<ul>
+  <li>fields - continuous distribution (scalar, vector, tensor)
+  <li>particles - discrete sampling of fields
+</ul>
+<p>Corresponce between the two representations:
+<p>density of particles - field $f(r)$
+</section>
+
+<section>
+   <h3>Duality of particles and fields</h3>
+<p>Process can be modeled as
+<ul>
+  <li>evolution of fields
+  <li>evolution of spatially distributed particles
+</ul>
+<br>
+<img height="300" src="img/diffusion_flows/fanimwalk.gif">
+<img height="300" src="img/diffusion_flows/fanimhhcolp.gif">
+<p><small>Path sampling method uses this duality to solve the governing equations</small>
+</section>
+
 
 <section>
    <h3>Green's function solution</h3>
@@ -219,6 +243,7 @@ $$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({
 <p><img height="400" src="img/diffusion_flows/evolfig.jpg">
 </section>
 
+<!--
 <section>
    <h3>Evolution of water depth solution</h3>
 <ul>
@@ -227,6 +252,7 @@ $$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({
 <p><img height="320" src="img/diffusion_flows/fanimwalk.gif">
 <img height="320" src="img/diffusion_flows/fanimhhcolp.gif">
 </section>
+-->
 
 <section>
    <h3>Water flow: methods comparison</h3>
@@ -283,24 +309,27 @@ the weight of the particles
 
 <section>
    <h3>Urban flooding: sub-meter resolution</h3>
-<p>Path sampling solution for overland flow with uniform rainfall
+<p>Path sampling solution for overland flow: with uniform rainfall
+and land cover, approx. diffusive wave
 <p>
 <img height="420" src="img/diffusion_flows/water_ortho_lg.png">
 <img height="380" src="img/diffusion_flows/water_stormdrains_zoom.jpg">
 </section>
 
+<!--Cary example from Corey
 <section>
    <h3>Urban flooding</h3>
 <ul>
 <li>Overland flow with dynamic rainfall input
 <li>Optionally coupled with 1D flow thorugh stormwater infrastructure
 </ul>
-<!--<img height="280" src="img/diffusion_flows/hand.gif">-->
+<img height="280" src="img/diffusion_flows/hand.gif">
 <img height="280" src="img/diffusion_flows/simwe.gif">
 <img height="280" src="img/diffusion_flows/itzi.gif">
 <p><small>example from the assigment</small>
 <p><small>see supplemental material for equations and itzi web page for references</small>
 </section>
+-->
 
 <section>
    <h3>Finite volume solution</h3>
@@ -330,13 +359,13 @@ the weight of the particles
 <section>
    <h3>Visualization</h3>
 <p>
-<img height="400" src="img/diffusion_flows/balsamsimwe3d_wsteadystate.jpg">
+<!--<img height="400" src="img/diffusion_flows/balsamsimwe3d_wsteadystate.jpg">-->
 <img height="350" src="img/diffusion_flows/water1994.gif">
 </section>
 
 <section>
    <h3>Visualization</h3>
-<p>Flow depth during and after rainfall
+<p>Flow depth during and after rainfall: approximate diffusive wave
 <p>
 <img height="450" src="img/diffusion_flows/irwinhhanim.gif">
 </section>
