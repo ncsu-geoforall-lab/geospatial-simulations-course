@@ -14,7 +14,10 @@ and then in
 select 
 <i>Read CRS from a georeferenced data file</i>. 
 Select the downloaded (and extracted) <tt>elevations.shp</tt> and finish creating the location.
-It asks if you want to import it, say yes.
+It asks if you want to import it, say no and import the dataset separately once the location is created with:
+ <pre><code>
+ v.import input=/path/to/elevations.shp  
+ </code></pre>
 
 <h3>Compute a smooth DEM and extract stream network</h3>
 
