@@ -6,24 +6,15 @@ Download and unzip dataset
 <!--<tt><a href="http://spatial-analyst.net/book/system/files/elevations.zip">baranjahill</a></tt>.-->
 
 <p>
-Start GRASS GIS and create new Location. Going through the wizard replace 
-for <i>Project Location</i> newLocation with baranja,
-and then for 
-<i>Chose method for creating a new location.</i>
-select advanced method
-<i>Specify projection and datum terms using custom PROJ.4 parameters</i>. 
-Then use this PROJ.4 projection specification:
-<pre>
-+proj=tmerc +lat_0=0 +lon_0=18 +k=0.9999 +x_0=6500000 +y_0=0 +no_defs +a=6377397.155 +rf=299.1528128 +towgs84=550.499,164.116,475.142,5.80967,2.07902,-11.62386,0.99999445824  +to_meter=1
-</pre>
-
-Once GRASS opens, change to the directory where you have unziped the downloaded data:
-type <code>cd</code> in the console, hit Enter and browse to the directory where your shapefile data are.
-Import the dataset, note that we need to use -o flag (overide projection) because 
-the dataset doesn't have projection info.
-<pre><code>
-v.in.ogr -o input=elevations.shp
-</code></pre>
+Start GRASS GIS and create new location (e.g. use <i>Create new location in current GRASS database</i> in Data tab toolbar
+or right click on GRASS database in Data tab).
+Going through the wizard name the new location <tt>baranja</tt>,
+and then in 
+<i>Select Coordinate Reference System</i>
+select 
+<i>Read CRS from a georeferenced data file</i>. 
+Select the downloaded (and extracted) <tt>elevations.shp</tt> and finish creating the location.
+It asks if you want to import it, say yes.
 
 <h3>Compute a smooth DEM and extract stream network</h3>
 
