@@ -37,7 +37,7 @@ on the flow pattern modeling and stream extraction.
 
 <section>
     <h3>Problem formulation</h3>
-Different patterns of flow accumulation from noisy DEMs
+Patterns of flow accumulation from noisy DEMs
 <img height="210" src="img/data_sim/accum5k_noise.jpg">
 <img height="210" src="img/data_sim/accum5k_noise_frac.jpg">
 <img height="210" src="img/data_sim/accum5k_noise_spat.jpg">
@@ -83,7 +83,7 @@ Given $m$-points $(x_i, y_i, z_i), i=1,m$
 <br>find such $F(x,y)$ that for each $i=1,m$
 <p>
            $$z_i=F(x_i,y_i) + e(x_i,y_i)$$
-<p> where 
+<br>
 $$
 F(r) = T(r) + \sum_i^m \lambda_i R(r,r_i)
 $$
@@ -257,7 +257,7 @@ DEM interpolated by spline with tension and its histogram
 
 <section>
     <h3>Elevation data analysis in R</h3>
-<p>Plot distribution for 20% and 80% of sub-sampled points
+<p><small>Plot distribution for 20% and 80% of sub-sampled points</small>
 <p><img height="400" src="img/geostats/scatterplots.jpg">
 <img height="400" src="img/geostats/bar_ptsplot0.8_Rplot.png">
 <br><small>Note that the histogram is different from the previous two: it does not capture
@@ -268,7 +268,7 @@ of aggregation in smaller number of histogram binns (20 in R versus 255 in GRASS
 <section>
     <h3>Elevation data analysis </h3>
 <ul>
-<li>Anisotropic experimental variogram from given elevation data
+<li>Anisotropic experimental variogram from given data
 using 20% and 80% sub-sampled points
 </ul>
 <p>
@@ -346,7 +346,8 @@ reflecting insufficient sampling. This is already indicated by comparing the
 <section>
     <h3>Interpolated and simulated DEMs</h3>
 <ul>
-<li><small>Difference between DEM interpolated in GRASS and DEM simulated in R indicates shift of approx 1 grid cell.  Problem during export/import?</small>
+<li><small>Difference between DEM interpolated in GRASS and DEM simulated in R indicates shift of approx 1 grid cell.  
+Problem during export/import? Test the fix</small>
 </ul>
 <p>
 <img height="300" src="img/geostats/bar_diffsimrst.png">
