@@ -37,6 +37,8 @@ mask <- NULL
 temp <- TRUE
 precip <- FALSE
 precipitation_coefficient_file <- ""
+model_type <- "SI"
+latency_period <- 0
 time_step <- "week"
 season_month_start <- 1
 season_month_end <- 12
@@ -62,13 +64,14 @@ anthropogenic_kappa <- 0
 pesticide_duration <- c(0)
 pesticide_efficacy <- 1.0
 output_frequency <- "year"
+output_frequency_n <- 1
 movements_file = ""  ## ignore - for pigs
 use_movements = FALSE
 percent_natural_dispersal <- 1.0
 anthropogenic_distance_scale <- 0.0
 
 # calibration
-eu_sod_2017_2018_ratio <- PoPS::abc_calibration(infected_years_file, 
+eu_sod_2017_2018_ratio <- PoPS::calibrate(infected_years_file, 
                                     number_of_observations, prior_number_of_observations,
                                     prior_means, prior_cov_matrix, params_to_estimate,
                                     number_of_generations,
@@ -76,7 +79,8 @@ eu_sod_2017_2018_ratio <- PoPS::abc_calibration(infected_years_file,
                                     checks,
                                     infected_file, host_file, total_plants_file, 
                                     temp, temperature_coefficient_file, 
-                                    precip, precipitation_coefficient_file, 
+                                    precip, precipitation_coefficient_file,
+                                    model_type, latency_period,
                                     time_step, 
                                     season_month_start, season_month_end, 
                                     start_date, end_date, 
@@ -89,7 +93,7 @@ eu_sod_2017_2018_ratio <- PoPS::abc_calibration(infected_years_file,
                                     natural_dir, natural_kappa, 
                                     anthropogenic_dir, anthropogenic_kappa,
                                     pesticide_duration, pesticide_efficacy,
-                                    mask, success_metric, output_frequency,
+                                    mask, success_metric, output_frequency, output_frequency_n,
                                     movements_file, use_movements)
 # explore results
 summary(eu_sod_2017_2018_ratio)
