@@ -51,14 +51,14 @@ establishment
 <li> Spatial distribution of infected host probabilities over time
 </ul>
 <p>
-<img height="150px" src="img/pops/pops_logo.png" alt="PoPS logo">
 <a href="https://popsmodel.org/about/the-pops-model/">PoPS model description</a>
+<br><img height="120px" src="img/pops/pops_logo.png" alt="PoPS logo">
 </section>
 
 <section>
 <h3>Governing equation</h3>
 Describes density of infected hosts at time $t$
-as a function of dispersers reproduction, dispersal and establishment
+as a function of dispersers reproduction, dispersal, and establishment
 <p>
 $$ \Psi_{ijt} = \beta W_{it} I_{it} * K (d, w) * (W_{jt} S_{jt}) / N_j$$
 <p>
@@ -99,7 +99,7 @@ where
 <h3>Spreading the dispersers</h3>
 The distance and direction of dispersers spread from cell $i$ to cell $j$ is:
 <p>
- $$ V_{ij} = K(d_{ij}; \alpha_1, \alpha_2, \gamma, D(\omega, \kappa)$$
+ $$ V_{ij} = K(d_{ij}; \alpha_1, \alpha_2, \gamma, D(\omega, \kappa))$$
 <p>
  <small>where
 <ul>
@@ -120,10 +120,13 @@ The number of infected susceptible hosts in a cell $j$:
 <p>
 $$E_j =  X_{jt} P_{jt} T_{jt} S_{jt}/N_j $$
 <p>
-<small>where 
+where
+<small> 
 <ul>
-<li>$S_{jt}$ is the number of susceptible hosts and $N$ is the number of all hosts</small>
+<li>$S_{jt}$ is the number of susceptible hosts and $N$ is the number of all hosts
 <li> $X_{jt} P_{jt} T_{jt}$ is weather: seasonality, precipitation, temperature
+</ul>
+</small>
 </p>
 <img src="img/pops/model_establishment.png" class="stretch">
 </section>
@@ -134,6 +137,7 @@ $$E_j =  X_{jt} P_{jt} T_{jt} S_{jt}/N_j $$
 <ul>
   <li>Individual stochastic runs
   <li>Probability infection map: for each grid cell a probability that the hosts will be infected over given period of time
+      derived from large number of stochastic runs
 </ul>
 </section>
 
@@ -143,8 +147,16 @@ $$E_j =  X_{jt} P_{jt} T_{jt} S_{jt}/N_j $$
 PoPS allows spatial management input at specific times of the simulation and supports 
 simulation steering :
 <ul>
-<li><a href="https://doi.org/10.1016/j.envsoft.2017.02.020">Tonini, Francesco, Douglas Shoemaker, Anna Petrasova, Brendan Harmon, Vaclav Petras, Richard C. Cobb, Helena Mitasova, and Ross K. Meentemeyer, 2017. Tangible geospatial modeling for collaborative solutions to invasive species management. Environmental Modelling & Software 92: 176-188. DOI: 10.1016/j.envsoft.2017.02.020</a>
-<li><a href="https://doi.org/10.1016/j.envsoft.2020.104801">Petrasova, A., Gaydos, D.A., Petras, V., Jones, C.M., Mitasova, H. and Meentemeyer, R.K., 2020. Geospatial simulation steering for adaptive management. Environmental Modelling & Software 133: 104801. DOI: 10.1016/j.envsoft.2020.104801</a>
+<li>
+Tonini, F, D. Shoemaker, A. Petrasova, B. Harmon, V. Petras, R. C. Cobb, H. Mitasova, and R. K. Meentemeyer, 2017. 
+Tangible geospatial modeling for collaborative solutions to invasive species management. 
+Environmental Modelling and Software 92: 176-188. 
+<a href="https://doi.org/10.1016/j.envsoft.2017.02.020"> DOI: 10.1016/j.envsoft.2017.02.020</a>
+<li>
+Petrasova, A., Gaydos, D.A., Petras, V., Jones, C.M., Mitasova, H. and Meentemeyer, R.K., 2020. 
+Geospatial simulation steering for adaptive management. Environmental Modelling & Software 133: 104801. 
+<a href="https://doi.org/10.1016/j.envsoft.2020.104801"> DOI: 10.1016/j.envsoft.2020.104801</a>
+</ul>
 <p>
 <img src="img/pops/spread_barrier.jpg" class="stretch">
 </section>
@@ -168,14 +180,15 @@ All open source, hosted on GitHub
 
 <section>
 <h3>User Interfaces</h3>
+<p>
 <ul>
   <li>PoPS Web Platform</li>
+<p>
   <li>Tangible Landscape</li>
 </ul>
-<br>
-  <img src="img/pops/PoPS_Dashboard_Example.png" height="250px">&nbsp;&nbsp;&nbsp;
-  <img src="img/pops/workshop.jpg" height="250px">
-
+<p>
+  <img src="img/pops/PoPS_Dashboard_Example.png" height="280px">&nbsp;&nbsp;&nbsp;
+  <img src="img/pops/workshop.jpg" height="280px">
 </section>
 
 <section>
