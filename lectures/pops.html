@@ -18,7 +18,7 @@
 </ul>
 <p>Spotted lantern fly infestation
 <br>
-<img src="img/pops/spotted_lanternfly_grape.jpg" height="200">
+<img src="img/pops/spotted_lanternfly_grape.jpg" height="250">
 </section>
 
 <section>
@@ -87,6 +87,8 @@ where
 <ul>
  <li> $\beta$ number of dispersers from a single host under optimal conditions
  <li> $X_{it} P_{it} T_{it}$ is weather: seasonality, precipitation, temperature
+ <li> weather is implemented as <a href="https://github.com/ncsu-landscape-dynamics/weather-coefficient"> weather coefficient</a>
+derived from historical weather data
  <li> number of dispersers is randomly selected from Poisson distribution
 </ul>
 </p>
@@ -150,16 +152,15 @@ where
 
 <section>
 <h3>PoPS application for SOD modeling</h3>
-<p>Host density and weather  
+<p>Host density and a weather index map 
 <p>
-<img src="img/pops/pops_host.jpg" height="260px">
-<img src="img/pops/pops_weather_90.jpg" height="260px">
-<img src="img/pops/pops_weather364.jpg" height="260px">
+<img src="img/pops/pops_host.jpg" height="400">
+<img src="img/pops/pops_weather364.jpg" height="400">
 </section>
 
 <section>
 <h3>PoPS application for SOD modeling</h3>
-<p>Infected hosts in 2019 and 2023 with default parameters 
+<p>Infected hosts in 2019 and 2023 from a single stochastic run 
 <p>
 <img src="img/pops/pops_2019def.jpg" height="400">&nbsp;
 <img src="img/pops/pops_2023def.jpg" height="400">
@@ -167,9 +168,11 @@ where
 
 <section>
 <h3>PoPS application for SOD modeling</h3>
-<p>Probability of grid cell getting infected as a result of many stochastic runs
+<p>Probability of grid cell getting infected as a result of many stochastic runs 
+and average number of infected trees per grid cell
 <p>
 <img src="img/pops/pops_probability_23.jpg" height="400">&nbsp;
+<img src="img/pops/pops_average_23.jpg" height="400">&nbsp;
 </section>
 
 <section>
