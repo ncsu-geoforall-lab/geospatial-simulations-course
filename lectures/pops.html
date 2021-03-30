@@ -29,7 +29,7 @@ When performing simulations we need to consider
 <p>
 <ul>
   <li class="fragment"> <b>Modeled quantity [units]:</b> density of infected plants (hosts) 
-  <li class="fragment"> <b>Spatial and temporal scale:</b> field [1m res, days], regional,  global spread 
+  <li class="fragment"> <b>Spatial and temporal extent and scale:</b> field, regional, global spread 
   <li class="fragment"> <b>Configuration space and interactions:</b> host density, weather, initial infected locations
   <li class="fragment"> <b>Governing equations or rules:</b> rate of reproduction, distance and direction of spread,
 establishment 
@@ -38,15 +38,18 @@ establishment
 
 <section>
 <h3>Pest or Pathogen Spread Model PoPS</h3>
-<p> Geospatial simulation of pests and pathogens (dispersers) over a landscape
-<p>
-Main drivers: 
+<p> Geospatial simulation of pests or pathogens over a landscape
+<p> Main drivers: 
 <ul>
     <li>host density
     <li>weather conditions
     <li>locations with infected hosts
 </ul>
-<p> Main output: Spatial distribution of infected host densities at a given time
+<p> Main outputs: 
+<ul>
+<li> Spatial distribution of infected host densities at a given time
+<li> Spatial distribution of infected host probabilities over time
+</ul>
 <p>
 <img height="150px" src="img/pops/pops_logo.png" alt="PoPS logo">
 <a href="https://popsmodel.org/about/the-pops-model/">PoPS model description</a>
@@ -72,38 +75,31 @@ where
 </small>
 <p>
 <img height="200" src="img/pops/model_overview.png" class="stretch">
-
 </section>
-
 
 <section>
 <h3>Generating dispersers </h3>
 Number of dispersers each infected host produces $\lambda$:
 <p>
 $$\lambda = \beta X_{it} P_{it} T_{it}$$
-$$ S \sim Pois(\lambda)$$ 
 <p>
-<small>
 where
-<p>
+<small>
 <ul>
  <li> $\beta$ number of dispersers from a single host under optimal conditions
  <li> $X_{it} P_{it} T_{it}$ is weather: seasonality, precipitation, temperature
- <li> $S$ number of dispersers randomly selected from Poisson distribution
+ <li> number of dispersers is randomly selected from Poisson distribution
 </ul>
 </p>
 </small>
 <img src="img/pops/model_generation.png" class="stretch">
 </section>
 
-
 <section>
 <h3>Spreading the dispersers</h3>
-The distance and direction of dispersers spread from cell $i$ to cell $j$
-is estimated as:
+The distance and direction of dispersers spread from cell $i$ to cell $j$ is:
 <p>
- $$ V = K(d_{ij}; \alpha_1, \alpha_2, \gamma, D(\omega, \kappa)$$
- $$d_{ij}∼Cauchy(0,\alpha_1, \alpha_2,\gamma),  \quad \D∼vonMises(\omega,\kappa)$$
+ $$ V_{ij} = K(d_{ij}; \alpha_1, \alpha_2, \gamma, D(\omega, \kappa)$$
 <p>
  <small>where
 <ul>
@@ -111,32 +107,45 @@ is estimated as:
  <li>$\alpha_1, \alpha_2$ are short and long distance dispersal scales
  <li>$\gamma$ is percent short distance dispersal 
  <li>$D$ is the wind vector with direction $\omega$ and strength (magnitude) $\kappa$
+ <li>distance is selected from Cauchy distribution, wind direction is from von Mises (circular normal) distribution
 </ul>
 </small>
-Distance is drawn from Cauchy distribution and wind direction is drawn from
- von Mises (circular normal) distribution
 </p>
 <img src="img/pops/model_spread.png" class="stretch">
 </section>
 
-
 <section>
 <h3>Establishment of dispersers</h3>
-The probability $P$ that a spore infects a susceptible host
-in a cell $j$
+The number of infected susceptible hosts in a cell $j$:
 <p>
-$$P_j = w_j * S_j/N_j $$
+$$E_j =  X_{jt} P_{jt} T_{jt} S_{jt}/N_j $$
 <p>
-<small>where $S$ is the number of susceptible hosts and $N$ is the number of all hosts</small>
+<small>where 
+<ul>
+<li>$S_{jt}$ is the number of susceptible hosts and $N$ is the number of all hosts</small>
+<li> $X_{jt} P_{jt} T_{jt}$ is weather: seasonality, precipitation, temperature
 </p>
 <img src="img/pops/model_establishment.png" class="stretch">
+</section>
+
+<section>
+<h3>Stochastic simulation output</h3>
+<p>
+<ul>
+  <li>Individual stochastic runs
+  <li>Probability infection map: for each grid cell a probability that the hosts will be infected over given period of time
+</ul>
 </section>
 
 
 <section>
 <h3>Scenario modeling</h3>
-PoPS allows spatial management input at specific times of the simulation
-<br>
+PoPS allows spatial management input at specific times of the simulation and supports 
+simulation steering :
+<ul>
+<li><a href="https://doi.org/10.1016/j.envsoft.2017.02.020">Tonini, Francesco, Douglas Shoemaker, Anna Petrasova, Brendan Harmon, Vaclav Petras, Richard C. Cobb, Helena Mitasova, and Ross K. Meentemeyer, 2017. Tangible geospatial modeling for collaborative solutions to invasive species management. Environmental Modelling & Software 92: 176-188. DOI: 10.1016/j.envsoft.2017.02.020</a>
+<li><a href="https://doi.org/10.1016/j.envsoft.2020.104801">Petrasova, A., Gaydos, D.A., Petras, V., Jones, C.M., Mitasova, H. and Meentemeyer, R.K., 2020. Geospatial simulation steering for adaptive management. Environmental Modelling & Software 133: 104801. DOI: 10.1016/j.envsoft.2020.104801</a>
+<p>
 <img src="img/pops/spread_barrier.jpg" class="stretch">
 </section>
 
