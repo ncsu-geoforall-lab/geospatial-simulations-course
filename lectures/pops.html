@@ -265,129 +265,6 @@ All open source, hosted on GitHub
 </section>
 
 <section>
-    <h3>Comparison metrics</h3>
-<ul>
-  <li>Proportion of correct pixels</li>
-  <li>Odds ratio</li>
-  <li>Kappa</li>
-  <li>Quantity disagreement</li>
-  <li>Allocation disagreement</li>
-  <li>Configuration disagreement</li>
-</ul>
-</section>
-
-<section>
-
-  <h3>Quantity and Allocation disagreement</h3>
-<img src="img/pops/disagreement.svg" width="70%">
-<br>
-Quantity disagreement = $|3 - 4| = 1$
-<br>
-Allocation disagreement = 2 (always even, here 1 pixel swapped)
-</section>
-
-<section>
-  <h3>Confusion matrix</h3>
-<img src="img/pops/confusion_matrix.svg" width="100%">
-</section>
-
-<section>
-
-  <h3>Odds Ratio</h3>
-$$\mbox{Odds ratio} = \frac{TP * TN}{FP * FN}$$
-<br>
-<img src="img/pops/confusion_matrix.svg" width="50%">
-</section>
-
-<section>
-    <h3>Issues with Odds Ratio</h3>
-    1) Over-reliance on negative values and
-    2) different odds ratios with the same disagreement:
-    <br>
-    <img src="img/pops/odss_issue.svg" width="50%">
-<table width="100%" style="font-size: 70%" >
-  <tr>
-    <th></th>
-    <th>A</th>
-    <th>B</th>
-  </tr>
-  <tr>
-    <td>Quantity disagreement</td>
-    <td>$|6-5| = 1$</td>
-    <td>$|6-7| = 1$</td>
-  </tr>
-  <tr>
-    <td>Allocation disagreement</td>
-    <td>$2$</td>
-    <td>$2$</td>
-  </tr>
-  <tr>
-    <td>Odds Ratio</td>
-    <td>$(4 * 2) / (2 * 1) = 4$</td>
-    <td>$(5 * 1) / (1 * 2) = 2.5$</td>
-  </tr>
-</table>
-</section>
-
-<section>
-  <h3>Kappa</h3>
-  If the rasters are in complete agreement then $\kappa = 1$.
-  If there is no agreement  other than what would
-   be expected by chance $\kappa = 0$.
-   <p>
-  <small>
-  $$\kappa = \frac{P_o - P_e}{1 - P_e}$$
-  $$P_o = \mbox{observed agreement} = \frac{TP + TN}{\mbox{All}}$$
-  <br>
-  $$P_e = \mbox{probability of random agreement} = P_{yes} + P_{no}$$
-  <br>
-  $$P_{yes} = \frac{TP + FN}{\mbox{All}} * \frac{TP + FP}{\mbox{All}}$$
-  <br>
-  $$P_{no} = \frac{FP + TN}{\mbox{All}} * \frac{FN + TN}{\mbox{All}}$$
-  </small>
-</section>
-
-<section>
-    <h3>Issues with Kappa</h3>
-<ul>
-<li> Penalizes a map more strongly for allocation disagreement than quantity disagreement
-<li> It’s a ratio, which can introduce problems in calculation and interpretation
-  <small>(e.g., when denominator or numerator is 0;
-     is a value low because the denominator is high,
-      or because the numerator is low?</small>
-<li>It compares to a random baseline, but this can be irrelevant
-  or misleading. It might be more useful to compare to a naïve classification (like assuming no disease spread)
- </ul>
- See <a href="https://sensoremoto2016.files.wordpress.com/2016/09/pontius_death_to_kappa_2011.pdf">Death to Kappa</a>, Pontius et al 2011
-</section>
-
-<section>
-    <h3>Landscape pattern</h3>
-  <img src="img/pops/pattern.svg" width="70%">
-  <p>
-  Simulations A and B have the same
-  quantity and allocation disagreements,
-  but A is more reflective of the truth.
-</section>
-
-<section>
-    <h3>Configuration disagreement</h3>
-Combination of different metrics:
-<ul>
-  <li>Edge contrast</li>
-  <li>Patch shape complexity</li>
-  <li>Aggregation</li>
-  <li>Nearest neighbor distance</li>
-  <li>Patch dispersion</li>
-  <li>Large patch dominance</li>
-  <li>Neighborhood similarity</li>
-</ul>
-<p>
-See <a href="https://doi.org/10.1016/j.compenvurbsys.2019.101366">Pickard et al. (2019)</a>,
- <a href="https://doi.org/10.1016/j.ecolind.2007.12.002">Cushman et al. (2008)</a>
-</section>
-
-<section>
     <h3>Calibration methods</h3>
     <ul>
       <li>Monte Carlo Markov Chains (MCMC)</li>
@@ -539,3 +416,128 @@ Adaptive routines to find optimal perturbation kernel:
   <li>calculate posteriors from priors, calibrated parameters and weights</li>
 </ol>
 </section>
+
+<section>
+    <h3>Comparison metrics</h3>
+<ul>
+  <li>Proportion of correct pixels</li>
+  <li>Odds ratio</li>
+  <li>Kappa</li>
+  <li>Quantity disagreement</li>
+  <li>Allocation disagreement</li>
+  <li>Configuration disagreement</li>
+</ul>
+</section>
+
+<section>
+
+  <h3>Quantity and Allocation disagreement</h3>
+<img src="img/pops/disagreement.svg" width="70%">
+<br>
+Quantity disagreement = $|3 - 4| = 1$
+<br>
+Allocation disagreement = 2 (always even, here 1 pixel swapped)
+</section>
+
+<section>
+  <h3>Confusion matrix</h3>
+<img src="img/pops/confusion_matrix.svg" width="100%">
+</section>
+
+<section>
+
+  <h3>Odds Ratio</h3>
+$$\mbox{Odds ratio} = \frac{TP * TN}{FP * FN}$$
+<br>
+<img src="img/pops/confusion_matrix.svg" width="50%">
+</section>
+
+<section>
+    <h3>Issues with Odds Ratio</h3>
+    1) Over-reliance on negative values and
+    2) different odds ratios with the same disagreement:
+    <br>
+    <img src="img/pops/odss_issue.svg" width="50%">
+<table width="100%" style="font-size: 70%" >
+  <tr>
+    <th></th>
+    <th>A</th>
+    <th>B</th>
+  </tr>
+  <tr>
+    <td>Quantity disagreement</td>
+    <td>$|6-5| = 1$</td>
+    <td>$|6-7| = 1$</td>
+  </tr>
+  <tr>
+    <td>Allocation disagreement</td>
+    <td>$2$</td>
+    <td>$2$</td>
+  </tr>
+  <tr>
+    <td>Odds Ratio</td>
+    <td>$(4 * 2) / (2 * 1) = 4$</td>
+    <td>$(5 * 1) / (1 * 2) = 2.5$</td>
+  </tr>
+</table>
+</section>
+
+<section>
+  <h3>Kappa</h3>
+  If the rasters are in complete agreement then $\kappa = 1$.
+  If there is no agreement  other than what would
+   be expected by chance $\kappa = 0$.
+   <p>
+  <small>
+  $$\kappa = \frac{P_o - P_e}{1 - P_e}$$
+  $$P_o = \mbox{observed agreement} = \frac{TP + TN}{\mbox{All}}$$
+  <br>
+  $$P_e = \mbox{probability of random agreement} = P_{yes} + P_{no}$$
+  <br>
+  $$P_{yes} = \frac{TP + FN}{\mbox{All}} * \frac{TP + FP}{\mbox{All}}$$
+  <br>
+  $$P_{no} = \frac{FP + TN}{\mbox{All}} * \frac{FN + TN}{\mbox{All}}$$
+  </small>
+</section>
+
+<section>
+    <h3>Issues with Kappa</h3>
+<ul>
+<li> Penalizes a map more strongly for allocation disagreement than quantity disagreement
+<li> It’s a ratio, which can introduce problems in calculation and interpretation
+  <small>(e.g., when denominator or numerator is 0;
+     is a value low because the denominator is high,
+      or because the numerator is low?</small>
+<li>It compares to a random baseline, but this can be irrelevant
+  or misleading. It might be more useful to compare to a naïve classification (like assuming no disease spread)
+ </ul>
+ See <a href="https://sensoremoto2016.files.wordpress.com/2016/09/pontius_death_to_kappa_2011.pdf">Death to Kappa</a>, Pontius et al 2011
+</section>
+
+<section>
+    <h3>Landscape pattern</h3>
+  <img src="img/pops/pattern.svg" width="70%">
+  <p>
+  Simulations A and B have the same
+  quantity and allocation disagreements,
+  but A is more reflective of the truth.
+</section>
+
+<section>
+    <h3>Configuration disagreement</h3>
+Combination of different metrics:
+<ul>
+  <li>Edge contrast</li>
+  <li>Patch shape complexity</li>
+  <li>Aggregation</li>
+  <li>Nearest neighbor distance</li>
+  <li>Patch dispersion</li>
+  <li>Large patch dominance</li>
+  <li>Neighborhood similarity</li>
+</ul>
+<p>
+See <a href="https://doi.org/10.1016/j.compenvurbsys.2019.101366">Pickard et al. (2019)</a>,
+ <a href="https://doi.org/10.1016/j.ecolind.2007.12.002">Cushman et al. (2008)</a>
+</section>
+
+
