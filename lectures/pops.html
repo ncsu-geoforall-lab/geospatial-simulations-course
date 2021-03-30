@@ -67,7 +67,7 @@ where
  <li> $\Psi_{ijt}$ is number of infested hosts in cell $j$ as a result of pest dispersal from cell $i$
  <li> $\beta$ number of dispersers from a single host under optimal conditions
  <li> $W_{it}$ is weather in cell i, $I_{it}$ number of infected hosts in cell $i$
- <li> $K (d, w)$ is the dispersal as a function of distance $d$ and wind direction $w$
+ <li> $K (d, w)$ is the dispersal as a function of distance parameters $d$ and wind properties $w$
  <li> $W_{jt}$ is weather in cell j, $S_{jt}$ number of suspected hosts in cell $j$, 
  <li> $N_j$ number of all potential hosts
 </ul>
@@ -89,7 +89,8 @@ where
  <li> $X_{it} P_{it} T_{it}$ is weather: seasonality, precipitation, temperature
  <li> weather is implemented as <a href="https://github.com/ncsu-landscape-dynamics/weather-coefficient"> weather coefficient</a>
 derived from historical weather data
- <li> number of dispersers is randomly selected from Poisson distribution
+ <li> number of dispersers is randomly selected from 
+<a href="https://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a>
 </ul>
 </p>
 </small>
@@ -108,7 +109,9 @@ The distance and direction of dispersers spread from cell $i$ to cell $j$ is:
  <li>$\alpha_1, \alpha_2$ are short and long distance dispersal scales
  <li>$\gamma$ is percent short distance dispersal 
  <li>$D$ is the wind vector with direction $\omega$ and strength (magnitude) $\kappa$
- <li>distance is selected from Cauchy distribution, wind direction is from von Mises (circular normal) distribution
+ <li>distance is selected from 
+<a href="https://en.wikipedia.org/wiki/Cauchy_distribution">Cauchy distribution,</a> wind direction is from 
+<a href="https://en.wikipedia.org/wiki/Von_Mises_distribution">von Mises (circular normal) distribution</a>
 </ul>
 </small>
 </p>
@@ -198,10 +201,11 @@ Geospatial simulation steering for adaptive management. Environmental Modelling 
 
 <section>
 <h3>PoPS application for SOD scenario modeling</h3>
-<p>Simulations with different dispersal kernels (Cauchy, distance, anisotropy)
+<p>Simulations with different dispersal kernels 
+(exponential with modified distance and wind streangth, Cauchy, anisotropic)
 <p>
-<img src="img/pops/pops_spread_cauchy.jpg" height="290px">&nbsp;
 <img src="img/pops/pops_spread_dist.jpg" height="290px">
+<img src="img/pops/pops_spread_cauchy.jpg" height="290px">
 <img src="img/pops/pops_spread_dir.jpg" height="290px">
 </section>
 
@@ -277,7 +281,7 @@ All open source, hosted on GitHub
 <strong>Assumptions:</strong>
 <ul>
   <li>Simulation and data are comparable (i.e., the output from the simulation is
-     something that is recorded in the data)
+     a quantity recorded in the data)
   or can be compared from summary statistics.</li>
 </ul>
 
@@ -306,7 +310,8 @@ All open source, hosted on GitHub
     <h3>Calibration using MCMC</h3>
   <ol>
     <li>generate a random parameter set and run the model</li>
-    <li>if the new parameter performs better, it is added to the chain of parameter values with a certain probability determined by how much better it is</li>
+    <li>if the new parameter performs better, it is added to the chain of parameter values 
+with a certain probability determined by how much better it is</li>
     <li>repeat this sequence many times to get a distribution of possible parameters</li>
     <li>take the most common parameter from this distribution</li>
   </ol>
@@ -387,8 +392,8 @@ All open source, hosted on GitHub
     <ul>
       <li>a sequence of distributions is constructed by gradually
          decreasing $\epsilon$ in each generation
-         <small>($\epsilon_1, \epsilon_2, \epsilon_3,$...
-         can be pre-selected or derived based on the previous generation)</small></li>
+         ($\epsilon_1, \epsilon_2, \epsilon_3,$...
+         can be pre-selected or derived based on the previous generation)</li>
       <li>each generation is obtained as a weighted sample from the previous distribution
          that has been perturbed through a kernel</li>
       <li>perturbation kernel can be uniform distribution,
@@ -430,6 +435,8 @@ Adaptive routines to find optimal perturbation kernel:
   <li>Allocation disagreement</li>
   <li>Configuration disagreement</li>
 </ul>
+<p>
+See <a href="https://doi.org/10.1016/j.compenvurbsys.2019.101366">Pickard et al. (2019)</a>
 </section>
 
 <section>
