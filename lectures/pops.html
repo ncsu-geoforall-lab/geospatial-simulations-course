@@ -1,7 +1,7 @@
 <section>
-<h2>Plant, Pest and Pathogen Spread Modeling</h2>
+<h2>Pest or Pathogen Spread Modeling</h2>
 <p style="margin-top: 0.5em">
-    Anna Petrasova, Vaclav Petras, Devon Gaydos, Chris Jones, Helena Mitasova</p>
+    Anna Petrasova, Vaclav Petras, Devon Gaydos, Chris Jones, <br>Helena Mitasova</p>
 <p class="title-foot">
     GIS714 Geosimulations
     <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
@@ -22,40 +22,55 @@
 
 </section>
 
+<section>
+   <h3>Modeling components</h3>
+When performing simulations we need to consider
+<a href="intro_geocomputation.html#/13/0/3">modeling components:</a>
+<p>
+<ul>
+  <li class="fragment"> <b>Modeled quantity [units]:</b> density of infected plants (hosts) - $n_i/m_2$
+  <li class="fragment"> <b>Spatial and temporal scale:</b> from field at 1m res and days to global spread 
+  <li class="fragment"> <b>Configuration space and interactions:</b> host density, weather, infected locations
+  <li class="fragment"> <b>Governing equations or rules:</b> rate of reproduction, distance and direction of spread,
+establishment and die out  
+</ul>
+</section>
 
 <section class="textimg">
-<h3>PoPS Model</h3>
-
-<div>
+<h3>Pest or Pathogen Spread Model PoPS</h3>
+<p> Geospatial simulation of pests and pathogens (dispersers) over a landscape
 <p>
-<em>Pest or Pathogen Spread Model</em>
-</p>
-Simulates spread of pests and pathogens over a landscape
-in a spatially-explicit way
-<p>
-Main inputs include
+Main drivers: 
 <ul>
     <li>host density
     <li>weather conditions
-    <li>infected locations
+    <li>locations with infected hosts
 </ul>
-</div>
-
-<img src="img/pops/pops_logo.png" alt="PoPS logo">
-
+<p> Main output: Spatial distribution of infected host densities at a given time
+<p>
+<img height="150px" src="img/pops/pops_logo.png" alt="PoPS logo">
+<a href="https://popsmodel.org/about/the-pops-model/">PoPS model description</a>
 </section>
 
 <section>
-<h3>Mechanics</h3>
-<ol>
-  <li>generating dispersers (spores or insect)</li>
-  <li>spreading dispersers</li>
-  <li>establishment of dispersers</li>
-</ol>
+<h3>Governing equation</h3>
+Describes density of infected hosts at time $t$
+as a function of dispersers reproduction, dispersal and establishment
+</ul>
+$$ \Psi_{ijt} = \beta W_{it} I_{it} * K (d, w) * (W_{jt} S_{jt}) / N_j
+where
+<small>
+<ul>
+ <li> $\Psi_{ijt}$ is number of infested hosts in cell $j$ as a result of pest dispersal from cell $i$
+ <li> $\beta$ number of dispersers from a single host under optimal conditions
+ <li> $W_{it}$ is weather in cell i, $I_{it}$ number of infected plants in cell $i$
+ <li> $W_{jt}$ is weather in cell j, $S_{jt}$ number of suspected hosts in cell $j$, 
+ <li> $N_j$ number of all potential hosts
+</ul>
+</small>
 <p>
-Repeated in each step (daily, weekly, monthly, ...)
-</p>
-<img src="img/pops/model_overview.png" class="stretch">
+<img height="150px" src="img/pops/model_overview.png" class="stretch">
+
 </section>
 
 
@@ -63,9 +78,10 @@ Repeated in each step (daily, weekly, monthly, ...)
 <h3>Generating dispersers </h3>
 Number of dispersers each infected host produces:
 <p>
-$$ S \sim Pois(\lambda), \lambda = r w_i$$
+$$ S \sim Pois(\lambda), \lambda = r w_i = \beta X_{it} P_{it} T_{it} I_{it}$$
 <p>
 <small>$r$ is reproductive rate, $w_i$ is weather condition in cell $i$</small>
+ <li> $X_{it} P_{it} T_{it}$ is weather: seasonality, precipitation, temperature
 </p>
 <img src="img/pops/model_generation.png" class="stretch">
 </section>
