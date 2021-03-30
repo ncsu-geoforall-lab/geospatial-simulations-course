@@ -28,15 +28,15 @@ When performing simulations we need to consider
 <a href="intro_geocomputation.html#/13/0/3">modeling components:</a>
 <p>
 <ul>
-  <li class="fragment"> <b>Modeled quantity [units]:</b> density of infected plants (hosts) - $n_i/m_2$
-  <li class="fragment"> <b>Spatial and temporal scale:</b> from field at 1m res and days to global spread 
-  <li class="fragment"> <b>Configuration space and interactions:</b> host density, weather, infected locations
+  <li class="fragment"> <b>Modeled quantity [units]:</b> density of infected plants (hosts) 
+  <li class="fragment"> <b>Spatial and temporal scale:</b> field [1m res, days], regional,  global spread 
+  <li class="fragment"> <b>Configuration space and interactions:</b> host density, weather, initial infected locations
   <li class="fragment"> <b>Governing equations or rules:</b> rate of reproduction, distance and direction of spread,
-establishment and die out  
+establishment 
 </ul>
 </section>
 
-<section class="textimg">
+<section>
 <h3>Pest or Pathogen Spread Model PoPS</h3>
 <p> Geospatial simulation of pests and pathogens (dispersers) over a landscape
 <p>
@@ -56,47 +56,65 @@ Main drivers:
 <h3>Governing equation</h3>
 Describes density of infected hosts at time $t$
 as a function of dispersers reproduction, dispersal and establishment
-</ul>
-$$ \Psi_{ijt} = \beta W_{it} I_{it} * K (d, w) * (W_{jt} S_{jt}) / N_j
+<p>
+$$ \Psi_{ijt} = \beta W_{it} I_{it} * K (d, w) * (W_{jt} S_{jt}) / N_j$$
+<p>
 where
 <small>
 <ul>
  <li> $\Psi_{ijt}$ is number of infested hosts in cell $j$ as a result of pest dispersal from cell $i$
  <li> $\beta$ number of dispersers from a single host under optimal conditions
- <li> $W_{it}$ is weather in cell i, $I_{it}$ number of infected plants in cell $i$
+ <li> $W_{it}$ is weather in cell i, $I_{it}$ number of infected hosts in cell $i$
+ <li> $K (d, w)$ is the dispersal as a function of distance $d$ and wind direction $w$
  <li> $W_{jt}$ is weather in cell j, $S_{jt}$ number of suspected hosts in cell $j$, 
  <li> $N_j$ number of all potential hosts
 </ul>
 </small>
 <p>
-<img height="150px" src="img/pops/model_overview.png" class="stretch">
+<img height="200" src="img/pops/model_overview.png" class="stretch">
 
 </section>
 
 
 <section>
 <h3>Generating dispersers </h3>
-Number of dispersers each infected host produces:
+Number of dispersers each infected host produces $\lambda$:
 <p>
-$$ S \sim Pois(\lambda), \lambda = r w_i = \beta X_{it} P_{it} T_{it} I_{it}$$
+$$\lambda = \beta X_{it} P_{it} T_{it}$$
+$$ S \sim Pois(\lambda)$$ 
 <p>
-<small>$r$ is reproductive rate, $w_i$ is weather condition in cell $i$</small>
+<small>
+where
+<p>
+<ul>
+ <li> $\beta$ number of dispersers from a single host under optimal conditions
  <li> $X_{it} P_{it} T_{it}$ is weather: seasonality, precipitation, temperature
+ <li> $S$ number of dispersers randomly selected from Poisson distribution
+</ul>
 </p>
+</small>
 <img src="img/pops/model_generation.png" class="stretch">
 </section>
 
 
 <section>
 <h3>Spreading the dispersers</h3>
-to a distance $D$ in the direction $\theta$ sampled from:
+The distance and direction of dispersers spread from cell $i$ to cell $j$
+is estimated as:
 <p>
- $$D∼Cauchy(0,\gamma) \quad \theta∼vonMises(\mu,\kappa)$$
+ $$ V = K(d_{ij}; \alpha_1, \alpha_2, \gamma, D(\omega, \kappa)$$
+ $$d_{ij}∼Cauchy(0,\alpha_1, \alpha_2,\gamma),  \quad \D∼vonMises(\omega,\kappa)$$
 <p>
- <small> with distance scale $\gamma$,
- mean angle $\mu$ and
- strength of direction $\kappa$,
- von Mises is circular normal distribution</small>
+ <small>where
+<ul>
+ <li>$d_{ij}$ is distance 
+ <li>$\alpha_1, \alpha_2$ are short and long distance dispersal scales
+ <li>$\gamma$ is percent short distance dispersal 
+ <li>$D$ is the wind vector with direction $\omega$ and strength (magnitude) $\kappa$
+</ul>
+</small>
+Distance is drawn from Cauchy distribution and wind direction is drawn from
+ von Mises (circular normal) distribution
 </p>
 <img src="img/pops/model_spread.png" class="stretch">
 </section>
