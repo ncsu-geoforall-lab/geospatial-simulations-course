@@ -66,10 +66,10 @@ where
 <ul>
  <li> $\Psi_{ijt}$ is number of infested hosts in cell $j$ as a result of pest dispersal from cell $i$
  <li> $\beta$ number of dispersers from a single host under optimal conditions
- <li> $W_{it}$ is weather in cell i, $I_{it}$ number of infected hosts in cell $i$
+ <li> $W_{it}$ is weather in cell $i$, $I_{it}$ number of infected hosts in cell $i$
  <li> $K (d, w)$ is the dispersal as a function of distance parameters $d$ and wind properties $w$
- <li> $W_{jt}$ is weather in cell j, $S_{jt}$ number of suspected hosts in cell $j$, 
- <li> $N_j$ number of all potential hosts
+ <li> $W_{jt}$ is weather in cell $j$, $S_{jt}$ number of susceptible hosts in cell $j$, 
+ <li> $N_j$ number of all potential hosts in cell $j$
 </ul>
 </small>
 <p>
@@ -127,8 +127,8 @@ $$E_j =  X_{jt} P_{jt} T_{jt} S_{jt}/N_j $$
 where
 <small> 
 <ul>
-<li>$S_{jt}$ is the number of susceptible hosts and $N$ is the number of all hosts
-<li> $X_{jt} P_{jt} T_{jt}$ is weather: seasonality, precipitation, temperature
+<li>$S_{jt}$ is the number of susceptible hosts in cell $j$ and $N_j$ is the number of all hosts in cell $j$
+<li> $X_{jt} P_{jt} T_{jt}$ is weather: seasonality, precipitation, temperature in cell $j$
 </ul>
 </small>
 </p>
@@ -136,18 +136,20 @@ where
 </section>
 
 <section>
-<h3>Stochastic simulation output</h3>
+<h3>Spatial outputs of stochastic simulations</h3>
 <p>
 <ul>
-  <li>Individual stochastic runs
-  <li>Probability infection map: for each grid cell a probability that the hosts will be infected over given period of time
+  <li>Number of infected trees in each cell from individual stochastic runs
+  <li>Probability infection map: probability that the hosts will be infected over given period of time
       derived from large number of stochastic runs
+  <li>Average number of infected hosts in each grid cell from large number of stochastic runs and associated 
+      standard deviations map
 </ul>
 </section>
 
 <section>
 <h3>PoPS application for SOD modeling</h3>
-<p>Study area  and initial locations with infected hosts
+<p>Study area  and initial locations with hosts infected by a pathogen causing Sudden Oak Death (SOD) disease
 <p>
 <img src="img/pops/pops_elev.jpg" height="400">&nbsp;
 <img src="img/pops/pops_tut_ortho.jpg" height="400">
@@ -202,7 +204,7 @@ Geospatial simulation steering for adaptive management. Environmental Modelling 
 <section>
 <h3>PoPS application for SOD scenario modeling</h3>
 <p>Simulations with different dispersal kernels 
-(exponential with modified distance and wind streangth, Cauchy, anisotropic)
+(exponential with modified distance and wind strength, Cauchy, anisotropic)
 <p>
 <img src="img/pops/pops_spread_dist.jpg" height="290px">
 <img src="img/pops/pops_spread_cauchy.jpg" height="290px">
