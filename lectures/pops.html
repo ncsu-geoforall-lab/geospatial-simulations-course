@@ -427,6 +427,7 @@ Adaptive routines to find optimal perturbation kernel:
 
 <section>
     <h3>Comparison metrics</h3>
+<p>
 <ul>
   <li>Proportion of correct pixels</li>
   <li>Odds ratio</li>
@@ -442,8 +443,9 @@ See <a href="https://doi.org/10.1016/j.compenvurbsys.2019.101366">Pickard et al.
 <section>
 
   <h3>Quantity and Allocation disagreement</h3>
-<img src="img/pops/disagreement.svg" width="70%">
-<br>
+<p>
+<img src="img/pops/disagreement.svg" width="60%">
+<p>
 Quantity disagreement = $|3 - 4| = 1$
 <br>
 Allocation disagreement = 2 (always even, here 1 pixel swapped)
@@ -451,21 +453,22 @@ Allocation disagreement = 2 (always even, here 1 pixel swapped)
 
 <section>
   <h3>Confusion matrix</h3>
-<img src="img/pops/confusion_matrix.svg" width="100%">
+<p>
+<img src="img/pops/confusion_matrix.svg" width="90%">
 </section>
 
 <section>
 
   <h3>Odds Ratio</h3>
+<p>
 $$\mbox{Odds ratio} = \frac{TP * TN}{FP * FN}$$
-<br>
-<img src="img/pops/confusion_matrix.svg" width="50%">
+<p>
+<img src="img/pops/confusion_matrix.svg" width="60%">
 </section>
 
 <section>
     <h3>Issues with Odds Ratio</h3>
-    1) Over-reliance on negative values and
-    2) different odds ratios with the same disagreement:
+Over-reliance on negative values and different odds ratios with the same disagreement:
     <br>
     <img src="img/pops/odss_issue.svg" width="50%">
 <table width="100%" style="font-size: 70%" >
@@ -535,7 +538,9 @@ $$\mbox{Odds ratio} = \frac{TP * TN}{FP * FN}$$
 
 <section>
     <h3>Configuration disagreement</h3>
+<p>
 Combination of different metrics:
+<p>
 <ul>
   <li>Edge contrast</li>
   <li>Patch shape complexity</li>
@@ -553,7 +558,7 @@ See <a href="https://doi.org/10.1016/j.compenvurbsys.2019.101366">Pickard et al.
 <section>
     <h3>More about PoPS</h3>
 <ul>
-<li><a href="https://grasswiki.osgeo.org/wiki/SOD_Spread_tutorial">Suffen Oak Death spread modeling with PoPS</a>
+<li><a href="https://grasswiki.osgeo.org/wiki/SOD_Spread_tutorial">Sudden Oak Death spread modeling with PoPS</a>
 <li><a href="https://popsmodel.org/">PoPS website with on-line application</a>
 <li><a href="https://ncsu-geoforall-lab.github.io/geospatial-simulations-course/topics/spread_sim.html#spread_pops">GIS714 course material</a>
 </ul>
