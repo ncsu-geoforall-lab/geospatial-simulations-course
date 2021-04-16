@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Process-based mass transport simulation</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Moving the course </h3>
+<p>
+<ul>
+   <li>5103 Tu,Th 3pm - 4:15pm (conflict with geoforum)
+   <li>5103 Tu,Th 8:45 - 10am 
+   <li>3214 Tu,Th 10:25 - 11:45 (GRASS needs to be installed)
+   <li>2115 Tu 1:30 - 2:45, Th 10:25 - 11:45? (needs GRASS)
+</ul>
+Other agenda
+<ul>
+   <li>HW grades posted, explain differences in flow acumulation at a given point
+   <li>testing in Hunt April 11
+   <li>Project titles on moodle wiki: correct if needed, add methods and links to a google site and/or github
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+   <li>modeling flow / transport with sources and sinks
+   <li>reduced complexity models
+   <li>numerical methods for PDE models
+   <li>implementation
+   <li>applications
+</ul>
+</section>
+
+<section>
+   <h3>Modeling diffusion, flow, transport</h3>
+<p>
+<ul>
+<li class="fragment">natural systems: geosphere, biosphere, atmosphere
+<li class="fragment">socio-economic systems: people, materials, trade
+<li class="fragment">coupled natural and socio-economic systems
+</ul>
+</section>
+
+<section>
+   <h3>Transport by water</h3>
+  <ul>
+  <p>
+   <li class="fragment">sediment transport and erosion / deposition
+   <li class="fragment">pollutant transport
+   <li class="fragment">coastal evolution: waves, currents and storm surge
+  </ul>
+<p class="fragment">
+<img height="200" src="img/masstransport/8-8-03Ditch.jpg">
+<img height="200" src="img/masstransport/Gully.1.jpg">
+<img height="200" src="img/masstransport/bankerosion.jpg">
+</section>
+
+<section>
+   <h3>Transport by wind</h3>
+  <ul>
+  <p>
+   <li class="fragment">sand and dust, dune migration
+   <li class="fragment">air pollutants, aerosols
+   <li class="fragment">pathogens, pollen
+  </ul>
+</ul>
+</section>
+
+<section>
+   <h3>Transport by gravitation</h3>
+  <ul>
+  <p>
+   <li class="fragment">landslides and debris flows
+   <li class="fragment">avalanches
+   <li class="fragment">glaciers
+ </ul>
+</ul>
+</section>
+
+<section>
+   <h3>Motivation for simulations </h3>
+  <ul>
+  <p>
+<li class="fragment">pollution prevention, control, and mitigation
+<li class="fragment">design of conservation measures
+<li class="fragment">hazards prevention, response, management
+<li class="fragment">sustainable land management
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion, flow, and transport</h3>
+<p>
+<ul>
+<li>diffusion: <small>change of density over time is proportional to change in gradient at a given location</small>
+<li class="fragment">diffusion with source
+<li class="fragment">diffusion with drift: diffusion in medium moving by velocity ${\bf v}$ 
+<li class="fragment">diffusion with drift and source 
+<li class="fragment">diffusion with drift, proliferation and decay
+</ul>
+<p>
+<small>Discuss how these processes relate to computing and simulations in your projects</small>
+</section>
+
+<section>
+   <h3>Modeling diffusion, flow, transport</h3>
+<p>
+<ul>
+<li> Recall diffusion equation: 
+<br><small>change in density over time at location $x$ is proportional to change in gradient at this location
+<p>
+$$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2} $$
+<li>
+$n(x,t)$ is density, $x$ is location and $t$ is time, $D_0$ is diffusion constant</small>
+<!-- change x to bold r=(x,y)-->
+<li class="fragment">Hillslope evolution with uplift: diffusion with source
+<br><small>change in elevation over time at $x$ is proportional to change in gradient at $x$ and uplift $U$
+<p>
+$$ {\partial z(x,t) \over \partial t} = U - \kappa \nabla q_s(x,t) = U - \kappa {\partial^2 z(x,t) \over \partial x^2} $$
+<li>
+$q_s(x,t) = \kappa \nabla z(x,t)$ is flux, $z(x,t)$ is elevation, $x$ is location and $t$ is time, $\kappa$ is a diffusion constant</small>
+</ul>
+<p class="fragment"><small>What is second order derivative of elevation field?</small>
+<p class="fragment"><small>Explore the model in <b>landlab</b></small>
+</section>
+
+<!--
+<section>
+   <h3>Green's function, path sampling solutions </h3>
+<ul>
+<p>We can rewrite the diffusion equation using Green's function
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation 
+<p>
+<li>
+and where the Green's function for diffusion equation is the fundamental solution
+$$ G_d({\bf r},{\bf r}',\delta t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-({\bf r}-{\bf r}')^2} \over {4D_0t)}}$$
+<p>
+<li>
+</ul>
+<p>
+</section>
+-->
+
+<section>
+   <h3>Stochastic method of solution</h3>
+<small>
+<p>Recall path sampling solution:
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<p>which is evolution equation and the walk will propagate as
+<p>
+$${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
+<p>
+where $\vec\eta^{(i)}$ is from distribution
+$$ G_d({\bf r},{\bf r}',\tau) = {1 \over \sqrt{4\pi D_0 \tau}} e^{{-|{\bf r}-{\bf r}'|^2} \over {4D_0\tau)}}$$
+</small>
+</section>
+
+<section>
+   <h3>Diffusion with drift</h3>
+<p>
+<ul>
+<li>Diffusion in a medium which drifts with a
+constant velocity ${\bf v}_0$. Green's function is then: 
+<p>
+$$
+G_d(...)={1 \over (4\pi t)^{3/2}} 
+e^{- |{\bf r}-{\bf r}'-{\bf v}_0t|^2/4t}
+$$
+<p>
+<li>and the walk will propagate as
+<p>
+$$
+{\bf r}^{(i)}(t+\tau)={\bf r}^{(i)}(t)+{\bf v}_0\tau + \vec\eta^{(i)}
+$$
+<li>this was the water flow model
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion with drift and proliferation / decay</h3>
+<p><small>
+<ul>
+<li>Inclusion of a constant proliferation/decay term $U_0$:
+$$
+[\partial n({\bf r},t) /\partial t - \nabla_{\bf r}^2n({\bf r},t)
++\nabla\cdot(n({\bf r},t){\bf v}_0) +U_0 n({\bf r},t)]=0
+$$
+<li>Disregard for a moment the diffusion and drift terms so that the equation simplifies to
+$$
+{\partial  n({\bf r},t)) \over \partial t} = -U_0n({\bf r},t)
+$$
+<li>This reminds us of a rate process, for which we have
+ $n({\bf r},t)\propto \exp(-U_0t)$. Enlightened by this insight we can write
+$$
+G({\bf r},{\bf r}',t)= e^{-U_0t}G_d(...)
+$$
+<li>How could this be captured by the sampling process ? We need to
+introduce the walker {\it weight} which records how much of it has survived 
+or how much it has gained in time.  The walker weight will evolve as
+$$
+w^{(i)}(t+\tau)=w^{(i)}(t)e^{-\tau U_0} 
+$$
+<li>Note that this is multiplicative as it is in GF and assuming
+positive $U_0$, the walks diminish exponentially quickly in time and 
+the solution will be given by
+$$
+n({\bf r},t)={\rm distr}
+[\{
+w^{(i)}(t)\delta({\bf r}-{\bf r}^{(i)}(t))
+\}_{i=1}^{M_{walk}}]+\epsilon_{stat}
+$$
+</ul>
+</small>
+</section>
+
+<!--
+<section>
+   <h3>Shallow water flow equation</h3>
+<p>
+<small>
+bivariate form of the St Venant equation
+<p>
+ $$ {\partial h({\bf r},t) \over \partial t} + \nabla \cdot {\bf v}({\bf r},t) h({\bf r},t) = i_e({\bf r},t)$$
+<p>hydraulic radius is approximated by flow depth $h({\bf r},t)$ and the unit discharge is given by:
+<p>where the flow velocity is given by the Manning's relation  
+$${\bf v}({\bf r},t)= {C\over n({\bf r})} h({\bf r},t)^{2/3} |{\bf s_f}({\bf r},t)|^{1/2} {\bf s_{f0}({\bf r},t)}$$
+</small>
+<small>
+<ul>
+ <li>${\bf r}=(x,y)$ [m] is the position,
+ <li>$t$ [s] is the time,
+ <li>$h({\bf r},t)$ [m] is the depth of overland flow,
+ <li>$i_e({\bf r},t)$ [m/s] is the rainfall excess = (rainfall $-$ infiltration $-$ vegetation intercept) [m/s],
+<li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width
+ <li>${\bf v}({\bf r},t)$  [m/s] is the flow velocity.
+<li>$n({\bf r}) $ is the dimensionless Manning's coefficient,
+<li>C=1 [$m^{1/3}/s$] is the corresponding dimension constant
+<li>${\bf s_{f0}}({\bf r})={\bf s_f}({\bf r})/|{\bf s_f}({\bf r})|$ is the unit vector in the friction slope direction.
+</ul>
+</small>
+</section>
+
+<section>
+   <h3>Shallow water flow equation</h3>
+<p>momentum conservation in the diffusion wave approximation: 
+$$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
+<ul>
+ <li>and ${\bf s_f}({\bf r},t)$ is the negative gradient of overland flow surface (friction slope).
+ <li>${\bf s}({\bf r})= - \nabla z({\bf r})$ is the negative elevation gradient,
+ <li>$z({\bf r})$ [m] is the elevation,
+</ul>
+</section>
+-->
+
+<section>
+   <h3>Reduced complexity models</h3>
+<p>Consider steady state and replace some effects by empirical parameters
+</section>
+
+
+<section>
+   <h3>Peak flow and discharge</h3>
+<ul>
+<li>
+Solution of continuity and momentum equations for a steady state flow, constant velocity
+and uniform steady rainfall leads to rational equation for estimation of peak discharge:
+<p>
+$$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
+<p> then
+$$ Q = c.i.A $$
+<li>
+where $A$ is contributing area, $i$ is rainfall intensity, and $c$ is constant dependent on soil type, land cover
+and average slope within the watershed. 
+<li>We can use uplsope contributing area to estimate peak water flow for reduced complexity erosion modeling
+</ul>
+</section>
+
+<section>
+   <h3>Sediment flow</h3>
+Assuming steady state flow, sediment transport $q_s$ can be approximated by 
+sediment transport capacity $T_c$:
+<p>
+$$ q_s = K_T q^m (\nabla z)^n$$
+<p>
+$$ q_s \approx T_c = K_T A^m (\sin \gamma)^n$$
+<p>
+<small>
+<ul>
+<li> where $A$ is contributing area as measure of water flow
+<li>$K_T$ is transport capacity coefficient
+<li>$\gamma$ is slope angle
+<li>$m,n$ are empirical coefficients
+</ul>
+</small>
+</section>
+
+<section>
+   <h3>Evolution of water flow</h3>
+Water flow $q$ accumulates during steady rainfall:
+<p>
+<img height="450" src="img/diffusion_flows/water1994.gif">
+</section>
+
+<section>
+   <h3>Evolution of sediment flow capacity</h3>
+Evolution in sediment transport capacity $T_c$ during steady rainfall, as water flow accumulates
+<p>
+<img height="450" src="img/masstransport/lsfac1994.gif">
+</section>
+
+
+<section>
+   <h3>Net erosion and deposition</h3>
+<small>
+Net erosion and deposition (source and sinks term) are computed as a change 
+in sediment transport capacity $T_c$ in the direction of flow (divergence of the sediment 
+transport vector field).
+It is a dot product of a unit vector ${\bf s_0}$ in the direction of flow $\alpha$ 
+<p>
+$${\bf s_0} =(\cos \alpha, \sin \alpha)$$ 
+
+<p>and sediment transport surface gradient
+<p>
+
+$$ {\bf q_s} = \left ( \frac{\partial T_c }{ \partial x}, \frac{\partial T_c }{ \partial y } \right ) $$
+
+<p>leading to an equation that is easy to compute using map algebra 
+<p>
+$$d_s =\nabla\cdot {\bf q}_s  \approx = {\partial (T_c  \cos \alpha ) \over {\partial x}} + {\partial (T_c  \sin \alpha ) \over {\partial y}}$$
+</small>
+</section>
+
+<section>
+   <h3>Net erosion deposition</h3>
+<p>
+<img height="300" src="img/masstransport/erdep_cerl_3d.gif">
+<img height="300" src="img/masstransport/erdep_cerl_dem.gif">
+</section>
+
+
+<section>
+   <h3>Erosion modeling: equations</h3>
+<small>
+<ul>
+<li>USLE, 
+$$E=R.K.L.S.C.P$$
+<li>
+empirical factors/coefficients
+R - rainfall intensity 
+K - soil erodibility 
+L - hillslope length or contributing area
+S - slope steepness
+C - cover
+P - protection measures
+
+<li>USPED
+<li>SIMWE/WEPP
+</ul>
+</small>
+</section>
+
+<section>
+   <h3>Erosion modeling: equations</h3>
+<small>
+<ul>
+<li>USLE,
+<li>USPED
+<li>SIMWE/WEPP
+</ul>
+</small>
+</section>
+
+<section>
+   <h3>Erosion modeling: methods comparison</h3>
+Erosion models with different level of reduced complexity: 
+<small>
+<ul>
+<li>erosion only (detachment limited regime) hillslope length and contributing area
+<li>erosion and deposition, transport capacity regime and variable sigma
+</ul>
+</small>
+<p>
+<img height="400" src="img/masstransport/erosion_germany_usle.jpg">
+<img height="400" src="img/masstransport/erdep_germany_simweusped.jpg">
+</section>
+
+<section>
+   <h3>Path sampling method</h3>
+<p>Weighted particles: sediment transport with proliferation and decay
+<p>
+<img height="380" src="img/masstransport/sfwc_new.gif">
+<img height="380" src="img/masstransport/sfn10.gif">
+</section>
+
+<section>
+   <h3>Path sampling method</h3>
+Spatially variable source
+<p>
+<img height="300" src="img/masstransport/hohen_lu.gif">
+<img height="300" src="img/masstransport/edn10.gif">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy</h3>
+<p>Error is proportional to $1/\sqrt N$, $N$ is number of particles
+<p>
+<img height="380" src="img/diffusion_flows/mcsimwelg.gif">
+</section>
+
+<section>
+   <h3>Detachment and transport capacity limited regime</h3>
+<p>Ratio of sediment transport capacity and detachment capacity controls 
+the spatial extent of deposition: impact of change in detachment capacity coefficient $K_c$,
+transported sediment remains constant
+<p>
+<img height="380" src="img/masstransport/sigerkc.gif">
+</section>
+
+<section>
+   <h3>Detachment and transport capacity limited regime</h3>
+<p>Ratio of sediment transport capacity and detachment capacity controls 
+the spatial extent of deposition: impact of transport capacity coefficient $T_c$,
+transported sediment is reduced
+<p>
+<img height="380" src="img/masstransport/sigertc.gif">
+</section>
+
+<section>
+   <h3>Applications</h3>
+<p>Sediment flow and net erosion/deposition for variable land use,
+USPED model 
+<p><img height="380" src="img/masstransport/uspedsedflowdem.jpg">
+<img height="380" src="img/masstransport/uspederdepdem.jpg">
+</section>
+
+<section>
+   <h3>Applications</h3>
+<p>Simulated erosion and deposition pattern and observations
+<p><img height="450" src="img/masstransport/cerl9808.gif">
+</section>
+
+<section>
+   <h3>Applications</h3>
+<p>Land use management: soil erosion control
+<p><img height="450" src="img/intro/erosion_landuse.jpg">
+</section>
+
+<section>
+   <h3>Coupled models</h3>
+<p>Climate, landscape evolution, and settlements:
+<p><img height="350" src="img/masstransport/fig18_mml_rev.jpg">
+</section>
+
+<section>
+   <h3>Applications</h3>
+<ul>
+<li>natural and socio-economic processes
+<li>generalize the concept - define appropriate gradient field and density
+<li>how does your research relate to diffusion, dispersal, flux and related processes?
+</ul>
+<small>Example: growing cities - inverse of population density or economic opportunity fields
+</section>
+
+<!--
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we have defined types of models
+</ul>
+</section>
+
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

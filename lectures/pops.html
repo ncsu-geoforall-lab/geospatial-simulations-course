@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+<h2>Pest or Pathogen Spread Modeling</h2>
+<p style="margin-top: 0.5em">
+    Anna Petrasova, Vaclav Petras, Devon Gaydos, Chris Jones, <br>Helena Mitasova</p>
+<p class="title-foot">
+    GIS714 Geosimulations
+    <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+</p>
+</section>
+
+
+<section>
+<h3>Motivation</h3>
+<p>
+<ul>
+    <li>Plant diseases and pests threaten production of food and plant-based materials
+    <li>NCSU CGA &amp; USDA APHIS developing tools to forecast the spread of pests and pathogens and to design effective control measures
+</ul>
+<p>Spotted lantern fly infestation
+<br>
+<img src="img/pops/spotted_lanternfly_grape.jpg" height="250">
+</section>
+
+<section>
+   <h3>Modeling components</h3>
+When performing simulations we need to consider
+<a href="intro_geocomputation.html#/13/0/3">modeling components:</a>
+<p>
+<ul>
+  <li class="fragment"> <b>Modeled quantity [units]:</b> density of infected plants (hosts) 
+  <li class="fragment"> <b>Spatial and temporal extent and scale:</b> field, regional, global spread 
+  <li class="fragment"> <b>Configuration space and interactions:</b> host density, weather, initial infected locations
+  <li class="fragment"> <b>Governing equations or rules:</b> rate of reproduction, distance and direction of spread,
+establishment 
+</ul>
+</section>
+
+<section>
+<h3>Pest or Pathogen Spread Model PoPS</h3>
+<p> Geospatial simulation of pests or pathogens over a landscape
+<p> Main drivers: 
+<ul>
+    <li>locations with infected hosts
+    <li>host density
+    <li>weather conditions
+</ul>
+<p> Main outputs: 
+<ul>
+<li> Spatial distribution of infected host densities at a given time
+<li> Spatial distribution of infected host probabilities over time
+</ul>
+<p>
+<a href="https://popsmodel.org/about/the-pops-model/">PoPS model description</a>
+<br><img height="120px" src="img/pops/pops_logo.png" alt="PoPS logo">
+</section>
+
+<section>
+<h3>Governing equation</h3>
+Describes density of infected hosts at time $t$
+as a function of dispersers reproduction, dispersal, and establishment
+<p>
+$$ \Psi_{ijt} = \beta W_{it} I_{it} * K (d, w) * (W_{jt} S_{jt}) / N_j$$
+<p>
+where
+<small>
+<ul>
+ <li> $\Psi_{ijt}$ is number of infested hosts in cell $j$ as a result of pest dispersal from cell $i$
+ <li> $\beta$ number of dispersers from a single host under optimal conditions
+ <li> $W_{it}$ is weather in cell $i$, $I_{it}$ number of infected hosts in cell $i$
+ <li> $K (d, w)$ is the dispersal as a function of distance parameters $d$ and wind properties $w$
+ <li> $W_{jt}$ is weather in cell $j$, $S_{jt}$ number of susceptible hosts in cell $j$, 
+ <li> $N_j$ number of all potential hosts in cell $j$
+</ul>
+</small>
+<p>
+<img height="200" src="img/pops/model_overview.png" class="stretch">
+</section>
+
+<section>
+<h3>Generating dispersers </h3>
+Number of dispersers each infected host produces $\lambda$:
+<p>
+$$\lambda = \beta X_{it} P_{it} T_{it}$$
+<p>
+where
+<small>
+<ul>
+ <li> $\beta$ number of dispersers from a single host under optimal conditions
+ <li> $X_{it} P_{it} T_{it}$ is weather: seasonality, precipitation, temperature
+ <li> weather is implemented as <a href="https://github.com/ncsu-landscape-dynamics/weather-coefficient"> weather coefficient</a>
+derived from historical weather data
+ <li> number of dispersers is randomly selected from 
+<a href="https://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a>
+</ul>
+</p>
+</small>
+<img src="img/pops/model_generation.png" class="stretch">
+</section>
+
+<section>
+<h3>Spreading the dispersers</h3>
+The distance and direction of dispersers spread from cell $i$ to cell $j$ is:
+<p>
+ $$ V_{ij} = K(d_{ij}; \alpha_1, \alpha_2, \gamma, D(\omega, \kappa))$$
+<p>
+ <small>where
+<ul>
+ <li>$d_{ij}$ is distance 
+ <li>$\alpha_1, \alpha_2$ are short and long distance dispersal scales
+ <li>$\gamma$ is percent short distance dispersal 
+ <li>$D$ is the wind vector with direction $\omega$ and strength (magnitude) $\kappa$
+ <li>distance is selected from 
+<a href="https://en.wikipedia.org/wiki/Cauchy_distribution">Cauchy distribution,</a> wind direction is from 
+<a href="https://en.wikipedia.org/wiki/Von_Mises_distribution">von Mises (circular normal) distribution</a>
+</ul>
+</small>
+</p>
+<img src="img/pops/model_spread.png" class="stretch">
+</section>
+
+<section>
+<h3>Establishment of dispersers</h3>
+The number of infected susceptible hosts in a cell $j$:
+<p>
+$$E_j =  X_{jt} P_{jt} T_{jt} S_{jt}/N_j $$
+<p>
+where
+<small> 
+<ul>
+<li>$S_{jt}$ is the number of susceptible hosts in cell $j$ and $N_j$ is the number of all hosts in cell $j$
+<li> $X_{jt} P_{jt} T_{jt}$ is weather: seasonality, precipitation, temperature in cell $j$
+</ul>
+</small>
+</p>
+<img src="img/pops/model_establishment.png" class="stretch">
+</section>
+
+<section>
+<h3>Spatial outputs of stochastic simulations</h3>
+<p>
+<ul>
+  <li>Number of infected trees in each cell from individual stochastic runs
+  <li>Probability infection map: probability that the hosts will be infected over given period of time
+      derived from large number of stochastic runs
+  <li>Average number of infected hosts in each grid cell from large number of stochastic runs and associated 
+      standard deviations map
+</ul>
+</section>
+
+<section>
+<h3>PoPS application for SOD modeling</h3>
+<p>Study area  and initial locations with hosts infected by a pathogen causing Sudden Oak Death (SOD) disease
+<p>
+<img src="img/pops/pops_elev.jpg" height="400">&nbsp;
+<img src="img/pops/pops_tut_ortho.jpg" height="400">
+</section>
+
+<section>
+<h3>PoPS application for SOD modeling</h3>
+<p>Host density and a weather index map 
+<p>
+<img src="img/pops/pops_host.jpg" height="400">
+<img src="img/pops/pops_weather364.jpg" height="400">
+</section>
+
+<section>
+<h3>PoPS application for SOD modeling</h3>
+<p>Infected hosts in 2019 and 2023 from a single stochastic run 
+<p>
+<img src="img/pops/pops_2019def.jpg" height="400">&nbsp;
+<img src="img/pops/pops_2023def.jpg" height="400">
+</section>
+
+<section>
+<h3>PoPS application for SOD modeling</h3>
+<p>Probability of grid cell getting infected as a result of many stochastic runs 
+and average number of infected trees per grid cell
+<p>
+<img src="img/pops/pops_probability_23.jpg" height="400">&nbsp;
+<img src="img/pops/pops_average_23.jpg" height="400">&nbsp;
+</section>
+
+<section>
+<h3>Scenario modeling</h3>
+PoPS allows spatial management input at specific times of the simulation and supports 
+simulation steering :
+<small>
+<ul>
+<li>
+Tonini, F, D. Shoemaker, A. Petrasova, B. Harmon, V. Petras, R. C. Cobb, H. Mitasova, and R. K. Meentemeyer, 2017. 
+Tangible geospatial modeling for collaborative solutions to invasive species management. 
+Environmental Modelling and Software 92: 176-188. 
+<a href="https://doi.org/10.1016/j.envsoft.2017.02.020"> DOI: 10.1016/j.envsoft.2017.02.020</a>
+<li>
+Petrasova, A., Gaydos, D.A., Petras, V., Jones, C.M., Mitasova, H. and Meentemeyer, R.K., 2020. 
+Geospatial simulation steering for adaptive management. Environmental Modelling & Software 133: 104801. 
+<a href="https://doi.org/10.1016/j.envsoft.2020.104801"> DOI: 10.1016/j.envsoft.2020.104801</a>
+</ul>
+</small>
+<p>
+<img height="250" src="img/pops/spread_barrier.jpg" class="stretch">
+</section>
+
+<section>
+<h3>PoPS application for SOD scenario modeling</h3>
+<p>Simulations with different dispersal kernels 
+(exponential with modified distance and wind strength, Cauchy, anisotropic)
+<p>
+<img src="img/pops/pops_spread_dist.jpg" height="290px">
+<img src="img/pops/pops_spread_cauchy.jpg" height="290px">
+<img src="img/pops/pops_spread_dir.jpg" height="290px">
+</section>
+
+<section>
+<h3>PoPS application for SOD scenario modeling</h3>
+<p>Management scenarios: local buffers, massive barrier clear cut                        
+<p>
+<img src="img/pops/pops_prob_trA_23.jpg" height="390px">&nbsp;
+<img src="img/pops/pops_prob_trC_23.jpg" height="390px">
+</section>
+
+<section>
+<h3>Software</h3>
+
+<ul>
+    <li><a href="https://github.com/ncsu-landscape-dynamics/PoPS">PoPS</a> (C++ library)
+    <li><a href="https://github.com/ncsu-landscape-dynamics/rpops">rpops</a> R package (uses Rcpp for R C++ integration)
+    <li><a href="https://grass.osgeo.org/grass7/manuals/addons/r.pops.spread.html">r.pops.spread</a> GRASS GIS Addon in C++
+</ul>
+<p>
+All open source, hosted on GitHub
+</p>
+<img src="img/pops/r_logo.svg" height="150px">&nbsp;
+<img src="img/pops/grass_gis_logo.svg" height="150px">
+
+</section>
+
+<section>
+<h3>User Interfaces</h3>
+<p>
+<ul>
+  <li>PoPS Web Platform</li>
+<p>
+  <li>Tangible Landscape</li>
+</ul>
+<p>
+  <img src="img/pops/PoPS_Dashboard_Example.png" height="290px">&nbsp;&nbsp;&nbsp;
+  <img src="img/pops/workshop.jpg" height="290px">
+</section>
+
+<section>
+<h3>PoPS Forecasting and Control System</h3>
+  <p style="text-align:left">Interconnected components:
+<ul>
+  <li><strong>PoPS model:</strong> predicts probability of infection
+  <li><strong>Spatial Decision Support System:</strong> interactive dashboard for stakeholders
+  <li><strong>Iterative sampling and management:</strong> validation of forecasts and improving calibration
+  <li><strong>Pest/Pathogen parameter library:</strong> biological characteristics influencing spread
+  <li><strong>Host map library:</strong> satellite data + machine learning algorithms
+</ul>
+</p>
+</section>
+
+<section>
+    <h3>Calibration and validation</h3>
+<dl>
+  <dt class="fragment">What are the correct parameters for this model?</dt>
+  <dd class="fragment">Calibration is the estimation and adjustment of model parameters
+   and constraints to improve the agreement between model output and a data set</dd>
+   <br>
+   <dt class="fragment">How does the model perform compared to the real system?</dt>
+   <dd class="fragment">Validation is a demonstration that a model possesses a satisfactory range of accuracy consistent with intended application of the model</dd>
+</dl>
+</section>
+
+<section>
+    <h3>Calibration methods</h3>
+    <ul>
+      <li>Monte Carlo Markov Chains (MCMC)</li>
+      <li>Approximate Bayesian Computation (ABC)</li>
+    </ul>
+<p style="text-align:left">
+<strong>Assumptions:</strong>
+<ul>
+  <li>Simulation and data are comparable (i.e., the output from the simulation is
+     a quantity recorded in the data)
+  or can be compared from summary statistics.</li>
+</ul>
+
+</section>
+
+<section>
+    <h3>Calibration using MCMC</h3>
+<dl>
+  <dt>Markov Chains:</dt>
+    <dd>sequences of events that are probabilistically related to each other.
+    Each event comes from a set of outcomes, and each outcome determines
+    which outcome occurs next, according to some fixed probability set.
+    <ul>
+      <li>They are memoryless: everything you need to know for the next state
+      is available in the current state.</li>
+      <li>Over the long run, it settles into a pattern.</li>
+    </ul>
+  </dd>
+       <br>
+  <dt>Monte Carlo simulations</dt>
+      <dd>repeatedly generating random numbers to estimate some fixed parameter value</dd>
+</dl>
+</section>
+
+<section>
+    <h3>Calibration using MCMC</h3>
+  <ol>
+    <li>generate a random parameter set and run the model</li>
+    <li>if the new parameter performs better, it is added to the chain of parameter values 
+with a certain probability determined by how much better it is</li>
+    <li>repeat this sequence many times to get a distribution of possible parameters</li>
+    <li>take the most common parameter from this distribution</li>
+  </ol>
+</section>
+
+<section>
+    <h3>Calibration using ABC</h3>
+    <dl>
+      <dt>Generations</dt>
+          <dd>number of times to iterate</dd>
+      <dt>Particles</dt>
+          <dd>number of parameter sets to keep in each generation</dd>
+      <dt>Epsilon</dt>
+          <dd>the threshold that determines if a parameter set is kept or rejected</dd>
+    </dl>
+</section>
+
+<section>
+    <h3>Calibration using ABC</h3>
+    <ol>
+    <li>Choose number of Particles (P)</li>
+    <li>Choose epsilon $\epsilon$</li>
+    <li>Calculate summary statistics for observed data $S_d$</li>
+    <li>Draw parameters from a uniform distribution</li>
+    <li>Run model</li>
+    <li>Calculate summary statistics for simulated data $S_s$</li>
+    <li>$D(S_d, S_s) ≦ \epsilon$</li>
+    <ol><li>Keep (increase p by 1)</li>
+    <li>Else reject</li></ol>
+    <li>Repeat 4 - 7 until p = P</li>
+    </ol>
+
+</section>
+
+<section>
+  <h3>Basic ABC example</h3>
+  <small>$S_d = 7$, $\epsilon=5$, $P=3$</small>
+  <br>
+  <table width="30%" style="font-size: 70%" >
+    <tr>
+      <th>$S_s$</th>
+      <th>$D(S_d,S_s)$</th>
+      <th>Kept</th>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>2</td>
+      <td>&#x2713;</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>6</td>
+      <td>&#x2715;</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>10</td>
+      <td>&#x2715;</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>0</td>
+      <td>&#x2713;</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>1</td>
+      <td>&#x2713;</td>
+    </tr>
+  </table>
+<p style="text-align:left">Simple, but requires lot of user input to test for best $\epsilon$,
+  computationally slow if $\epsilon$ is low.
+</section>
+
+<section>
+    <h3>Calibration using ABC-SMC</h3>
+    ABC with sequential Monte Carlo sampling:
+    <ul>
+      <li>a sequence of distributions is constructed by gradually
+         decreasing $\epsilon$ in each generation
+         ($\epsilon_1, \epsilon_2, \epsilon_3,$...
+         can be pre-selected or derived based on the previous generation)</li>
+      <li>each generation is obtained as a weighted sample from the previous distribution
+         that has been perturbed through a kernel</li>
+      <li>perturbation kernel can be uniform distribution,
+      multivariate normal distribution</li>
+</section>
+
+<section>
+<h3>Calibration using ABC-SMC MNN</h3>
+Adaptive routines to find optimal perturbation kernel:
+<ul>
+  <li>ABC-SMC MNN uses multivariate normal distribution
+  based on covariance matrix</li>
+  <li>covariance matrix calculated using M nearest neighbors (MNN) of
+  a particle</li>
+  <li>normalised Euclidean distance can be used when searching
+    for the nearest neighbours</li>
+</ul>
+</section>
+
+<section>
+<h3>Bayesian Updating</h3>
+<p style="text-align:left">
+  Quickly incorporate new data:
+<ol>
+  <li>use previous posterior means and covariance matrix as priors for next time</li>
+  <li>use ABC_SMC MNN to calibrate for new year of data</li>
+  <li>calculate weights, e.g., based on number of observations</li>
+  <li>calculate posteriors from priors, calibrated parameters and weights</li>
+</ol>
+</section>
+
+<section>
+    <h3>Comparison metrics</h3>
+<p>
+<ul>
+  <li>Proportion of correct pixels</li>
+  <li>Odds ratio</li>
+  <li>Kappa</li>
+  <li>Quantity disagreement</li>
+  <li>Allocation disagreement</li>
+  <li>Configuration disagreement</li>
+</ul>
+<p>
+See <a href="https://doi.org/10.1016/j.compenvurbsys.2019.101366">Pickard et al. (2019)</a>
+</section>
+
+<section>
+
+  <h3>Quantity and Allocation disagreement</h3>
+<p>
+<img src="img/pops/disagreement.svg" width="60%">
+<p>
+Quantity disagreement = $|3 - 4| = 1$
+<br>
+Allocation disagreement = 2 (always even, here 1 pixel swapped)
+</section>
+
+<section>
+  <h3>Confusion matrix</h3>
+<p>
+<img src="img/pops/confusion_matrix.svg" width="90%">
+</section>
+
+<section>
+
+  <h3>Odds Ratio</h3>
+<p>
+$$\mbox{Odds ratio} = \frac{TP * TN}{FP * FN}$$
+<p>
+<img src="img/pops/confusion_matrix.svg" width="60%">
+</section>
+
+<section>
+    <h3>Issues with Odds Ratio</h3>
+Over-reliance on negative values and different odds ratios with the same disagreement:
+    <br>
+    <img src="img/pops/odss_issue.svg" width="50%">
+<table width="100%" style="font-size: 70%" >
+  <tr>
+    <th></th>
+    <th>A</th>
+    <th>B</th>
+  </tr>
+  <tr>
+    <td>Quantity disagreement</td>
+    <td>$|6-5| = 1$</td>
+    <td>$|6-7| = 1$</td>
+  </tr>
+  <tr>
+    <td>Allocation disagreement</td>
+    <td>$2$</td>
+    <td>$2$</td>
+  </tr>
+  <tr>
+    <td>Odds Ratio</td>
+    <td>$(4 * 2) / (2 * 1) = 4$</td>
+    <td>$(5 * 1) / (1 * 2) = 2.5$</td>
+  </tr>
+</table>
+</section>
+
+<section>
+  <h3>Kappa</h3>
+  If the rasters are in complete agreement then $\kappa = 1$.
+  If there is no agreement  other than what would
+   be expected by chance $\kappa = 0$.
+   <p>
+  <small>
+  $$\kappa = \frac{P_o - P_e}{1 - P_e}$$
+  $$P_o = \mbox{observed agreement} = \frac{TP + TN}{\mbox{All}}$$
+  <br>
+  $$P_e = \mbox{probability of random agreement} = P_{yes} + P_{no}$$
+  <br>
+  $$P_{yes} = \frac{TP + FN}{\mbox{All}} * \frac{TP + FP}{\mbox{All}}$$
+  <br>
+  $$P_{no} = \frac{FP + TN}{\mbox{All}} * \frac{FN + TN}{\mbox{All}}$$
+  </small>
+</section>
+
+<section>
+    <h3>Issues with Kappa</h3>
+<ul>
+<li> Penalizes a map more strongly for allocation disagreement than quantity disagreement
+<li> It’s a ratio, which can introduce problems in calculation and interpretation
+  <small>(e.g., when denominator or numerator is 0;
+     is a value low because the denominator is high,
+      or because the numerator is low?</small>
+<li>It compares to a random baseline, but this can be irrelevant
+  or misleading. It might be more useful to compare to a naïve classification (like assuming no disease spread)
+ </ul>
+ See <a href="https://sensoremoto2016.files.wordpress.com/2016/09/pontius_death_to_kappa_2011.pdf">Death to Kappa</a>, Pontius et al 2011
+</section>
+
+<section>
+    <h3>Landscape pattern</h3>
+  <img src="img/pops/pattern.svg" width="70%">
+  <p>
+  Simulations A and B have the same
+  quantity and allocation disagreements,
+  but A is more reflective of the truth.
+</section>
+
+<section>
+    <h3>Configuration disagreement</h3>
+<p>
+Combination of different metrics:
+<p>
+<ul>
+  <li>Edge contrast</li>
+  <li>Patch shape complexity</li>
+  <li>Aggregation</li>
+  <li>Nearest neighbor distance</li>
+  <li>Patch dispersion</li>
+  <li>Large patch dominance</li>
+  <li>Neighborhood similarity</li>
+</ul>
+<p>
+See <a href="https://doi.org/10.1016/j.compenvurbsys.2019.101366">Pickard et al. (2019)</a>,
+ <a href="https://doi.org/10.1016/j.ecolind.2007.12.002">Cushman et al. (2008)</a>
+</section>
+
+<section>
+    <h3>More about PoPS</h3>
+<ul>
+<li><a href="https://grasswiki.osgeo.org/wiki/SOD_Spread_tutorial">Sudden Oak Death spread modeling with PoPS</a>
+<li><a href="https://popsmodel.org/">PoPS website with on-line application</a>
+<li><a href="https://ncsu-geoforall-lab.github.io/geospatial-simulations-course/topics/spread_sim.html#spread_pops">GIS714 course material</a>
+</ul>
+</section>
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

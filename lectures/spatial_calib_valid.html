@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+<h2>Calibration and Validation of spatial models</h2>
+<p style="margin-top: 0.5em">
+    Anna Petrasova, Vaclav Petras, Devon Gaydos, Chris Jones, Helena Mitasova</p>
+<p class="title-foot">
+    GIS714 Geosimulations
+    <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+</p>
+</section>
+
+
+<section>
+    <h3>Calibration and validation</h3>
+<dl>
+  <dt>What are the correct parameters for a geospatial model?</dt>
+  <dd>Calibration is the estimation and adjustment of model parameters
+   and constraints to improve the agreement between model output and a data set</dd>
+   <br>
+   <dt>How does the model perform compared to the real system?</dt>
+   <dd>Validation is a demonstration that a model possesses a satisfactory range of accuracy consistent with intended application of the model</dd>
+</dl>
+</section>
+
+<section>
+    <h3>Comparison metrics</h3>
+<ul>
+  <li>Proportion of correct pixels</li>
+  <li>Odds ratio</li>
+  <li>Kappa</li>
+  <li>Quantity disagreement</li>
+  <li>Allocation disagreement</li>
+  <li>Configuration disagreement</li>
+</ul>
+</section>
+
+<section>
+
+  <h3>Quantity and Allocation disagreement</h3>
+<img src="img/pops/disagreement.svg" width="70%">
+<br>
+Quantity disagreement = $|3 - 4| = 1$
+<br>
+Allocation disagreement = 2 (always even, here 1 pixel swapped)
+</section>
+
+<section>
+  <h3>Confusion matrix</h3>
+<img src="img/pops/confusion_matrix.svg" width="100%">
+</section>
+
+<section>
+
+  <h3>Odds Ratio</h3>
+$$\mbox{Odds ratio} = \frac{TP * TN}{FP * FN}$$
+<br>
+<img src="img/pops/confusion_matrix.svg" width="50%">
+</section>
+
+<section>
+    <h3>Issues with Odds Ratio</h3>
+    1) Over-reliance on negative values and
+    2) different odds ratios with the same disagreement:
+    <br>
+    <img src="img/pops/odss_issue.svg" width="50%">
+<table width="100%" style="font-size: 70%" >
+  <tr>
+    <th></th>
+    <th>A</th>
+    <th>B</th>
+  </tr>
+  <tr>
+    <td>Quantity disagreement</td>
+    <td>$|6-5| = 1$</td>
+    <td>$|6-7| = 1$</td>
+  </tr>
+  <tr>
+    <td>Allocation disagreement</td>
+    <td>$2$</td>
+    <td>$2$</td>
+  </tr>
+  <tr>
+    <td>Odds Ratio</td>
+    <td>$(4 * 2) / (2 * 1) = 4$</td>
+    <td>$(5 * 1) / (1 * 2) = 2.5$</td>
+  </tr>
+</table>
+</section>
+
+<section>
+  <h3>Kappa</h3>
+  If the rasters are in complete agreement then $\kappa = 1$.
+  If there is no agreement  other than what would
+   be expected by chance $\kappa = 0$.
+   <p>
+  <small>
+  $$\kappa = \frac{P_o - P_e}{1 - P_e}$$
+  $$P_o = \mbox{observed agreement} = \frac{TP + TN}{\mbox{All}}$$
+  <br>
+  $$P_e = \mbox{probability of random agreement} = P_{yes} + P_{no}$$
+  <br>
+  $$P_{yes} = \frac{TP + FN}{\mbox{All}} * \frac{TP + FP}{\mbox{All}}$$
+  <br>
+  $$P_{no} = \frac{FP + TN}{\mbox{All}} * \frac{FN + TN}{\mbox{All}}$$
+  </small>
+</section>
+
+<section>
+    <h3>Issues with Kappa</h3>
+<ul>
+<li> Penalizes a map more strongly for allocation disagreement than quantity disagreement
+<li> It’s a ratio, which can introduce problems in calculation and interpretation
+  <small>(e.g., when denominator or numerator is 0;
+     is a value low because the denominator is high,
+      or because the numerator is low?</small>
+<li>It compares to a random baseline, but this can be irrelevant
+  or misleading. It might be more useful to compare to a naïve classification (like assuming no disease spread)
+ </ul>
+ See <a href="https://sensoremoto2016.files.wordpress.com/2016/09/pontius_death_to_kappa_2011.pdf">Death to Kappa</a>, Pontius et al 2011
+</section>
+
+<section>
+    <h3>Landscape pattern</h3>
+  <img src="img/pops/pattern.svg" width="70%">
+  <p>
+  Simulations A and B have the same
+  quantity and allocation disagreements,
+  but A is more reflective of the truth.
+</section>
+
+<section>
+    <h3>Configuration disagreement</h3>
+Combination of different metrics:
+<ul>
+  <li>Edge contrast</li>
+  <li>Patch shape complexity</li>
+  <li>Aggregation</li>
+  <li>Nearest neighbor distance</li>
+  <li>Patch dispersion</li>
+  <li>Large patch dominance</li>
+  <li>Neighborhood similarity</li>
+</ul>
+<p>
+See <a href="https://doi.org/10.1016/j.compenvurbsys.2019.101366">Pickard et al. (2019)</a>,
+ <a href="https://doi.org/10.1016/j.ecolind.2007.12.002">Cushman et al. (2008)</a>
+</section>
+
+<section>
+    <h3>Calibration methods</h3>
+    <ul>
+      <li>Monte Carlo Markov Chains (MCMC)</li>
+      <li>Approximate Bayesian Computation (ABC)</li>
+    </ul>
+<p style="text-align:left">
+<strong>Assumptions:</strong>
+<ul>
+  <li>Simulation and data are comparable (i.e., the output from the simulation is
+     something that is recorded in the data)
+  or can be compared from summary statistics.</li>
+</ul>
+
+</section>
+
+<section>
+    <h3>Calibration using MCMC</h3>
+<dl>
+  <dt>Markov Chains:</dt>
+    <dd>sequences of events that are probabilistically related to each other.
+    Each event comes from a set of outcomes, and each outcome determines
+    which outcome occurs next, according to some fixed probability set.
+    <ul>
+      <li>They are memoryless: everything you need to know for the next state
+      is available in the current state.</li>
+      <li>Over the long run, it settles into a pattern.</li>
+    </ul>
+  </dd>
+       <br>
+  <dt>Monte Carlo simulations</dt>
+      <dd>repeatedly generating random numbers to estimate some fixed parameter value</dd>
+</dl>
+</section>
+
+<section>
+    <h3>Calibration using MCMC</h3>
+  <ol>
+    <li>generate a random parameter set and run the model</li>
+    <li>if the new parameter performs better, it is added to the chain of parameter values with a certain probability determined by how much better it is</li>
+    <li>repeat this sequence many times to get a distribution of possible parameters</li>
+    <li>take the most common parameter from this distribution</li>
+  </ol>
+</section>
+
+<section>
+    <h3>Calibration using ABC</h3>
+    <dl>
+      <dt>Generations</dt>
+          <dd>number of times to iterate</dd>
+      <dt>Particles</dt>
+          <dd>number of parameter sets to keep in each generation</dd>
+      <dt>Epsilon</dt>
+          <dd>the threshold that determines if a parameter set is kept or rejected</dd>
+    </dl>
+</section>
+
+<section>
+    <h3>Calibration using ABC</h3>
+    <ol>
+    <li>Choose number of Particles (P)</li>
+    <li>Choose epsilon $\epsilon$</li>
+    <li>Calculate summary statistics for observed data $S_d$</li>
+    <li>Draw parameters from a uniform distribution</li>
+    <li>Run model</li>
+    <li>Calculate summary statistics for simulated data $S_s$</li>
+    <li>$D(S_d, S_s) ≦ \epsilon$</li>
+    <ol><li>Keep (increase p by 1)</li>
+    <li>Else reject</li></ol>
+    <li>Repeat 4 - 7 until p = P</li>
+    </ol>
+
+</section>
+
+<section>
+  <h3>Basic ABC example</h3>
+  <small>$S_d = 7$, $\epsilon=5$, $P=3$</small>
+  <br>
+  <table width="30%" style="font-size: 70%" >
+    <tr>
+      <th>$S_s$</th>
+      <th>$D(S_d,S_s)$</th>
+      <th>Kept</th>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>2</td>
+      <td>&#x2713;</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>6</td>
+      <td>&#x2715;</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>10</td>
+      <td>&#x2715;</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>0</td>
+      <td>&#x2713;</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>1</td>
+      <td>&#x2713;</td>
+    </tr>
+  </table>
+<p style="text-align:left">Simple, but requires lot of user input to test for best $\epsilon$,
+  computationally slow if $\epsilon$ is low.
+</section>
+
+<section>
+    <h3>Calibration using ABC-SMC</h3>
+    ABC with sequential Monte Carlo sampling:
+    <ul>
+      <li>a sequence of distributions is constructed by gradually
+         decreasing $\epsilon$ in each generation
+         <small>($\epsilon_1, \epsilon_2, \epsilon_3,$...
+         can be pre-selected or derived based on the previous generation)</small></li>
+      <li>each generation is obtained as a weighted sample from the previous distribution
+         that has been perturbed through a kernel</li>
+      <li>perturbation kernel can be uniform distribution,
+      multivariate normal distribution</li>
+</section>
+
+<section>
+<h3>Calibration using ABC-SMC MNN</h3>
+Adaptive routines to find optimal perturbation kernel:
+<ul>
+  <li>ABC-SMC MNN uses multivariate normal distribution
+  based on covariance matrix</li>
+  <li>covariance matrix calculated using M nearest neighbors (MNN) of
+  a particle</li>
+  <li>normalised Euclidean distance can be used when searching
+    for the nearest neighbours</li>
+</ul>
+</section>
+
+<section>
+<h3>Bayesian Updating</h3>
+<p style="text-align:left">
+  Quickly incorporate new data:
+<ol>
+  <li>use previous posterior means and covariance matrix as priors for next time</li>
+  <li>use ABC_SMC MNN to calibrate for new year of data</li>
+  <li>calculate weights, e.g., based on number of observations</li>
+  <li>calculate posteriors from priors, calibrated parameters and weights</li>
+</ol>
+</section>
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

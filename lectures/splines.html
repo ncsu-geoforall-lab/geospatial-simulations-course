@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Splines</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+<li>physics-based surface simulation and splines
+</ul>
+</section>
+
+<section>
+    <h3>Motivation</h3>
+<p>Derive model of spatial distribution of a variable
+based on a limited set of discrete scattered observations:
+<ul>
+<li class="fragment">if the measured data capture features of the distribution at the level of detail needed
+for the application we can use interpolation 
+<br><small><a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/topics/spatial_interpolation.html">
+See GIS582 Spatial interpolation topic</a></small>
+<li class="fragment">if the measured data are limited and we know statistical properties of the distribution,
+we can use simulation
+<li class="fragment">some interpolation methods are based on deterministic, process-based simulations: splines 
+</ul>
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+<p>
+<ul>
+<li>Given the $m$ values of a studied phenomenon $z_j$ measured
+at locations ${\bf r}_j=(x_j,y_j), \; j=1,\dots ,m$ 
+find a function $F({\bf r})$ which fulfils the following condition:
+<p>
+$$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
+<li class="fragment">The problem does not have a unique solution so additional conditions are used.
+<li class="fragment">Interpolation: we use $F({\bf r}_j)$ to estimate values at unsampled locations
+<li class="fragment">Simulation: we use $F({\bf r}_j)$ to condition our simulation of a more complex surface
+</ul>
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+<img height="340px" src="img/geostats/elevrandpts.jpg">
+<img height="340px" src="img/geostats/pointstogrid.jpg">
+<p>
+<small>Interpolation: distance between grid points is similar to the average distance between the given points
+<p>Simulation: distance between grid points can be much smaller - higher resolution grid
+</small>
+</section>
+
+<section>
+    <h3>Multiple solutions</h3>
+<p class="fragment">
+<img height="440px" src="img/geostats/interp1d.gif">
+$$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
+<p class="fragment"><small>draw simulation on the board</small>
+</section>
+
+<section>
+    <h3>Splines with tension</h3>
+<p>
+<p>Splines with tension simulate the behavior of a thin plate with tuneable properties 
+<p>
+$$
+F({\bf r})=T({\bf r})+\sum_{j=1}^m \lambda_j R({\bf r},{\bf r}_j)\, 
+$$
+<p> <small>
+<ul> 
+<li>$T({\bf r})$ is a trend function, 
+<li>$\lambda_j$ are weights (coefficients) 
+<li>$R({\bf r},{\bf r}_j)$ is a function of distance between an unsampled and a measured point. 
+<li>$R$ is derived by minimizing the smoothness seminorm (or roughness penalty)
+</ul>
+<p>
+Bivariate smoothness seminorm with weighted squares of
+first and second derivatives leads to
+<strong>thin plate spline with tension </strong>, when all derivatives
+are used with decreasing weight we get
+<strong>regularized spline with tension </strong>. We minimize curvatures / energy of the surface.
+</small>
+</section>
+
+<section>
+    <h3>Splines with tension</h3>
+<p><small>Thin plate spline with tension is then
+$$
+F({\bf r})=a_0 + \sum_{j=1}^N \lambda_j 
+\left[ {\rm K_0} (\varphi r/2) + \ln(\varphi r/2) + C \right] 
+$$
+where $K_0(.)$ is the Bessel function and $\varphi$ is tension parameter,
+$C$ is constant. The function simulates a flexible thin steel plate (low tension) 
+through rubber sheet (high tension).
+</small>
+<img height="350" src="img/geostats/tension.gif">
+<p><small>Splines have both physical and geostatistical interpretation:
+see supplemental material</small>
+</section>
+
+<section>
+    <h3>Splines with tension</h3>
+<p>Trivariate thin plate spline with tension
+<p><img height="350" src="img/geostats/tension3d.gif">
+<p>Distribution of nitrogen concentrations in Chesapeake Bay
+</section>
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

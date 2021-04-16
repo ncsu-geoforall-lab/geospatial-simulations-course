@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Agent-Based Modeling</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+<li>principles of agent-based modeling
+<li>simulation examples
+<li>software platforms and tools
+<li>simulating coupled human and natural systems
+</ul>
+</section>
+
+<section>
+    <h3>Agent-Based Modeling</h3>
+<p>
+<ul>
+  <li>evolved from cellular automata, game of life
+<p>
+  <li class="fragment">introduces agent acting within an environment
+<p>
+  <li class="fragment">agents move through space and across time while interacting with the environment and with each other
+<p>
+  <li class="fragment">in geospatial applications ABM simulates behavior of intelligent agents within a geographic space
+</ul>
+</section>
+
+<section>
+    <h3>ABM principle</h3>
+<p>
+<p>General expression for the agent $A_i$ evolution 
+<p>
+$$
+A_i^{t+\Delta t} = F(A_i^t, A_j^t, E^t, R)
+$$
+<p>
+Agent state (location, attributes) at time $t+\Delta t$ is a function of 
+<ul>
+ <li>its state at time $t$, 
+ <li>state of the interacting agent(s) $A_j^t$
+ <li>state of the environment $E$ 
+ <li>interaction rules $R$
+</ul>
+</section>
+
+<section>
+    <h3>ABM space and agents</h3>
+<p>Space is often tesselated into grid cells with initial environmental state.
+<p>Agents are modeled as grid cells, patches, points or oriented lines
+<p><img height="340" src="img/abm/abm_grid.png">
+ <img height="330" src="img/abm/abm_points.png">
+</section>
+
+<section>
+    <h3>Compare CA and ABM</h3>
+<ul>
+ <li class="fragment">in CA environment is equivalent to population
+ <li class="fragment">ABM treats agents (population) and environment as separate interacting entities
+ <li class="fragment">in CA the evolution depends only on the state of the cell neighborhood
+ <li class="fragment">in ABM the evolution depends on the environment and interaction between agents
+ <li class="fragment">in ABM the interactions can be long range
+<p>
+<small>
+There is a continuum of models between CA and ABM. Some models can be interpreted as special cases
+of solutions to processes described by partial differential equations
+</small>
+</section>
+
+<section>
+    <h3>Agents and their interaction</h3>
+<p>
+<ul>
+<li class="fragment">agents are autonomous interacting units
+<li class="fragment">active features of agents (Crooks et al. 2012): 
+<p>
+<ul>
+  <li class="fragment">pro-active, reactive, bounded rationality
+  <li class="fragment">interaction with other agents and the environment
+  <li class="fragment">mobile or stationary
+  <li class="fragment">adaptation and learning
+</ul>
+<p>
+<li class="fragment">population of agents can be heterogeneous
+</ul>
+</section>
+
+<!--
+<section>
+    <h3>Agents and their interaction</h3>
+<p>Examples 
+<ul>
+<li class="fragment">Fire modeling: burning cell
+<li class="fragment">Disease spread: bug, virus, or infected people or animals 
+<li class="fragment">Evolution of agropastoral settlements: farming household, settlements
+<li class="fragment">Movement of animals: individual animal 
+<li class="fragment">Movement of people in urban environment: pedestrian
+</ul>
+Propose interactions
+</section>
+-->
+
+<section>
+    <h3>Emergence and self-organization</h3>
+<p> Applies to both CA and ABM
+<ul>
+<li>Emergent behavior: behavior of the modeled system is more complex than the behavior of the parts 
+(recall <a href="https://en.wikipedia.org/wiki/File:Conways_game_of_life_breeder_animation.gif">Puffer breeder CA</a>)
+ <li class="fragment">synchronization, cooperation or chaos, turbulence 
+ <li class="fragment">self-organization: feedback and adaptive behavior
+ <li class="fragment">behavior of a component depends on the behavior of the system
+<!-- <li class="fragment">different initial conditions and randomness may lead to different results -->
+</ul>
+<p>
+</section>
+
+<section>
+    <h3>Agent based modeling environments</h3>
+<ul>
+<li><a href="https://github.com/projectmesa/mesa/">MESA: ABM in python 3+</a>
+<li><a href="https://ccl.northwestern.edu/netlogo/">NetLogo</a>
+and <a href="http://netlogoweb.org/">NetLogoWeb</a>
+<li><a href="https://repast.github.io/">REPAST</a>, screenshots with <a href="https://repast.github.io/screenshots.html">GIS Integration</a>
+<li><a href="https://cs.gmu.edu/~eclab/projects/mason/">MASON:</a> Multi-agent Simulation Toolkit
+<li><a href="https://gama-platform.github.io/">GAMA platform</a> with a <a href="https://gama-platform.github.io/covid19">new model for Covid-19 modeling</a>
+<li><a href="http://www.geosimulation.org/geosim/abms.htm">ABM at geosimulation labs</a>
+<li><a href="https://www.comses.net/">CoMSES/OpenABM</a>: collection of resources for computational model-based science
+<li>GRASS GIS ABM library
+</ul>
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<p>
+<ul>
+<li class="fragment">Two groups in randomly distributed patches
+<li class="fragment">Agent is happy if it has $n%$ neighbors from the same group
+<li class="fragment">Unhappy agent moves until it finds happy location
+<li class="fragment">System segregates into more homogeneus groups even for $n$ less than 50% 
+</ul>
+<!--
+<p><a href="https://ccl.northwestern.edu/netlogo/docs/programming.html">Terminology and programming in Netlogo</a>
+<br>Agents: turtles, patches, links and observer; see more in the manual, the terminology has its
+origin in a models of turtles swimming in a pond
+-->
+<p><small><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<p><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
+</a></small>
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<br><img height="380" src="img/abm/segregation0.png">
+<br><small>
+30% similar wanted
+<br><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
+</a></small>
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<br><img height="380" src="img/abm/segregation_fin93.png">
+<br><small>
+30% similar wanted
+<br><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
+</a></small>
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<br><img height="380" src="img/abm/segregation0_50.png">
+<br><small>
+50% similar wanted
+<br><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
+</a></small>
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<br><img height="380" src="img/abm/segregation0_50_fin.png">
+<br><small>
+50% similar wanted
+<br><a href="http://ccl.northwestern.edu/netlogo/models/Segregation.">Wilensky, U. (1997). NetLogo Segregation model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</a>
+<br><a href="http://jasss.soc.surrey.ac.uk/15/1/6.html">Hatna and Benenson, 2012, The Schelling Model of Ethnic Residential Dynamics: Beyond the Integrated - Segregated Dichotomy of Patterns, JASSS 15(1)6</a>, real-world application.
+</a></small>
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+Explore your scenarios in <a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Sample%20Models/Social%20Science/Segregation.nlogo">Schelling's segregation model in NetLogoWeb</a>
+<p>Compare n = 20,30,45 %, also try to start with 25% empty and 60% neighbors
+<p>Read the model description to understand the model set up and behavior, check out the code to see how it is implemented
+<!--how to measure the system seggregation/integration?-->
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Alternative%20Visualizations/Flocking%20-%20Alternative%20Visualizations.nlogo">Flocking in Netlogo</a>
+<p><img height="380" src="img/abm/flocking0.png">
+<p>Learn more in the NetLogo Model Description Tab
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="http://netlogoweb.org/launch#http://netlogoweb.org/assets/modelslib/Alternative%20Visualizations/Flocking%20-%20Alternative%20Vi
+sualizations.nlogo">Flocking in Netlogo</a>
+<p><img height="380" src="img/abm/flocking2.png">
+<p>Learn more in the NetLogo Model Description Tab
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
+Basic Epidemic Model</a>
+<p><img height="380" src="img/abm/epidem_basic0.png">
+<p>Learn more in the NetLogo Model Description Tab
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
+Basic Epidemic Model</a>
+<p><img height="380" src="img/abm/epidem_basic2.png">
+<p>Learn more in the NetLogo Model Description Tab
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
+Basic Epidemic Model</a>
+<p><img height="380" src="img/abm/epidem_basic3.png">
+<p>Learn more in the NetLogo Model Description Tab
+</section>
+
+<section>
+    <h3>ABM examples</h3>
+<p><a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Basic.nlogo">
+Basic Epidemic Model</a>
+<p><img height="380" src="img/abm/epidem_basic4.png">
+<p>see also <a href="https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/Curricular%20Models/epiDEM/epiDEM%20Travel%20and%20Control.nlogo">Epidemic model with travel</a>
+</section>
+
+<section>
+    <h3>Coupling human and natural systems</h3>
+<ul>
+ <li class="fragment">natural systems component: process-based simulations
+ <li class="fragment">human components: ABM
+</ul>
+<p class="fragment">
+<a href="https://www.earth-syst-dynam.net/9/895/2018/">Robinson et al. 2018, Modelling feedbacks between human and natural processes in the land system</a>, two (out of four) use ABM to model the human component
+<ul>
+  <li class="fragment">MedLanD (ABM+CA+process-based): spread of agriculture in Neolithic societies
+  <li class="fragment">BIOME-BGC+DEED (Dynamic Global Vegetation Model + Dynamic Ecological Exurban Development)
+</ul>
+</section>
+
+<section>
+    <h3>Coupling human and natural systems</h3>
+<p><a href="http://medland.asu.edu/"><b>MedLanD</b></a> 
+simulates long-term change in socioecological systems: prehistoric Mediterranean societies
+<ul>
+  <li class="fragment">evolution of landscape: process-based erosion and deposition modeling
+  <li class="fragment">land use change driven by agropastoral practicies: 
+<p>
+  <ul>
+     <li class="fragment">stochastic, rule-based model
+<p class="fragment"> or
+     <li class="fragment">agent (farming household) driven land use change
+  </ul>
+</ul>
+<!--
+<p class="fragment"><small>
+Stochastic modeling of land-use: cultivated and grazed cells are allocated randomly within catchments 
+whose sizes are estimated on the basis of subsistence needs and fallow/grazing cycles. </small>
+-->
+<p><small>
+<a href="https://doi.org/10.1016/j.ecolmodel.2012.02.010">
+Barton et al., 2012, Looking for the future in the past: Long-term change in socioecological systems, Ecological Modelling, 241, p 42-53</a>
+</small>
+</section>
+
+<section>
+    <h3>Neolithic farming spread ABM </h3>
+<p>Agents employ decision rules to covert land to farming or grazing based on:
+<ul>
+ <li class="fragment">their farming returns  (affect birth and death rate) 
+ <li class="fragment">needs (based on household size), 
+ <li class="fragment">the potential productivity of land (soil depth and fertility, slope, current vegetation),
+ <li class="fragment">costs to use the land (including access on foot) 
+ <li class="fragment">randomized access to the best available land patches
+<!-- <li class="fragment"><small>each household agent chooses the best available landscape patches 
+in a round-robin whose order is randomized each execution cycle of the model so that no household will have first access to better lands than other households. Agents also choose land cells from which to collect fuel–wood, based on household size, availability of woody vegetation, and energy costs to access a cell on foot.</small>
+-->
+</ul>
+<p class="fragment">Agents initial state and rules are based on archeological record.
+<p> <small>
+Mayer G, Hessam S, (2007) Complexities of Simulating a Hybrid Agent-Landscape Model Using Multi-Formalism Composability, 
+Agent-Directed Simulation, Spring Simulation Multi-conference, pp. 161-168, Norfolk, Virginia.
+see <a href="http://medland.asu.edu/papers">Complete list references (2004 - present)</a>
+</small>
+</section>
+
+<section>
+    <h3>Coupling human and natural systems</h3>
+Medlands Components
+<p><img height="400" src="img/abm/MedLands.png">
+<p><small><a href="http://medland.asu.edu/papers">MedLands Complete list of references (2004 - present)</a></small>
+</section>
+
+<section>
+    <h3>ABM advantages and limitations</h3>
+<p>Advantages
+<ul>
+ <li class="fragment">modeling complex systems where differential equations are not known or are intractable
+ <li class="fragment">flexibility  as exploratory tool
+</ul>
+<p>Limitations
+<ul>
+ <li class="fragment">applications to real-world systems are challenging
+ <li class="fragment">parametrizationa and rules definition can be difficult
+ <li class="fragment">computationally intensive
+</ul>
+</section>
+
+<!--
+<section>
+    <h3>ABM and modeling of processes</h3>
+<p>Discuss disease, urban, and flood modeling and their relation to ABM
+<p>Compare the components of disease, urban or flood models to CA and ABM,
+how are these models different and what is same?
+<p>Can these models be coupled with ABM - which components could be represented by ABM?
+
+<ul>
+  <li>Group 1: ABM, CA and FUTURES
+  <li>Group 2: ABM, CA and PoPPs
+  <li>Group 3: ABM, CA and flooding
+</ul>
+
+</section>
+-->
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../topics/abm.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

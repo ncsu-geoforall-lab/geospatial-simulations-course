@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Tangible Landscape as a geosimulation environment</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+   <li>motivation for tangible simulation
+   <li>evolution of tangible simulation environments
+   <li>Tangible Landscape principle and setup
+   <li>creating 3D physical models
+   <li>tangible interactions
+   <li>Tangible Landscape applications
+</ul>
+</section>
+
+<section>
+<h3>Motivation</h3>
+<ul>
+    <li class="fragment">Paper maps provide limited data with limited interaction, but encourage face-to-face discussion </li>
+    <li class="fragment">Digital maps limit f2f collaboration - only one user at a time can navigate and modify models. </li>
+    <li class="fragment">Interaction through mouse, keyboard and display does not encourage creativity.</li>
+</ul>
+<p>
+<img height="240px" src="img/tangible_landscape/colloboration.jpg">
+<img height="240px" src="img/tangible_landscape/collaboration_computer.JPG">
+</section>
+
+<section>
+<h3>Motivation</h3>
+<ul>
+    <li class="fragment">Manipulating 3D computer models is not intuitive and requires specialized software and training.</li>
+    <li class="fragment">3D physical models provide intuitive representation of landscapes but interaction is limited</li>
+</ul>
+<p>
+<img height="260px" src="img/tangible_landscape/art_rhino.jpg">
+<!--<img height="260px" src="img/tangible_landscape/China_bigtable.jpg">-->
+</section>
+
+<section>
+<h3>Evolution of tangible interfaces </h3>
+<p>MIT Media Lab: URP (1999), Illuminating Clay (2004)
+<img height="350px" src="img/tangible_landscape/urp.png">
+<img height="350px" src="img/tangible_landscape/illuminating_clay.png">
+<br><small>3D scanning with $40,000 laser scanner. Image source:
+     <a href="http://tangible.media.mit.edu/project/illuminating-clay/">MIT Media Lab</a>
+<small>
+<br>Ishii H., Ratti C., Piper B., Wang Y., Biderman A. and Ben-Joseph E. 
+<a href="http://tmg-trackr.media.mit.edu/publishedmedia/Papers/188-Bringing%20clay%20and%20sand/Published/PDF">
+    "Bringing clay and sand into digital design—continuous tangible user interfaces."</a> BT technology journal 22.4 (2004): 287-299.
+<br>Underkoffler, J. Ishii, H. "Urp: a luminous-tangible workbench for urban planning and design", 1999, 
+CHI '99 Proc. SIGCHI conference on Human Factors in Computing Systems, p. 386-393.
+</small></small>
+</section>
+
+<section>
+<h3>TUI evolution: TanGeoMS </h3>
+ <p>Tangible Geospatial Modeling System at NCSU (2007)
+<p><img height="480px" src="img/tangible_landscape/tangeoms.jpg">
+</section>
+
+<!--
+<section>
+<h3>TUI evolution: TanGeoMS </h3>
+ <p>Coupled with GRASS GIS: Simulating water flow
+<p><video  data-autoplay height="200px" controls muted>
+<source src="img/tangible_landscape/tg1bak2_ed4_1min640.mov" type="video/mov">
+<small>
+<br>Mitasova H., Ratti, C., Ishii, H., Alonso, J., Harmon, B.A., Harmon, R.S., 2006,
+Real-time landscape model interaction using a tangible geospatial modeling environment,
+IEEE Computer Graphics and Applications, 26(4), p. 55-63.
+<br>L. Tateosian, H. Mitasova, B. A. Harmon, B. Fogleman, K. Weaver, and R. S. Harmon, 
+<a href="http://baharmon.github.io/publications/tangible_geospatial_modeling.pdf">
+TanGeoMS: Tangible Geospatial Modeling System, IEEE Trans. Vis. Comput. Graph.,16, no. 6, pp. 1605–12, 2010. </a>
+</small></p>
+</section>
+-->
+
+<section>
+<h3>TUI evolution: AR sandbox </h3>
+<p>Augmented Reality Sandbox with $100 Kinect</p>
+<p><img  height="360px" src="img/tangible_landscape/SARndbox_2.jpg">
+<img  height="360px" src="img/tangible_landscape/SARndbox_3.jpg">
+<p><small><a href="http://idav.ucdavis.edu/~okreylos/ResDev/SARndbox/">http://idav.ucdavis.edu/</a></small>
+</section>
+
+<section>
+<h3>Tangible Landscape</h3>
+Real-time coupling with GIS: simulation system
+<p>
+<iframe data-autoplay width="560" height="315" 
+src="https://www.youtube.com/embed/Cd3cCQTGer4?rel=0&amp;showinfo=0;loop=1&amp;playlist=Cd3cCQTGer4" frameborder="0" allowfullscreen></iframe>
+<img height="315px" src="img/tangible_landscape/system_schema.png">
+<p>Tangible Landscape couples a digital and a physical model through
+     continuous cycle of 3D scanning, geospatial modeling, and projection.</p>
+</section>
+
+<!--
+<section>
+    <h3>System setup</h3>
+<p class="fragment">Projector, scanner, stand, computer, model, table, screen</p>
+<p class="fragment">Projector parameters are important to ensure proper image size, resolution and brightness
+<p>    <img width="30%" src="img/tangible_landscape/projector_schema_center.pdf">
+</section>
+-->
+
+<section>
+<h3>Software architecture</h3>
+<p><img height="450px" src="img/tangible_landscape/TL_schema.jpg">
+</section>
+
+<section>
+<h3>Software architecture</h3>
+<p>Extended system with 3D rendering and virtual reality
+<p><img height="450px" src="img/tangible_landscape/TL_GRASS_Blender_schema.jpg">
+</section>
+
+<section>
+<h3>Software architecture</h3>
+<p>System roles: user, operator, developer
+<p><img width="95%" src="img/tangible_landscape/TUI_GUI_CLI_horizontal.jpg">
+</section>
+
+<section>
+<h3>Physical 3D models</h3>
+<p>What are your suggestions for creating 3D models?
+</section>
+
+<section>
+<h3>Contour layers with clay surface</h3>
+<p>
+<img height=250 src="img/tangible_landscape/countourlayers.jpg">
+<img height=250 src="img/tangible_landscape/clayroll.jpg">
+<br><img height=250 src="img/tangible_landscape/claysurface.jpg">
+<img height=250 src="img/tangible_landscape/claysurfacefin.jpg">
+</section>
+
+<section>
+<h3>Automated method with pins</h3>
+<p>
+<img height=300 src="img/tangible_landscape/xenovision_1.gif">
+<img height=300 src="img/tangible_landscape/xenovision_pins.jpg">
+</section>
+
+<section>
+<h3>Hand sculpting from polymeric sand</h3>
+<img class="stretch" src="img/tangible_landscape/hand_sculpting.jpg">
+</section>
+
+<section>
+<h3>Hand sculpting with difference feedback</h3>
+    <iframe data-autoplay width="853" height="480"
+    src="https://www.youtube.com/embed/Q3elMIRCYSk?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+</br><span style="color:blue">blue</span> &#8594; add sand,
+ <span style="color:red">red</span> &#8594; remove sand
+</section>
+
+<section>
+<h3>3D printing</h3>
+<img class="stretch" src="img/tangible_landscape/3d_print_1.jpg">
+</section>
+
+<section>
+<h3>CNC routing</h3>
+<p>Large complex models and molds
+<img height=450 src="img/tangible_landscape/cnc_router.jpg">
+</section>
+
+<section>
+<h3>Casting polymeric sand</h3>
+<img class="stretch" src="img/tangible_landscape/new_molds_workflow.jpg">
+</section>
+
+<section>
+<h3>Scale of the physical model</h3>
+<p>
+<ul>
+<li>scale of the model
+$$s = \frac{d_m}{d_r}$$
+<ul>
+  <li> $s$ is the scale of the model, 
+  <li>$d_m$ is the distance measured on the model,
+  <li> $d_r = (w - e)$ is the real-world distance.
+</ul>
+<li>iterative process - if we want predefined scale and pre-defined (approximate) size
+<li>what size of feature change can be detected given the resolution of the scanner (1-2mm)?
+</ul>
+</section>
+
+<section>
+<h3>Scale of the physical model</h3>
+<p>If the smallest feature that can be reliably detected is $1 cm$ cube
+<ul>
+  <li>What scale the model should be to facilitate modeling dams and rivers 10m wide?
+  <li>What would be the geospatial extent of the region represented by the model size of 50 x 60 cm? how about 1 m x 80 cm ?
+  <li>If the difference in elevation in your area is 30m and you want 3 x exaggeration
+how high your model will be at the scale computed above for the 50 x 60 cm model?
+</ul>
+</section>
+
+<section>
+<h3>Scanning the physical model</h3>
+<p>
+3D sensors based on similar principles as surveying
+<p>
+<ul>
+ <li class="fragment">time of flight, near infrared laser
+ <li class="fragment">stereo(photogrammetry) - overlapping images from NIR image and laser
+ <li class="fragment">distortions, outliers (flying pixels), noise need to be adressed
+</ul>
+</section>
+
+<section>
+<h3>Scanning calibration</h3>
+<ul>
+ <li>calibration process: scanning flat surface
+ <li>tilt and radial distortion
+ <li>computing tilt angle and applying the correction to scanned point cloud
+</ul>
+<p class="fragment">
+<img height="320" src="img/tangible_landscape/before_calib.png">
+<img height="320" src="img/tangible_landscape/after_calib.png">
+</section>
+
+<section>
+<h3>Processing the point cloud</h3>
+<p>
+Scanned 3D model includes all features in the scan area
+<p><img height="300px" src="img/tangible_landscape/fusion.jpg">
+<img height="300px" src="img/tangible_landscape/Kinectscan_CCmoving.jpg">
+<p><small>Images produced by Kinect Fusion Explorer: was the tilt filtered out here?</small>
+</section>
+
+<section>
+<h3>Processing the point cloud</h3>
+<ul>
+  <li>point cloud is acquired within the operator-defined horizontal and vertical extent 
+  <li>flying pixels are filtered out
+</ul>
+<p>
+<img height=320  src="img/tangible_landscape/scan_geometry_schema1a.png">
+<img height=320 src="img/tangible_landscape/scan_geometry_schema1b.png">
+</section>
+
+<section>
+<h3>Processing the point cloud</h3>
+  <p>Edges of the model are detected and extracted
+<img height="450" src="img/tangible_landscape/scan_geometry_schema2.png">
+</section>
+
+<section>
+<h3>Georeferencing - rescaling</h3>
+<p class="fragment">
+$$
+S_x = \frac{X_{east} - X_{west}}{x_{max} - x_{min}},\quad
+S_y = \frac{Y_{north} - Y_{south}}{y_{max} - y_{min}},\quad
+$$
+<br>
+$$
+S_z = \frac{(S_x + S_y) / 2}{e}
+$$
+<p class="fragment">
+<ul>
+  <li>$X, Y$ are DEM (real-world) coordinates, 
+  <li>$x, y$ are coordinates of the physical model 
+  <li>$e$ is the specified vertical exaggeration.
+</ul>
+</section>
+
+<section>
+<h3>Georeferencing</h3>
+<p>
+<ul>
+ <li>Transformation from the scan ("table") coordinates to the georeferenced coordinate system
+ <li><p class="fragment">Rescaling, rotation and translation
+ <li><p class="fragment">
+$$ G = S . R + T$$
+<small>
+  <li class="fragment">$S=[S_x,S_y,S_z]$ scales to real-world dimensions, 
+ <li class="fragment">$R$ is a rotation matrix that rotates the points around the $z$ axes by angle $\alpha$ 
+ <li class="fragment">$T=[t_x,t_y,t_z]$ translates the points so that the lower left corner of the model
+matches the south-west corner of the DEM and the lowest DEM elevation
+matches the lowest point of the model.
+</small>
+</ul>
+</section>
+
+<section>
+<h3>Gridding</h3>
+<p>
+  Converting the filtered, corrected and georeferenced $(x,y,z)$ point cloud to raster
+<ul>
+  <li class="fragment">binning: per-cell mean, nearest point
+  <li class="fragment">binning: fast, but the surface is rough, with holes
+  <li class="fragment">interpolation: slower, but the surface is smooth and continuous
+</ul>
+<!--<p>image: points, binned and interpolated surface-->
+</section>
+
+<section>
+<h3>Tangible interactions</h3>
+<p>3D scanner acquires both depth and color (RGB) information that can be used to design interactions
+<p>
+<img height="400" src="img/tangible_landscape/interactions_new.png">
+</section>
+
+<section>
+<h3>Tangible interactions: surface change</h3>
+<div class="left" style="max-width: 56% !important; ">
+<ul class="ps">
+<li class="fragment">new surface is continuously computed</li>
+<li class="fragment">map algebra is used to detect the change if needed</li>
+</ul>
+</div>
+<div class="right" style="max-width: 43% !important; ">
+<img src="img/tangible_landscape/overview_1.png"></div>
+</section>
+
+<section>
+<h3>TUI: markers</h3>
+<div class="left" style="max-width: 56% !important; ">
+<ul class="ps">
+<li class="fragment">new surface is continuously computed</li>
+<li class="fragment">map algebra is used to detect the change</li>
+<li class="fragment">markers are identified and converted to vector point data</li>
+<li class="fragment">vector point data can be connected into lines using TSP method</li>
+</ul>
+</div>
+<div class="right" style="max-width: 43% !important; ">
+<img src="img/tangible_landscape/overview_2.png"></div>
+</section>
+
+<section>
+<h3>TUI: color patches</h3>
+<div class="left" style="max-width: 56% !important; ">
+<ul class="ps">
+<li class="fragment">color (RGB) data are acquired</li>
+<li class="fragment">image segmentation and classification is used to detect
+the patches and assign ther attribute</li>
+<li class="fragment">raster patches can be converted to vector polygons</li>
+</ul>
+</div>
+<div class="right" style="max-width: 43% !important; ">
+<img src="img/tangible_landscape/overview_5.png"></div>
+</section>
+
+<section>
+<h3>TUI: color clay</h3>
+<div class="left" style="max-width: 56% !important; ">
+<ul class="ps">
+<li class="fragment">both depth and color (RGB) data are used</li>
+<li class="fragment">image segmentation and classification is used to detect
+the patches and assign ther attribute</li>
+<li class="fragment">map algebra is used to quantify the height of the clay blob
+and assign related attribute</li>
+</ul>
+</div>
+<div class="right" style="max-width: 43% !important; ">
+<img src="img/tangible_landscape/overview_4.png"></div>
+</section>
+
+<section>
+<h3>Simulations with TL</h3>
+<p>Coupling with process models to evaluate impact of scenarios
+<p>Scenarios: natural events, human modification of landscape
+</section>
+
+<!-- Visibility analysis -->
+<section data-background-image="img/tangible_landscape/background_interaction_hands_markers.png">
+<h3>Visibility analysis</h3>
+<video  data-autoplay class="stretch" controls>
+<source src="img/tangible_landscape/visibility.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+<p>Visibility and line of sight
+</section>
+
+
+<!-- Solar analysis-->
+<section data-background-image="img/tangible_landscape/background_interaction_hands.png">
+<h3>Solar radiation analysis</h3>
+<img width="23%" src="img/tangible_landscape/solar_1.jpg">
+<!-- <img width="32%" src="img/solar_3.jpg"> -->
+<img width="23%" src="img/tangible_landscape/solar_2.jpg">
+<img width="23%" src="img/tangible_landscape/solar_3.jpg">
+<img width="23%" src="img/tangible_landscape/solar.gif">
+<p>Solar irradiation and cast shadows</p>
+</section>
+
+
+<!-- Trail Planning -->
+<section data-background-image="img/tangible_landscape/background_interaction_hands_markers.png">
+<h3>Trail planning</h3>
+<img width="38%" src="img/tangible_landscape/trail_2.jpg">
+<img width="38%" src="img/tangible_landscape/trail_4.jpg">
+<p>Optimized trail routing between waypoints based on energetics, topography, and cost maps with feedback including trail slopes and viewsheds</p>
+</section>
+
+
+<!-- Soil moisture -->
+<section data-background-image="img/tangible_landscape/background_interaction_hands_markers.png">
+<h3>3D soil moisture exploration</h3>
+<img height="170px" src="img/tangible_landscape/subsurface_1.jpg">
+<img height="170px" src="img/tangible_landscape/subsurface_2.jpg">
+<img height="170px" src="img/tangible_landscape/subsurface_3.jpg">
+<p class=fragment><img width="80%" src="img/tangible_landscape/cross_section.png">
+</section>
+
+<!--
+<section data-background-image="img/tangible_landscape/background_interaction_hands.png">
+<h3>Application: erosion control</h3>
+<p>Sculpting a check dam to retain storm water and reduce erosion
+<img width="32%" src="img/tangible_landscape/felt_4.jpg">
+<img width="32%" src="img/tangible_landscape/checkdam_1.jpg">
+<img width="32%" src="img/tangible_landscape/checkdam_2.jpg">
+</section>
+
+<section data-background-image="img/background_interaction_felt.png">
+<h3>Application: erosion control</h3>
+<p>Placing colored felt to modify land cover.
+Adding grass (light green) and patches of trees (darker green)
+changes the c-factor thus reducing erosion.
+<img width="900px" src="img/tangible_landscape/felt.png">
+ demo
+<img width="23%" src="img/felt/felt_1.jpg">
+<img width="23%" src="img/felt/felt_2.jpg">
+<img width="23%" src="img/felt/felt_3.jpg">
+<img width="23%" src="img/felt/felt_4.jpg"> 
+</section>
+-->
+
+<section>
+<h3>Dam breach</h3>
+<video  data-autoplay height="450px" controls muted>
+<source src="img/tangible_landscape/dam_breach_3.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+</section>
+
+<!-- Fire -->
+<section data-background-image="img/tangible_landscape/background_interaction_hands.png">
+<h3>Applications: wildfire spread</h3>
+<iframe data-autoplay width="853" height="480" src="https://www.youtube.com/embed/EJc57GFJeZI?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+</section>
+
+
+<!-- SOD -->
+<section data-background-image="img/background_interaction_felt.png">
+<h3>Management of infectious disease</h3>
+<div class="left" style="max-width: 56% !important; ">
+<ul class="ps">
+<li>Sudden Oak Death (SOD)</li>
+<li>simulating disease using spatially-explicit model</li>
+<li>workshop with expert stakeholders</li>
+</ul>
+</div>
+<div class="right" style="max-width: 43% !important; ">
+<img src="img/tangible_landscape/SOD_workshop.jpg"></div>
+</section>
+
+<!-- Futures -->
+<section data-background-image="img/background_interaction_sand.png">
+<h3>Urban growth</h3>
+<p>Simulation of urban growth scenarios with FUTURES model
+<p>
+<img width="32%" src="img/tangible_landscape/Sod_1.png">
+<img width="32%" src="img/tangible_landscape/Sod_2.png">
+<img width="32%" src="img/tangible_landscape/Sod_anim.gif">
+<br>
+ <p><small> Meentemeyer, et al. (2013), </i> <a href="https://www.tandfonline.com/doi/abs/10.1080/00045608.2012.707591">FUTURES: multilevel simulations of emerging urban–rural landscape structure using a stochastic patch-growing algorithm.</a></small></p>
+</section>
+
+<!-- Serious gaming with Tangible Landscape: Termites -->
+<section data-background-image="img/tangible_landscape/background_interaction_markers.png">
+<h3>Serious games: Termite infestation</h3>
+<p>Manage the spread of termites across a city by treating city blocks using a model of biological invasion in R</p>
+<img height="400px" src="img/tangible_landscape/termite_game_2.jpg">
+</section>
+
+<!-- Serious gaming with Tangible Landscape: Coastal -->
+<section data-background-image="img/tangible_landscape/background_interaction_hands.png">
+<h3>Serious games: coastal flooding</h3>
+<img width="95%" src="img/tangible_landscape/bhigames_composite.jpg">
+<p>Save houses from coastal flooding by building coastal defenses (Bald Head Island, NC)</p>
+<p style="font-size:0.75em">Structured problem-solving with rules, challenging objectives, and scoring</p>
+</section>
+
+<section data-background-image="img/tangible_landscape/BHIpostflorenceedit.jpg">
+    <h4 style="color: rgb(255, 255, 255); margin-bottom:10em">Florence hurricane flooding</h4>
+</section>
+
+<!-- Immersive Virtual Reality -->
+<section>
+<h3> Realtime 3D rendering with Blender</h3>
+<img class="stretch" src="img/tangible_landscape/process4.png">
+</section>
+
+<section>
+<h3> Designing with Tangible Landscape</h3>
+<img class="stretch" src="img/tangible_landscape/process7.png">
+</section>
+
+<section>
+<h3>Open source Tangible Landscape</h3>
+<ul>
+<li>TL plugin for GRASS GIS <br>
+    <a href="https://github.com/tangible-landscape/grass-tangible-landscape">
+        github.com/tangible-landscape/grass-tangible-landscape
+    </a></p>
+<li>GRASS GIS module for importing data from Kinect v2 <br>
+    <a href="https://github.com/tangible-landscape/r.in.kinect">
+        github.com/tangible-landscape/r.in.kinect
+    </a></p>
+<li>TL repository on Open Science Framework <a href="https://osf.io/w8nr6/"> osf.io/w8nr6 </a></p>
+<li>TL website:  <a href="https://tangible-landscape.github.io">tangible-landscape.github.io</a></li>
+<li>TL wiki: <br><a href="https://github.com/tangible-landscape/grass-tangible-landscape/wiki">github.com/tangible-landscape/grass-tangible-landscape/wiki</a> </li>
+</ul>
+</section>
+
+<section>
+<h3>Resources</h3>
+<ul>
+    <li>Book: <a href="https://link.springer.com/book/10.1007%2F978-3-319-89303-7">
+        <em>Petrasova et al., 2018, Tangible Modeling with Open Source GIS</em>, second edition, Springer Int. Pub. </a></li>
+    <!-- <li><em><a href="http://www.mdpi.com/2220-9964/4/2/942/pdf">
+        Integrating Free and Open Source Solutions into Geospatial Science Education.</a></em>
+        Petras, V., Petrasova, A., Harmon, B., Meentemeyer, R.K., Mitasova, H.
+         ISPRS IJGI. 2015.</li> -->
+</ul>
+<p>
+<iframe data-autoplay width="800" height="350" src="https://www.youtube.com/embed/Uje8ORyhBaQ?rel=0&amp;showinfo=0&amp;loop=1&amp;playlist=Uje8ORyhBaQ" frameborder="0" allowfullscreen></iframe>
+</section>
+
+<!--
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we have defined types of models
+</ul>
+</section>
+
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

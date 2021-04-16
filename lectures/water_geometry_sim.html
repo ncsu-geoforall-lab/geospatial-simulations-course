@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2>Geometry-based water flow simulation</h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+   <li>concept of geometry driven flow and spread
+   <li>surface gradient and flowlines
+   <li>flat areas and depressions
+   <li>methods for flow routing on raster DEMs
+   <li>flooding as spread
+   <li>height above the nearest drainage technique
+</ul>
+</section>
+
+<section>
+   <h3>Geometry driven flow simulations</h3>
+<p>
+<ul>
+<li class="fragment">special case of process based, deterministic modeling
+<li class="fragment">focus on spatial pattern, steady state
+<li class="fragment">flowtracing or flooding over complex surfaces
+<li class="fragment">controled by elevation surface represented as DEM
+<li class="fragment">in optimization problems: cost surface
+</ul>
+</section>
+
+<section>
+   <h3>Types of surface water simulations</h3>
+<p>
+<ul>
+<li class="fragment">Surface water flow - overland flow accumulation
+<li class="fragment">Flooding / inundation - spread of rising water level
+<li class="fragment">Coupled inundation + overland flow 
+<li class="fragment">Coupled storm surge + inundation + overland flow
+</ul>
+<p class="fragment">
+<img height="260" src="img/water_geometry/accum_5Kmfd.jpg">
+<img height="260" src="img/water_geometry/floodedarea.jpg">
+<p class="fragment">
+These processes are controled by elevation surface
+</section>
+
+<section>
+   <h3>Flow over complex surfaces</h3>
+<p>
+<ul>
+ <li>elevation surface - bivariate function:
+<p>
+ $$z = f(x,y)$$
+<p>
+ <li class="fragment">flow over this surface is driven by  <b>surface gradient</b> 
+<p>
+$$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
+<p>
+ <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)$
+ <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$  
+ <li class="fragment">direction and magnitude of flow velocity over complex surface is controled 
+by the surface gradient field $\nabla f$.  
+</ul>
+<p class="fragment"><small> note that the direction of flow is minus $\nabla f$, because gradient vector points upslope</small>
+</section>
+
+<section>
+   <h3>Gradient vector: slope and aspect</h3>
+<p>
+<small>
+<ul>
+ <li>$- \nabla f$: vector in the steepest slope direction (aspect),
+  magnitude is slope steepness
+ <li class="fragment">slope $\beta$ and aspect $\alpha$: 
+<p>
+$$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2}$$
+$$\alpha^\circ = {\arccos} \left( -f_y \over \sqrt{f_x^2+f_y^2} \right) $$
+<li class="fragment">we can compute gradient using slope and aspect angle 
+<p>
+$$ f_x = \tan \beta . \cos \alpha, \qquad f_y = \tan \beta . \sin \alpha$$
+</ul>
+<p>
+$$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right), \; z = f(x,y)$$
+</small>
+</section>
+
+<section>
+   <h3>Estimating gradient from raster DEM</h3>
+<p>
+<ul>
+<p>
+  <li class="fragment">Discrete: D8 or D16 $\Delta z_{max}$ in 3x3 or 5x5 moving window, 
+  results in discrete directions e.g., 0,45, ... deg 
+<p>
+  <li class="fragment">Continuous D-infinity: partial derivatives of 
+a suitable approximation function, such as spline or polynomial
+</ul>
+</section>
+
+<section>
+   <h3>Estimating gradient from raster DEM</h3>
+<small>
+<p>Fitting second order polynomial to 9 grid points of 3x3 window
+using weighted least squares fitting leads to simple equations for estimating $f_x, f_y$:
+<p class="fragment">
+$$z(x,y)=a_0+a_1 x + a_2 y + a_3 xy + a_4 x^2 + a_5 y^2$$
+<p class="fragment">
+$$f_x={{(z_{i-1,j-1}-z_{i+1,j-1})+2(z_{i-1,j}-z_{i+1,j})+(z_{i-1,j+1}-z_{i+1,j+1})} \over {8\Delta x}}$$
+<p class="fragment">
+$$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1})} \over {8\Delta y}}$$
+</small>
+<br> <img height="220" src="img/water_geometry/3x3window_zij.png">
+</section>
+
+<!--
+<section>
+   <h3>Estimating gradient from raster DEM</h3>
+<p>Elevation, gradient field, slope and aspect maps
+<img height="250" src="img/water_geometry/elevation.png">
+<img height="250" src="img/water_geometry/aspectarrows.png">
+<p>
+<img height="250" src="img/water_geometry/slope.png">
+<img height="250" src="img/water_geometry/aspect.png">
+</section>
+-->
+
+<section>
+   <h3>Flow routing over complex surfaces</h3>
+<ul>
+<li>flowline - path of a single drop following gradient, 
+<p>
+<li class="fragment">flow accumulation 
+<p>
+   <ul>
+   <li class="fragment">density of flowlines generated from each grid cell, 
+   <li class="fragment">cumulative drops routed from each cell,
+   <li class="fragment">upslope contributing area,
+   <li class="fragment">measure of steady state flow depth
+   </ul>
+<p>
+<li class="fragment">flow patterns depend on algorithm used for gradient, routing and treatment of depressions
+<p>
+<li class="fragment">gradient magnitude (slope, flow velocity) is omitted
+</ul>
+<p class="fragment"><small>See GIS582 and supplemental material for flow tracing and flow accumulation methods
+http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.html#/10</small>
+</section>
+
+<section>
+   <h3>Flow routing over complex surfaces</h3>
+<p>D-inf vector-based algorithm for generating flowlines
+<p>flowlines are perpendicular to contours
+<img height="380" src="img/water_geometry/rflowfigure.jpg">
+<img height="380" src="img/water_geometry/flowlines_and_contours.png">
+</section>
+
+<section>
+   <h3>Flow routing over complex surfaces</h3>
+<p>Flowlines and flow accumulation
+<img height="420" src="img/water_geometry/flowlines_flowaccum.jpg">
+</section>
+
+<section>
+   <h3>Flow accumulation across landscape</h3>
+<p>Evolution of steady state flow  with steady rainfall and uniform flow velocity
+<p><img height="400" src="img/water_geometry/water.gif">
+</section>
+
+<section>
+   <h3>Single flow direction routing</h3>
+<ul>
+<li>SFD Single flow direction - moves entire unit of flow into a single downslope cell in the gradient direction
+<li>Discrete D8 and continuous Dinf gradient direction
+</ul>
+<p class="fragment">
+<img height="360" src="img/water_geometry/flowD8dem.jpg">
+<img height="360" src="img/water_geometry/flowdinfdem.jpg">
+<br><small>when D8 is sufficient? SFD over noisy surface mitigates the D8 artifact</small>
+</section>
+
+<!--add equations later on-->
+<section>
+   <h3>Flow routing with dispersed flow</h3>
+<p>MFD - multiple flow direction - partitions flow into two or more downslope directions
+<p>
+<p class="fragment">
+<!--<img height="350" src="img/water_geometry/flowdispersal.jpg">-->
+<img height="360" src="img/water_geometry/accum5K_gr65_feb10b.jpg">
+<img height="360" src="img/water_geometry/accum5K_gr65_mfd.jpg">
+</section>
+
+<section>
+   <h3>Weighted flow routing</h3>
+<p>Simulation of spatialy variable source areas
+<p class="fragment">
+<img height="350" src="img/water_geometry/accum_runoffuni_30m3d.jpg">
+<img height="350" src="img/water_geometry/accum_runoffvar_30m3d.jpg">
+</section>
+
+<section>
+   <h3>Flat areas and depressions</h3>
+<ul>
+<li>What is gradient in flat area? In depressions?
+<li class="fragment">Many algorithms were developed for routing through flat areas and depressions 
+<li class="fragment">Hydrological flattening, enforcement, conditioning
+<li class="fragment">New (and some old) algorithms do not require depression filled DEM
+</ul>
+<!--
+<p class="fragment">
+<img height="280" src="img/water_geometry/depressionfill_scheme.png">
+-->
+</section>
+
+<section>
+   <h3>Flow routing through depressions</h3>
+<p>Depressions "trap" flow
+<p>Sources of depressions in DEMs:
+ <ul>
+ <li class="fragment">real topographic features
+ <li class="fragment">noise, measurements errors
+ <li class="fragment">processing artifacts
+</ul>
+<!--<p><img class="fragment" height="240" src="img/flow_erosion/depression.png">-->
+</section>
+
+<section>
+   <h3>Handling depressions</h3>
+Filling
+<p><img height="360" src="img/water_geometry/depressions1.png">
+</section>
+
+<section>
+   <h3>Handling depressions</h3>
+Filling, carving
+<p><img height="360" src="img/water_geometry/depressions2.png">
+</section>
+
+<section>
+   <h3>Handling depressions</h3>
+Filling, carving, hybrid
+<p><img height="360" src="img/water_geometry/depressions3.png">
+</section>
+
+<section>
+   <h3>Handling depressions</h3>
+Filling, carving, hybrid, least cost path
+<p><img height="360" src="img/water_geometry/depressions4.png">
+</section>
+
+<section>
+   <h3>Depressions filling: lidar DEM</h3>
+Depressions in lidar-based DEM and flow accumulation using DEM filling
+<p><img height="400" src="img/water_geometry/depressions_lidardem.jpg">
+<p><small>Many depressions are artificial lakes where bridges or roads create dams</small>
+</section>
+
+<section>
+   <h3>Depressions filling: radar DSM</h3>
+<p>Radar (SRTM, IFSARE) DSM include vegetation surface leading to complex, nested depressions
+<p><img height="360" src="img/water_geometry/depressions_ifsare.jpg">
+<img height="360" src="img/water_geometry/filled_dem.jpg">
+<p><small>Filling alters elevation in large areas</small>
+</section>
+
+<section>
+   <h3>Depressions: algorithm comparison </h3>
+<p>
+<ul>
+ <li>Filling with single stream (black) and multiple parallel streams (grey) across filled depression
+<li>Least cost path stream (red) and on-ground stream location from GPS (blue points)
+</ul>
+<p><img height="350" src="img/water_geometry/lcp_fill1_fill2_compare.jpg">
+</section>
+
+<section>
+   <h3>Depressions: LCP issues </h3>
+<p>
+<ul>
+ <li>Roads are elevated over bridges and culverts
+<li>Least cost path stream is routed along lower elevation, redirecting the flow away from the actual stream
+<li>Solution: carving through the road or imposed gradient, if the location of bridge/culvert is known
+</ul>
+<!--<p><img height="350" src="img/water_geometry/lcp_fill1_fill2_compare.jpg">-->
+</section>
+
+<section>
+   <h3>Depressions: carving</h3>
+<p>Carving streams from digitized stream data may introduce artifacts, if the digitized streams
+do not match the DEM
+<p><img height="400" src="img/water_geometry/carved_dem.jpg">
+</section>
+
+<section>
+   <h3>Hydrologically enforced DEM</h3>
+<p>
+Modified DEM with connected stream network where each grid cell drains into the outlet
+<ul>
+  <li>hydrologically enforced DEM does not have depressions or flat areas
+  <li>it should not be referred to as hydrologically correct, because all wetlands are removed
+</ul>
+</section>
+
+<section>
+   <h3>Flow routing for massive DEMs</h3>
+<p>Least cost path and Priority Flood methods do not require depression filling
+<small>
+<ul>
+  <li>Metz, M., Mitasova, H., Harmon, R.S. (2011) Efficient extraction of drainage networks from massive, radar-based elevation models with least cost path search, Hydrology and Earth System Sciences 15, pp. 667-678. r.watershed in GRASS GIS
+  <li>Magalh˜aes, S. V. G., Andrade, M. V. A., Randolph Franklin, W., Pena, G. C., 2012. A new method for computing the drainage network based on raising the level of an ocean surrounding the terrain. In: Gensel, J., Josselin, D., Vandenbroucke, D., Cartwright, W., Gartner, G., Meng, L., Peterson, M. P. (Eds.), Bridging the Geographic Information Sciences. Lecture Notes in Geoinformation and Cartography. Springer Berlin Heidelberg, pp. 391–407. doi: http://dx.doi.org/10.1007/978-3-642-29063-3_21
+  <li>Barnes, Lehman, Mulla. “Priority-Flood: An Optimal Depression-Filling and Watershed-Labeling Algorithm for Digital Elevation Models”. Computers and Geosciences. Vol 62, Jan 2014, pp 117–127. doi: “10.1016/j.cageo.2013.04.024”.
+  <li>Araujo et al. 2014 Watersheds in disordered media
+  <li><a href="https://peerj.com/preprints/27099/">Barnes (2018) RichDEM</a>Geomorphometry 2018 best paper, see also 
+<a href="https://github.com/r-barnes/richdem">Code repository with design philosophy</a>
+</ul>
+</small>
+</section>
+
+<!--
+<section>
+   <h3>Priority Flood method</h3>
+<p>no depression filling
+<p class="fragment">
+<img height="380" src="img/water/waves2_3delev.jpg">
+<img height="380" src="img/water/waves_leg.jpg">
+<p><small>Does priority flooding also use D8?</small>
+<p><small>add REFS</small>
+</section>
+-->
+
+<!--
+<section>
+   <h3>Flow routing and Watersheds</h3>
+skip in this context?
+<p>See GIS582 and supplemental material for flow tracing and flow accumulation methods
+</section>
+-->
+
+<section>
+   <h3>Flooding</h3>
+<ul>
+<li>elevation threshold - bathtub model 
+<li>spread of water from source - friction gradient rather than elevation gradient 
+<li>hydrologically connected surface water level 
+<li>HAND: height above the nearest drainage technique
+<li>interpolation between pre-computed flood levels along the source stream section(FIMAN)
+</ul>
+</section>
+
+<section>
+   <h3>Flooding - bathtub model</h3>
+<p><img height="450" src="img/geodynamics/lakef1994.gif">
+</section>
+
+<section>
+   <h3>Flooding - lake model</h3>
+<ul>
+<li> Creates hydrologically connected area (lake) from a given point at a given elevation 
+<li> Valid for small flat areas with point source, approximates steady state, uniform flooding
+</ul>
+<p>
+<img height="280" src="img/water_geometry/floodedarea.jpg">
+<img height="280" src="img/water_geometry/lakeflood_swwake_streets.jpg">
+<p><small>water level at 90m asl</small>
+</section>
+
+<section>
+   <h3>Flooding - lake model</h3>
+<ul>
+<li>Simplified storm surge - series of lake models 
+<li>Neglects time and water mass: worst case scenario
+</ul>
+<p><img height="430" src="img/intro/hatteras_surge_rlake.gif">
+</section>
+
+<section>
+   <h3>Flooding - inundation (spread) model </h3>
+<ul>
+<li>Channel has variable elevation: Height Above Nearest Drainage methodology
+<li>Using flow direction, compute raster where each cell is $\Delta z$ between the given cell 
+and the the cell on the stream into which the cell drains.
+</ul>
+<p><img height="320" src="img/water_geometry/heightabovestream.jpg">
+<img height="320" src="img/water_geometry/inundation_5m.jpg">
+</section>
+
+<section>
+   <h3>Flooding - inundation dynamic</h3>
+<a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial">Implemented in mapbox</a>
+</section>
+
+<section>
+   <h3>FIMAN</h3>
+<ul>
+<li>Scenario simulation: Interpolation between water levels predicted by process based model, limited to areas near stream gauges
+<li>Coupled with real time observations
+</ul>
+<p><img height="330" src="img/intro/FIMAN_swiftcreek_scenario.jpg">
+<p><small><a href="https://fiman.nc.gov/fiman/#">Flood inundation mapping and alert network</a></small>
+</section>
+
+
+<!--
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we have defined types of models
+</ul>
+</section>
+
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

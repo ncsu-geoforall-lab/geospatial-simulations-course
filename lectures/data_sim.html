@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Data simulation</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+   <li>when we need data simulation
+   <li>deterministic, random, and fractal surfaces
+   <li>simulating point data and patches
+   <li>generating scenarios
+</ul>
+</section>
+
+<section>
+   <h3>Steps in development of simulations</h3>
+<ul>
+<li class="fragment">definition of research question 
+<li class="fragment">identification of available data 
+<li class="fragment">design or identification of modeling approach suitable for the research question and available data 
+<small>recall:modeling quantity,scale,configuration space and interactions, governing equations</small>
+<li class="fragment">sensitivity analysis (most important parameters)
+<li class="fragment">model parametrization
+<li class="fragment">calibration and validation
+<li class="fragment">generating scenarios and running simulations
+<li class="fragment">uncertainty analysis and error propagation
+</ul>
+</section>
+
+<section>
+   <h3>Motivation for simulating data</h3>
+<p>
+<ul>
+<li class="fragment">sensitivity analysis: generating model parameters
+<li class="fragment">uncertainty analysis: simulating errors
+<li class="fragment">scenario modeling
+<li class="fragment">testing algorithms
+<li class="fragment">noise and artifact detection
+</ul>
+</section>
+
+<section>
+   <h3>Types of simulated data</h3>
+<ul>
+<li>Geometry
+<p>
+<ul>
+  <li>points, lines, areas, rasters, surfaces
+  <li>synthetic data sets - time series
+</ul>
+<p>
+<li>Approach
+<p>
+<ul>
+  <li>deterministic
+  <li>stochastic
+  <li>hybrid
+</ul>
+</ul>
+</section>
+
+<section>
+   <h3>Geometry based spatial methods</h3>
+<p>Deterministic: mathematical functions 
+<p>
+$z = 0.2 x + 0.02 y + 50$
+<p class="fragment"> 
+<img height="380" src="img/data_sim/tiltedplane2.jpg">
+</section>
+
+<section>
+   <h3>Geometry based spatial methods</h3>
+<p>Deterministic: mathematical functions
+<p> 
+$z = \sin (0.4x) + 0.3 \cos(y) + 80$
+<p class="fragment">
+<img height="380" src="img/data_sim/waves2_3delev.jpg">
+<img height="250" src="img/data_sim/waves_leg.jpg">
+<p><small>Smooth, simplified surface</small>
+</section>
+
+<section>
+   <h3>Stochastic methods</h3>
+<ul>
+ <li>Methods based on random fields
+ <li>Uniform random field - linear random number generator
+</ul>
+<br><img height="100" src="img/data_sim/random_0_20_3D.jpg">
+<p class="fragment"><img height="200" src="img/data_sim/random_0_20_histogramred.png">
+<br><small>Random numbers from interval [0,20], mean=10: surface and histogram</small>
+</section>
+
+<section>
+   <h3>Stochastic methods</h3>
+Independent random variable $z$, is often distributed according to the normal distribution:
+$$
+f(z | \mu,\sigma^2) = \frac{1}{\sqrt{2\pi} \sigma} e^{-(z-\mu)^2 / 2\sigma^2} 
+$$
+<small>
+<p class="fragment">where $\mu$ is the mean, $\sigma$ is the standard deviation,
+$\sigma^2$ is the variance, $e$ is exponential function, and $f(z | \mu,\sigma^2)$
+is probability density function of the normal distribution 
+<p class="fragment">
+Monte Carlo methods often require generating values that have normal distribution
+<p class="fragment">
+Learn more about 
+<a href="https://en.wikipedia.org/wiki/Normal_distribution">Normal distribution</a> 
+</small>
+</section>
+
+<section>
+   <h3>Gaussian random field</h3>
+Random field with $\mu = 120$m and $\sigma = 2$m 
+<p><small>One $\sigma$ (68%) of values in the random field are within 2m range of the mean</small>
+<br><img height="180" src="img/data_sim/gauss_surf_m120s2_3dnew.jpg">
+<p class="fragment"><img height="180" src="img/data_sim/gauss_surf_hist.png">
+</section>
+
+<section>
+   <h3>Uniform and Gaussian random fields</h3>
+Profile and histograms of random fields:
+<p>uniform where $z = [0,20]$ 
+<p class="fragment">Gaussian $z$ where $\mu = 10$ and $\sigma = 6$        
+<p><img height="150" src="img/data_sim/random_0_20_gaussurf_10_6_prof.png">
+<br><img height="180" src="img/data_sim/random_0_20_histogramred.png">
+<img height="180" src="img/data_sim/gauss_surf_m10_s6_hist.png">
+</section>
+
+<section>
+   <h3>Uniform and Gaussian random fields</h3>
+2D maps: uniform random field $z = [0,20]$ and Gaussian random field with $\mu = 10$ and $\sigma = 6$m
+<p><img height="320" src="img/data_sim/random_0_20_2d.png">
+<img height="320" src="img/data_sim/gauss_surf_m10_s6_lghist.png">
+<img height="120" src="img/data_sim/gauss_surf_m10_s6_lghistzm.png">
+</section>
+
+<section>
+   <h3>Simulation of random surface with spatial dependence</h3>
+<p>Initial Gaussian or uniform random field is smoothed based on a given filter
+<p>The filter defines the range and shape of spatial dependence
+</section>
+
+<section>
+   <h3>Spatial dependence</h3>
+<p>Gaussian random field - no spatial dependence
+<p><img height="450" src="img/data_sim/gauss_surfspat_d0_lghist.jpg">
+</section>
+
+<section>
+   <h3>Spatial dependence</h3>
+<p>Gaussian random field with spatial dependence $d=10$
+<p><img height="450" src="img/data_sim/random_spatiald10h255.png">
+</section>
+
+<section>
+   <h3>Spatial dependence</h3>
+<p>Gaussian random field spatial dependence $d=30$
+<p><img height="450" src="img/data_sim/random_spatiald30h255.png">
+</section>
+
+<section>
+   <h3>Random errors</h3>
+Random gaussian field: $\mu = 0$m, $\sigma = 0.3$m
+<br> random measurement errors (noise)
+<p><img height="280" src="img/data_sim/gauss_surf_m0s03_3d.jpg">
+<br><img height="120" src="img/data_sim/gauss_surf_m0s20_hist.png">
+</section>
+
+<section>
+   <h3>Simulation of DEM with noise</h3>
+<p><small>Elevation surface interpolated by smoothing splines</small>
+<p><img height="420" src="img/data_sim/elev_lid_smooth.jpg">
+</section>
+
+<section>
+   <h3>Simulation of DEM with noise</h3>
+<p><small>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m added to the elevation surface:</small>
+<p><img height="420" src="img/data_sim/elev_lid_noise3d.jpg">
+</section>
+
+<section>
+   <h3>Simulation of DEM with noise</h3>
+<p><small>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m and 
+spatial dependence d=10 added to the elevation surface:</small>
+<p><img height="420" src="img/data_sim/elev_lid_noisespat3d.jpg">
+</section>
+
+<section>
+   <h3>Simulation of DEM with noise</h3>
+<p><small>DEM interpolated from the lidar point cloud with limited smoothing</small>
+<p><img height="420" src="img/data_sim/elev_lid_default.jpg">
+</section>
+
+
+<section>
+   <h3>Flow over smooth DEM</h3>
+<p><small>Spatial pattern of surface flow over smooth surface</small>
+<p><img height="420" src="img/data_sim/accum5k.jpg">
+</section>
+
+<section>
+   <h3>Flow over DEM with noise</h3>
+<p><small>Spatial pattern of surface flow over noisy surface</small>
+<p><img height="420" src="img/data_sim/accum5k_noise.jpg">
+</section>
+
+<section>
+   <h3>Flow over DEM with noise</h3>
+<p><small>Spatial pattern of surface flow over noisy surface with spatial dependency</small>
+<p><img height="420" src="img/data_sim/accum5k_noise_spat.jpg">
+</section>
+
+<section>
+   <h3>Flow over DEM with lidar noise</h3>
+<p><small>Spatial pattern of surface flow over lidar-based surface</small>
+<p><img height="420" src="img/data_sim/accum5k_liddef.jpg">
+</section>
+
+<section>
+   <h3>Lidar point cloud</h3>
+<p><small>Spatial pattern of bare ground lidar points</small>
+<p><img height="420" src="img/data_sim/elev_lid_points.jpg">
+</section>
+
+<!--
+<section>
+   <h3>Application to uncertainty analysis</h3>
+<p>assignment: add random fields with different properties to a smooth DEM
+and evaluate how different types of errors will influence your analysis or modeling,
+for example, watershed boundaries or flow distribution
+<p>cross-validation analysis shows that errors in DEMs are dependent on terrain shape - 
+how would you adjust your simulated data?
+</section>
+-->
+
+<section>
+   <h3>Fractals</h3>
+<p>Scale invariant features with infinite detail at all scales - complete computation of fractal is impossible 
+<p>Fractals have non-integer dimension
+<p>Deterministic and random fractals
+    <ul>
+    <li><a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">Fractals by Hausdorff dimension</a>
+    <li><a href="https://www.wired.com/2010/09/fractal-patterns-in-nature/">Fractal patterns in nature</a>
+    <li><a href="https://www.wired.com/2012/01/the-fractal-dimension-of-zip-codes/">Fractal dimension of zipcodes</a>
+    </ul>
+</section>
+
+<section>
+   <h3>Deterministic fractals</h3>
+<ul>
+<li>Self-similar: scaled down and rotated copies of themselves
+<li>Simple algorithms: particular mappig is repeated in recursive scheme
+</ul>
+</section>
+
+<section>
+   <h3>Random fractals</h3>
+<ul>
+<li>Include random component to simulate natural phenomena
+<li>Surfaces with no derivative (infinitely rough)
+<li>Fractal Brownian motion
+<li>Algorithms: midpoint displacement method, Fourier filtering method, random cut method
+</ul>
+</section>
+
+<section>
+   <h3>Random fractals</h3>
+<p>Surface generated by Fourier filtering method d=2.01
+<p> <img height="400" src="img/data_sim/fractal_d201.gif">
+</section>
+
+<section>
+   <h3>Random fractals</h3>
+<p>Surface generated by Fourier filtering method d=2.9
+<p> <img height="400" src="img/data_sim/fractal_d290.gif">
+</section>
+
+<section>
+   <h3>DEM with fractal-based noise</h3>
+<p><small>Fractal-based noise added to the elevation surface </small>
+<p><img height="420" src="img/data_sim/elev_lid_noisefractal3d.jpg">
+</section>
+
+<section>
+   <h3>Flow over DEM with fractal noise</h3>
+<p><small>Spatial pattern of surface flow over lidar-based surface</small>
+<p><img height="420" src="img/data_sim/accum5k_noise_frac.jpg">
+</section>
+
+<section>
+   <h3>Space filling curves</h3>
+Special cases of fractal constructions
+used for efficient management of multidimensional data
+<a href-"https://en.wikipedia.org/wiki/Space-filling_curve">Space-filling curve on wikipedia</a>
+<a href="https://blog.zen.ly/geospatial-indexing-on-hilbert-curves-2379b929addc">Geospatial indexing on Hilbert curves</a>, 
+blog post by A. Sinton
+</section>
+
+<section>
+ <h3>Random points</h3>
+<ul>
+<li>Randomly distributed in a given space
+<li>Random sampling of a given field, map, image
+<li>Perturbated random point fields
+<li>Random points with spatial dependence - e.g. minimum distance appart
+<li>Random subsets of existing data for calibration and validation
+</ul>
+</section>
+
+<section>
+   <h3>Random patch generators</h3>
+<p>Generating synthetic land cover / land use maps
+<p>Circular growth or fractal 
+</section>
+
+<section>
+   <h3>Generating complex distributions with given properties</h3>
+<ul>
+<li>points with spatial interactions - inputs for ABM
+<li>patches with spatial dependence and geometry properties
+<li>time series generators - e.g., weather generators for continuous time simulations
+</ul>
+</section>
+
+<section>
+   <h3>Generating 3D digital objects</h3>
+<ul>
+<li>Computational design, game engines
+<li>Structure from motion - digital mapping of 3D objects using overlapping images
+<li><a href="http://ncsu-geoforall-lab.github.io/uav-lidar-analytics-course/assignments/lab_exp_3Dreconstr.html">
+Lab experiment from the UAS course</a>
+</ul>
+</section>
+
+<section>
+   <h3>Generating scenarios</h3>
+<ul>
+<li>Depends on the research question, available data and tools
+<li>Participatory research, planning, decision making
+<li>Computational approaches, artificial inteligence, games
+<li>Tangible Landscape
+</ul>
+</section>
+
+<!--
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we have defined types of models
+</ul>
+</section>
+
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

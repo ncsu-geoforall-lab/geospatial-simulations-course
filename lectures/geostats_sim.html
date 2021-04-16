@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Geostatistical simulations and error propagation</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+<li>motivation for geostatistical simulations
+<li>geostatistical conditional simulations
+<li>Gaussian Sequential Simulation
+<li>simulations for error propagation
+<li>coupling GRASS and R for geostatistics
+</ul>
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+<p>In previous units we generated DEMs with simulated noise
+by adding random values to the DEM with:
+<ul>
+  <li class="fragment">uniform distribution
+  <li class="fragment">gaussian distribution
+  <li class="fragment">distribution with spatial autocorrelation
+  <li class="fragment">fractal
+</ul>
+<p class="fragment">
+We then visualy evaluated the impact of different noise distribution 
+on the flow pattern modeling and stream extraction. 
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+Patterns of flow accumulation from noisy DEMs
+<img height="210" src="img/data_sim/accum5k_noise.jpg">
+<img height="210" src="img/data_sim/accum5k_noise_frac.jpg">
+<img height="210" src="img/data_sim/accum5k_noise_spat.jpg">
+<p>How to quantify uncertainty in the spatial pattern of the modeled variable
+due to uncertainty in elevation values?
+</section>
+
+<section>
+    <h3>Problem formulation</h3>
+<p>To quantitatively evaluate uncertainty in parameters derived from a DEM     
+we can generate multiple realizations of a DEM by starting with different seed
+<p class="fragment">
+This approach does not take into account the spatial dependency of the elevation values in our DEM
+<p class="fragment">
+We can use <b>geostatistical simulation</b> to generate multiple DEM realizations and use them
+to estimate error propagation in derived variables
+
+</section>
+
+<section>
+    <h3>Computing the surface model</h3>
+<p>Derive model of spatial distribution of a variable
+based on a limited set of discrete scattered observations:
+<ul>
+<li class="fragment">if the measured data capture features of the distribution at the level of detail needed
+for the application we can use <b>interpolation</b> 
+<br><small><a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/topics/spatial_interpolation.html">
+See GIS582 Spatial interpolation topic</a></small>
+<p>
+<li class="fragment">if the measured data are limited and we know statistical properties of the distribution,
+we can use <b>simulation</b>
+</ul>
+<p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations 
+of a thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
+determined by a roughness penalty (smoothness seminorm)
+see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_1999_2005.pdf">Mitas 1999</a></small>
+</section>
+
+<section>
+    <h3>Computing the surface model</h3>
+<p>
+Given $m$-points $(x_i, y_i, z_i), i=1,m$ 
+<br>find such $F(x,y)$ that for each $i=1,m$
+<p>
+           $$z_i=F(x_i,y_i) + e(x_i,y_i)$$
+<br>
+$$
+F(r) = T(r) + \sum_i^m \lambda_i R(r,r_i)
+$$
+<small>
+<ul>
+<li> $r = (x,y)$ is unsampled point and $r_i=(x_i,y_i)$ is a measured point
+<li>$T(r)$ is trend (low order polynomial),
+<li>$λ_i$ are coefficients computed by solving a system of linear equations 
+<li>$R(r,r_i)$ is a function of distance between unsampled and measured points (e.g. radial basis function, model variogram)
+<li>$e(r_i)$ is estimate of measurement error
+</ul>
+<p>then use  $F(r)$ to compute $z$ at unsampled grid points
+</small>
+</section>
+
+<section>
+    <h3>Computing the surface model</h3>
+From scattered points (red) to regular grid (blue)
+<p>
+<img height="360px" src="img/geostats/elevrandpts.jpg">
+<img height="360px" src="img/geostats/pointstogrid.jpg">
+<p>
+<!--
+<small>Interpolation: distance between grid points similar to average distance between given points
+<p>Simulation: distance between grid points can be much smaller than distance between given points
+</small>
+-->
+</section>
+
+<section>
+    <h3>Interpolation or simulation?</h3>
+<ul>
+<li class="fragment">The problem does not have a unique solution so additional conditions are used.
+<li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations
+<li class="fragment">Simulation: we use $F(x,y)$ to condition our simulation of a more complex surface
+</ul>
+</section>
+
+<!--
+<section>
+    <h3>Multiple solutions</h3>
+<p class="fragment">
+<img height="440px" src="img/geostats/interp1d.gif">
+$$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
+<p class="fragment"><small>draw simulation on the board</small>
+</section>
+-->
+
+<section>
+    <h3>Geostatistical simulations</h3>
+<p>
+<ul>
+  <li class="fragment">modeled spatial distribution is complex
+  <li class="fragment">limited number of samples is available 
+   - interpolation does not capture the complexity, result is too smooth
+  <li class="fragment">we have some knowledge of statistical properties of the modeled distribution
+  <li class="fragment">we generate many realizations of the surface using the given statistical properties
+  <li class="fragment">the realizations are used to compute the simulated distribution <b>mean and uncertainty maps</b>
+</ul>
+</section>
+
+<section>
+    <h3>Applications</h3>
+<p>
+Observations where sampling is limited:
+<ul>
+  <li class="fragment">subsurface: reservoir modeling in petroleum industry, mining, 
+   soil properties, groundwater pollution
+  <li class="fragment">surface: variables not detectable by RS, e.g. some pollutants
+  <li class="fragment">generate multiple realizations of modeled distribution for <b>uncertainty propagation studies</b>
+</ul>
+</section>
+
+<section>
+    <h3>Geostatistical simulations</h3>
+<p>
+<a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">
+Conditional simulation</a>
+</section>
+
+<!--
+<section>
+    <h3>Geostatistical simulations</h3>
+<p>Raster-based: continuous or categorical data
+<p>Object based: categorical data
+</section>
+-->
+
+<section>
+    <h3>Analyze the input data</h3>
+<ul>
+<li class="fragment">input: sparse, scattered point measurements
+<li class="fragment">analyze the data for normality (compute histogram)
+<li class="fragment">apply transformation if needed to get normal distribution (log or Box-Cox transform)
+<li class="fragment">compute experimental and model semivariogram
+<li class="fragment"> define spatial extent and resolution of resulting grid
+<ul>
+</section>
+
+<section>
+    <h3>Generate one grid realization</h3>
+Workflow for Gaussian Sequential Simulation
+<ul>
+<li class="fragment">assign data points to closest grid cell (nn binning) 
+<li class="fragment">select random unsampled grid cell and compute kriged estimate + random residual to get simulated value
+using the neighboring given points
+<li class="fragment">use "random path" to define order of empty grid cells to be simulated
+<li class="fragment">at each new unsampled grid cell use the nearby <b>given points and previously simulated values</b> 
+to compute the simulated values
+</ul>
+<p><small>
+nn binning assumes that the grid cell size is smaller than the min distance between points, otherwise we would need 
+to aggregate some points, e.g. using mean </small>
+<p>
+</section>
+
+<section>
+    <h3>Gaussian Sequential Simulation</h3>
+<ul>
+<li class="fragment">Each realization starts with a different seed
+<li class="fragment">Compute hundreds or thousands realizations 
+<li class="fragment">Result: mean simulated values grid and standard deviation grid 
+</ul>
+<p>
+See also <a href="https://github.com/GeostatsGuy/2DayCourse/blob/master/07_SpatialSimulation.pdf">Prof. Pyrcz's (GeostatsGuy)
+lecture and code</a>
+</section>
+
+<section>
+    <h3>Error propagation application</h3>
+
+<ul>
+  <li>Given a set of elevation points quantify uncertainty in the stream position derived from DEM
+computed from these points while taking into account DEM errors.
+<li>
+Assignment Example from  A Practical Guide to Geostatistical Mapping by T. Hengl. 
+</ul>
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+Distribution of all points, points with non-integer $z$ values 
+and points with $z=180$ 
+<p>
+<img height="300px" src="img/geostats/bar_pts_all.png">
+<img height="300" src="img/geostats/bar_pts_cat800.png">
+ <img height="300" src="img/geostats/bar_pts_val180.png">
+<p><small>Our data set includes points along contour lines 
+combined with scattered points along ridge lines and valleys and in the floodplain. </small>
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+Given points assigned to nearest 10m grid cell and a related histogram
+<p><img height="320px" src="img/geostats/bar_binnedpts_nn.png">
+<img height="200px" src="img/geostats/bar_binnedpts_hist2crop.png">
+</small>
+<p><small>Note that for $z>90m$ there are many points with values at 5m intervals 
+while there are very few points with values in-between, 
+reflecting the dense sampling along contours. Histogram $x$ is in tens of meters and $y$ in hundreds of cells</small> 
+</section>
+
+<section>
+    <h3>Smooth DEM interpolation</h3>
+DEM interpolated by spline with tension and its histogram
+<p> <img height="360" src="img/geostats/bar_demrst.png">
+<img height="250" src="img/geostats/bar_demrst_hist.png">
+<p><small>Note that the histogram of interpolated DEM is quite different from the 
+<a href="./geostats_sim.html#/16">histogram from the data</a></small>
+</section>
+
+<section>
+    <h3>Elevation data analysis in R</h3>
+<p><small>Plot distribution for 20% and 80% of sub-sampled points</small>
+<p><img height="400" src="img/geostats/scatterplots.jpg">
+<img height="400" src="img/geostats/bar_ptsplot0.8_Rplot.png">
+<br><small>Note that the histogram is different from the previous two: it does not capture
+the difference between the number of points on contours and the scattered points because
+of aggregation in smaller number of histogram binns (20 in R versus 255 in GRASS).</small>
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<ul>
+<li>Anisotropic experimental variogram from given data
+using 20% and 80% sub-sampled points
+</ul>
+<p>
+<img height="350px" src="img/geostats/bar_variogrRplot.png">
+<img height="350px" src="img/geostats/bar_variogr0.8_Rplot.png">
+<p><small>The 80% subsample leads to a smoother variogram, but as little as 20% points captures
+the characteristics of spatial dependence (autocorrelation). 
+Note slight anisotropy in 45 degrees direction
+(direction of floodplain edge has lower sill) </small>
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<ul>
+<li>Anisotropic experimental variogram for 1000m and 3000m maximum distance
+</ul>
+<p>
+<img height="350px" src="img/geostats/bar_variogr0.8_Rplot.png">
+<img height="350px" src="img/geostats/bar_variogr_3km_Rplot.png">
+<p><small>The variogram shows stronger anisotropy for distances over 1km. 
+When applying GSS, the variogram is used locally (10s-100s of meters)
+so we can use an isotropic variogram model</small>
+</section>
+
+<section>
+    <h3>Model variogram </h3>
+<ul>
+<li>
+<a href="https://en.wikipedia.org/wiki/Mat%C3%A9rn_covariance_function">
+Matern model variogram with smoothing </a> is needed to avoid DEMs with artifacts - see Hengel et al. 
+<li>Model variogram is fitted using the weighted least squares, shown with confidence bands 
+</ul>
+<img height="380px" src="img/geostats/bar_modelvar0.8_envel_Rplot.png">
+</section>
+
+<section>
+    <h3>Conditional simulation of DEMs</h3>
+<ul>
+<li>Four out of 100 realizations of a DEM in R
+</ul>
+<p>
+<img height="450px" src="img/geostats/bar_simDEM10mRplot_new.jpg">
+<p><small>Note the JPEG effect(?) in the BW image at low elevation
+</small>
+</section>
+
+<section>
+    <h3>Conditional simulation of DEMs</h3>
+<ul>
+<li>One of 100 DEM realizations and the mean DEM 
+</ul>
+<p>
+<img height="350px" src="img/geostats/bar_simdem10m_10.png">
+<img height="350px" src="img/geostats/bar_simdem10m_mean.png">
+<p><small>The white spots indicate locations where the simulated DEM 
+is above or below the range of interpolated DEM, but within the range of given data.
+</small>
+</section>
+
+<section>
+    <h3>Conditional simulation of DEMs</h3>
+<ul>
+<li>Mean simulated DEM and its standard deviation map
+</ul>
+<p>
+<img height="350px" src="img/geostats/bar_simdem10m_mean.png">
+<img height="350px" src="img/geostats/bar_simdem10m_std.png">
+<p><small>Standard deviation is much higher in the floodplain and along edges, 
+reflecting insufficient sampling. This is already indicated by comparing the  
+<a href="./geostats_sim.html#/17">histogram from the data</a> and 
+<a href="./geostats_sim.html#/18">histogram from the interpolated DEM</a>. 
+</small>
+</section>
+
+<section>
+    <h3>Interpolated and simulated DEMs</h3>
+<ul>
+<li><small>Difference between DEM interpolated in GRASS and DEM simulated in R indicates shift of approx 1 grid cell.  
+Problem during export/import? Test the fix</small>
+</ul>
+<p>
+<img height="300" src="img/geostats/bar_diffsimrst.png">
+<img height="200" src="img/geostats/profile_demrstsim_shift.png">
+</section>
+
+<section>
+    <h3>Stream extraction uncertainty</h3>
+<p> How does the error in DEM influence the uncertainty in the location of extracted streams?
+<ul>
+<li>derive $n$ stream networks from $n$ DEM realizations 
+<li>compute per-cell count $m$ of stream presence from $n$ derived stream networks 
+<li>derive probability of stream location at each grid cell as $p = m/n$
+</ul>
+<p>
+Then propagated error of extracted streams is
+$$e = -(1-p) \ln(1-p) - p \ln(p)$$
+<p>
+</section>
+
+<section>
+    <h3>Streams derived from smooth DEM</h3>
+<p>Flow accumulation and streams derived from the smooth DEM using D8-MFD-LCP method
+and threshold 300 of 10m resolution cells: deterministic result
+<p>
+<img height="350" src="img/geostats/bar_accum10.png">
+<img height="350" src="img/geostats/bar_streams10_300.png">
+</section>
+
+<section>
+    <h3>Stream probability map</h3>
+<p>Stream probability map with $p>0$ and the probable streams with $p>0.5$
+<p>
+<img height="350" src="img/geostats/bar_streamprob_vir_no0b.png">
+<img height="350" src="img/geostats/bar_stream_05_1.png">
+</section>
+
+<!--
+<section>
+    <h3>Deterministic and stochastic result</h3>
+<p>Stream probability map with streams extracted from smooth DEM:
+<p><img height="200px" src="img/geostats/stream_probability.png">
+<p>Find the grid cells where the highest probability does not match the deterministic result
+</section>
+-->
+
+<section>
+    <h3>Examples of Applications</h3>
+The approach can be applied to estimate uncertainty and error propagation for 
+other analysis and modeling problems using the $n$ DEM realizations: 
+<ul>
+  <li>flood extent prediction
+  <li>viewshed mapping  and visibility analysis
+  <li>cast shadows and solar radiation
+  <li>least cost path
+  <li>soil erosion and mass transport
+</ul>
+</section>
+
+<!--
+<section>
+    <h3>Elevation data analysis </h3>
+<p>Lake Wheeler SECREF DEM and plot of given points 
+<p><img height="340px" src="img/data_sim/elev_lid_smooth.jpg">
+<img height="380px" src="img/geostats/Inglis_secrefpoints.jpg">
+</section>
+
+<section>
+    <h3>Elevation data analysis </h3>
+<ul>
+<li>Anisotropic experimental variogram from given elevation data
+<li>Matern variogram model with smoothing parameter
+</ul>
+<img height="320px" src="img/geostats/inglis_variogram_anis.jpg">
+<img height="320px" src="img/geostats/inglis_variogram_model.jpg">
+<br>Generate 100 DEMs (2m resolution) and extract streams from each
+<p><small>Inglis N., 2019, GIS714 course assignment report.</small>
+</section>
+
+<section>
+    <h3>Stream probability map</h3>
+<p>
+<p><img height="420px" src="img/geostats/inglis_probability_stream.jpg">
+<p><small>Inglis N., 2019, GIS714 course assignment report.</small>
+</section>
+-->
+
+<section>
+    <h3>Resources</h3>
+<p>
+<a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">
+Conditional simulation</a>
+<p><a href="https://www4.stat.ncsu.edu/~reich/SpatialStats/index.html">Spatial Statistics course at NCSU, Dr. Brian Reich</a>
+<p>See supplemental material, especially Hengl et al.: Geomorphometry (Chapter 5 by Temme et al), and Hengl: A Practical Guide 
+to Geostatistical Mapping
+</section>
+
+<!--
+<section>
+    <h3>Geostatistical simulations with auxiliary data</h3>
+<p>
+<ul>
+  <li class="fragment">we are modeling complex distribution (e.g. surface)
+  <li class="fragment">limited number of samples is available - interpolation does not capture the complexity, the result is too smooth
+  <li class="fragment">auxiliary data are available 
+  <li class="fragment">we can estimate relation between the auxiliary data and the modeled variable
+  <li class="fragment">we use observed data and auxiliary data to simulate the distribution of modeled variable
+</ul>
+</section>
+
+-->
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../topics/geostats_sim.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

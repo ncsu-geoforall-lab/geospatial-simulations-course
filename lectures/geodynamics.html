@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Dynamic spatial phenomena</b></h2>
+    <h3>Multitemporal Data Handling in TGRASS</h3>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+  <li>observation time series and multitemporal data
+<!--  <li>fundamental physical, biological, and socio-economic processes-->
+  <li>dynamic simulations
+  <li>managing geospatial multitemporal data
+  <li>dynamic visualization
+</ul>
+</section>
+
+<section>
+   <h3>Observation time series and multitemporal data</h3>
+<p> Definitions:
+<p>
+<ul>
+<li class="fragment">systematic, consistent monitoring: <b>time series </b>
+<p>
+<li class="fragment">data collected over the same location but for different purpose 
+and/or using different technologies: <b>multitemporal data</b>
+</ul>
+</section>
+
+<section>
+   <h3>Observation time series and multitemporal data</h3>
+<p> Objectives:
+<p>
+<ul>
+<li class="fragment">gain understanding of dynamics / change / evolution of studied phenomenon or system 
+<p>
+<li class="fragment">provide input for diagnostic or predictive modeling
+</ul>
+</section>
+
+<section>
+   <h3>Your observation data</h3>
+<p>Describe your time series or multitemporal data:
+<ul>
+  <li>source: 
+  <br><small>in situ point measurements, satellite, airborne/UAS imagery, polygon-based data ...</small>
+  <li>spatial and temporal distribution, resolution, scale: 
+  <br><small>image(s) at regular time step, event-based acquisition, static points, moving objects,...</small>
+  <li>management of your data: 
+  <br><small>spreadsheet, spatio-temporal database</small>
+  <li>processing, analysis and visualization
+</ul>
+</section>
+
+<section>
+   <h3>Monitoring dynamic processes</h3>
+<p>
+<ul>
+  <li>How fast do your variables change? Do your data capture the full dynamics?
+  <li>Is the process multiscale? Which temporal scale is captured by your data?
+  <li>what is driving the process dynamics - do you have data to capture the driving forces?
+</ul>
+</section>
+
+<section>
+   <h3>Modeling dynamics from observations</h3>
+<ul>
+  <li class="fragment">continuous fields sampled by point data: 
+multivariate interpolation to convert discrete observations into continuous dynamic model
+  <li class="fragment">classification, feature extraction, change detection and quantification
+  <li class="fragment">statistical modeling to relate the observed data (predictors) to the studied process dynamics (response)
+</ul>
+</section>
+
+<section> <h3>Dynamic models from multitemporal monitoring data: examples</h3> </section>
+
+<section>
+   <h3>Observation time series</h3>
+<p><small>Bi-variate interpolation of monthly precipitation from point data</small>
+<p> <img height="430" src="img/geodynamics/samprec.gif">
+<p><small>Precipitation in South America </small>
+</section>
+
+<section>
+   <h3>Observation multitemporal data</h3>
+<p><small>Multitemporal point clouds with variable point distribution, densities and accuracies</small>
+<br> <img height="220" src="img/geodynamics/points_contours.jpg">
+<br> <img height="220" src="img/geodynamics/points_lidar_gps.jpg">
+<p class="fragment"><small>Data sources: digitized contours, photogrammetry mass points, lidar, GPS </small>
+</section>
+
+<section>
+   <h3>Observation multitemporal data</h3>
+<p><small>Bi-variate interpolation of DEMs from point clouds to surfaces and dynamic visualization</small>
+<p> <img height="430" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
+<p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
+</section>
+
+<section class="stretch" data-animate="1,13" data-path="img/geodynamics/JR_anim/JR_anim">
+<h3>Multitemporal DEM 1974 - 2017</h3>
+
+</section>
+
+<section>
+ <h3>Multitemporal Planet imagery</h3>
+<p>
+Satellite imagery (3m res), September 2017 - July 2018
+<p>
+<iframe data-autoplay width="580" height="360" src="img/geodynamics/sep17_july18.mp4" frameborder="0" allowfullscreen></iframe>
+<p><small>Planet: world’s largest constellation of Earth-imaging (micro) satellites providing daily observations
+for entire Earth at 1m resolution</small>
+</section>
+
+<section>
+   <h3>Observation multitemporal data</h3>
+<p><small>Bi-variate interpolation of DEMs from point clouds to surfaces</small>
+<p> <img height="430" src="img/geodynamics/bhicape2m3D_1997-2014zoom.gif">
+<p><small>Cape Fear </small>
+</section>
+
+<section>
+   <h3>Observation timeseries</h3>
+<ul>
+<li>Chesapeake bay monthly nitrogen concentrations capture seasonal trends - sampling sites  
+</ul>
+<img height="350" src="img/geodynamics/chesapsites.jpg">
+</section>
+
+<!--add month or visu with slider-->
+<section>
+   <h3>Observation timeseries</h3>
+<ul>
+<li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation
+</ul>
+<p> <img height="250" src="img/geodynamics/chesaplg.jpg">
+&nbsp; &nbsp;
+<img height="350" src="img/geodynamics/chall4d.gif">
+</section>
+
+<section>
+   <h3>Observation multitemporal data</h3>
+<p>groundwater pollution over 10 years - sampling sites
+<p> <img height="330" src="img/geodynamics/wellnew.gif">
+</section>
+
+<section>
+   <h3>Observation multitemporal data</h3>
+<ul>
+<li>groundwater pollution over 10 years - (space-time) interpolation of chemical concentrations data
+<li>From scattered space-time point data to continuous space-time model of plume evolution
+</ul>
+<p> <img height="330" src="img/geodynamics/well456.gif">
+</section>
+
+<section>
+   <h3>Observation time series </h3>
+<p>Pedestrian density from webcams
+<p> <img height="330" src="img/geodynamics/anna_amos_stc.jpg">
+<p><small>Petrasova A., Hipp J. A., Mitasova H. 2019. 
+<a href="https://www.mdpi.com/2220-9964/8/12/559">Visualization of Pedestrian Density Dynamics Using Data 
+Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
+</section>
+
+<section> <h3>Dynamic models from simulations</h3> </section>
+
+<section> <h3>Dynamic models from simulations</h3> 
+<ul>
+<li>Results of numerical modeling 
+<li>Well defined time step: depends on application, input data and numerical method
+</ul>
+<br> <img height="400" src="img/geodynamics/lakef1994.gif">
+</section>
+
+<section>
+<h3>Surface water flow simulations </h3>
+<p>Path sampling method: time step depends on flow velocity and resolution, seconds/minutes 
+<p>
+    <img width="45%" src="img/diffusion_flows/fanimwalk.gif">
+     &nbsp; &nbsp;
+    <img width="45%" src="img/diffusion_flows/fanimhhcolp.gif">
+<p><small><a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/II.6.8_Mitasova_044.pdf">
+Mitasova, Thaxton, Hofierka, McLaughlin, Moore, Mitas, 2005</a></small>
+</section>
+
+<section>
+<h3>Ultra-high resolution water flow </h3>
+<ul>
+ <li> UAS-based surveys: cm-resolution DEMs
+ <li>Path sampling simulations capture impact of microtopography, time step is fraction of a second
+</ul>
+<br>
+    <img height="400" src="img/geodynamics/agisoft_jan.gif">
+<p><small><a href="https://www.isprs-ann-photogramm-remote-sens-spatial-inf-sci.net/III-8/159/2016/">
+Jeziorska et al., 2016, Overalnd flow analysis using time series of UAS-derived elevation models</a></small>
+</section>
+
+<section>
+<h3>Fire spread</h3>
+<p>
+    <img height="420" src="img/spread_fire_disease/fire_anim_JR.gif">
+</section>
+
+
+<section>
+   <h3>Managing time series and multitemporal data</h3>
+</section>
+
+<section>
+ <h3>Temporal data framework in GRASS</h3>
+<ul>
+ <li>designed for massive series of satellite imagery or modeling outputs
+ <li class="fragment">supports efficient processing, management and analysis of space-time data sets
+ <li class="fragment"><b>space-time dataset</b> is a set of maps registered in a temporal database
+<!-- <li class="fragment">space-time dataset may represent a dynamic process-->
+ <li class="fragment">individual maps represent the states of the dynamic system at a given time
+</ul>
+<br>
+<p class="fragment"> <small>
+Gebbert S., Pebesma E. 2014. A temporal GIS for field based environmental modeling. EMS 53, 1-12.
+<br>Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 1273-1292
+</small>
+</p>
+</section>
+
+<section>
+   <h3>Space-Time dataset types</h3>
+<ul>
+ <li> raster: strds
+ <li> vector (points, lines or areas): stvds
+ <li> 3D raster: str3ds
+</ul>
+<p>
+<br>
+<img width="95%" src="img/geodynamics/st_dataset.jpg">
+</section>
+
+<section>
+   <h3>Time stamp type</h3>
+<b> Time stamp</b> assigns time to an individual map in the space-time data set
+<ul>
+ <li><b>time instant</b> - snapshot at given time:<br> 2013-10-15 13:00:00 (absolute time)
+ <li><b>time interval </b>- defined by start and end time: time period of a day, a month, or a year (relative time)
+ <li>example: a single UAS survey represents a snapshot (state) which can be agreggated into time intervals
+</ul>
+</section>
+
+<section>
+<h3>Multitemporal data timeline</h3>
+<ul>
+<li>Multitemporal DEM for Jockey's Ridge dunes: 
+<ul>
+  <li>photogrammetry (1974-98),
+  <li>lidar (1999-2018),
+  <li>structure from motion from UAS imagery (2016-2018)
+</ul>
+</ul>
+  <img height="100" src="img/geodynamics/timeline.png">
+   <img height="150" src="img/geodynamics/timeline3D.png">
+<br>
+   <img height="130" src="img/geodynamics/temp_plot_leeward_pt.png">
+   <img height="130" src="img/geodynamics/temp_plot_windward_pt.png">
+</section>
+
+<section>
+   <h3>Temporal count and intersection</h3>
+<ul>
+ <li>Count: number of maps (temporal snapshots) where the given cell has non-null value 
+ <li>Intersection: grid cells with non-null values from each map in time series
+</ul>
+<img height="400" src="img/geodynamics/surveycount13.jpg">
+</section>
+
+<section>
+   <h3>Basic multitemporal DEM analysis</h3>
+<p>
+Per cell statistics computed for each cell over time:
+<ul>
+ <li>mean and standard deviation
+ <li>min, max elevation and range
+ <li>time at minimum, time at maximum
+ <li>linear regression: slopem offset, regr. coefficient
+</ul>
+<p class="small"> 
+Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA.</p>
+</section>
+
+<section>
+   <h3>Basic multitemporal DEM analysis: core, envelope</h3>
+<ul>
+ <li>Core surface: min. elevation measured for each cell
+ <li>Envelope: max. elevation measured for each cell
+</ul>
+<p>
+    <img width="90%" src="img/geodynamics/Mit_TEC2011_fig1.jpg">
+</section>
+
+<section>
+   <h3>Basic time series analysis: regression</h3>
+<ul>
+ <li>applies to systematic monitoring with longer time series, with rate of change close to linear 
+ <li>compute per cell linear regression analysis: map of regression slope and offset
+</ul>
+<p>
+    <img width="90%" src="img/geodynamics/NH_regrslope_E.jpg">
+</section>
+
+<section>
+ <h3>Map algebra for time series</h3>
+<p>
+<ul>
+  <li>apply map algebra expression for each map in the time series at each grid cell
+  <li>output is new time series which is registered as a new space-time dataset
+  <li>this is different (and much simpler) from temporal map algebra
+</ul>
+</section>
+
+<section>
+    <h3>Landform change: contours time series</h3>
+<small>Dune gradually split into smaller parabolic dunes: 
+<br>i 16m and 20m contours capture change but are hard to read
+</small>
+<br>   <img height="220" src="img/geodynamics/jr_74_2017_16mcontour.png"> 
+<img height="200" src="img/geodynamics/jr_74_2017_20mcontour.jpg"> 
+&nbsp; &nbsp; &nbsp; &nbsp;  <img height="120" src="img/geodynamics/jr_years_lg.png">
+</section>
+
+<section >
+    <h3>Space-Time cube visualization</h3>
+<p>DEM time series is converted into space-time voxel model in TGRASS and evolution of a contour
+is represented as isosurface: 16m and 20m </p>
+  <img height="400" src="img/geodynamics/jr16/animation.gif">
+<!--<img src="img/jr18/animation.gif"> -->
+<img height="400" src="img/geodynamics/jr20/animation.gif">
+</section>
+
+
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we defined multitemporal data and time series
+<li>we discussed temporal resolution and dynamic processes
+<li>we explored examples of models from observation data
+<li>we explored examples of models from numerical simulations
+<li>we introduced GRASS GIS temporal framework
+</ul>
+</section>
+
+<!--
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

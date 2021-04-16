@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Process-based diffusion simulation</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+   <li>duality of particles and fields
+   <li>diffusion
+   <li>applications
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion and flow </h3>
+<p>Foundation of many geospatial models of natural and socioeconomic processes 
+<p>Relate change in time to change in space
+<p class="fragment">
+<img height="280" src="img/intro/apex_dry_white.png">
+<img height="280" src="img/diffusion_flows/Tobler_govfiscal.jpg">
+<p><small>Images from Laura Pagano and Waldo Tobler presentations</small>
+</section>
+
+<section>
+   <h3>Duality of particles and fields</h3>
+<p>Modeled quantities can be represented by
+<ul>
+  <li>fields - continuous distribution (scalar, vector, tensor)
+  <li>particles - discrete sampling of fields
+</ul>
+<p>Corresponce between the two representations:
+<p>density of particles - field $f(r)$
+</section>
+
+<section>
+   <h3>Duality of particles and fields</h3>
+<p>Process can be modeled as
+<ul>
+  <li>evolution of fields
+  <li>evolution of spatially distributed particles
+</ul>
+<p>
+<img height="300" src="img/diffusion_flows/fanimwalk.gif">
+<img height="300" src="img/diffusion_flows/fanimhhcolp.gif">
+<p><small>Path sampling method uses this duality to solve the governing equations</small>
+</section>
+
+<section>
+   <h3>Monte Carlo methods</h3>
+Monte Carlo methods use <b> randomness and statistical estimators</b> 
+to solve a variety of problems:
+<ul>
+  <li class="fragment"> calculations of complicated expressions, eg, multi-variate integrals
+  <li class="fragment"> finding approximate solutions of optimization or other problems that are intractable 
+by algorithms with polynomial scaling  (eg, can be NP-hard)
+  <li class="fragment"> sampling/generating possible scenarios in uncertainty and error propagation studies
+  <li class="fragment"> using stochastic processes to simulate processes that can be stochastic, 
+ deterministic or a mix of both.
+</section>
+
+<section>
+   <h3>Monte Carlo methods: random walks</h3>
+<p>Walkers move in random directions
+<p>Markov Chain Models (MCM):
+<ul>
+  <li class="fragment">Brownian motion (molecules in air, pollen in fluid)
+  <li class="fragment">Heat conduction
+  <li class="fragment">Stock prices
+  <li class="fragment">Diffusion
+</section>
+
+<!--
+<section>
+   <h3>Diffusion</h3>
+<p>REMOVE THIS SLIDE
+<p>Fick's law + mass conservation law lead to diffusion equation
+<p>Alternatively, random walks densities evolution is used to derive diffusion equation
+<p><small>some definitions
+<ul>
+<li>flux : rate of mass transport across unit point, line, or area depending on dimension
+<li>density gradient: change in density (concentration?)
+<li>Fick's law: flux (of particles, material) at a given location is proportional 
+to local change (gradient) of (particle) density (or material concentration?)
+</ul>
+</small>
+</section>
+-->
+
+<section>
+   <h3>Diffusion equation</h3>
+<p>
+<ul>
+<li>
+<ul>
+<li class="fragment">Fick's law in 1D:
+<br><small>flux $f$ is a function of change in density $n$ (concentration), empirical observation</small>
+<p>
+$$ f(x,t) = -D_0 {\partial n(x,t) \over \partial x}$$ 
+<p>
+<li class="fragment"> Continuity equation, mass preservation: 
+<br><small>change in density over time at a location =  inflow and outflow of material at this location</small>
+<p>
+$$ {\partial n(x,t) \over \partial t} + {\partial f(x,t) \over \partial x} = 0 $$
+<p>
+<li class="fragment"> Diffusion equation: 
+<br><small>change in density over time at location $x$ is proportional to change in gradient at this location</small>
+<p>
+$$ {\partial n(x,t) \over \partial t} = D_0 {\partial^2 n(x,t) \over \partial x^2} $$
+<li class="fragment">
+<small> $f(x,t)$ is flux, $n(x,t)$ is density, $x$ is location and $t$ is time, D_0 is diffusion constant</small>
+</ul>
+</ul>
+<!-- see also https://en.wikipedia.org/wiki/Diffusion_equation -->
+</section>
+
+<section>
+   <h3>Fundamental solution </h3>
+<ul>
+<li>Given a unit impuls $\delta(x-x_0)=n(x,t=0)$ the fundamental solution of 
+diffusion equation is 
+<p>
+<li>
+$$ n(x,t) = {1 \over \sqrt{4\pi D_0 t}} e^{{-(x-x_0)^2} \over ({4D_0t)}}$$
+<p>
+<li class="fragment"> a Gaussian with $ N(x_0, \sigma^2 = 2D_0t) $
+</ul>
+</section>
+
+<section>
+   <h3>Green's function for diffusion</h3>
+<ul>
+<p>We can rewrite the diffusion equation using Green's function
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation 
+<p>
+<li>
+and where the Green's function for diffusion equation is the fundamental solution
+$$ G_d({\bf r},{\bf r}', \tau) = {1 \over \sqrt{4\pi D_0 \tau}} e^{{-|{\bf r}-{\bf r}'|^2} \over {4D_0\tau}}$$
+<p>
+</ul>
+<p>
+</section>
+
+<section>
+   <h3>Stochastic method of solution</h3>
+<ul>
+<p>For complex processes which cannot be solved analytically we need numerical solution
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation
+<p>
+<li>
+$${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
+<li>
+where $\eta \elem N(0, \sigma^2 = 2D_0\tau)$
+<p>
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion examples</h3>
+<ul>
+<li>Physics: drop of milk in coffee, heat propagation,
+<li>Diffusion in geosciences: diffusive hillslope evolution, 
+<li>some  financial market effects, 
+<li>your examples
+</ul>
+</section>
+
+<section>
+   <h3>Diffusion with drift</h3>
+<p>see written notes
+</section>
+
+<section>
+   <h3>Diffusion with drift</h3>
+<ul>
+<p>For complex processes which cannot be solved analytically we need numerical solution
+<li>
+$$n({\bf r},t+\tau)=\int G_0({\bf r},{\bf r}',\tau)n({\bf r}',t) d{\bf r}'$$
+<li>which is evolution equation
+<p>
+<li>
+$${\bf r}^{(i)}(\tau)={\bf r}^{(i)}(0)+\vec\eta^{(i)}$$
+<p>
+</ul>
+</section>
+
+<section>
+   <h3>Applications</h3>
+<ul>
+<li>natural and socio-economic processes
+<li>generalize the concept - define appropriate gradient field and density
+<li>how does your research relate to diffusion, dispersal, flux and related processes?
+</ul>
+<small>growing cities - inverse of population density or economic opportunity fields
+</section>
+
+<!--
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>we have defined types of models
+</ul>
+</section>
+
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>

@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Introduction to Geocomputation</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geospatial Computation and Simulation
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+    <li>geocomputation definitions</li>
+    <li>motivations for geosimulation</li>
+    <li>models for geosimulation and their properties</li>
+    <li>applications in science and practice</li>
+    <li>open source platforms and tools</li>
+</ul>
+</section>
+
+<section>
+   <h3>Geocomputation</h3>
+<p>
+<b>The Art and Science of Solving Complex Spatial Problems with Computers </b>
+<p> <a href="http://www.geocomputation.org">http://www.geocomputation.org/</a>
+</section>
+
+<section>
+   <h3>Geocomputation includes</h3>
+<p>
+<ul>
+<p> <li class="fragment">Geospatial analysis and visualization
+<p> <li class="fragment">Data mining and image processing using machine learning, 
+artificial inteligence, neural networks
+<p> <li class="fragment">Modeling spatial processes with continuous fields 
+<p> <li class="fragment">Agent-based spatial modeling
+<p> <li class="fragment">Spatial optimization: siting, routing, land management
+<p> <li class="fragment">Serious spatial games and game-based modeling
+</ul>
+</section>
+
+<section>
+   <h3>Geocomputation includes</h3>
+<p>
+Geospatial analysis: vegetation structure from multiple return lidar point cloud
+<br>
+<img height="400" src="img/intro/profiles_points_and_ff.png">
+<br> <small class="credit">
+<a href="https://opengeospatialdata.springeropen.com/articles/10.1186/s40965-017-0021-8">
+Petras V., Newcomb D. J., Mitasova H, 2017. Generalized 3D fragmentation index derived from lidar point clouds. In: Open Geospatial Data, Software and Standards.</a></small>
+</section>
+
+<section>
+   <h3>Geocomputation includes</h3>
+<p>
+Geospatial visualization: vegetation structure from multiple return lidar point cloud
+<br>
+<img height="420" src="img/intro/voxels_vegetation_anim.gif">
+<br> <small class="credit">
+<a href="https://opengeospatialdata.springeropen.com/articles/10.1186/s40965-017-0021-8">
+Petras V., Newcomb D. J., Mitasova H, 2017. Generalized 3D fragmentation index derived from lidar point clouds. In: Open Geospatial Data, Software and Standards.</a></small>
+</section>
+
+<section>
+   <h3>Geocomputation includes</h3>
+<p>
+Modeling dynamic spatial processes: distribution of solar radiation during summer solstice
+<p>
+<img height="450" src="img/intro/summer_solstice_centennial.gif">
+</section>
+
+<section>
+   <h3>Geospatial simulations</h3>
+<p>
+Using modeling to simulate complex spatial processes or behaviors 
+under designed set of conditions to gain understanding of the studied phenomenon
+<p>
+Often focused on agent based modeling and cellular automata but we will use a broader definition
+</section>
+
+<section>
+   <h3>Geospatial simulations</h3>
+<p>
+Numerical simulations: tools for gaining new knowledge - <b>virtual experiments</b>
+<ul>
+<li class="fragment">Geospatial simulations: the modeled quantities are function of a location on Earth
+<li class="fragment">Diagnostic and predictive modeling
+<li class="fragment">Provide information for decision making
+</ul>
+</section>
+
+<section>
+   <h3>Geospatial simulation case study</h3>
+<p><small>
+Simulation of sediment transport and net erosion / deposition to understand interactions
+between land cover and water quality and to support sustainable land use management
+</small>
+<p><img height="450" src="img/intro/erosion_landuse.jpg">
+<br> <small class="credit">
+Mitas, L., Mitasova, H., 1998, Distributed erosion modeling for effective erosion prevention Water Resources Research Vol. 34, No. 3, pp. 505-516.</small>
+</section>
+
+
+<section>
+   <h3>Geospatial process models</h3>
+<p>Geospatial process models are core tools for simulations.
+<p>The models of geophysical, biological and socio-economic processes 
+have evolved:
+<ul>
+<p>
+ <li class="fragment">from: <b>empirical, spatially averaged, and static</b>
+<p>
+ <li class="fragment">to: <b>process-based, distributed, and dynamic </b>with
+     the aim to predict modeled quantity at any point in space and time
+</ul>
+ <p class="fragment">Most models combine both approaches
+</section>
+
+<section>
+   <h3>Empirical models</h3>
+<ul>
+ <li class="fragment">statistical models derived from experimental or observed data
+ <li class="fragment">applicable only to landscapes under same conditions
+ <li class="fragment">empirical / statistical methods often have physics based interpretations
+ <li class="fragment">given sufficient data they can be very accurate (ML, AI) 
+</ul>
+<p class="fragment"><small>Example: Universal Soil Loss Equation - factors are based on observations, 
+but topographic LS factor also represents a special case of stream power </small>
+</section>
+
+<section>
+   <h3>Process-based models</h3>
+<ul>
+ <li class="fragment">derived from first principles, based on physical laws, 
+such as continuity and mass conservation equations
+ <li class="fragment">refered to as mechanistic or deterministic models
+ <li class="fragment">may include stochastic components
+ <li class="fragment">can simulate the process under conditions not previously observed
+ <li class="fragment">physics based equations often have empirical parameters
+</ul>
+<p class="fragment"><small>Example: surface water flow model is based on St. Venant equation, 
+but uses empirical Mannings coefficient for computing flow velocity</small>
+</section>
+
+<section>
+   <h3>Modeling components</h3>
+When performing simulations we need to consider:
+<p>
+<ul>
+  <li class="fragment"> <b>Modeled quantity [units]:</b> water, pollutant, vegetation, population density, individual organism, ... 
+  <li class="fragment"> <b>Spatial and temporal scale</b>
+  <li class="fragment"> <b>Configuration space and interactions:</b> modeled quantity as function of environmental variables, e.g., topography, land cover, infrastructure... 
+  <li class="fragment"> <b>Governing equations or rules:</b> continuity, mass preservation, diffusion, ...
+</ul>
+</section>
+
+<!--
+<section>
+   <h3>Modeling components example</h3>
+Show as images
+<ul>
+  <li>Modeled quantity [units]: <b>water depth [m]</b>, 
+  <li>Spatial and temporal scale: <b>first order stream watershed, 1m resolution, 3 hours at 1 min time step)</b> 
+  <li>Configuration space and interactions: <b>water depth as dependent on topography, soil properties, land cover, infrastructure...</b>
+  <li>Governing equations or rules:<b> bivariate shallow water flow equation, mannings equation, ... </b>
+</ul>
+</section>
+-->
+
+<section>
+   <h3>Geospatial representation</h3>
+<p>
+ Modeled quantities and environmental variables can be represented by continuous georeferenced fields 
+<p>To support numerical simulations these fields need to be discretized: 
+<ul>
+  <li class="fragment"><b>spatially averaged units:</b> discrete polygons (hydrologic units, hillslope elements, landscape patches) 
+  <li class="fragment"><b>spatially distributed representation:</b> structured and unstructured meshes, or random particles 
+</ul>
+<p class="fragment">Modeled quantities can also evolve along networks or represent discrete objects (particles, agents)</p>
+<!--<p> <img height="380" src="img/flow_erosion/D8.jpg">-->
+</section>
+
+<section>
+   <h3>Spatially averaged models</h3>
+ Spatially averaged models predict the modeled variable for each averaged unit, such as watershed,
+the result is discrete polygons or a number
+<p><img height="350" src="img/intro/spat_aggreg.jpg">
+<p><small class="credit"><a href="http://www.sciencedirect.com/science/article/pii/B978012374739600052X">Mitasova H., Hofierka, J., Harmon R.S., Barton M.C., Ullah, I., 2013, GIS-based Soil Erosion Modeling, In: Shroder, J. (Ed. Chief), Bishop, M.P. (Ed.), Treatise on Geomorphology. v 3, p. 228-258.</a></small>
+</section>
+
+<section>
+   <h3>Spatially distributed models</h3>
+Spatially distributed or spatially explicit models predict 
+the variable at any point in space and the result is continuous field
+<p><img height="350" src="img/intro/spat_distr.png">
+<p><small class="credit"><a href="http://www.sciencedirect.com/science/article/pii/B978012374739600052X">Mitasova H., Hofierka, J., Harmon R.S., Barton M.C., Ullah, I., 2013, GIS-based Soil Erosion Modeling, In: Shroder, J. (Ed. Chief), Bishop, M.P. (Ed.), Treatise on Geomorphology. v 3, p. 228-258.</a></small>
+</section>
+
+<section>
+   <h3>Coupled models for simulations of complex systems</h3>
+<ul>
+<li>Continuous time simulations of coupled processes
+<li class="fragment">problems: different spatial and temporal scales, discretization
+<li class="fragment">examples: SWAT, WEPP: weather, runoff, infiltration, crop growth, soil erosion, pollutant transport
+<li class="fragment">coupled agent based and continuous field models for complex human - nature systems simulations (MEDLANDS)
+</ul>
+</section>
+
+<!--
+<section>
+   <h3>Static and dynamic models</h3>
+<p>Empirical, statistical models - usually steady state
+<p>Process-based or hybrid models - capture dynamic processes
+<p> <img height="330" src="img/flow_erosion/aspectarrows.png">
+</section>
+-->
+
+<section>
+   <h3>Geospatial simulations challenges</h3>
+<p>
+<ul>
+ <li class="fragment">data intensive - large heterogeneous data sets
+ <li class="fragment">complex, multiscale spatial interactions
+ <li class="fragment">high level of uncertainty and difficult validation
+ <li class="fragment">input and validation data may not available at sufficient spatial and temporal resolution 
+ <li class="fragment">process-based distributed models do not always improve accuracy but they provide important insight 
+</ul>
+<p class="fragment"><small>Physics : predictions at the electronic level are with 6-12 digits accuracy 
+<br>Geosciences: 70% differences between measurements and model could be satisfactory</small>
+<br class="fragment"> <small>Example: we cannot predict rainfall rate at each 100m cell with high accuracy and
+we don’t have values of initial soil moisture at sufficient temporal resolution, 
+so it is difficult to accurately model infiltration, runoff or sediment flow at any point in space </small>
+</section>
+
+<!--
+<section>
+   <h3>Geospatial simulations and GIS</h3>
+<p>
+<ul>
+<li class="fragment">processing of input parameters, generating scenarios
+<li class="fragment">run models
+<li class="fragment">analyze the results, provide statistical summaries for dashboards
+<li class="fragment">visualization 
+<li class="fragment">optimization and decision support 
+</ul>
+</section>
+-->
+
+<section>
+   <h3>Geospatial simulations and GIS</h3>
+<p>
+<ul>
+<li class="fragment"><b>workflow using standard GIS tools</b>: simple empirical models with physics based components
+<li class="fragment"><b>models fully integrated as modules</b>: complex physics-based or empirical models
+<li class="fragment"><b>models linked to GIS as extensions or add-ons</b>: common structure and interface
+<li class="fragment"><b>complex modeling systems linked through data</b>: GIS is used for input data processing,
+results analysis and visualization, but the model is independent from GIS.
+<li class="fragment"><b>complex modeling systems can incorporate selected GIS capabilities</b>
+</ul>
+</section>
+
+<section>
+   <h3>Geospatial simulation environments</h3>
+<p>
+<ul>
+<li class="fragment">desktop with modern GUIs, touch tables 
+<li class="fragment">tangible GIS 
+<li class="fragment">collaborative web environments 
+<li class="fragment">virtual reality systems 
+</ul>
+<p class="fragment"> <img height="180" src="img/intro/TLcomposit_coast.jpg">
+</section>
+
+<section>
+   <h3>Applications in science</h3>
+<p>Pioneering paper: 
+<p>W. R. Tobler (1970) A Computer Movie Simulating Urban Growth in the Detroit Region, Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141
+<p> <img height="300" src="img/intro/DTWBuilt1930.jpg">
+</section>
+
+<section>
+   <h3>Applications in science</h3>
+<p>Pioneering paper:
+<p>W. R. Tobler (1970) A Computer Movie Simulating Urban Growth in the Detroit Region, Economic Geography, 46:sup1, 234-240, DOI: 10
+.2307/143141
+<p> <img height="300" src="img/intro/DTWBuilt1950.jpg">
+</section>
+
+<section>
+   <h3>Applications in science</h3>
+<p>Pioneering paper:
+<p>W. R. Tobler (1970) A Computer Movie Simulating Urban Growth in the Detroit Region, Economic Geography, 46:sup1, 234-240, DOI: 10
+.2307/143141
+<p> <img height="300" src="img/intro/DTWForcast1970.jpg">
+</section>
+
+<section>
+   <h3>Applications in coastal science</h3>
+<p>Simulation of storm surge, comparison with wrack line 
+<p> <img height="340" src="img/intro/clinch_shorepaper_fig8.jpg">
+<img class="fragment" height="320" src="img/intro/hatteras_surge_rlake.gif">
+<p><small><a href="https://geospatial.ncsu.edu/geoforall/pubpdf/clinch_shorepaper2012.pdf">Clinch, A.S., Russ, E.,Oliver, R.C., Mitasova H., and Overton, M.F. 2012, Remote sensing estimation of Hurricane Irene soundside surge elevations on the North Carolina Outer Banks, Shore and Beach 80, p. 1-10.</a></small>
+</section>
+
+<section>
+   <h3>Applications in science</h3>
+<p><small>Simulation of landcover change impact on bank erosion, simulation of gully evolution</small>
+<p> <img height="400" src="img/intro/sedrepfig1.jpg">
+<img height="400" src="img/intro/gully_anim_elev.gif">
+<p><small><a href="http://www.sciencedirect.com/science/article/pii/B978012374739600052X">Mitasova H., Hofierka, J., Harmon R.S., Barton M.C., Ullah, I., 2013, GIS-based Soil Erosion Modeling, In: Shroder, J. (Ed. Chief), Bishop, M.P. (Ed.), Treatise on Geomorphology. v 3, p. 228-258.</a></small>
+</section>
+
+<section>
+   <h3>Applications in science</h3>
+<p>Coupling process modeling with agent based modeling to simulate evolution of prehistoric settlements 
+<p> <img height="350" src="img/intro/Bartonetal_ecomod_vegsim.jpg">
+<img height="350" src="img/intro/Bartonetal_ecomod_vegsim2.jpg">
+<p><small>Barton, C., Ullah, I., Bergin, SM., Mitasova, H. (2012). 
+Looking for the future in the past: long-term change in socioecological systems, Ecological Modelling, 241, 42-53
+<!--
+<br>Barton, C., Ullah, I., Mitasova, H. (2010). Computational Modeling and Neolithic Socioecological Dynamics: 
+A Case Study from Southwest Asia. American Antiquity, 75(2), 364-386. doi:10.7183/0002-7316.75.2.364
+-->
+</small>
+</section>
+
+<section>
+   <h3>Applications in practice</h3>
+<p><a href="https://fiman.nc.gov/fiman/#">FIMAN:</a>NC Flood Inundation Mapping and Alert Network
+<p> <img height="450" src="img/intro/FIMAN_swiftcreek_scenario.jpg">
+</section>
+
+<section>
+   <h3>Applications in outreach and education</h3>
+<p>Tangible Landscape
+<p> <img height="380" src="img/intro/TL_composit_googleprop.jpg">
+</section>
+
+<!--
+<section>
+   <h3>Applications in practice</h3>
+<p><b>FLEXPART-WRF: </b>Smoke emissions plume simulation due to fire at hazardous waste facility in Apex, mid air and dry white emissions
+<p> <img height="280" src="img/intro/apex_mid_air.png">
+<img height="280" src="img/intro/apex_dry_white.png">
+<p><small>Simulations by Lara Pagano 2010, link to dissertation for simulations of Evans Rod. fire, summer 2008,
+(application in science - comparison of two models)</small>
+</section>
+
+<section>
+   <h3>Open source tools for geospatial simulations</h3>
+<p>Collect links with descriptions in 
+<a href="https://moodle-courses1819.wolfware.ncsu.edu/mod/wiki/view.php?id=587721">Moodle wiki</a>
+</section>
+-->
+
+<section>
+ <h3>Summary</h3>
+<ul>
+<li>geocomputation and geospatial simulations was defined and discussed
+<li>role of modeling in simulations was explained
+<li>types of geospatial process models and their properties were described
+<li>examples of geosimulation applications in science and practice were discussed
+</ul>
+</section>
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard
+                ]
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>
