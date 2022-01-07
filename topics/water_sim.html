@@ -47,11 +47,13 @@ Use Python and Jupyter Notebooks to compare different algorithms for flowaccumul
 Develop inundation simulation and visualize it in MAPBOX. Carefully read manual pages for commands used in the inundation 
 simulation and explain in your report what is going on.
 As part of this assignment, you will be working with github and learn how to create on-line tool for visualization 
-of your simulation output. 
+of your simulation output.
 <ul>
-    <li><a href="https://github.com/chaedri/GIS714-assignments"> Jupyter Notebook for comparing flow routing methods, simulate inundation from streams</a>
-    <li><a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial">How to Host Your Animated GRASS simulations with MapBoxGL JS and GitHub</a>
+    <li><a href="https://github.com/chaedri/GIS714-assignments"> Jupyter Notebook for comparing flow routing methods, simulate inundation from streams</a></li>
+    <li><a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial">How to Host Your Animated GRASS simulations with MapBoxGL JS and GitHub</a></li>
+    <li><a href="../assignments/water_geom_assign.html"> Alternative non-Jupyter version of assignment</a></li>
 </ul>
+
 
 <h3 id="water_flow_sim" class="subtopic">3.B Surface water: process based simulation</h3>
 Outline:
@@ -101,8 +103,9 @@ and spatially variable land cover and topographic conditions.
 -->
      <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Anna_OverlandFlow.py">Example code</a>,
       run from nc_spm_08 location and set region <code>g.region -p rast=elev_lid792_1m</code>,
-      compute dx and dy using r.slope.aspect, and then use <code>g.region zoom=dx</code> to leave out NULL cells at the edge from computation.
+      compute dx and dy using r.slope.aspect, and then use <code>g.region zoom=dx</code> to leave out NULL cells at the edge from computation.</li>
   </ul>
+  <li><a href="../assignments/simwe.html"> Alternative non-Jupyter version of assignment</a></li>
 </ul>
 
 <h3 id="geostats" class="subtopic">3.C Geostatistical simulations and uncertainty propagation</h3>
@@ -134,11 +137,11 @@ Geostatistical simulation in ArcGIS</a>
 </ul>
 
 <h4>Assignment 3.C</h4>
-<ul>
-<li>Derive a probability map of stream networks using geostatistical simulation and error propagation
+Derive a probability map of stream networks using geostatistical simulation and error propagation
 techniques, following the methodology described in the Chapter 10,
-<a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">Hengl, T.: A practical guide to geostatistical mapping</a> (theory is in the chapter 2.4, see also <a href="https://en.wikipedia.org/wiki/Binary_entropy_function">binary entropy function for Bernoulli process</a>): 
-<a href="https://github.com/chaedri/GIS714-assignments">Jupyter Notebook with workflow in GRASS and R</a>
+<a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">Hengl, T.: A practical guide to geostatistical mapping</a> (theory is in the chapter 2.4, see also <a href="https://en.wikipedia.org/wiki/Binary_entropy_function">binary entropy function for Bernoulli process</a>):
+<ul>
+    <li> <a href="https://github.com/chaedri/GIS714-assignments">Jupyter Notebook with workflow in GRASS and R</a></li>
 <!--
 <li>
 Optional: apply the stream probability mapping method to our small rural watershed using the points
@@ -147,8 +150,9 @@ in the layer "elev_lid792_randpts" in our data set or any elevation data set of 
 Optional: evaluate the uncertainty of inundation extent prediction due to errors in a DEM
 <p>
 Learn how to <a href="https://github.com/LukasGab/R_grassgis">Run GRASS from R</a>
-<li>Simulate distribution of studied variable (e.g. pollutant) based on observed data and their spatial relationships. (R)
+<li>Simulate distribution of studied variable (e.g. pollutant) based on observed data and their spatial relationships. (R) </li>
 -->
+    <li><a href="../assignments/geostats_sim.html"> Alternative non-Jupyter version of assignment</a></li>
 </ul>
 
 <h3>Homework 3. ABC</h3>
