@@ -14,6 +14,8 @@
         <script src="plugin/highlight/highlight.js"></script>
         <script src="plugin/math/math.js"></script>
         <script src="plugin/chalkboard/plugin.js"></script>
+        <script src="plugin/customcontrols/plugin.js"></script>
+
         <script>
 
             // Full list of configuration options available here:
@@ -102,19 +104,6 @@
                 // Parallax background size
                 //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
 
-                chalkboard: {
-                    boardmarkerWidth: 3,
-                    chalkWidth: 7,
-                    chalkEffect: 1.0,
-                    src: null,
-                    readOnly: undefined,
-                    toggleChalkboardButton: true,
-                    toggleNotesButton: true,
-                    boardmarkers : [
-                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
-                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
-                    ]
-                },
 
                 math: {
                     mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
@@ -127,8 +116,22 @@
                     RevealMath,
                     RevealHighlight,
                     RevealMarkdown,
-                    RevealChalkboard
-                ]
+                    RevealChalkboard,
+                    RevealCustomControls
+                ],
+
+                customcontrols: {
+                    controls: [
+                        { icon: '<i class="fa fa-pen-square"></i>',
+                        title: 'Toggle chalkboard (B)',
+                        action: 'RevealChalkboard.toggleChalkboard();'
+                        },
+                        { icon: '<i class="fa fa-pen"></i>',
+                        title: 'Toggle notes canvas (C)',
+                        action: 'RevealChalkboard.toggleNotesCanvas();'
+                        }
+                    ]
+                },
             });
         </script>
         <script src="js/jquery-3.4.1.min.js"></script>
