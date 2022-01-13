@@ -44,7 +44,8 @@ artificial inteligence, neural networks
 <section>
    <h3>Geocomputation includes</h3>
 <p>
-Geospatial analysis: vegetation structure from multiple return lidar point cloud
+Geospatial analysis: 
+<br>3D vegetation structure from multiple return lidar point cloud
 <br>
 <img height="400" src="img/intro/profiles_points_and_ff.png">
 <br> <small class="credit">
@@ -55,7 +56,8 @@ Petras V., Newcomb D. J., Mitasova H, 2017. Generalized 3D fragmentation index d
 <section>
    <h3>Geocomputation includes</h3>
 <p>
-Geospatial visualization: vegetation structure from multiple return lidar point cloud
+Geospatial visualization: 
+<br> 3D vegetation structure from multiple return lidar point cloud
 <br>
 <img height="420" src="img/intro/voxels_vegetation_anim.gif">
 <br> <small class="credit">
@@ -66,7 +68,8 @@ Petras V., Newcomb D. J., Mitasova H, 2017. Generalized 3D fragmentation index d
 <section>
    <h3>Geocomputation includes</h3>
 <p>
-Modeling dynamic spatial processes: distribution of solar radiation during summer solstice
+Modeling dynamic spatial processes: 
+<br>distribution of solar radiation during summer solstice
 <p>
 <img height="450" src="img/intro/summer_solstice_centennial.gif">
 </section>
@@ -74,25 +77,17 @@ Modeling dynamic spatial processes: distribution of solar radiation during summe
 <section>
    <h3>Geospatial simulations</h3>
 <p>
-Using modeling to simulate complex spatial processes or behaviors 
-under designed set of conditions to gain understanding of the studied phenomenon
-<p>
-Often focused on agent based modeling and cellular automata but we will use a broader definition
-</section>
-
-<section>
-   <h3>Geospatial simulations</h3>
-<p>
-Numerical simulations: tools for gaining new knowledge - <b>virtual experiments</b>
 <ul>
-<li class="fragment">Geospatial simulations: the modeled quantities are function of a location on Earth
-<li class="fragment">Diagnostic and predictive modeling
-<li class="fragment">Provide information for decision making
+  <li class="fragment">Using modeling to simulate complex spatial processes or behaviors under <strong> designed set of conditions </strong> to gain understanding of the studied phenomenon
+  <li class="fragment">Numerical simulations are computational tools for gaining new knowledge - <b>virtual experiments</b>
+  <li class="fragment">Diagnostic and predictive modeling
+  <li class="fragment">Provide information for decision making
+  <li class="fragment"> In literature, often focused on agent based modeling and cellular automata but we will use a broader definition
 </ul>
 </section>
 
 <section>
-   <h3>Geospatial simulation case study</h3>
+   <h3>Geospatial simulation example </h3>
 <p><small>
 Simulation of sediment transport and net erosion / deposition to understand interactions
 between land cover and water quality and to support sustainable land use management
@@ -100,6 +95,14 @@ between land cover and water quality and to support sustainable land use managem
 <p><img height="450" src="img/intro/erosion_landuse.jpg">
 <br> <small class="credit">
 Mitas, L., Mitasova, H., 1998, Distributed erosion modeling for effective erosion prevention Water Resources Research Vol. 34, No. 3, pp. 505-516.</small>
+</section>
+
+<section>
+   <h3>Geospatial simulation case study</h3>
+<p>Urban stormwater runoff
+<a href="http://visdom.at/media/videos/mp4/rainman_2020.mp4">Visdom</a>: Simulating and visualizing scenarios, with focus on flood management
+<br> <small class="credit">
+</small>
 </section>
 
 
@@ -126,8 +129,8 @@ have evolved:
  <li class="fragment">empirical / statistical methods often have physics based interpretations
  <li class="fragment">given sufficient data they can be very accurate (ML, AI) 
 </ul>
-<p class="fragment"><small>Example: Universal Soil Loss Equation - factors are based on observations, 
-but topographic LS factor also represents a special case of stream power </small>
+<p class="fragment"><small>Example: Universal Soil Loss Equation: U = RKLSCP, the factors are based on observations, but topographic LS factor also represents a special case of stream power </small>
+<p class="fragment"><small>Provide examples from your research </small>
 </section>
 
 <section>
@@ -140,34 +143,26 @@ such as continuity and mass conservation equations
  <li class="fragment">can simulate the process under conditions not previously observed
  <li class="fragment">physics based equations often have empirical parameters
 </ul>
-<p class="fragment"><small>Example: surface water flow model is based on St. Venant equation, 
+<p class="fragment"><small>Example: surface water flow model is based on partial differential (St. Venant) equation, 
 but uses empirical Mannings coefficient for computing flow velocity</small>
+<p class="fragment"><small>Provide examples from your research </small>
 </section>
 
 <section>
    <h3>Modeling components</h3>
-When performing simulations we need to consider:
 <p>
+When performing simulations we need to consider:
 <ul>
-  <li class="fragment"> <b>Modeled quantity [units]:</b> water, pollutant, vegetation, population density, individual organism, ... 
-  <li class="fragment"> <b>Spatial and temporal scale</b>
-  <li class="fragment"> <b>Configuration space and interactions:</b> modeled quantity as function of environmental variables, e.g., topography, land cover, infrastructure... 
-  <li class="fragment"> <b>Governing equations or rules:</b> continuity, mass preservation, diffusion, ...
+  <li>Modeled quantity:
+     <b class="fragment">water depth [m], discharge [m$^3$/s], pollutant concentration[mg/l]</b>
+  <li>Spatial and temporal scale:
+     <b class="fragment">e.g. modeling a first order stream may require 1m spatial and 1 min temporal resolution</b>
+  <li>Configuration space and interactions:
+     <b class="fragment">water depth depends on precipitation, topography, soils, land use</b>
+  <li>Governing equations:
+     <b class="fragment"> continuity equations, diffusion, ... </b>
 </ul>
 </section>
-
-<!--
-<section>
-   <h3>Modeling components example</h3>
-Show as images
-<ul>
-  <li>Modeled quantity [units]: <b>water depth [m]</b>, 
-  <li>Spatial and temporal scale: <b>first order stream watershed, 1m resolution, 3 hours at 1 min time step)</b> 
-  <li>Configuration space and interactions: <b>water depth as dependent on topography, soil properties, land cover, infrastructure...</b>
-  <li>Governing equations or rules:<b> bivariate shallow water flow equation, mannings equation, ... </b>
-</ul>
-</section>
--->
 
 <section>
    <h3>Geospatial representation</h3>
@@ -305,15 +300,12 @@ results analysis and visualization, but the model is independent from GIS.
 </section>
 
 <section>
-   <h3>Applications in science</h3>
-<p><small>Simulation of landcover change impact on bank erosion, simulation of gully evolution</small>
-<p> <img height="400" src="img/intro/sedrepfig1.jpg">
-<img height="400" src="img/intro/gully_anim_elev.gif">
-<p><small><a href="http://www.sciencedirect.com/science/article/pii/B978012374739600052X">Mitasova H., Hofierka, J., Harmon R.S., Barton M.C., Ullah, I., 2013, GIS-based Soil Erosion Modeling, In: Shroder, J. (Ed. Chief), Bishop, M.P. (Ed.), Treatise on Geomorphology. v 3, p. 228-258.</a></small>
+   <h3>Applications in land management</h3>
+<p> <img height="480" src="img/intro/CCgolf_landchange.001.jpeg">
 </section>
 
 <section>
-   <h3>Applications in science</h3>
+   <h3>Applications in anthropology</h3>
 <p>Coupling process modeling with agent based modeling to simulate evolution of prehistoric settlements 
 <p> <img height="350" src="img/intro/Bartonetal_ecomod_vegsim.jpg">
 <img height="350" src="img/intro/Bartonetal_ecomod_vegsim2.jpg">
@@ -327,7 +319,7 @@ A Case Study from Southwest Asia. American Antiquity, 75(2), 364-386. doi:10.718
 </section>
 
 <section>
-   <h3>Applications in practice</h3>
+   <h3>Applications in flood risk management</h3>
 <p><a href="https://fiman.nc.gov/fiman/#">FIMAN:</a>NC Flood Inundation Mapping and Alert Network
 <p> <img height="450" src="img/intro/FIMAN_swiftcreek_scenario.jpg">
 </section>
