@@ -62,7 +62,8 @@ and/or using different technologies: <b>multitemporal data</b>
    <h3>Monitoring dynamic processes</h3>
 <p>
 <ul>
-  <li>How fast do your variables change? Do your data capture the full dynamics?
+  <li>How fast do your variables change? 
+  <li>Do your data capture the full dynamics or snapshots?
   <li>Is the process multiscale? 
   <li>What temporal scales are captured by your data?
   <li>What is driving the studied process dynamics?
@@ -88,17 +89,21 @@ time series and multitemporal examples</h3> </section>
 
 <section>
    <h3>Observation time series</h3>
-<p><small>Dynamics of average monthly precipitation during the year in South America </small>
+<p><small>Annual dynamics of <b>30yr average monthly precipitation</b> in South America </small>
+<p><small>$p_i = f_i(x,y), i=1, ... 12$: bi-variate interpolation from 130 point data</small>
 <p> <img height="430" src="img/geodynamics/samprec.gif">
-<p><small>$p_i = f_i(x,y), i=1, ... 12$: bi-variate interpolation from point data</small>
 </section>
 
 <section>
-   <h3>Observation time series</h3>
-<p>Real-time atmopsheric data visualization
-<p>
-<a href="https://earth.nullschool.net/">earth</a>
-<p> <img height="430" src="img/geodynamics/earth.jpg">
+   <h3>Model and Observation time series</h3>
+<p>Real-time atmospheric and ocean data visualization, combines observations and modela 
+<p> <a href="https://earth.nullschool.net/">earth</a>
+<p> <img height="430" src="img/geodynamics/earthwind_legend_variables.jpg">
+<p><small>
+<a href="https://earth.nullschool.net/about.html">
+Beccario, C: Visualization of global weather conditions forecast by supercomputers updated every three hours
+</a>
+</small>
 </section>
 
 <section>
@@ -111,10 +116,10 @@ time series and multitemporal examples</h3> </section>
 
 <section>
    <h3>Observation multitemporal data</h3>
-<p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
+<p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation over 40 years</small>
+<p><small>$z_i = f_i(x,y), i=1, ... n$: bi-variate interpolation of DEMs from point cloud snapshots</small>
 <p> <img height="430" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
-<p><small>$z_i = f_i(x,y), i=1, ... n$: bi-variate interpolation of DEMs from point clouds, visualization
-does not respect the variable time interval</small>
+<p><small>Note that the visualization does not respect the variable time interval</small>
 </section>
 
 <section class="stretch" data-animate="1,13" data-path="img/geodynamics/JR_anim/JR_anim">
@@ -170,8 +175,8 @@ reveals seasonal trends, influx of N in spring and decrease in summer
 <section>
    <h3>Observation multitemporal data</h3>
 <ul>
-<li>groundwater pollution over 10 years - (space-time) interpolation of chemical concentrations data
-<li>From scattered space-time point data to continuous space-time model of plume evolution
+<li>groundwater pollution over 10 years $w = f(x,y,z,t)$, space-time interpolation of chemical concentrations data
+<li>using scattered space-time point data to create a continuous space-time model of plume evolution
 </ul>
 <p> <img height="330" src="img/geodynamics/well456.gif">
 </section>
@@ -185,7 +190,9 @@ reveals seasonal trends, influx of N in spring and decrease in summer
 Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
 </section>
 
+<!--
 <section> <h3>Dynamic models from simulations</h3> </section>
+-->
 
 <section> <h3>Dynamic models from simulations</h3> 
 <ul>
@@ -195,6 +202,7 @@ Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
 <br> <img height="400" src="img/geodynamics/lakef1994.gif">
 </section>
 
+<!--
 <section>
 <h3>Surface water flow simulations </h3>
 <p>Path sampling method: time step depends on flow velocity and resolution, seconds/minutes 
@@ -205,23 +213,31 @@ Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
 <p><small><a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/II.6.8_Mitasova_044.pdf">
 Mitasova, Thaxton, Hofierka, McLaughlin, Moore, Mitas, 2005</a></small>
 </section>
+-->
 
-<!--
+<section>
+<h3>Solar radiation</h3>
+Simulation of solar radiation during one day (summer solstice) with 30 minute time step at 1m spatial resolution
+<p>
+    <img height="400" src="img/intro/summer_solstice_centennial.gif">
+</section>
+
 <section>
 <h3>Ultra-high resolution water flow </h3>
 <ul>
- <li> UAS-based surveys: cm-resolution DEMs
- <li>Path sampling simulations capture impact of microtopography, time step is fraction of a second
+<li>Time step depends on flow velocity and resolution 
+<li>UAS-based surveys: cm-resolution DEMs
+<li>Captures impact of microtopography, time step is fraction of a second
 </ul>
 <br>
     <img height="400" src="img/geodynamics/agisoft_jan.gif">
 <p><small><a href="https://www.isprs-ann-photogramm-remote-sens-spatial-inf-sci.net/III-8/159/2016/">
 Jeziorska et al., 2016, Overalnd flow analysis using time series of UAS-derived elevation models</a></small>
 </section>
--->
 
 <section>
 <h3>Fire spread</h3>
+Simulation of fire spread at 1m spatial resolution with time step in minutes
 <p>
     <img height="420" src="img/spread_fire_disease/fire_anim_JR.gif">
 </section>
