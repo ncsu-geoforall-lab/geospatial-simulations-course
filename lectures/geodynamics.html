@@ -63,11 +63,15 @@ and/or using different technologies: <b>multitemporal data</b>
 <p>
 <ul>
   <li>How fast do your variables change? Do your data capture the full dynamics?
-  <li>Is the process multiscale? Which temporal scale is captured by your data?
-  <li>what is driving the process dynamics - do you have data to capture the driving forces?
+  <li>Is the process multiscale? 
+  <li>What temporal scales are captured by your data?
+  <li>What is driving the studied process dynamics?
+  <li>What data you have to capture the driving forces?
 </ul>
+<p><em>Discuss temporal properties of your data and answer these questions in your project proposal</em>
 </section>
 
+<!--
 <section>
    <h3>Modeling dynamics from observations</h3>
 <ul>
@@ -77,14 +81,24 @@ multivariate interpolation to convert discrete observations into continuous dyna
   <li class="fragment">statistical modeling to relate the observed data (predictors) to the studied process dynamics (response)
 </ul>
 </section>
+-->
 
-<section> <h3>Dynamic models from multitemporal monitoring data: examples</h3> </section>
+<section> <h3>Dynamic models from monitoring data: <br>
+time series and multitemporal examples</h3> </section>
 
 <section>
    <h3>Observation time series</h3>
-<p><small>Bi-variate interpolation of monthly precipitation from point data</small>
+<p><small>Dynamics of average monthly precipitation during the year in South America </small>
 <p> <img height="430" src="img/geodynamics/samprec.gif">
-<p><small>Precipitation in South America </small>
+<p><small>$p_i = f_i(x,y), i=1, ... 12$: bi-variate interpolation from point data</small>
+</section>
+
+<section>
+   <h3>Observation time series</h3>
+<p>Real-time atmopsheric data visualization
+<p>
+<a href="https://earth.nullschool.net/">earth</a>
+<p> <img height="430" src="img/geodynamics/earth.jpg">
 </section>
 
 <section>
@@ -97,9 +111,10 @@ multivariate interpolation to convert discrete observations into continuous dyna
 
 <section>
    <h3>Observation multitemporal data</h3>
-<p><small>Bi-variate interpolation of DEMs from point clouds to surfaces and dynamic visualization</small>
-<p> <img height="430" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
 <p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
+<p> <img height="430" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
+<p><small>$z_i = f_i(x,y), i=1, ... n$: bi-variate interpolation of DEMs from point clouds, visualization
+does not respect the variable time interval</small>
 </section>
 
 <section class="stretch" data-animate="1,13" data-path="img/geodynamics/JR_anim/JR_anim">
@@ -117,26 +132,29 @@ Satellite imagery (3m res), September 2017 - July 2018
 for entire Earth at 1m resolution</small>
 </section>
 
+<!--
 <section>
    <h3>Observation multitemporal data</h3>
 <p><small>Bi-variate interpolation of DEMs from point clouds to surfaces</small>
 <p> <img height="430" src="img/geodynamics/bhicape2m3D_1997-2014zoom.gif">
 <p><small>Cape Fear </small>
 </section>
+-->
 
 <section>
-   <h3>Observation timeseries</h3>
+   <h3>Observation multivariate time series</h3>
 <ul>
-<li>Chesapeake bay monthly nitrogen concentrations capture seasonal trends - sampling sites  
+<li>Chesapeake bay monthly nitrogen concentration measurements at different depths - distribution of sampling sites  
 </ul>
 <img height="350" src="img/geodynamics/chesapsites.jpg">
 </section>
 
 <!--add month or visu with slider-->
 <section>
-   <h3>Observation timeseries</h3>
+   <h3>Observation multivariate time series</h3>
 <ul>
-<li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation
+<li>Chesapeake bay monthly nitrogen concentrations $w = f(x,y,z,t)$:  multivariate (space-time) interpolation
+reveals seasonal trends, influx of N in spring and decrease in summer
 </ul>
 <p> <img height="250" src="img/geodynamics/chesaplg.jpg">
 &nbsp; &nbsp;
@@ -145,7 +163,7 @@ for entire Earth at 1m resolution</small>
 
 <section>
    <h3>Observation multitemporal data</h3>
-<p>groundwater pollution over 10 years - sampling sites
+<p>Sampling well sites: scattered in space and time
 <p> <img height="330" src="img/geodynamics/wellnew.gif">
 </section>
 
@@ -188,6 +206,7 @@ Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
 Mitasova, Thaxton, Hofierka, McLaughlin, Moore, Mitas, 2005</a></small>
 </section>
 
+<!--
 <section>
 <h3>Ultra-high resolution water flow </h3>
 <ul>
@@ -199,6 +218,7 @@ Mitasova, Thaxton, Hofierka, McLaughlin, Moore, Mitas, 2005</a></small>
 <p><small><a href="https://www.isprs-ann-photogramm-remote-sens-spatial-inf-sci.net/III-8/159/2016/">
 Jeziorska et al., 2016, Overalnd flow analysis using time series of UAS-derived elevation models</a></small>
 </section>
+-->
 
 <section>
 <h3>Fire spread</h3>
@@ -212,32 +232,23 @@ Jeziorska et al., 2016, Overalnd flow analysis using time series of UAS-derived 
 </section>
 
 <section>
- <h3>Temporal data framework in GRASS</h3>
+ <h3>Temporal data framework in GRASS GIS</h3>
 <ul>
  <li>designed for massive series of satellite imagery or modeling outputs
- <li class="fragment">supports efficient processing, management and analysis of space-time data sets
+ <li class="fragment">efficient processing, management and analysis of space-time data sets
  <li class="fragment"><b>space-time dataset</b> is a set of maps registered in a temporal database
 <!-- <li class="fragment">space-time dataset may represent a dynamic process-->
- <li class="fragment">individual maps represent the states of the dynamic system at a given time
+ <li class="fragment">individual maps with assigned <b>time-stamp</b> represent the state of a dynamic variable at a given time
 </ul>
 <br>
 <p class="fragment"> <small>
-Gebbert S., Pebesma E. 2014. A temporal GIS for field based environmental modeling. EMS 53, 1-12.
-<br>Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 1273-1292
+<a href="https://www.sciencedirect.com/science/article/pii/S136481521300282X?via%3Dihub">
+Gebbert S., Pebesma E. 2014. A temporal GIS for field based environmental modeling. EMS 53, 1-12.</a>
+<br>
+<a href="https://www.tandfonline.com/doi/full/10.1080/13658816.2017.1306862">
+Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 1273-1292</a>
 </small>
 </p>
-</section>
-
-<section>
-   <h3>Space-Time dataset types</h3>
-<ul>
- <li> raster: strds
- <li> vector (points, lines or areas): stvds
- <li> 3D raster: str3ds
-</ul>
-<p>
-<br>
-<img width="95%" src="img/geodynamics/st_dataset.jpg">
 </section>
 
 <section>
@@ -245,9 +256,35 @@ Gebbert S., Pebesma E. 2014. A temporal GIS for field based environmental modeli
 <b> Time stamp</b> assigns time to an individual map in the space-time data set
 <ul>
  <li><b>time instant</b> - snapshot at given time:<br> 2013-10-15 13:00:00 (absolute time)
- <li><b>time interval </b>- defined by start and end time: time period of a day, a month, or a year (relative time)
- <li>example: a single UAS survey represents a snapshot (state) which can be agreggated into time intervals
+ <li><b>time interval </b>- defined by start and end time: time period of a day, a month, or a year
+ <li>example: a single UAS survey represents a <b>snapshot</b> (e.g. elevation at the time of survey)
+  which can be agreggated into <b>time intervals</b> (e.g. monthly average elevation)
 </ul>
+</section>
+
+<section>
+   <h3>Space-Time dataset types</h3>
+<ul>
+ <li> space-time raster data set: <b>strds</b>
+ <li> space-time vector data set (points, lines or areas): <b>stvds</b>
+ <li> space-time 3D raster data set: <b>str3ds</b>
+</ul>
+<p>
+<br>
+<img width="95%" src="img/geodynamics/st_dataset.jpg">
+</section>
+
+<section>
+ <h3>Working with a space-time data set</h3>
+<p>
+Given a set of GRASS GIS maps (raster or vector) with assigned time stamps:
+<ul>
+ <li class="fragment">create empty space-time dataset 
+ <li class="fragment">register the existing maps in this space-time dataset
+ <li class="fragment">check/verify the properties of the dataset 
+ <li class="fragment">process, analyze, and visualize the space-time data 
+</ul>
+</p>
 </section>
 
 <section>
@@ -268,10 +305,11 @@ Gebbert S., Pebesma E. 2014. A temporal GIS for field based environmental modeli
 </section>
 
 <section>
-   <h3>Temporal count and intersection</h3>
+   <h3>Mapping common spatial extent </h3>
+Multitemporal data often have varied spatial extent, to analyze coverage we compute:
 <ul>
- <li>Count: number of maps (temporal snapshots) where the given cell has non-null value 
- <li>Intersection: grid cells with non-null values from each map in time series
+ <li><b>Count</b>: number of maps (temporal snapshots) where the given cell has non-null value 
+ <li><b>Intersection</b>: grid cells with non-null values from each map in time series
 </ul>
 <img height="400" src="img/geodynamics/surveycount13.jpg">
 </section>
