@@ -116,9 +116,9 @@ Beccario, C: Visualization of global weather conditions forecast by supercompute
 
 <section>
    <h3>Observation multitemporal data</h3>
-<p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation over 40 years</small>
-<p><small>$z_i = f_i(x,y), i=1, ... n$: bi-variate interpolation of DEMs from point cloud snapshots</small>
-<p> <img height="430" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
+<p>Jockey's Ridge 1974 - 2017: 40 years of southward migration and landform change
+<br>$z_i = f_i(x,y), i=1, ... n$: bi-variate interpolation of DEMs from point cloud snapshots
+<p> <img height="400" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
 <p><small>Note that the visualization does not respect the variable time interval</small>
 </section>
 
@@ -130,10 +130,10 @@ Beccario, C: Visualization of global weather conditions forecast by supercompute
 <section>
  <h3>Multitemporal Planet imagery</h3>
 <p>
-Satellite imagery (3m res), September 2017 - July 2018
+Satellite imagery (3m resolution), Sep. 2017 - July 2018
 <p>
 <iframe data-autoplay width="580" height="360" src="img/geodynamics/sep17_july18.mp4" frameborder="0" allowfullscreen></iframe>
-<p><small>Planet: world’s largest constellation of Earth-imaging (micro) satellites providing daily observations
+<p><small>Planet: constellation of Earth-imaging micro satellites providing daily observations
 for entire Earth at 1m resolution</small>
 </section>
 
@@ -146,24 +146,17 @@ for entire Earth at 1m resolution</small>
 </section>
 -->
 
+<!--add month or visu with slider from old html presentation-->
 <section>
    <h3>Observation multivariate time series</h3>
 <ul>
-<li>Chesapeake bay monthly nitrogen concentration measurements at different depths - distribution of sampling sites  
+<li>Chesapeake bay monthly N concentration measurements - 3D distribution of sampling sites  
+<li>$w = f(x,y,z,t)$:  multivariate (3D space-time) interpolation reveals seasonal trends, influx of N in spring and decrease in summer
 </ul>
-<img height="350" src="img/geodynamics/chesapsites.jpg">
-</section>
-
-<!--add month or visu with slider-->
-<section>
-   <h3>Observation multivariate time series</h3>
-<ul>
-<li>Chesapeake bay monthly nitrogen concentrations $w = f(x,y,z,t)$:  multivariate (space-time) interpolation
-reveals seasonal trends, influx of N in spring and decrease in summer
-</ul>
-<p> <img height="250" src="img/geodynamics/chesaplg.jpg">
+<img height="330" src="img/geodynamics/chesapsites.jpg">
 &nbsp; &nbsp;
-<img height="350" src="img/geodynamics/chall4d.gif">
+<img height="330" src="img/geodynamics/chall4d.gif">
+<img height="230" src="img/geodynamics/chesaplg.jpg">
 </section>
 
 <section>
@@ -198,8 +191,10 @@ Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
 <ul>
 <li>Results of numerical modeling 
 <li>Well defined time step: depends on application, input data and numerical method
+<li>Challenge: coupled models of processes with different time steps
 </ul>
 <br> <img height="400" src="img/geodynamics/lakef1994.gif">
+<p><small>simple model of water reservoir filling with uniform time step</small>
 </section>
 
 <!--
@@ -237,7 +232,7 @@ Jeziorska et al., 2016, Overalnd flow analysis using time series of UAS-derived 
 
 <section>
 <h3>Fire spread</h3>
-Simulation of fire spread at 1m spatial resolution with time step in minutes
+Simulation of fire spread at 1m spatial resolution with time step dependent on wind speed, generally in minutes
 <p>
     <img height="420" src="img/spread_fire_disease/fire_anim_JR.gif">
 </section>
@@ -272,13 +267,24 @@ Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 127
    <h3>Time stamp type</h3>
 <b> Time stamp</b> assigns time to an individual map in the space-time data set
 <ul>
- <li><b>time instant</b> - snapshot at a given time expressed as absolute time:
+ <li class="fragment"><b>time instant</b> - snapshot at a given time expressed as absolute time:
     <br> 2013-10-15 13:00:00 (date time format)
- <li><b>time interval </b>- defined by start and end time: time period of a day, a month, or a year
- <li>example: a single UAS survey represents a <b>snapshot</b> (e.g. elevation at the time of survey)
+ <li class="fragment"><b>time interval </b>- defined by start and end time: time period of a day, a month, or a year
+ <li class="fragment">example: a single UAS survey represents a <b>snapshot</b> (e.g. elevation at the time of survey)
   which can be agreggated into <b>time intervals</b> (e.g. monthly average elevation)
- <li>relative time expressed as value (e.g. years 1, 2, 3 or interval 3 years, useful also for non-temporal series)
+ <li class="fragment">relative time expressed as value (e.g. years 1, 2, 3 or interval 3 years, useful also for non-temporal series)
 </ul>
+</section>
+
+<section>
+   <h3>Time stamp type</h3>
+<b> Timeline</b> illustrates different types of time stamp and the temporal relationship between the data sets
+<ul>
+ <li class="fragment"><b>time instant</b> - snapshot is shown as points
+ <li class="fragment"><b>time interval </b>- defined by start and end time, shown as thick line, 
+examples show intervals with gaps and overlapping intervals
+</ul>
+<img height="300" src="img/geodynamics/timeline_example.jpg">
 </section>
 
 <section>
@@ -289,8 +295,8 @@ Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 127
  <li> space-time 3D raster data set: <b>str3ds</b>
 </ul>
 <p>
-<img height="200" src="img/geodynamics/points_lidar_gps.jpg">
-<img width="200" src="img/geodynamics/points_contours.jpg">
+<img height="100" src="img/geodynamics/points_contours.jpg">
+<img height="100" src="img/geodynamics/points_lidar_gps.jpg">
 <p><small>subset of the vector (points) and raster (DEMs) space-time data sets for Jockey's Ridge</small>
 </section>
 
@@ -332,7 +338,8 @@ Analyze spatial coverage of DEMs in the strds:
  <li><b>Count map</b>: number of maps where a grid cell has non-null value 
  <li><b>Intersection map</b>: grid cells with non-null values from all maps in strds 
 </ul>
-<img height="400" src="img/geodynamics/surveycount13.jpg">
+<img height="380" src="img/geodynamics/surveycount13.jpg">
+<img height="380" src="img/geodynamics/intersection.jpg">
 </section>
 
 <section>
