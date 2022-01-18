@@ -252,6 +252,7 @@ Simulation of fire spread at 1m spatial resolution with time step in minutes
 <ul>
  <li>designed for massive series of satellite imagery or modeling outputs
  <li class="fragment">efficient processing, management and analysis of space-time data sets
+<p>
  <li class="fragment"><b>space-time dataset</b> is a set of maps registered in a temporal database
 <!-- <li class="fragment">space-time dataset may represent a dynamic process-->
  <li class="fragment">individual maps with assigned <b>time-stamp</b> represent the state of a dynamic variable at a given time
@@ -271,10 +272,12 @@ Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 127
    <h3>Time stamp type</h3>
 <b> Time stamp</b> assigns time to an individual map in the space-time data set
 <ul>
- <li><b>time instant</b> - snapshot at given time:<br> 2013-10-15 13:00:00 (absolute time)
+ <li><b>time instant</b> - snapshot at a given time expressed as absolute time:
+    <br> 2013-10-15 13:00:00 (date time format)
  <li><b>time interval </b>- defined by start and end time: time period of a day, a month, or a year
  <li>example: a single UAS survey represents a <b>snapshot</b> (e.g. elevation at the time of survey)
   which can be agreggated into <b>time intervals</b> (e.g. monthly average elevation)
+ <li>relative time expressed as value (e.g. years 1, 2, 3 or interval 3 years, useful also for non-temporal series)
 </ul>
 </section>
 
@@ -286,14 +289,15 @@ Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 127
  <li> space-time 3D raster data set: <b>str3ds</b>
 </ul>
 <p>
-<br>
-<img width="95%" src="img/geodynamics/st_dataset.jpg">
+<img height="150%" src="img/intro/points_lidar_gps.jpg">
+<img width="150" src="img/intro/points_contours.jpg">
+<p><small>subset of the vector (points) and raster (dem) space-time data sets for Jockey's Ridge</small>
 </section>
 
 <section>
  <h3>Working with a space-time data set</h3>
 <p>
-Given a set of GRASS GIS maps (raster or vector) with assigned time stamps:
+Given a set of GRASS GIS maps with assigned time:
 <ul>
  <li class="fragment">create empty space-time dataset 
  <li class="fragment">register the existing maps in this space-time dataset
@@ -304,14 +308,15 @@ Given a set of GRASS GIS maps (raster or vector) with assigned time stamps:
 </section>
 
 <section>
-<h3>Multitemporal data timeline</h3>
+<h3>Register maps and check data timeline</h3>
 <ul>
-<li>Multitemporal DEM for Jockey's Ridge dunes: 
+<li>Given a set of DEMs for Jockey's Ridge dunes: 
 <ul>
-  <li>photogrammetry (1974-98),
-  <li>lidar (1999-2018),
-  <li>structure from motion from UAS imagery (2016-2018)
+  <li>photogrammetry (1974, 1995, 1998),
+  <li>lidar (1999, 2001, 2007, 2008, 2009, 2012, 2015, 2017),
+  <li>structure from motion from UAS imagery (2016, 2018)
 </ul>
+register the raster maps as strds and check time line, per-cell elevation change
 </ul>
   <img height="100" src="img/geodynamics/timeline.png">
    <img height="150" src="img/geodynamics/timeline3D.png">
@@ -322,10 +327,10 @@ Given a set of GRASS GIS maps (raster or vector) with assigned time stamps:
 
 <section>
    <h3>Mapping common spatial extent </h3>
-Multitemporal data often have varied spatial extent, to analyze coverage we compute:
+Analyze spatial coverage of DEMs in the strds:
 <ul>
- <li><b>Count</b>: number of maps (temporal snapshots) where the given cell has non-null value 
- <li><b>Intersection</b>: grid cells with non-null values from each map in time series
+ <li><b>Count map</b>: number of maps (snapshots) where a grid cell has non-null value 
+ <li><b>Intersection map</b>: grid cells with non-null values from all maps in strds 
 </ul>
 <img height="400" src="img/geodynamics/surveycount13.jpg">
 </section>
@@ -340,8 +345,13 @@ Per cell statistics computed for each cell over time:
  <li>time at minimum, time at maximum
  <li>linear regression: slopem offset, regr. coefficient
 </ul>
-<p class="small"> 
-Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA.</p>
+<p>
+<small>
+<a href="https://pubs.geoscienceworld.org/gsa/geosphere/article/7/6/1340/132498/Modeling-and-analysis-of-landscape-evolution-using">
+Starek MJ, et al. 2011, Modeling and analysis of landscape evolution using airborne, terrestrial, and laboratory laser scanning, Geosphere, 7(6), p. 1340-1356, doi:10.1130/GES00699.1</a>
+or
+<a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/MitasovaFinalGeoinf09.pdf">
+Mitasova, H. et al. 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA.</a></small></p>
 </section>
 
 <section>
