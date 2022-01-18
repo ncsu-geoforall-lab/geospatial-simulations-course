@@ -96,7 +96,7 @@ time series and multitemporal examples</h3> </section>
 
 <section>
    <h3>Model and Observation time series</h3>
-<p>Real-time atmospheric and ocean data visualization, combines observations and modela 
+<p>Real-time atmospheric and ocean data visualization, combines observations and models 
 <p> <a href="https://earth.nullschool.net/">earth</a>
 <p> <img height="430" src="img/geodynamics/earthwind_legend_variables.jpg">
 <p><small>
@@ -289,9 +289,9 @@ Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 127
  <li> space-time 3D raster data set: <b>str3ds</b>
 </ul>
 <p>
-<img height="150%" src="img/intro/points_lidar_gps.jpg">
-<img width="150" src="img/intro/points_contours.jpg">
-<p><small>subset of the vector (points) and raster (dem) space-time data sets for Jockey's Ridge</small>
+<img height="150%" src="img/geodynamics/points_lidar_gps.jpg">
+<img width="150" src="img/geodynamics/points_contours.jpg">
+<p><small>subset of the vector (points) and raster (DEMs) space-time data sets for Jockey's Ridge</small>
 </section>
 
 <section>
@@ -316,7 +316,7 @@ Given a set of GRASS GIS maps with assigned time:
   <li>lidar (1999, 2001, 2007, 2008, 2009, 2012, 2015, 2017),
   <li>structure from motion from UAS imagery (2016, 2018)
 </ul>
-register the raster maps as strds and check time line, per-cell elevation change
+register the raster maps as strds and check time line, spatial extents, per-cell elevation change
 </ul>
   <img height="100" src="img/geodynamics/timeline.png">
    <img height="150" src="img/geodynamics/timeline3D.png">
@@ -329,7 +329,7 @@ register the raster maps as strds and check time line, per-cell elevation change
    <h3>Mapping common spatial extent </h3>
 Analyze spatial coverage of DEMs in the strds:
 <ul>
- <li><b>Count map</b>: number of maps (snapshots) where a grid cell has non-null value 
+ <li><b>Count map</b>: number of maps where a grid cell has non-null value 
  <li><b>Intersection map</b>: grid cells with non-null values from all maps in strds 
 </ul>
 <img height="400" src="img/geodynamics/surveycount13.jpg">
@@ -341,15 +341,15 @@ Analyze spatial coverage of DEMs in the strds:
 Per cell statistics computed for each cell over time:
 <ul>
  <li>mean and standard deviation
- <li>min, max elevation and range
+ <li>min, max value and range
  <li>time at minimum, time at maximum
- <li>linear regression: slopem offset, regr. coefficient
+ <li>linear regression: slope, offset, regr. coefficient
 </ul>
 <p>
 <small>
 <a href="https://pubs.geoscienceworld.org/gsa/geosphere/article/7/6/1340/132498/Modeling-and-analysis-of-landscape-evolution-using">
 Starek MJ, et al. 2011, Modeling and analysis of landscape evolution using airborne, terrestrial, and laboratory laser scanning, Geosphere, 7(6), p. 1340-1356, doi:10.1130/GES00699.1</a>
-or
+<br>
 <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/MitasovaFinalGeoinf09.pdf">
 Mitasova, H. et al. 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA.</a></small></p>
 </section>
@@ -368,7 +368,7 @@ Mitasova, H. et al. 2009, New spatial measures of terrain dynamics derived from 
    <h3>Basic time series analysis: regression</h3>
 <ul>
  <li>applies to systematic monitoring with longer time series, with rate of change close to linear 
- <li>compute per cell linear regression analysis: map of regression slope and offset
+ <li>per cell linear regression analysis: map of regression slope and offset 
 </ul>
 <p>
     <img width="90%" src="img/geodynamics/NH_regrslope_E.jpg">
