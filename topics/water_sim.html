@@ -44,16 +44,17 @@ Available free as e-book through NCSU library.</a>
 </ul>
 
 <h4>Assignment part 3.A</h4>
-Compare different algorithms for flowaccumulation, discuss the impact of algorithm versus impact of noise on flowrouting. 
+Use Python and Jupyter Notebooks to compare different algorithms for flowaccumulation, discuss the impact of algorithm versus impact of noise on flowrouting. 
 Develop inundation simulation and visualize it in MAPBOX. Carefully read manual pages for commands used in the inundation 
 simulation and explain in your report what is going on.
-As part of this assignment you will be working with github and learn how to create on-line tool for visualization 
-of your simulation output. 
+As part of this assignment, you will be working with github and learn how to create on-line tool for visualization 
+of your simulation output.
 <ul>
-    <li><a href="../assignments/water_geom_assign.html">Compare flow routing methods, simulate inundation from streams</a>
-<!--    <li><a href="https://grasswiki.osgeo.org/wiki/From_GRASS_GIS_novice_to_power_user_(workshop_at_FOSS4G_Boston_2017)#Hydrology:_Estimating_inundation_extent_using_HAND_methodology">HAND methodology from workshop GRASS GIS: from novice to power user"</a>-->
-    <li><a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial">How to Host Your Animated GRASS simulations with MapBoxGL JS and GitHub</a>
+    <li><a href="https://github.com/chaedri/GIS714-assignments"> Jupyter Notebook for comparing flow routing methods, simulate inundation from streams</a></li>
+    <li><a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial">How to Host Your Animated GRASS simulations with MapBoxGL JS and GitHub</a></li>
+    <li><a href="../assignments/water_geom_assign.html"> Alternative non-Jupyter version of assignment</a></li>
 </ul>
+
 
 <h3 id="water_flow_sim" class="subtopic">3.B Surface water: process based simulation</h3>
 Outline:
@@ -90,14 +91,9 @@ and a <a href="https://petrasovaa.github.io/tangible-landscape-dambreak-presenta
 <h4>Assignment part 3.B</h4>
 Compare distribution of surface water flow at high resolution for uniform 
 and spatially variable land cover and topographic conditions.
-Optional: you can use scripting to generate scenarios and summarize the results.
 <ul>
-<li><a href="../assignments/simwe.html">Surface water flow modeling using path sampling method</a> 
-<!--
-<li><a href="http://ncsu-geoforall-lab.github.io/uav-lidar-analytics-course/assignments/fusion_uas_lidar.html">
- Surface water flow modeling over tilled field</a> using DEM derived by fusion of lidar and UAS data 
-and path sampling method (r.sim.water), see the last two sections of this assignment from GIS595-005
--->
+<li><a href="https://github.com/chaedri/GIS714-assignments">Jupyter Notebook for surface water flow modeling using path sampling method</a> 
+
 <p>Optional
 <li><a href="../assignments/process_based_flow.html">Surface water flow modeling for urban environments: Itzi</a>
 <li>Write your own overland flow simulation tool in python:  
@@ -108,8 +104,9 @@ and path sampling method (r.sim.water), see the last two sections of this assign
 -->
      <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Anna_OverlandFlow.py">Example code</a>,
       run from nc_spm_08 location and set region <code>g.region -p rast=elev_lid792_1m</code>,
-      compute dx and dy using r.slope.aspect, and then use <code>g.region zoom=dx</code> to leave out NULL cells at the edge from computation.
+      compute dx and dy using r.slope.aspect, and then use <code>g.region zoom=dx</code> to leave out NULL cells at the edge from computation.</li>
   </ul>
+  <li><a href="../assignments/simwe.html"> Alternative non-Jupyter version of assignment</a></li>
 </ul>
 
 <h3 id="geostats" class="subtopic">3.C Geostatistical simulations and uncertainty propagation</h3>
@@ -141,11 +138,11 @@ Geostatistical simulation in ArcGIS</a>
 </ul>
 
 <h4>Assignment 3.C</h4>
-<ul>
-<li>Derive a probability map of stream networks using geostatistical simulation and error propagation
+Derive a probability map of stream networks using geostatistical simulation and error propagation
 techniques, following the methodology described in the Chapter 10,
-<a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">Hengl, T.: A practical guide to geostatistical mapping</a> (theory is in the chapter 2.4, see also <a href="https://en.wikipedia.org/wiki/Binary_entropy_function">binary entropy function for Bernoulli process</a>): 
-<a href="../assignments/geostats_sim.html">Suggested workflow in GRASS and R</a>
+<a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">Hengl, T.: A practical guide to geostatistical mapping</a> (theory is in the chapter 2.4, see also <a href="https://en.wikipedia.org/wiki/Binary_entropy_function">binary entropy function for Bernoulli process</a>):
+<ul>
+    <li> <a href="https://github.com/chaedri/GIS714-assignments">Jupyter Notebook with workflow in GRASS and R</a></li>
 <!--
 <li>
 Optional: apply the stream probability mapping method to our small rural watershed using the points
@@ -154,12 +151,11 @@ in the layer "elev_lid792_randpts" in our data set or any elevation data set of 
 Optional: evaluate the uncertainty of inundation extent prediction due to errors in a DEM
 <p>
 Learn how to <a href="https://github.com/LukasGab/R_grassgis">Run GRASS from R</a>
-<li>Simulate distribution of studied variable (e.g. pollutant) based on observed data and their spatial relationships. (R)
+<li>Simulate distribution of studied variable (e.g. pollutant) based on observed data and their spatial relationships. (R) </li>
 -->
+    <li><a href="../assignments/geostats_sim.html"> Alternative non-Jupyter version of assignment</a></li>
 </ul>
 
 <h3>Homework 3. ABC</h3>
-Write a paper about surface water simulations and stream extraction uncertainty - 
-use your judgement to select what you will write about,
-and add link(s) to dynamic visualizations that you have developed for mapbox.
-
+Submit completed Jupyter Notebooks from Assignment 3A, 3B and 3C as HTML and ipynb along with 
+link(s) to dynamic visualizations that you have developed for mapbox as part of 3A.
