@@ -357,21 +357,53 @@ Per cell statistics computed for each cell over time:
 </ul>
 <p>
 <small>
-<a href="https://pubs.geoscienceworld.org/gsa/geosphere/article/7/6/1340/132498/Modeling-and-analysis-of-landscape-evolution-using">
+<ul>
+   <li><a href="https://pubs.geoscienceworld.org/gsa/geosphere/article/7/6/1340/132498/Modeling-and-analysis-of-landscape-evolution-using">
 Starek MJ, et al. 2011, Modeling and analysis of landscape evolution using airborne, terrestrial, and laboratory laser scanning, Geosphere, 7(6), p. 1340-1356, doi:10.1130/GES00699.1</a>
-<br>
-<a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/MitasovaFinalGeoinf09.pdf">
-Mitasova, H. et al. 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA.</a></small></p>
+   <li><a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/MitasovaFinalGeoinf09.pdf">
+Mitasova, H. et al. 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA.</a>
+   <li><a href="http://link.springer.com/book/10.1007/978-1-4939-1835-5">
+Hardin, E., et al, 2014, GIS-based Analysis of Coastal Lidar Time-Series, Springer Briefs in Computer Science </a> 
+</ul>
+</small>
+</section>
+
+<section>
+<h3>Basic multitemporal DEMs analysis</h3>
+Given $n$ DEM snaphots $z(i,j,t_k)  \quad k=1, ..., n$, per-cell operation can be used to derive:
+<p>
+<ul>
+ <li class="fragment">Core surface: $z_{core}(i,j)=\min_k z(i,j,t_k)  \quad k=1, ..., n$
+ <li class="fragment">Envelope surface: $z_{env}(i,j)=\max_k z(i,j,t_k)  \quad k=1, ..., n$
+<p>
+ <li class="fragment">Time of max: $t_{max} (i,j) = t_l, \quad   {\rm where} \quad z(i,j,t_l) = z_{env}(i,j) $
+ <li class="fragment">Time of min: $t_{min} (i,j) = t_p, \quad   {\rm where} \quad z(i,j,t_p) = z_{core}(i,j)$
+</ul>
+<p><small>
+Core surface is the minimum elevation and envelope surface as the maximum elevation measured at each cell over the given time period,
+core defines the volume of sand that has not moved, envelope defines the space within which the dune surface evolved.
+</small>
 </section>
 
 <section>
    <h3>Basic multitemporal DEM analysis: core, envelope</h3>
-<ul>
- <li>Core surface: min. elevation measured for each cell
- <li>Envelope: max. elevation measured for each cell
-</ul>
+ East Jockey's Ridge dune: (a) time of elevation maximum map, (b) core, envelope and DEM surfaces
 <p>
     <img width="90%" src="img/geodynamics/Mit_TEC2011_fig1.jpg">
+</section>
+
+<section>
+<h3>Multitemporal DEMs: analysis</h3>
+Discrete changes: building lost or new:  
+<br>$z_{env}(i_c,j_c) - z_{core}(i_c,j_c) > h_b$
+<p>
+ <ul>
+  <li class="fragment">Lost structure: $t_{max} (i_l,j_l)  <  t_{min} (i_l,j_l)$
+  <li class="fragment">New structure: $t_{max} (i_l,j_l)  >  t_{min} (i_l,j_l)$
+ </ul>
+<p>
+<img class="fragment" height="350" src="img/topoanalysis/NH_homes_picBot.png">
+<img class="fragment" height="350" src="img/topoanalysis/NH_shoreband9608.png">
 </section>
 
 <section>
@@ -385,19 +417,9 @@ Mitasova, H. et al. 2009, New spatial measures of terrain dynamics derived from 
 </section>
 
 <section>
- <h3>Map algebra for time series</h3>
-<p>
-<ul>
-  <li>apply map algebra expression for each map in the time series at each grid cell
-  <li>output is new time series which is registered as a new space-time dataset
-  <li>this is different (and much simpler) from temporal map algebra
-</ul>
-</section>
-
-<section>
     <h3>Landform change: contours time series</h3>
 <small>Dune gradually split into smaller parabolic dunes: 
-<br>i 16m and 20m contours capture change but are hard to read
+<br> 16m and 20m contours capture change but are hard to read
 </small>
 <br>   <img height="220" src="img/geodynamics/jr_74_2017_16mcontour.png"> 
 <img height="200" src="img/geodynamics/jr_74_2017_20mcontour.jpg"> 
@@ -413,6 +435,15 @@ is represented as isosurface: 16m and 20m </p>
 <img height="400" src="img/geodynamics/jr20/animation.gif">
 </section>
 
+<section>
+ <h3>Map algebra for time series</h3>
+<p>
+<ul>
+  <li>map algebra expression is applied to each map in strds at each grid cell
+  <li>output is a new strds which is registered as a new space-time dataset
+  <li>this is different (and much simpler) from temporal map algebra
+</ul>
+</section>
 
 <section>
  <h3>Summary</h3>
