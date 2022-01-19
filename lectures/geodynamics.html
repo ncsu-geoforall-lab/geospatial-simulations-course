@@ -62,12 +62,17 @@ and/or using different technologies: <b>multitemporal data</b>
    <h3>Monitoring dynamic processes</h3>
 <p>
 <ul>
-  <li>How fast do your variables change? Do your data capture the full dynamics?
-  <li>Is the process multiscale? Which temporal scale is captured by your data?
-  <li>what is driving the process dynamics - do you have data to capture the driving forces?
+  <li>How fast do your variables change? 
+  <li>Do your data capture the full dynamics or snapshots?
+  <li>Is the process multiscale? 
+  <li>What temporal scales are captured by your data?
+  <li>What is driving the studied process dynamics?
+  <li>What data you have to capture the driving forces?
 </ul>
+<p><em>Discuss temporal properties of your data and answer these questions in your project proposal</em>
 </section>
 
+<!--
 <section>
    <h3>Modeling dynamics from observations</h3>
 <ul>
@@ -77,14 +82,29 @@ multivariate interpolation to convert discrete observations into continuous dyna
   <li class="fragment">statistical modeling to relate the observed data (predictors) to the studied process dynamics (response)
 </ul>
 </section>
+-->
 
-<section> <h3>Dynamic models from multitemporal monitoring data: examples</h3> </section>
+<section> <h3>Dynamic models from monitoring data: <br>
+time series and multitemporal examples</h3> </section>
 
 <section>
    <h3>Observation time series</h3>
-<p><small>Bi-variate interpolation of monthly precipitation from point data</small>
-<p> <img height="430" src="img/geodynamics/samprec.gif">
-<p><small>Precipitation in South America </small>
+<p>Annual dynamics of <b>30yr average monthly precipitation</b> in South America 
+<br>$p_i = f_i(x,y), i=1, ... 12$ 
+<br>bi-variate interpolation from 130 point data
+<p> <img height="410" src="img/geodynamics/samprec.gif">
+</section>
+
+<section>
+   <h3>Model and Observation time series</h3>
+<p>Real-time atmospheric and ocean data visualization, combines observations and models 
+<a href="https://earth.nullschool.net/">earth</a>
+<p> <img height="380" src="img/geodynamics/earthwind_legend_variables.jpg">
+<p><small>
+<a href="https://earth.nullschool.net/about.html">
+Beccario, C: Visualization of global weather conditions forecast by supercomputers updated every three hours
+</a>
+</small>
 </section>
 
 <section>
@@ -97,9 +117,12 @@ multivariate interpolation to convert discrete observations into continuous dyna
 
 <section>
    <h3>Observation multitemporal data</h3>
-<p><small>Bi-variate interpolation of DEMs from point clouds to surfaces and dynamic visualization</small>
-<p> <img height="430" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
-<p><small>Jockey's Ridge 1974 - 2017: southward migration, landform transformation </small>
+<p>Jockey's Ridge 1974 - 2017: <br>
+40 years of southward migration and landform change
+<br>$z_i = f_i(x,y), i=1, ... n$: 
+<br>bi-variate interpolation of DEMs from point cloud snapshots
+<p> <img height="380" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
+<p><small>Note that the visualization does not respect the variable time interval</small>
 </section>
 
 <section class="stretch" data-animate="1,13" data-path="img/geodynamics/JR_anim/JR_anim">
@@ -110,89 +133,75 @@ multivariate interpolation to convert discrete observations into continuous dyna
 <section>
  <h3>Multitemporal Planet imagery</h3>
 <p>
-Satellite imagery (3m res), September 2017 - July 2018
+Satellite imagery (3m resolution), Sep. 2017 - July 2018
 <p>
 <iframe data-autoplay width="580" height="360" src="img/geodynamics/sep17_july18.mp4" frameborder="0" allowfullscreen></iframe>
-<p><small>Planet: world’s largest constellation of Earth-imaging (micro) satellites providing daily observations
+<p><small>Planet: constellation of Earth-imaging micro satellites providing daily observations
 for entire Earth at 1m resolution</small>
 </section>
 
+<!--
 <section>
    <h3>Observation multitemporal data</h3>
 <p><small>Bi-variate interpolation of DEMs from point clouds to surfaces</small>
 <p> <img height="430" src="img/geodynamics/bhicape2m3D_1997-2014zoom.gif">
 <p><small>Cape Fear </small>
 </section>
+-->
 
+<!--add month or visu with slider from old html presentation-->
 <section>
-   <h3>Observation timeseries</h3>
+   <h3>Observation multivariate time series</h3>
 <ul>
-<li>Chesapeake bay monthly nitrogen concentrations capture seasonal trends - sampling sites  
+<li>Chesapeake bay monthly N concentration measurements in 1993 - 3D distribution of sampling sites  
+<li>$w = f(x,y,z,t)$:  multivariate (3D space-time) interpolation reveals seasonal trends, influx of N in spring and decrease in summer
 </ul>
-<img height="350" src="img/geodynamics/chesapsites.jpg">
-</section>
-
-<!--add month or visu with slider-->
-<section>
-   <h3>Observation timeseries</h3>
-<ul>
-<li>Chesapeake bay monthly nitrogen concentrations - multivariate (space-time) interpolation
-</ul>
-<p> <img height="250" src="img/geodynamics/chesaplg.jpg">
+<img height="330" src="img/geodynamics/chesapsites.jpg">
 &nbsp; &nbsp;
-<img height="350" src="img/geodynamics/chall4d.gif">
+<img height="330" src="img/geodynamics/chall4d.gif">
+<img height="230" src="img/geodynamics/chesaplg.jpg">
 </section>
 
 <section>
    <h3>Observation multitemporal data</h3>
-<p>groundwater pollution over 10 years - sampling sites
+<p>Sampling well sites: scattered in space and time
 <p> <img height="330" src="img/geodynamics/wellnew.gif">
 </section>
 
 <section>
    <h3>Observation multitemporal data</h3>
 <ul>
-<li>groundwater pollution over 10 years - (space-time) interpolation of chemical concentrations data
-<li>From scattered space-time point data to continuous space-time model of plume evolution
+<li>groundwater pollution over 10 years $w = f(x,y,z,t)$, space-time interpolation of chemical concentrations data
+<li>using scattered space-time point data to create a continuous space-time model of plume evolution
 </ul>
 <p> <img height="330" src="img/geodynamics/well456.gif">
 </section>
-
-<section>
-   <h3>Observation time series </h3>
-<p>Pedestrian density from webcams
-<p> <img height="330" src="img/geodynamics/anna_amos_stc.jpg">
-<p><small>Petrasova A., Hipp J. A., Mitasova H. 2019. 
-<a href="https://www.mdpi.com/2220-9964/8/12/559">Visualization of Pedestrian Density Dynamics Using Data 
-Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
-</section>
-
-<section> <h3>Dynamic models from simulations</h3> </section>
 
 <section> <h3>Dynamic models from simulations</h3> 
 <ul>
 <li>Results of numerical modeling 
 <li>Well defined time step: depends on application, input data and numerical method
+<li>Challenge: coupled models of processes with different time steps
 </ul>
+<!--
 <br> <img height="400" src="img/geodynamics/lakef1994.gif">
+<p><small>simple model of water reservoir filling with uniform time step</small>
+-->
 </section>
 
 <section>
-<h3>Surface water flow simulations </h3>
-<p>Path sampling method: time step depends on flow velocity and resolution, seconds/minutes 
+<h3>Solar radiation</h3>
+Simulation of solar radiation during one day (summer solstice) with 30 minute time step at 1m spatial resolution
 <p>
-    <img width="45%" src="img/diffusion_flows/fanimwalk.gif">
-     &nbsp; &nbsp;
-    <img width="45%" src="img/diffusion_flows/fanimhhcolp.gif">
-<p><small><a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/II.6.8_Mitasova_044.pdf">
-Mitasova, Thaxton, Hofierka, McLaughlin, Moore, Mitas, 2005</a></small>
+    <img height="400" src="img/intro/summer_solstice_centennial.gif">
 </section>
 
 <section>
 <h3>Ultra-high resolution water flow </h3>
 <ul>
- <li> UAS-based surveys: cm-resolution DEMs
- <li>Path sampling simulations capture impact of microtopography, time step is fraction of a second
+<li>Time step depends on flow velocity and resolution 
+<li>UAS-based surveys: cm-resolution DEMs
+<li>Captures impact of microtopography, time step is fraction of a second
 </ul>
 <br>
     <img height="400" src="img/geodynamics/agisoft_jan.gif">
@@ -202,6 +211,7 @@ Jeziorska et al., 2016, Overalnd flow analysis using time series of UAS-derived 
 
 <section>
 <h3>Fire spread</h3>
+Simulation of fire spread at 1m spatial resolution with time step dependent on wind speed, generally in minutes
 <p>
     <img height="420" src="img/spread_fire_disease/fire_anim_JR.gif">
 </section>
@@ -212,68 +222,110 @@ Jeziorska et al., 2016, Overalnd flow analysis using time series of UAS-derived 
 </section>
 
 <section>
- <h3>Temporal data framework in GRASS</h3>
+ <h3>Temporal data framework in GRASS GIS</h3>
 <ul>
  <li>designed for massive series of satellite imagery or modeling outputs
- <li class="fragment">supports efficient processing, management and analysis of space-time data sets
+ <li class="fragment">efficient processing, management and analysis of space-time data sets
+<p>
  <li class="fragment"><b>space-time dataset</b> is a set of maps registered in a temporal database
 <!-- <li class="fragment">space-time dataset may represent a dynamic process-->
- <li class="fragment">individual maps represent the states of the dynamic system at a given time
-</ul>
-<br>
-<p class="fragment"> <small>
-Gebbert S., Pebesma E. 2014. A temporal GIS for field based environmental modeling. EMS 53, 1-12.
-<br>Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 1273-1292
-</small>
-</p>
-</section>
-
-<section>
-   <h3>Space-Time dataset types</h3>
-<ul>
- <li> raster: strds
- <li> vector (points, lines or areas): stvds
- <li> 3D raster: str3ds
+ <li class="fragment">individual maps with assigned <b>time-stamp</b> represent the state of a dynamic variable at a given time
 </ul>
 <p>
+<p class="fragment"> <small>
+<a href="https://www.sciencedirect.com/science/article/pii/S136481521300282X?via%3Dihub">
+Gebbert S., Pebesma E. 2014. A temporal GIS for field based environmental modeling. EMS 53, 1-12.</a>
 <br>
-<img width="95%" src="img/geodynamics/st_dataset.jpg">
+<a href="https://www.tandfonline.com/doi/full/10.1080/13658816.2017.1306862">
+Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 1273-1292</a>
+</small>
+</p>
 </section>
 
 <section>
    <h3>Time stamp type</h3>
 <b> Time stamp</b> assigns time to an individual map in the space-time data set
 <ul>
- <li><b>time instant</b> - snapshot at given time:<br> 2013-10-15 13:00:00 (absolute time)
- <li><b>time interval </b>- defined by start and end time: time period of a day, a month, or a year (relative time)
- <li>example: a single UAS survey represents a snapshot (state) which can be agreggated into time intervals
+ <li class="fragment"><b>time instant</b> - snapshot at a given time expressed as absolute time:
+    <br> 2013-10-15 13:00:00 (date time format)
+ <li class="fragment"><b>time interval </b>- defined by start and end time: time period of a day, a month, or a year
+ <li class="fragment">example: a single UAS survey represents a <b>snapshot</b> (e.g. elevation at the time of survey)
+  which can be agreggated into <b>time intervals</b> (e.g. monthly average elevation)
+ <li class="fragment">relative time expressed as value (e.g. years 1, 2, 3 or interval 3 years, useful also for non-temporal series)
 </ul>
 </section>
 
 <section>
-<h3>Multitemporal data timeline</h3>
+   <h3>Time stamp type</h3>
+<b> Timeline</b> illustrates different types of time stamp and the temporal relationship between the data sets
 <ul>
-<li>Multitemporal DEM for Jockey's Ridge dunes: 
-<ul>
-  <li>photogrammetry (1974-98),
-  <li>lidar (1999-2018),
-  <li>structure from motion from UAS imagery (2016-2018)
+ <li><b>time instant</b> - snapshot is shown as points
+ <li><b>time interval </b>- defined by start and end time, shown as thick line, 
+examples show intervals with gaps and overlapping intervals
 </ul>
+<img height="300" src="img/geodynamics/timeline_example.jpg">
+</section>
+
+<section>
+   <h3>Space-Time dataset types</h3>
+<p>
+<ul>
+ <li> space-time raster data set: <b>strds</b>
+ <li> space-time vector data set (points, lines or areas): <b>stvds</b>
+ <li> space-time 3D raster data set: <b>str3ds</b>
+</ul>
+<p>
+<img height="120" src="img/geodynamics/points_contours.jpg">
+<img height="120" src="img/geodynamics/points_lidar_gps.jpg">
+<p><small>subset of the vector (points) and raster (DEMs) space-time data sets for Jockey's Ridge</small>
+</section>
+
+<section>
+ <h3>Working with a space-time data set</h3>
+<p>
+Given a set of GRASS GIS maps with assigned time:
+<ul>
+ <li class="fragment">create empty space-time dataset 
+ <li class="fragment">register the existing maps in this space-time dataset
+ <li class="fragment">check/verify the properties of the dataset 
+ <li class="fragment">process, analyze, and visualize the space-time data 
+</ul>
+</p>
+</section>
+
+<section>
+<h3>Register maps and check data timeline</h3>
+<ul>
+<li>Given a set of DEMs for Jockey's Ridge dunes: 
+<ul>
+  <li>photogrammetry (1974, 1995, 1998),
+  <li>lidar (1999, 2001, 2007, 2008, 2009, 2012, 2015, 2017),
+  <li>structure from motion from UAS imagery (2016, 2018)
+</ul>
+register the raster maps as strds and check time line, spatial extents, per-cell elevation change
 </ul>
   <img height="100" src="img/geodynamics/timeline.png">
-   <img height="150" src="img/geodynamics/timeline3D.png">
+   <img height="150" src="img/geodynamics/jr_timeline3D.jpg">
 <br>
    <img height="130" src="img/geodynamics/temp_plot_leeward_pt.png">
    <img height="130" src="img/geodynamics/temp_plot_windward_pt.png">
 </section>
 
 <section>
-   <h3>Temporal count and intersection</h3>
+   <h3>Mapping common spatial extent </h3>
+Analyze spatial coverage of DEMs in the strds:
 <ul>
- <li>Count: number of maps (temporal snapshots) where the given cell has non-null value 
- <li>Intersection: grid cells with non-null values from each map in time series
+ <li><b>Count map</b>: number of maps where a grid cell has non-null value 
+ <li><b>Intersection map</b>: grid cells with non-null values from all maps in strds 
 </ul>
-<img height="400" src="img/geodynamics/surveycount13.jpg">
+<img height="380" src="img/geodynamics/surveycount13.jpg">
+</section>
+
+<section>
+   <h3>Visualize DEMs</h3>
+<p>Visualize the Jockey's Ridge strds as a 3D animation masked by the intersection map:  
+<p> <img height="380" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
+<p><small>Note that the visualization does not respect the variable time interval</small>
 </section>
 
 <section>
@@ -282,52 +334,80 @@ Gebbert S., Pebesma E. 2014. A temporal GIS for field based environmental modeli
 Per cell statistics computed for each cell over time:
 <ul>
  <li>mean and standard deviation
- <li>min, max elevation and range
+ <li>min, max value and range
  <li>time at minimum, time at maximum
- <li>linear regression: slopem offset, regr. coefficient
+ <li>linear regression: slope, offset, regr. coefficient
 </ul>
-<p class="small"> 
-Mitasova, H., Hardin, E., Overton, M., and Harmon, R.S., 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA.</p>
+<p>
+<small>
+<ul>
+   <li><a href="https://pubs.geoscienceworld.org/gsa/geosphere/article/7/6/1340/132498/Modeling-and-analysis-of-landscape-evolution-using">
+Starek MJ, et al. 2011, Modeling and analysis of landscape evolution using airborne, terrestrial, and laboratory laser scanning, Geosphere, 7(6), p. 1340-1356, doi:10.1130/GES00699.1</a>
+   <li><a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/MitasovaFinalGeoinf09.pdf">
+Mitasova, H. et al. 2009, New spatial measures of terrain dynamics derived from time series of lidar data, Proc. 17th Int. Conf. Geoinformatics, Fairfax, VA.</a>
+   <li><a href="http://link.springer.com/book/10.1007/978-1-4939-1835-5">
+Hardin, E., et al, 2014, GIS-based Analysis of Coastal Lidar Time-Series, Springer Briefs in Computer Science </a> 
+</ul>
+</small>
+</section>
+
+<section>
+<h3>Basic multitemporal DEMs analysis</h3>
+Given $n$ DEM snaphots $z(i,j,t_k)  \quad k=1, ..., n$, per-cell operation can be used to derive:
+<p>
+<ul>
+ <li class="fragment">Core surface: $z_{core}(i,j)=\min_k z(i,j,t_k)  \quad k=1, ..., n$
+ <li class="fragment">Envelope surface: $z_{env}(i,j)=\max_k z(i,j,t_k)  \quad k=1, ..., n$
+<p>
+ <li class="fragment">Time of max: $t_{max} (i,j) = t_l, \quad   {\rm where} \quad z(i,j,t_l) = z_{env}(i,j) $
+ <li class="fragment">Time of min: $t_{min} (i,j) = t_p, \quad   {\rm where} \quad z(i,j,t_p) = z_{core}(i,j)$
+</ul>
+<p><small>
+Core surface is the minimum elevation and envelope surface as the maximum elevation measured at each cell over the given time period,
+core defines the volume of sand that has not moved, envelope defines the space within which the dune surface evolved.
+</small>
 </section>
 
 <section>
    <h3>Basic multitemporal DEM analysis: core, envelope</h3>
-<ul>
- <li>Core surface: min. elevation measured for each cell
- <li>Envelope: max. elevation measured for each cell
-</ul>
+ East Jockey's Ridge dune: (a) time of elevation maximum map, (b) core, envelope and DEM surfaces
 <p>
     <img width="90%" src="img/geodynamics/Mit_TEC2011_fig1.jpg">
+</section>
+
+<section>
+<h3>Multitemporal DEMs: analysis</h3>
+Discrete changes - buildings lost or new:  
+<br>$z_{env}(i_c,j_c) - z_{core}(i_c,j_c) > h_b$
+<p>
+ <ul>
+  <li class="fragment">Lost structure: $t_{max} (i_l,j_l)  <  t_{min} (i_l,j_l)$
+  <li class="fragment">New structure: $t_{max} (i_l,j_l)  >  t_{min} (i_l,j_l)$
+  <li class="fragment">Shoreline band - shoreline from core and envelope
+ </ul>
+<p>
+<img class="fragment" height="350" src="img/geodynamics/NH_homes_picBot.png">
+&nbsp; &nbsp;
+<img class="fragment" height="350" src="img/geodynamics/NH_shoreband9608.png">
 </section>
 
 <section>
    <h3>Basic time series analysis: regression</h3>
 <ul>
  <li>applies to systematic monitoring with longer time series, with rate of change close to linear 
- <li>compute per cell linear regression analysis: map of regression slope and offset
+ <li>per cell linear regression analysis: map of regression slope and offset 
 </ul>
 <p>
     <img width="90%" src="img/geodynamics/NH_regrslope_E.jpg">
 </section>
 
 <section>
- <h3>Map algebra for time series</h3>
-<p>
-<ul>
-  <li>apply map algebra expression for each map in the time series at each grid cell
-  <li>output is new time series which is registered as a new space-time dataset
-  <li>this is different (and much simpler) from temporal map algebra
-</ul>
-</section>
-
-<section>
     <h3>Landform change: contours time series</h3>
-<small>Dune gradually split into smaller parabolic dunes: 
-<br>i 16m and 20m contours capture change but are hard to read
-</small>
-<br>   <img height="220" src="img/geodynamics/jr_74_2017_16mcontour.png"> 
-<img height="200" src="img/geodynamics/jr_74_2017_20mcontour.jpg"> 
-&nbsp; &nbsp; &nbsp; &nbsp;  <img height="120" src="img/geodynamics/jr_years_lg.png">
+Dune gradually split into smaller parabolic dunes: 
+<br> 16m and 20m contours capture change but are hard to read
+<p>   <img height="210" src="img/geodynamics/jr_74_2017_16mcontour.png"> 
+<img height="210" src="img/geodynamics/jr_74_2017_20mcontour.jpg"> 
+<img height="120" src="img/geodynamics/jr_years_lg.png">
 </section>
 
 <section >
@@ -339,6 +419,24 @@ is represented as isosurface: 16m and 20m </p>
 <img height="400" src="img/geodynamics/jr20/animation.gif">
 </section>
 
+<section>
+   <h3>Space-Time cube visualization</h3>
+<p>Pedestrian density from webcams 
+<p> <img height="330" src="img/geodynamics/anna_amos_stc.jpg">
+<p><small>Petrasova A., Hipp J. A., Mitasova H. 2019.
+<a href="https://www.mdpi.com/2220-9964/8/12/559">Visualization of Pedestrian Density Dynamics Using Data 
+Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
+</section>
+
+<section>
+ <h3>Map algebra for time series</h3>
+<p>
+<ul>
+  <li>map algebra expression is applied to each map in strds at each grid cell
+  <li>output is a new strds which is registered as a new space-time dataset
+  <li>this is different (and much simpler) from temporal map algebra
+</ul>
+</section>
 
 <section>
  <h3>Summary</h3>
@@ -348,7 +446,45 @@ is represented as isosurface: 16m and 20m </p>
 <li>we explored examples of models from observation data
 <li>we explored examples of models from numerical simulations
 <li>we introduced GRASS GIS temporal framework
+<li>we analyzed multitemporal elevation data
 </ul>
+</section>
+
+<section>
+ <h3>Bonus slides: multitemporal UAS DSMs</h3>
+<p>
+<ul>
+  <li>UAS-based DSM space-time raster data set and ts timeline
+  <li>strds with aggregated september data (average)
+</ul>
+  <img height="150" src="img/geodynamics/st_dataset.jpg">
+ <br> <img height="80" src="img/geodynamics/timeline_midpines15-18.png">
+  <img height="150" src="img/geodynamics/aggregated_sept.jpg">
+</section>
+
+<section>
+ <h3>Bonus slides: multitemporal UAS DSMs</h3>
+<p> Count and intersection
+<p><img height="350" src="img/geodynamics/series_overlap_count.jpg">
+  <img height="350" src="img/geodynamics/intersection.jpg">
+</section>
+
+<section>
+ <h3>Bonus slides: multitemporal UAS DSMs</h3>
+<p>
+<ul>
+  <li>core represents bare fields
+  <li>envelope represents maximum measured crop height
+</ul>
+<p>
+  <img height="350" src="img/geodynamics/min2_3d.jpg">
+  <img height="350" src="img/geodynamics/max2.jpg">
+</section>
+
+<section>
+ <h3>Bonus slides: multitemporal UAS DSMs</h3>
+  zoomed in envelope (max elevation) for the time series shows all areas where cars parked
+<p>  <img height="350" src="img/geodynamics/cars.jpg">
 </section>
 
 <!--
