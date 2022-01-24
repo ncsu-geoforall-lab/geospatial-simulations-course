@@ -308,11 +308,11 @@ blog post by A. Sinton
 <section>
  <h3>Random points</h3>
 <ul>
-<li>Randomly distributed in a given space
-<li>Random sampling of a given field, map, image, stratified sampling
-<li>Perturbated random point fields
-<li>Random points with spatial dependence - e.g. minimum distance appart
-<li>Random subsets of existing data for calibration and validation
+<li class="fragment">Randomly distributed points in a given space
+<li class="fragment">Random sampling of a given field, map, image, stratified sampling
+<li class="fragment">Perturbated random point fields
+<li class="fragment">Random points with spatial dependence - e.g. minimum distance appart
+<li class="fragment">Random subsets of existing data for calibration and validation
 </ul>
 </section>
 
@@ -320,14 +320,14 @@ blog post by A. Sinton
  <h3>Random points </h3>
 Impact of positional error on viewshed assessment from randomly distributed viewing points
 <p><img height="320" src="img/data_sim/randompts.jpg">
-<p><img height="320" src="img/data_sim/viewshed_cumul2dv4.jpg">
+<img height="320" src="img/data_sim/viewshed_cumul2dv4.jpg">
 </section>
 
 <section>
  <h3>Random points with perturbation </h3>
 Impact of positional error on viewshed assessment from randomly distributed viewing points: uniform random perturbation
 <p><img height="320" src="img/data_sim/randompts_perturb_uniform.jpg">
-<p><img height="320" src="img/data_sim/viewshed_cumulpert2dv4.jpg">
+<img height="320" src="img/data_sim/viewshed_cumulpert2dv4.jpg">
 </section>
 
 <section>
@@ -335,7 +335,7 @@ Impact of positional error on viewshed assessment from randomly distributed view
 Impact of positional error on viewshed assessment from randomly distributed viewing points: 
 perturbation with  normal distribution with $\mu = 0$ and $\sigma = 15$
 <p><img height="320" src="img/data_sim/randompts_perturb_normal_m0sig15.jpg">
-<p><img height="320" src="img/data_sim/viewshed_cumulpertg0_2dv4.jpg">
+<img height="320" src="img/data_sim/viewshed_cumulpertg0_2dv4.jpg">
 </section>
 
 <section>
@@ -343,20 +343,32 @@ perturbation with  normal distribution with $\mu = 0$ and $\sigma = 15$
 Impact of positional error on viewshed assessment from randomly distributed viewing points: 
 perturbation with  normal distribution with $\mu = 20$ and $\sigma = 7$ simulting additional systematic error
 <p><img height="320" src="img/data_sim/randompts_perturb_normal_m20sig7.jpg">
-<p><img height="320" src="img/data_sim/viewshed_cumul2dv4.jpg">
+<img height="320" src="img/data_sim/viewshed_cumul2dv4.jpg">
+</section>
+
+<section>
+ <h3>Random points with perturbation </h3>
+<ul>
+  <li>Impact of viewing point location and positional error and viewshed area:
+      run simulation with different configurations of viewing points
+  <li>Optimization of location and number of viewing points (e.g. to minimize the number 
+      of locations from which to scan an area using terrestrial lidar) see
+      <a href="https://doi.org/10.1080/01431161.2020.1752952">Starek, M.J., et al., 2020, Viewshed simulation and optimization for digital terrain modelling with terrestrial laser scanning, International Journal of Re-mote Sensing, 41:16, 6409-6426</a>
+</ul>
 </section>
 
 <section>
    <h3>Random patch generators</h3>
 <p>Generating synthetic land cover / land use maps
 <p>Circular growth or fractal 
+<p>patches with spatial dependence and geometry properties
 </section>
 
+<!--
 <section>
    <h3>Generating complex distributions with given properties</h3>
 <ul>
 <li>points with spatial interactions - inputs for ABM
-<li>patches with spatial dependence and geometry properties
 <li>time series generators - e.g., weather generators for continuous time simulations
 </ul>
 </section>
@@ -380,8 +392,8 @@ Lab experiment from the UAS course</a>
 <li>Tangible Landscape
 </ul>
 </section>
+-->
 
-<!--
 <section>
  <h3>Summary</h3>
 <ul>
@@ -389,8 +401,3 @@ Lab experiment from the UAS course</a>
 </ul>
 </section>
 
-<section>
- <h3>Reading, resources</h3>
-links
-</section>
--->
