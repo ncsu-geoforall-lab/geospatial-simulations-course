@@ -166,7 +166,7 @@ Profile and histograms of random fields:
 </section>
 
 <section>
-   <h3>Random errors</h3>
+   <h3>Simulating random errors</h3>
 Random gaussian field: $\mu = 0$m, $\sigma = 0.3$m
 <br> random measurement errors (noise)
 <p><img height="280" src="img/data_sim/gauss_surf_m0s03_3d.jpg">
@@ -175,26 +175,26 @@ Random gaussian field: $\mu = 0$m, $\sigma = 0.3$m
 
 <section>
    <h3>Simulation of DEM with noise</h3>
-<p><small>Elevation surface interpolated by smoothing splines</small>
+<p>Initial elevation surface interpolated by smoothing splines
 <p><img height="420" src="img/data_sim/elev_lid_smooth.jpg">
 </section>
 
 <section>
    <h3>Simulation of DEM with noise</h3>
-<p><small>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m added to the elevation surface:</small>
+<p>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m added to the elevation surface:
 <p><img height="420" src="img/data_sim/elev_lid_noise3d.jpg">
 </section>
 
 <section>
    <h3>Simulation of DEM with noise</h3>
-<p><small>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m and 
-spatial dependence d=10 added to the elevation surface:</small>
+<p>Gaussian random field with $\mu = 0$m and $\sigma = 0.3$m and 
+spatial dependence d=10 added to the elevation surface:
 <p><img height="420" src="img/data_sim/elev_lid_noisespat3d.jpg">
 </section>
 
 <section>
    <h3>Simulation of DEM with noise</h3>
-<p><small>DEM interpolated from the lidar point cloud with limited smoothing</small>
+<p>DEM interpolated from the lidar point cloud with limited smoothing
 <p><img height="420" src="img/data_sim/elev_lid_default.jpg">
 </section>
 
@@ -207,7 +207,7 @@ spatial dependence d=10 added to the elevation surface:</small>
 
 <section>
    <h3>Flow over DEM with noise</h3>
-<p><small>Spatial pattern of surface flow over noisy surface</small>
+<p><small>Spatial pattern of surface flow over surface with gaussian random noise</small>
 <p><img height="420" src="img/data_sim/accum5k_noise.jpg">
 </section>
 
@@ -219,7 +219,7 @@ spatial dependence d=10 added to the elevation surface:</small>
 
 <section>
    <h3>Flow over DEM with lidar noise</h3>
-<p><small>Spatial pattern of surface flow over lidar-based surface</small>
+<p><small>Spatial pattern of surface flow over lidar-based surface with NW-SE direction bias</small>
 <p><img height="420" src="img/data_sim/accum5k_liddef.jpg">
 </section>
 
@@ -294,24 +294,56 @@ how would you adjust your simulated data?
 <p><img height="420" src="img/data_sim/accum5k_noise_frac.jpg">
 </section>
 
+<!--
 <section>
    <h3>Space filling curves</h3>
 Special cases of fractal constructions
 used for efficient management of multidimensional data
-<a href-"https://en.wikipedia.org/wiki/Space-filling_curve">Space-filling curve on wikipedia</a>
+<a href="https://en.wikipedia.org/wiki/Space-filling_curve">Space-filling curve in wikipedia</a>
 <a href="https://blog.zen.ly/geospatial-indexing-on-hilbert-curves-2379b929addc">Geospatial indexing on Hilbert curves</a>, 
 blog post by A. Sinton
 </section>
+-->
 
 <section>
  <h3>Random points</h3>
 <ul>
 <li>Randomly distributed in a given space
-<li>Random sampling of a given field, map, image
+<li>Random sampling of a given field, map, image, stratified sampling
 <li>Perturbated random point fields
 <li>Random points with spatial dependence - e.g. minimum distance appart
 <li>Random subsets of existing data for calibration and validation
 </ul>
+</section>
+
+<section>
+ <h3>Random points </h3>
+Impact of positional error on viewshed assessment from randomly distributed viewing points
+<p><img height="320" src="img/data_sim/randompts.jpg">
+<p><img height="320" src="img/data_sim/viewshed_cumul2dv4.jpg">
+</section>
+
+<section>
+ <h3>Random points with perturbation </h3>
+Impact of positional error on viewshed assessment from randomly distributed viewing points: uniform random perturbation
+<p><img height="320" src="img/data_sim/randompts_perturb_uniform.jpg">
+<p><img height="320" src="img/data_sim/viewshed_cumulpert2dv4.jpg">
+</section>
+
+<section>
+ <h3>Random points with perturbation </h3>
+Impact of positional error on viewshed assessment from randomly distributed viewing points: 
+perturbation with  normal distribution with $\mu = 0$ and $\sigma = 15$
+<p><img height="320" src="img/data_sim/randompts_perturb_normal_m0sig15.jpg">
+<p><img height="320" src="img/data_sim/viewshed_cumulpertg0_2dv4.jpg">
+</section>
+
+<section>
+ <h3>Random points with perturbation </h3>
+Impact of positional error on viewshed assessment from randomly distributed viewing points: 
+perturbation with  normal distribution with $\mu = 20$ and $\sigma = 7$ simulting additional systematic error
+<p><img height="320" src="img/data_sim/randompts_perturb_normal_m20sig7.jpg">
+<p><img height="320" src="img/data_sim/viewshed_cumul2dv4.jpg">
 </section>
 
 <section>
