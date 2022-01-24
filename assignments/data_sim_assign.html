@@ -244,15 +244,20 @@ r.report map=cumulative units=p
 r.report map=cumulative_perturb units=p
 </code></pre>
 <span class="question">What is the impact of error in point position on total viewshed area?  </span>
+<span class="question">What is result for the perturbation with normal distribution? </span> (read the manual page to leaern how to run it).
 <p>
-Additional commands you can use to simulate simulate point data in raster or vector representation:
+Read <a href="https://doi.org/10.1080/01431161.2020.1752952">Starek, M.J., et al., 2020, Viewshed simulation and optimization for digital terrain modelling with terrestrial laser scanning, International Journal of Re-mote Sensing, 41:16, 6409-6426</a> to learn how simulated annealing can be used
+to find optimal locations for a terrestrial laser scanner to cover the most area.
+<p>
+Additional commands you can use to simulate point data in raster or vector representation:
 r.random, r.random.cells, r.sample.category, v.perturb, v.random, v.kcv 
 
 <h3> Generating patches </h3>
-Note: this section is optional - we are testing these add-on modules here.
 Create several landscape cover scenarios, for example, to explore the following scenario - 
 if we need to convert 30% of forest to development, is it better to create a single compact area
-or many smaller areas?
+or many smaller areas? Read the manual pages for
+<a href="https://grass.osgeo.org/grass80/manuals/addons/r.pi.html">r.pi </a> to understand 
+what the commands perform and feel free to change the examples below to get more realistics results.
 
 <pre><code>
 g.extension r.pi
