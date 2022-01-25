@@ -306,43 +306,43 @@ blog post by A. Sinton
 -->
 
 <section>
- <h3>Random points</h3>
+ <h3>Random points simulation</h3>
 <ul>
 <li class="fragment">Randomly distributed points in a given space
 <li class="fragment">Random sampling of a given field, map, image, stratified sampling
 <li class="fragment">Perturbated random point fields
 <li class="fragment">Random points with spatial dependence - e.g. minimum distance appart
-<li class="fragment">Random subsets of existing data for calibration and validation
+<li class="fragment">Random subsets of existing point data for calibration and validation
 </ul>
 </section>
 
 <section>
  <h3>Random points </h3>
 Impact of positional error on viewshed assessment: given viewing points and map showing number of points from which an area is visible
-<p><img height="360" src="img/data_sim/randompts.jpg"> &nbsp;
-<img height="360" src="img/data_sim/viewshed_cumul2dv4.jpg">
+<p><img height="380" src="img/data_sim/randompts.jpg"> &nbsp;
+<img height="380" src="img/data_sim/viewshed_cumul2dv4.jpg">
 </section>
 
 <section>
  <h3>Random points with perturbation </h3>
-New set of viewing points after uniform random perturbation and the resulting visibility map
-<p><img height="360" src="img/data_sim/randompts_perturb_uniform.jpg"> &nbsp;
-<img height="360" src="img/data_sim/viewshed_cumulpert2dv4.jpg">
+New set of viewing points (red square) after uniform random perturbation ($d=20m$) and the resulting visibility map
+<p><img height="380" src="img/data_sim/randompts_perturb_uniform.jpg"> &nbsp;
+<img height="380" src="img/data_sim/viewshed_cumulpert2dv4.jpg">
 </section>
 
 <section>
  <h3>Random points with perturbation </h3>
-Viewing points after perturbation with  normal distribution with $\mu = 0$ and $\sigma = 15$ and the visibility map
-<p><img height="360" src="img/data_sim/randompts_perturb_normal_m0sig15.jpg"> &nbsp;
-<img height="360" src="img/data_sim/viewshed_cumulpertg0_2dv4.jpg">
+Viewing points after perturbation with  normal distribution ($\mu = 0m$, $\sigma = 15m$) and the visibility map
+<p><img height="380" src="img/data_sim/randompts_perturb_normal_m0sig15.jpg"> &nbsp;
+<img height="380" src="img/data_sim/viewshed_cumulpertg0_2dv4.jpg">
 </section>
 
 <section>
  <h3>Random points with perturbation </h3>
-Viewing points after perturbation with  normal distribution with $\mu = 20$ and $\sigma = 7$ simulating 
+Viewing points after perturbation with  normal distribution ($\mu = 20m$, $\sigma = 7m$) simulating 
 combined systematic and random error
-<p><img height="360" src="img/data_sim/randompts_perturb_normal_m20sig7.jpg"> &nbsp;
-<img height="360" src="img/data_sim/viewshed_cumul2dv4.jpg">
+<p><img height="380" src="img/data_sim/randompts_perturb_normal_m20sig7.jpg"> &nbsp;
+<img height="380" src="img/data_sim/viewshed_cumul2dv4.jpg">
 </section>
 
 <section>
@@ -351,8 +351,10 @@ combined systematic and random error
   <li>Impact of viewing point location and positional error and viewshed area:
       run simulation with different configurations of viewing points
   <li>Optimization of location and number of viewing points (e.g. to minimize the number 
-      of locations from which to scan an area using terrestrial lidar) see
-      <a href="https://doi.org/10.1080/01431161.2020.1752952">Starek, M.J., et al., 2020, Viewshed simulation and optimization for digital terrain modelling with terrestrial laser scanning, International Journal of Re-mote Sensing, 41:16, 6409-6426</a>
+      of locations from which to scan an area using terrestrial lidar) see the method using 
+      simulated annealing applied to our data set <br>
+<small>
+      <a href="https://doi.org/10.1080/01431161.2020.1752952">Starek, M.J., et al., 2020, Viewshed simulation and optimization for digital terrain modelling with terrestrial laser scanning, International Journal of Re-mote Sensing, 41:16, 6409-6426</a></small>
 </ul>
 </section>
 
