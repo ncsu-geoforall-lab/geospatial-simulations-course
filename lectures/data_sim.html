@@ -201,32 +201,32 @@ spatial dependence d=10 added to the elevation surface:
 
 <section>
    <h3>Flow over smooth DEM</h3>
-<p><small>Spatial pattern of surface flow over smooth surface</small>
+<p>Spatial pattern of surface flow over smooth DEM
 <p><img height="420" src="img/data_sim/accum5k.jpg">
 </section>
 
 <section>
    <h3>Flow over DEM with noise</h3>
-<p><small>Spatial pattern of surface flow over surface with gaussian random noise</small>
+<p>Spatial pattern of surface flow over DEM with gaussian random noise
 <p><img height="420" src="img/data_sim/accum5k_noise.jpg">
 </section>
 
 <section>
    <h3>Flow over DEM with noise</h3>
-<p><small>Spatial pattern of surface flow over noisy surface with spatial dependency</small>
+<p>Surface flow over noisy DEM with spatial dependency
 <p><img height="420" src="img/data_sim/accum5k_noise_spat.jpg">
 </section>
 
 <section>
    <h3>Flow over DEM with lidar noise</h3>
-<p><small>Spatial pattern of surface flow over lidar-based surface with NW-SE direction bias</small>
+<p>Surface flow over lidar-based DEM with NW-SE direction bias</small>
 <p><img height="420" src="img/data_sim/accum5k_liddef.jpg">
 </section>
 
 <section>
    <h3>Lidar point cloud</h3>
-<p><small>Spatial pattern of bare ground lidar points</small>
-<p><img height="420" src="img/data_sim/elev_lid_points.jpg">
+<p>Spatial pattern of bare ground lidar points
+<p><img height="440" src="img/data_sim/elev_lid_points.jpg">
 </section>
 
 <!--
@@ -255,8 +255,9 @@ how would you adjust your simulated data?
 <section>
    <h3>Deterministic fractals</h3>
 <ul>
-<li>Self-similar: scaled down and rotated copies of themselves
-<li>Simple algorithms: particular mappig is repeated in recursive scheme
+   <li>Self-similar: scaled down and rotated copies of themselves
+   <li>Simple algorithms: particular mappig is repeated in recursive scheme
+   <li><a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">Fractals by Hausdorff dimension</a>
 </ul>
 </section>
 
@@ -284,13 +285,13 @@ how would you adjust your simulated data?
 
 <section>
    <h3>DEM with fractal-based noise</h3>
-<p><small>Fractal-based noise added to the elevation surface </small>
+<p>Fractal-based noise added to the elevation surface 
 <p><img height="420" src="img/data_sim/elev_lid_noisefractal3d.jpg">
 </section>
 
 <section>
    <h3>Flow over DEM with fractal noise</h3>
-<p><small>Spatial pattern of surface flow over lidar-based surface</small>
+<p>Spatial pattern of surface flow over lidar-based surface
 <p><img height="420" src="img/data_sim/accum5k_noise_frac.jpg">
 </section>
 
@@ -319,37 +320,39 @@ blog post by A. Sinton
 <section>
  <h3>Random points </h3>
 Impact of positional error on viewshed assessment: given viewing points and map showing number of points from which an area is visible
-<p><img height="380" src="img/data_sim/randompts.jpg"> &nbsp;
-<img height="380" src="img/data_sim/viewshed_cumul2dv4.jpg">
+<p><img height="400" src="img/data_sim/randompts.jpg"> &nbsp;
+<img height="400" src="img/data_sim/viewshed_cumul2dv4.jpg">
 </section>
 
 <section>
  <h3>Random points with perturbation </h3>
 New set of viewing points (red square) after uniform random perturbation ($d=20m$) and the resulting visibility map
-<p><img height="380" src="img/data_sim/randompts_perturb_uniform.jpg"> &nbsp;
-<img height="380" src="img/data_sim/viewshed_cumulpert2dv4.jpg">
+<p><img height="400" src="img/data_sim/randompts_perturb_uniform.jpg"> &nbsp;
+<img height="400" src="img/data_sim/viewshed_cumulpert2dv4.jpg">
 </section>
 
 <section>
  <h3>Random points with perturbation </h3>
 Viewing points after perturbation with  normal distribution ($\mu = 0m$, $\sigma = 15m$) and the visibility map
-<p><img height="380" src="img/data_sim/randompts_perturb_normal_m0sig15.jpg"> &nbsp;
-<img height="380" src="img/data_sim/viewshed_cumulpertg0_2dv4.jpg">
+<p><img height="400" src="img/data_sim/randompts_perturb_normal_m0sig15.jpg"> &nbsp;
+<img height="400" src="img/data_sim/viewshed_cumulpertg0_2dv4.jpg">
 </section>
 
 <section>
  <h3>Random points with perturbation </h3>
 Viewing points after perturbation with  normal distribution ($\mu = 20m$, $\sigma = 7m$) simulating 
 combined systematic and random error
-<p><img height="380" src="img/data_sim/randompts_perturb_normal_m20sig7.jpg"> &nbsp;
-<img height="380" src="img/data_sim/viewshed_cumul2dv4.jpg">
+<p><img height="400" src="img/data_sim/randompts_perturb_normal_m20sig7.jpg"> &nbsp;
+<img height="400" src="img/data_sim/viewshed_cumul2dv4.jpg">
 </section>
 
 <section>
  <h3>Random points with perturbation </h3>
+<p>
 <ul>
-  <li>Impact of viewing point location and positional error and viewshed area:
+  <li>Impact of viewing point location and positional error on viewshed area:
       run simulation with different configurations of viewing points
+<p>
   <li>Optimization of location and number of viewing points (e.g. to minimize the number 
       of locations from which to scan an area using terrestrial lidar) see the method using 
       simulated annealing applied to our data set <br>
@@ -398,7 +401,10 @@ Lab experiment from the UAS course</a>
 <section>
  <h3>Summary</h3>
 <ul>
-<li>we have defined types of models
+   <li>we discussed when we need data simulation
+   <li>we defined deterministic, random, and fractal surfaces
+   <li>we have added different type of noise to DEM and shown its impact on flow patterns
+   <li>we explained simulation of point data and patches and their application
 </ul>
 </section>
 
