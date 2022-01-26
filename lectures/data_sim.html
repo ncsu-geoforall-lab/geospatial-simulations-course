@@ -248,7 +248,7 @@ how would you adjust your simulated data?
     <ul>
     <li><a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">Fractals by Hausdorff dimension</a>
     <li><a href="https://www.wired.com/2010/09/fractal-patterns-in-nature/">Fractal patterns in nature</a>
-    <li><a href="https://www.wired.com/2012/01/the-fractal-dimension-of-zip-codes/">Fractal dimension of zipcodes</a>
+<!--    <li><a href="https://www.wired.com/2012/01/the-fractal-dimension-of-zip-codes/">Fractal dimension of zipcodes</a>-->
     </ul>
 </section>
 
@@ -307,12 +307,13 @@ blog post by A. Sinton
 -->
 
 <section>
- <h3>Random points simulation</h3>
+ <h3>Random points simulation and sampling</h3>
 <ul>
-<li class="fragment">Randomly distributed points in a given space
-<li class="fragment">Random sampling of a given field, map, image, stratified sampling
-<li class="fragment">Perturbated random point fields
+<li class="fragment">Randomly distributed points in a given space: coordinates $(x_i,y_i)$ are random numbers from a given distribution
 <li class="fragment">Random points with spatial dependence - e.g. minimum distance appart
+<li class="fragment">Random sampling of a given field, map, image
+<li class="fragment">Stratified random sampling: preserves the distribution of values in the sampled data set
+<li class="fragment">Perturbated random point fields
 <li class="fragment">Random subsets of existing point data for calibration and validation
 </ul>
 </section>
@@ -343,7 +344,7 @@ Viewing points after perturbation with  normal distribution ($\mu = 0m$, $\sigma
 Viewing points after perturbation with  normal distribution ($\mu = 20m$, $\sigma = 7m$) simulating 
 combined systematic and random error
 <p><img height="400" src="img/data_sim/randompts_perturb_normal_m20sig7.jpg"> &nbsp;
-<img height="400" src="img/data_sim/viewshed_cumul2dv4.jpg">
+<img height="400" src="img/data_sim/viewshed_cumulpertgm20_2dv2.jpg">
 </section>
 
 <section>
@@ -363,9 +364,14 @@ combined systematic and random error
 
 <section>
    <h3>Random patch generators</h3>
-<p>Generating synthetic land cover / land use maps
-<p>Circular growth or fractal 
-<p>patches with spatial dependence and geometry properties
+<p>Generating synthetic land cover / land use mapso
+<ul>
+<li>basic geometric objects (e.g. circular growth) with a stochastic component, or fractal 
+<li>patches with spatial dependence 
+<li>patches based on perturbation and/or growth of existing patches
+<li><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12827">Wegmann, M., et al. (2018). r. pi: A grass gis package for semi‐automatic spatial pattern analysis of remotely sensed land cover data. Methods in Ecology and Evolution, 9(1), 191-199.</a>
+<li><a href="https://grass.osgeo.org/grass80/manuals/addons/r.pi.html">Raster patch index module </a>
+</ul>
 </section>
 
 <!--
