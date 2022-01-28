@@ -94,7 +94,7 @@ Gaussian distribution around the mean=0 with sigma=0.3, and spatially dependent 
 distance 10m. Then we add these noise surfaces to our elevation surface: 
 
 <pre><code>
-g.region rural_1m
+g.region rural_1m -p
 r.surf.random out=random_neg3_3 min=-3 max=3
 r.colors random_neg3_3 co=bcyr
 d.legend -v -s -d random_neg3_3 at=5,50,7,10
@@ -176,6 +176,7 @@ Then generate the series, register them and visualize, change color table, or ru
 Run watershed analysis on the final surfaces.
 
 <pre><code>
+g.region rural_1m -p
 r.surf.fractal out=fractal_dem_d290 dim=2.90 n=10
 r.info fractal_dem_d290
 t.create output=fractal_dem_290 type=strds temporaltype=relative title="Fractal DEMs with d=2.90" description="Generated data"
