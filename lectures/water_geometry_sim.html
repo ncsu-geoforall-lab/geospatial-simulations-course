@@ -15,8 +15,8 @@
    <li>concept of geometry driven flow and spread
    <li>surface gradient and flowlines
    <li>flat areas and depressions
-   <li>methods for flow routing on raster DEMs
-   <li>flooding as spread
+   <li>methods for flow routing on raster surfaces
+   <li>inundation flooding as spread
    <li>height above the nearest drainage technique
 </ul>
 </section>
@@ -25,11 +25,11 @@
    <h3>Geometry driven flow simulations</h3>
 <p>
 <ul>
-<li class="fragment">special case of process based, deterministic modeling
-<li class="fragment">focus on spatial pattern, steady state
-<li class="fragment">flowtracing or flooding over complex surfaces
-<li class="fragment">controled by elevation surface represented as DEM
-<li class="fragment">in optimization problems: cost surface
+<li class="fragment">simplified cases of process based, deterministic modeling focus on spatial pattern
+<li class="fragment">flow of mass, biological or anthropogenic flows
+<li class="fragment">flow over physical surfaces (elevation) or abstract cost surfaces
+<li class="fragment">example: water flow pattern over complex terrain
+<li class="fragment">example: in optimization problems using cost surface to find least cost path
 </ul>
 </section>
 
@@ -39,12 +39,12 @@
 <ul>
 <li class="fragment">Surface water flow - overland flow accumulation
 <li class="fragment">Flooding / inundation - spread of rising water level
-<li class="fragment">Coupled inundation + overland flow 
-<li class="fragment">Coupled storm surge + inundation + overland flow
+<li class="fragment">Coupled: inundation + overland flow 
+<li class="fragment">Coupled: storm surge + inundation + overland flow
 </ul>
-<p class="fragment">
-<img height="260" src="img/water_geometry/accum_5Kmfd.jpg">
-<img height="260" src="img/water_geometry/floodedarea.jpg">
+<p>
+<img class="fragment" height="260" src="img/water_geometry/accum_5Kmfd.jpg">
+<img class="fragment" height="260" src="img/water_geometry/floodedarea.jpg">
 <p class="fragment">
 These processes are controled by elevation surface
 </section>
@@ -59,10 +59,10 @@ These processes are controled by elevation surface
 <p>
  <li class="fragment">flow over this surface is driven by  <b>surface gradient</b> 
 <p>
-$$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
+$$ \nabla f = \left( {\partial z \over \partial x}, {\partial z \over \partial y} \right) = (f_x, f_y)$$
 <p>
  <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)$
- <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$  
+ <li class="fragment"> $\nabla f$ is a vector in the direction of <b>largest increase in $z$ </b>  
  <li class="fragment">direction and magnitude of flow velocity over complex surface is controled 
 by the surface gradient field $\nabla f$.  
 </ul>
@@ -71,21 +71,18 @@ by the surface gradient field $\nabla f$.
 
 <section>
    <h3>Gradient vector: slope and aspect</h3>
-<p>
-<small>
 <ul>
- <li>$- \nabla f$: vector in the steepest slope direction (aspect),
-  magnitude is slope steepness
- <li class="fragment">slope $\beta$ and aspect $\alpha$: 
-<p>
+ <li>$- \nabla f$ is a vector in the steepest slope direction - aspect,$\alpha$,
+ <li> its magnitude (length) is slope steepness $\beta$:
+</ul>
 $$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2}$$
 $$\alpha^\circ = {\arccos} \left( -f_y \over \sqrt{f_x^2+f_y^2} \right) $$
+<small>
 <li class="fragment">we can compute gradient using slope and aspect angle 
 <p>
 $$ f_x = \tan \beta . \cos \alpha, \qquad f_y = \tan \beta . \sin \alpha$$
-</ul>
 <p>
-$$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right), \; z = f(x,y)$$
+$$(f_x, f_y) = \left( {\partial z \over \partial x}, {\partial z \over \partial y} \right), \; z = f(x,y)$$
 </small>
 </section>
 
@@ -153,9 +150,8 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 
 <section>
    <h3>Flow routing over complex surfaces</h3>
-<p>D-inf vector-based algorithm for generating flowlines
-<p>flowlines are perpendicular to contours
-<img height="380" src="img/water_geometry/rflowfigure.jpg">
+<p>D-inf vector-based algorithm for generating flowlines which are perpendicular to isolines
+<p><img height="380" src="img/water_geometry/rflowfigure.jpg">
 <img height="380" src="img/water_geometry/flowlines_and_contours.png">
 </section>
 
