@@ -82,7 +82,7 @@ by the surface gradient field $\nabla f$.
 <section>
    <h3>Surface gradient</h3>
 <p>Gradient vector field: direction and magnitude of the <b>largest change in $z$ </b>
-<img height="400" src="img/water_geometry/gradient_elev.png">
+<p><img height="400" src="img/water_geometry/gradient_elev.png">
 </section>
 
 <section>
@@ -146,6 +146,7 @@ $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1
 
 <section>
    <h3>Flow routing over complex surfaces</h3>
+<p>
 <ul>
 <li>flowline - path of a single drop following gradient, 
 <p>
@@ -217,6 +218,26 @@ passing through each grid cell: flowaccumulation
 <p class="fragment">
 <img height="350" src="img/water_geometry/accum_runoffuni_30m3d.jpg">
 <img height="350" src="img/water_geometry/accum_runoffvar_30m3d.jpg">
+<p><small>Note that the flow accumulation in some of the rivers cannot be used to estimate peak flow because the flow is not routed 
+through the entire watershed - upper part of the contributing area is outside the region</small>
+</section>
+
+<section>
+   <h3>Stream extraction</h3>
+<ul>
+ <li class="fragment">Automated stream mapping: extracting connected stream network from flow accumulation map
+ <li class="fragment">Stream raster map is derived using map algebra based on flow accumulation threshold
+ <li class="fragment">Result is converted to vector representation of a connected stream network
+ <li class="fragment">Stream origin is dynamic, often driven by groundwater: 
+additional information is needed for accurate identification
+</ul>
+</section>
+
+<section>
+   <h3>Stream extraction</h3>
+Flow accumulation from 30m NED using SFD D8 method, threshold accumulation: 100 cells,
+and a vectorized extracted stream network 
+<p><img height="380" src="img/flow_erosion/stream_extract.jpg">
 </section>
 
 <section>
@@ -246,6 +267,13 @@ passing through each grid cell: flowaccumulation
 </section>
 
 <section>
+   <h3>Depressions filling: lidar DEM</h3>
+Depressions in lidar-based DEM and flow accumulation using DEM filling
+<p><img height="400" src="img/water_geometry/depressions_lidardem.jpg">
+<p><small>Many depressions are artificial lakes where bridges or roads create dams</small>
+</section>
+
+<section>
    <h3>Handling depressions</h3>
 Filling
 <p><img height="360" src="img/water_geometry/depressions1.png">
@@ -270,13 +298,6 @@ Filling, carving, hybrid, least cost path
 </section>
 
 <section>
-   <h3>Depressions filling: lidar DEM</h3>
-Depressions in lidar-based DEM and flow accumulation using DEM filling
-<p><img height="400" src="img/water_geometry/depressions_lidardem.jpg">
-<p><small>Many depressions are artificial lakes where bridges or roads create dams</small>
-</section>
-
-<section>
    <h3>Depressions filling: radar DSM</h3>
 <p>Radar (SRTM, IFSARE) DSM include vegetation surface leading to complex, nested depressions
 <p><img height="360" src="img/water_geometry/depressions_ifsare.jpg">
@@ -284,6 +305,7 @@ Depressions in lidar-based DEM and flow accumulation using DEM filling
 <p><small>Filling alters elevation in large areas</small>
 </section>
 
+<!--
 <section>
    <h3>Depressions: algorithm comparison </h3>
 <p>
@@ -293,6 +315,7 @@ Depressions in lidar-based DEM and flow accumulation using DEM filling
 </ul>
 <p><img height="350" src="img/water_geometry/lcp_fill1_fill2_compare.jpg">
 </section>
+-->
 
 <section>
    <h3>Depressions: LCP issues </h3>
@@ -418,6 +441,17 @@ and the the cell on the stream into which the cell drains.
 </ul>
 <p><img height="330" src="img/intro/FIMAN_swiftcreek_scenario.jpg">
 <p><small><a href="https://fiman.nc.gov/fiman/#">Flood inundation mapping and alert network</a></small>
+</section>
+
+<section>
+ <h3>Summary</h3>
+<ul>
+<li class="fragment">we have defined surface gradient and how to compute it from a raster surface
+<li class="fragment">we have learned about methods for computing flow direction (D8, Dinf) and flow routing SFD, MFD
+<li class="fragment">we discussed flow through flat areas and depressions
+<li class="fragment">we have applied flow routing to extract streams 
+<li class="fragment">we have learned about methods to map inundation flooding 
+</ul>
 </section>
 
 
