@@ -23,10 +23,10 @@
 <section>
     <h3>Problem formulation</h3>
 <p>In previous units we generated DEMs with simulated noise
-by adding random values to the DEM with:
+by adding one realization of random values to the DEM with:
 <ul>
   <li class="fragment">uniform distribution
-  <li class="fragment">gaussian distribution
+  <li class="fragment">Gaussian distribution
   <li class="fragment">distribution with spatial autocorrelation
   <li class="fragment">fractal
 </ul>
@@ -48,14 +48,28 @@ due to uncertainty in elevation values?
 
 <section>
     <h3>Problem formulation</h3>
-<p>To quantitatively evaluate uncertainty in parameters derived from a DEM     
-we can generate multiple realizations of a DEM by starting with different seed
-<p class="fragment">
-This approach does not take into account the spatial dependency of the elevation values in our DEM
-<p class="fragment">
-We can use <b>geostatistical simulation</b> to generate multiple DEM realizations and use them
-to estimate error propagation in derived variables
+<ul>
+   <li>To quantitatively evaluate uncertainty in parameters derived from a DEM     
+  we can generate multiple realizations of a DEM by starting with different seed
+  <li class="fragment">This approach does not take into account 
+  the spatial dependency of the elevation values in our data
+  <li class="fragment">
+  We can use <b>geostatistical simulation</b> to generate multiple DEM realizations and use them
+  to estimate error propagation in derived variables
+</section>
 
+<section>
+    <h3>Computing the surface model: gridding</h3>
+From scattered points (red) to a regular grid (blue)
+<p>
+<img height="360px" src="img/geostats/elevrandpts.jpg">
+<img height="360px" src="img/geostats/pointstogrid.jpg">
+<p>
+<!--
+<small>Interpolation: distance between grid points similar to average distance between given points
+<p>Simulation: distance between grid points can be much smaller than distance between given points
+</small>
+-->
 </section>
 
 <section>
@@ -84,14 +98,12 @@ Given $m$-points $(x_i, y_i, z_i), i=1,m$
 <br>find such $F(x,y)$ that for each $i=1,m$
 <p>
            $$z_i=F(x_i,y_i) + e(x_i,y_i)$$
-<br>
-$$
-F(r) = T(r) + \sum_i^m \lambda_i R(r,r_i)
-$$
+
+$$ F(r) = T(r) + \sum_i^m \lambda_i R(r,r_i) $$
 <small>
 <ul>
 <li> $r = (x,y)$ is unsampled point and $r_i=(x_i,y_i)$ is a measured point
-<li>$T(r)$ is trend (low order polynomial),
+<li>$T(r)$ is trend (low order polynomial)
 <li>$λ_i$ are coefficients computed by solving a system of linear equations 
 <li>$R(r,r_i)$ is a function of distance between unsampled and measured points (e.g. radial basis function, model variogram)
 <li>$e(r_i)$ is estimate of measurement error
@@ -102,10 +114,27 @@ $$
 
 <section>
     <h3>Computing the surface model</h3>
-From scattered points (red) to regular grid (blue)
+The problem of finding $F(x,y,)$ that passes through (or close to) the given points does not have a unique solution so additional conditions are used.
+<p class="fragment">
+<img height="440px" src="img/geostats/interp1d.gif">
+</section>
+
+<section>
+    <h3>Interpolation or simulation?</h3>
+<ul>
+<li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations
+<li class="fragment">Simulation: we use $F(x,y)$ to condition our simulation of a <b>more complex surface</b>
+than what we could generate using interpolation from the given points
+</ul>
+</section>
+
+<section>
+    <h3>Spatial interpolation</h3>
+Example of using smoothing spline with tension:
 <p>
-<img height="360px" src="img/geostats/elevrandpts.jpg">
-<img height="360px" src="img/geostats/pointstogrid.jpg">
+<img height="360px" src="img/geostats/lidarmrpts3dcolored.jpg">
+<img height="360px" src="img/data_sim/elev_lid_default.jpg">
+<img height="360px" src="img/data_sim/elev_lid_smooth.jpg">
 <p>
 <!--
 <small>Interpolation: distance between grid points similar to average distance between given points
@@ -113,25 +142,6 @@ From scattered points (red) to regular grid (blue)
 </small>
 -->
 </section>
-
-<section>
-    <h3>Interpolation or simulation?</h3>
-<ul>
-<li class="fragment">The problem does not have a unique solution so additional conditions are used.
-<li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations
-<li class="fragment">Simulation: we use $F(x,y)$ to condition our simulation of a more complex surface
-</ul>
-</section>
-
-<!--
-<section>
-    <h3>Multiple solutions</h3>
-<p class="fragment">
-<img height="440px" src="img/geostats/interp1d.gif">
-$$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
-<p class="fragment"><small>draw simulation on the board</small>
-</section>
--->
 
 <section>
     <h3>Geostatistical simulations</h3>
