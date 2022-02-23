@@ -44,6 +44,7 @@ Patterns of flow accumulation from noisy DEMs
 <img height="210" src="img/data_sim/accum5k_noise_spat.jpg">
 <p>How to quantify uncertainty in the spatial pattern of the modeled variable
 due to uncertainty in elevation values?
+<p>Where is the high probability of a stream?
 </section>
 
 <section>
@@ -54,12 +55,12 @@ due to uncertainty in elevation values?
   <li class="fragment">This approach does not take into account 
   the spatial dependency of the elevation values in our data
   <li class="fragment">
-  We can use <b>geostatistical simulation</b> to generate multiple DEM realizations and use them
+  We can use <b>geostatistical conditional simulation</b> to generate multiple DEM realizations and use them
   to estimate error propagation in derived variables
 </section>
 
 <section>
-    <h3>Computing the surface model: gridding</h3>
+    <h3>Computing the surface model</h3>
 From scattered points (red) to a regular grid (blue)
 <p>
 <img height="360px" src="img/geostats/elevrandpts.jpg">
@@ -85,19 +86,15 @@ See GIS582 Spatial interpolation topic</a></small>
 <li class="fragment">if the measured data are limited and we know statistical properties of the distribution,
 we can use <b>simulation</b>
 </ul>
-<p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations 
-of a thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
-determined by a roughness penalty (smoothness seminorm)
-see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_1999_2005.pdf">Mitas 1999</a></small>
 </section>
 
 <section>
-    <h3>Computing the surface model</h3>
+    <h3>Spatial interpolation</h3>
 <p>
 Given $m$-points $(x_i, y_i, z_i), i=1,m$ 
 <br>find such $F(x,y)$ that for each $i=1,m$
 <p>
-           $$z_i=F(x_i,y_i) + e(x_i,y_i)$$
+           $$z_i=F(x_i,y_i)$$
 
 $$ F(r) = T(r) + \sum_i^m \lambda_i R(r,r_i) $$
 <small>
@@ -106,17 +103,192 @@ $$ F(r) = T(r) + \sum_i^m \lambda_i R(r,r_i) $$
 <li>$T(r)$ is trend (low order polynomial)
 <li>$λ_i$ are coefficients computed by solving a system of linear equations 
 <li>$R(r,r_i)$ is a function of distance between unsampled and measured points (e.g. radial basis function, model variogram)
-<li>$e(r_i)$ is estimate of measurement error
+<!--<li>$e(r_i)$ is estimate of measurement error-->
 </ul>
+</small>
 <p>then use  $F(r)$ to compute $z$ at unsampled grid points
+</section>
+
+<section>
+    <h3>Spatial interpolation</h3>
+The problem of finding $F(x,y,)$ that passes through (or close to) the given points does not have a unique solution:
+<p class="fragment">
+<img height="440px" src="img/geostats/interp1d.gif">
+</section>
+
+<section>
+    <h3>Spatial interpolation</h3>
+Example of using smoothing spline with tension:
+<p>
+<img height="200" src="img/geostats/lidarmrpts3dcolored.jpg">
+<img height="210" src="img/data_sim/elev_lid_default.jpg">
+<img height="210" src="img/data_sim/elev_lid_smooth.jpg">
+<p>
+<p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations
+of a thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
+determined by a roughness penalty (smoothness seminorm)
+see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_1999_2005.pdf">Mitas 1999</a></small>
+<!--
+<small>Interpolation: distance between grid points similar to average distance between given points
+<p>Simulation: distance between grid points can be much smaller than distance between given points
+</small>
+-->
+</section>
+
+<section>
+  <h3>Interpolation with radial basis functions</h3>
+<p>Variational approach is based on minimizing:
+<ul>
+  <li class="fragment">deviations from the given points
+  <li class="fragment">smoothness seminorm or roughness penalty
+</ul>
+<p class="fragment"> Radial basis functions: multiquadrics, splines
+<p class="fragment"> Physics-based interpretation:  spline interpolation function is a thin flexible plate with tunable bending energy
+Formally equivalent to universal kriging
+<p class="fragment">
+Spline tension rescales distances, it has similar effect to shortening range in kriging
+or decreasing the distance weight exponent in IDW
+</section>
+
+<section>
+   <h3>Spline: tension</h3>
+Tension controls the stiffness of the plate:
+<ul>
+ <li> high tension: soft rubber sheet, short range
+ <li> low tension: stiff steel plate, long range
+</ul>
+<p>
+<img height="400" src="img/geostats/tension.gif"> </p>
+</section>
+
+<section>
+   <h3>Spline: tension</h3>
+<p>
+<img height="230" src="img/geostats/asp_rst_t160.png">
+<img height="230" src="img/geostats/asp_rst_t40.png">
+<img height="230" src="img/geostats/asp_rst_t10.png">
+<p><small>
+High tension, short  range of influence, soft rubber sheet, results in a rough surface with a peak or pit in each data point
+<br>
+Low tension, long range of influence, stiffer steel plate, results in a smoother surface with possible overshoots.
+<br>Note that tension is inverse of stiffness
 </small>
 </section>
 
 <section>
-    <h3>Computing the surface model</h3>
-The problem of finding $F(x,y,)$ that passes through (or close to) the given points does not have a unique solution so additional conditions are used.
+   <h3>Spline: smoothing</h3>
+<p>
+Smoothing controls the deviation from the data points, large smoothing results in trend surface $T(x,y)$
+<p>
+<img height="400" src="img/geostats/smooth.gif"> </p>
+<p>Reduces overshoots, noise, improves numerical stability, can be applied to individual points
+</section>
+
+<section>
+   <h3>Predictive accuracy</h3>
+<p>
+Predictive accuracy: crossvalidation error
+$$e_z (x,y) = z' (x,y) – z_o (x,y)$$
 <p class="fragment">
-<img height="440px" src="img/geostats/interp1d.gif">
+<small>where $z'$ is the interpolated and $z_o$ is the given value in a point that was omitted
+from the set of points used for the interpolation.
+n-interpolations are performed, each time omitting one point in which $e_z$ is computed:
+also called
+<a href="http://en.wikipedia.org/wiki/Cross-validation_(statistics)">
+leave-one-out cross-validation (LOOCV)</a>
+</small>
+</p>
+<p class="fragment">
+Artifacts, bias can be found using histograms, aspect maps, curvatures
+</section>
+
+<section>
+   <h3>Interpolated surface predictive errors </h3>
+Map showing spatial pattern of predictive errors
+<p>
+<img height="350" src="img/geostats/crossval2d.png">
+<img height="350" src="img/geostats/crossval3d.jpg"> </p>
+</section>
+
+<section>
+   <h3>Geostatistical approach to interpolation</h3>
+General equation
+<p>
+$$
+F(r) = T(r) + ∑ λ_j R(r,r_j)  \;    j=1,m
+$$
+<ul>
+<li class="fragment"> $r = (x,y)$ is location of a unsampled grid point,
+<li class="fragment">$r_j=(x_j,y_j$) is location of a measured point
+<li class="fragment">$T(r)$ is trend (low order polynomial),
+<li class="fragment">$λ_j$ are coefficients
+<li class="fragment">$R(r,r_j)$ is a model variogram (function of distance between unsampled and measured point)
+</ul>
+<p class="fragment">The coefficients $λ_j$ are found by solving a system of $m$ linear equations</p>
+</section>
+
+<section>
+   <h3>Geostatistical approach</h3>
+We assume that the points that are close to each other have smaller differences in measured values
+than the points that are farther appart
+<p>
+<ul>
+<li class="fragment">Model variogram $R(r,r_j)$ is derived by fitting a suitable function to empirical variogram
+<li class="fragment">empirical variogram is derived from data as
+<p>
+$$
+\gamma (h) = (1/m_h) ∑[z(r_i) - z(r_j)]^2 \;  i=1,…, m_h
+$$
+<p>
+<small>which is mean square of differences in measured values $z$ for points that are separated
+by a distance $h$ (with some tolerance defining the size of histogram bin)
+</small>
+<p>
+Many model functions can be used: spherical, exponential, Gaussian, …
+</section>
+
+<section>
+   <h3>Experimental variogram</h3>
+Given set of elevation points and derived experimental variogram
+<p>
+<img height="300" src="img/geostats/bar_pts_all.png">
+<img height="300" src="img/geostats/expvariogram_barania2.png"> </p>
+<p><small>Maximum distance is 2000 m, histogram bin is ~150m.
+Adapted from <a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">A Practical Guide to Geostatistical Mapping by T. Hengl.</a></small>
+</section>
+
+<section>
+   <h3>Model variogram</h3>
+Optimized fit of a suitable function to empirical variogram: linear
+<p>
+<img height="280" src="img/geostats/expvariogram_barania2.png">
+<img height="280" src="img/geostats/exp_model_variogram_lin_bar.png">
+</section>
+
+<section>
+   <h3>Model variogram</h3>
+Optimized fit of a suitable function to empirical variogram: gaussian, spherical
+<p>
+<img height="280" src="img/geostats/exp_model_variogram_gaus_bar.png">
+<img height="280" src="img/geostats/exp_model_variogram_spher_bar.png">
+</section>
+
+<section>
+   <h3>Model variogram</h3>
+Optimized fit of a suitable function to empirical variogram: exponential, Matern
+<p>
+<img height="280" src="img/geostats/exp_model_variogram_exp_bar.png">
+<img height="280" src="img/geostats/exp_model_variogram_Mat_bar.png">
+</section>
+
+<section>
+   <h3>Kriging: Interpolated surface</h3>
+DEM interpolated with kriging using Matern model variogram
+<p>
+<img height="380" src="img/geostats/bar_simdem10m_10.png"> </p>
+<p><small>More in GIS714 topic on
+<a href="https://ncsu-geoforall-lab.github.io/geospatial-simulations-course/assignments/geostats_sim.html">Geostatistical Simulations</a>
+</small>
 </section>
 
 <section>
@@ -126,21 +298,6 @@ The problem of finding $F(x,y,)$ that passes through (or close to) the given poi
 <li class="fragment">Simulation: we use $F(x,y)$ to condition our simulation of a <b>more complex surface</b>
 than what we could generate using interpolation from the given points
 </ul>
-</section>
-
-<section>
-    <h3>Spatial interpolation</h3>
-Example of using smoothing spline with tension:
-<p>
-<img height="360px" src="img/geostats/lidarmrpts3dcolored.jpg">
-<img height="360px" src="img/data_sim/elev_lid_default.jpg">
-<img height="360px" src="img/data_sim/elev_lid_smooth.jpg">
-<p>
-<!--
-<small>Interpolation: distance between grid points similar to average distance between given points
-<p>Simulation: distance between grid points can be much smaller than distance between given points
-</small>
--->
 </section>
 
 <section>
