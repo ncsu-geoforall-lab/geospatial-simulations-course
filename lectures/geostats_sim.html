@@ -119,25 +119,6 @@ The problem of finding $F(x,y,)$ that passes through (or close to) the given poi
 </section>
 
 <section>
-    <h3>Spatial interpolation</h3>
-Example of using smoothing spline with tension:
-<p>
-<img height="150" src="img/geostats/lidarmrpts3dcolored.jpg">
-<br><img height="220" src="img/data_sim/elev_lid_default.jpg">
-<img height="220" src="img/data_sim/elev_lid_smooth.jpg">
-<p>
-<p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations
-of a thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
-determined by a roughness penalty (smoothness seminorm)
-see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_1999_2005.pdf">Mitas 1999</a></small>
-<!--
-<small>Interpolation: distance between grid points similar to average distance between given points
-<p>Simulation: distance between grid points can be much smaller than distance between given points
-</small>
--->
-</section>
-
-<section>
   <h3>Interpolation with radial basis functions</h3>
 <p>Variational approach is based on minimizing:
 <ul>
@@ -166,9 +147,9 @@ Tension controls the stiffness of the plate:
 <section>
    <h3>Spline: tension</h3>
 <p>
-<img height="250" src="img/geostats/asp_rst_t160.png">
-<img height="250" src="img/geostats/asp_rst_t40.png">
-<img height="250" src="img/geostats/asp_rst_t10.png">
+<img height="220" src="img/geostats/asp_rst_t160.png">
+<img height="220" src="img/geostats/asp_rst_t40.png">
+<img height="220" src="img/geostats/asp_rst_t10.png">
 <p><small>
 High tension, short  range of influence, soft rubber sheet, results in a rough surface with a peak or pit in each data point
 <br>
@@ -184,6 +165,22 @@ Smoothing controls the deviation from the data points, large smoothing results i
 <p>
 <img height="400" src="img/geostats/smooth.gif"> </p>
 <p>Reduces overshoots, noise, improves numerical stability, can be applied to individual points
+</section>
+
+<section>
+    <h3>Spatial interpolation</h3>
+Example of using smoothing spline with tension:
+<p>
+<!--
+<img height="150" src="img/geostats/lidarmrpts3dcolored.jpg">
+-->
+<img height="220" src="img/data_sim/elev_lid_default.jpg">
+<img height="220" src="img/data_sim/elev_lid_smooth.jpg">
+<p>
+<p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations
+of a thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
+determined by a roughness penalty (smoothness seminorm)
+see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_1999_2005.pdf">Mitas 1999</a></small>
 </section>
 
 <section>
