@@ -310,7 +310,8 @@ Single realization of a DEM interpolated with kriging using Matern model variogr
 <section>
     <h3>Interpolation or simulation?</h3>
 <ul>
-<li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations
+<li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations resulting 
+in a single realization of the surface
 <li class="fragment">Simulation: we use $F(x,y)$ to condition our simulation of a <b>more complex surface</b>
 than what we could generate using interpolation from the given points
 </ul>
@@ -341,6 +342,7 @@ Observations where sampling is limited:
 </ul>
 </section>
 
+<!--
 <section>
     <h3>Geostatistical simulations</h3>
 <p>
@@ -348,7 +350,6 @@ Observations where sampling is limited:
 Conditional simulation</a>
 </section>
 
-<!--
 <section>
     <h3>Geostatistical simulations</h3>
 <p>Raster-based: continuous or categorical data
@@ -580,8 +581,10 @@ and threshold 300 of 10m resolution cells: deterministic result
 
 <section>
     <h3>Examples of Applications</h3>
+<p>
 The approach can be applied to estimate uncertainty and error propagation for 
 other analysis and modeling problems using the $n$ DEM realizations: 
+<p>
 <ul>
   <li>flood extent prediction
   <li>viewshed mapping  and visibility analysis
