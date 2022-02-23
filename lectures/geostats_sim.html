@@ -94,7 +94,7 @@ we can use <b>simulation</b>
     <h3>Spatial interpolation</h3>
 <p>
 Given $m$-points $(x_i, y_i, z_i), i=1,m$ 
-<br>find such $F(x,y)$ that for each $i=1,m$
+<br>find such continuous function $F(x,y)$ that for each $i=1,m$
 <p>
            $$z_i=F(x_i,y_i)$$
 
@@ -145,6 +145,24 @@ Tension controls the stiffness of the plate:
 </section>
 
 <section>
+   <h3>Spline: tension t=160</h3>
+<p>
+<img height="420" src="img/geostats/asp_rst_t160.png">
+</section>
+
+<section>
+   <h3>Spline: tension t=40</h3>
+<p>
+<img height="420" src="img/geostats/asp_rst_t40.png">
+</section>
+
+<section>
+   <h3>Spline: tension t=10</h3>
+<p>
+<img height="420" src="img/geostats/asp_rst_t10.png">
+</section>
+
+<section>
    <h3>Spline: tension</h3>
 <p>
 <img height="220" src="img/geostats/asp_rst_t160.png">
@@ -174,8 +192,8 @@ Example of using smoothing spline with tension:
 <!--
 <img height="150" src="img/geostats/lidarmrpts3dcolored.jpg">
 -->
-<img height="220" src="img/data_sim/elev_lid_default.jpg">
-<img height="220" src="img/data_sim/elev_lid_smooth.jpg">
+<img height="230" src="img/data_sim/elev_lid_default.jpg">
+<img height="230" src="img/data_sim/elev_lid_smooth.jpg">
 <p>
 <p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations
 of a thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
@@ -188,16 +206,18 @@ see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_199
 <p>
 Predictive accuracy: crossvalidation error
 $$e_z (x,y) = z' (x,y) – z_o (x,y)$$
-<p class="fragment">
+<ul>
+<li class="fragment">
 where $z'$ is the interpolated and $z_o$ is the given value in a point that was omitted
 from the set of points used for the interpolation.
+<li class="fragment">
 n-interpolations are performed, each time omitting one point in which $e_z$ is computed:
 also called
 <a href="http://en.wikipedia.org/wiki/Cross-validation_(statistics)">
 leave-one-out cross-validation (LOOCV)</a>
-</p>
-<p class="fragment">
+<li class="fragment">
 Artifacts, bias can be found using histograms, aspect maps, curvatures
+</ul>
 </section>
 
 <section>
@@ -281,7 +301,7 @@ Optimized fit of a suitable function to empirical variogram: exponential, Matern
 
 <section>
    <h3>Kriging: Interpolated surface</h3>
-DEM interpolated with kriging using Matern model variogram
+Single realization of a DEM interpolated with kriging using Matern model variogram
 <p>
 <img height="380" src="img/geostats/bar_simdem10m_10.png"> </p>
 </small>
