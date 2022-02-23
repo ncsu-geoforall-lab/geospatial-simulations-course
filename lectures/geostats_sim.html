@@ -1,5 +1,5 @@
 <section>
-    <h2><b>Geostatistical simulations and error propagation</b></h2>
+    <h2><b>Geostatistical simulations</b></h2>
     <p style="margin-top: 0.5em">
         Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
     <p class="title-foot">
@@ -13,8 +13,8 @@
 <p>
 <ul>
 <li>motivation for geostatistical simulations
+<li>when to use spatial interpolation or geostatistical simulation 
 <li>geostatistical conditional simulations
-<li>Gaussian Sequential Simulation
 <li>simulations for error propagation
 <li>coupling GRASS and R for geostatistics
 </ul>
@@ -23,7 +23,7 @@
 <section>
     <h3>Problem formulation</h3>
 <p>In previous units we generated DEMs with simulated noise
-by adding one realization of random values to the DEM with:
+by adding a single realization of random values to a DEM with:
 <ul>
   <li class="fragment">uniform distribution
   <li class="fragment">Gaussian distribution
@@ -37,7 +37,8 @@ on the flow pattern modeling and stream extraction.
 
 <section>
     <h3>Problem formulation</h3>
-Patterns of flow accumulation from noisy DEMs
+Patterns of flow accumulation from noisy DEMs:
+<br>uniform, fractal, gaussian with spatial dependence
 <p>
 <img height="210" src="img/data_sim/accum5k_noise.jpg">
 <img height="210" src="img/data_sim/accum5k_noise_frac.jpg">
@@ -66,6 +67,7 @@ From scattered points (red) to a regular grid (blue)
 <img height="360px" src="img/geostats/elevrandpts.jpg">
 <img height="360px" src="img/geostats/pointstogrid.jpg">
 <p>
+The scattered points can be the original measured data or a random sampling of a given raster (e.g. DEM)
 <!--
 <small>Interpolation: distance between grid points similar to average distance between given points
 <p>Simulation: distance between grid points can be much smaller than distance between given points
@@ -120,9 +122,9 @@ The problem of finding $F(x,y,)$ that passes through (or close to) the given poi
     <h3>Spatial interpolation</h3>
 Example of using smoothing spline with tension:
 <p>
-<img height="200" src="img/geostats/lidarmrpts3dcolored.jpg">
-<img height="210" src="img/data_sim/elev_lid_default.jpg">
-<img height="210" src="img/data_sim/elev_lid_smooth.jpg">
+<img height="150" src="img/geostats/lidarmrpts3dcolored.jpg">
+<br><img height="220" src="img/data_sim/elev_lid_default.jpg">
+<img height="220" src="img/data_sim/elev_lid_smooth.jpg">
 <p>
 <p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations
 of a thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
@@ -143,8 +145,8 @@ see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_199
   <li class="fragment">smoothness seminorm or roughness penalty
 </ul>
 <p class="fragment"> Radial basis functions: multiquadrics, splines
-<p class="fragment"> Physics-based interpretation:  spline interpolation function is a thin flexible plate with tunable bending energy
-Formally equivalent to universal kriging
+<p class="fragment"> Physics-based interpretation:  spline interpolation function is a thin flexible plate with tunable bending energy,
+formally equivalent to universal kriging
 <p class="fragment">
 Spline tension rescales distances, it has similar effect to shortening range in kriging
 or decreasing the distance weight exponent in IDW
@@ -164,9 +166,9 @@ Tension controls the stiffness of the plate:
 <section>
    <h3>Spline: tension</h3>
 <p>
-<img height="230" src="img/geostats/asp_rst_t160.png">
-<img height="230" src="img/geostats/asp_rst_t40.png">
-<img height="230" src="img/geostats/asp_rst_t10.png">
+<img height="250" src="img/geostats/asp_rst_t160.png">
+<img height="250" src="img/geostats/asp_rst_t40.png">
+<img height="250" src="img/geostats/asp_rst_t10.png">
 <p><small>
 High tension, short  range of influence, soft rubber sheet, results in a rough surface with a peak or pit in each data point
 <br>
@@ -190,13 +192,12 @@ Smoothing controls the deviation from the data points, large smoothing results i
 Predictive accuracy: crossvalidation error
 $$e_z (x,y) = z' (x,y) – z_o (x,y)$$
 <p class="fragment">
-<small>where $z'$ is the interpolated and $z_o$ is the given value in a point that was omitted
+where $z'$ is the interpolated and $z_o$ is the given value in a point that was omitted
 from the set of points used for the interpolation.
 n-interpolations are performed, each time omitting one point in which $e_z$ is computed:
 also called
 <a href="http://en.wikipedia.org/wiki/Cross-validation_(statistics)">
 leave-one-out cross-validation (LOOCV)</a>
-</small>
 </p>
 <p class="fragment">
 Artifacts, bias can be found using histograms, aspect maps, curvatures
@@ -286,8 +287,6 @@ Optimized fit of a suitable function to empirical variogram: exponential, Matern
 DEM interpolated with kriging using Matern model variogram
 <p>
 <img height="380" src="img/geostats/bar_simdem10m_10.png"> </p>
-<p><small>More in GIS714 topic on
-<a href="https://ncsu-geoforall-lab.github.io/geospatial-simulations-course/assignments/geostats_sim.html">Geostatistical Simulations</a>
 </small>
 </section>
 
@@ -575,7 +574,6 @@ other analysis and modeling problems using the $n$ DEM realizations:
 </ul>
 </section>
 
-<!--
 <section>
     <h3>Elevation data analysis </h3>
 <p>Lake Wheeler SECREF DEM and plot of given points 
@@ -601,7 +599,6 @@ other analysis and modeling problems using the $n$ DEM realizations:
 <p><img height="420px" src="img/geostats/inglis_probability_stream.jpg">
 <p><small>Inglis N., 2019, GIS714 course assignment report.</small>
 </section>
--->
 
 <section>
     <h3>Resources</h3>
