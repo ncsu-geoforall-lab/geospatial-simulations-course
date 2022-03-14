@@ -58,7 +58,8 @@ module load grass/8.1
 In your scratch space (<code>/share/gis714s22/$USER</code>) create a new Location
 with CRS matching NLCD data located in the class' mass storage (<code>/gpfs_archive/gis714s22</code>):
 <pre><code>
-    grass -c /share/gis714s22/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img /share/gis714s22/$USER/intro --text
+    mkdir /share/gis714s22/$USER/grassdata
+    grass -c /share/gis714s22/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img /share/gis714s22/$USER/grassdata/intro --text
 </code></pre>
 This will automatically start in a new mapset PERMANENT and set the default computational region to match the NLCD raster.
 Now, review projection and computational region info and exit:
@@ -88,7 +89,7 @@ module load grass/8.1
 
 Start GRASS GIS in the newly created Location:
 <pre><code>
-grass /share/gis714s22/$USER/intro/PERMANENT
+grass /share/gis714s22/$USER/grassdata/intro/PERMANENT
 </code></pre>
 
 Import NLCD land cover data (will take couple minutes):
@@ -140,8 +141,8 @@ Copy and paste the following content and exit (Ctrl+X) and save (Shift+Y):
 module use --append /usr/local/usrapps/geospatial/modulefiles
 module load grass/8.1
 
-grass /share/gis714s22/$USER/intro/PERMANENT --exec r.neighbors input=nlcd_2019 output=diversity_2019 size=3 method=diversity
-grass /share/gis714s22/$USER/intro/PERMANENT --exec r.out.gdal input=diversity_2019 output=/share/gis714s22/$USER/diversity_2019.tif type=Byte createopt=COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES
+grass /share/gis714s22/$USER/grassdata/intro/PERMANENT --exec r.neighbors input=nlcd_2019 output=diversity_2019 size=3 method=diversity
+grass /share/gis714s22/$USER/grassdata/intro/PERMANENT --exec r.out.gdal input=diversity_2019 output=/share/gis714s22/$USER/diversity_2019.tif type=Byte createopt=COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES
 </code></pre>
 
 Submit the job from scratch space:
