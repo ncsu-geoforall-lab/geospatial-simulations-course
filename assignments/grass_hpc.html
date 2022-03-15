@@ -1,0 +1,172 @@
+<h2>Running basic analysis with GRASS GIS on Henry2</h2>
+The goal of this section is to become familiar with running basic GRASS GIS commands
+on HPC, including creating a Location, importing data, running a simple analysis and exporting data.
+<p>
+After you log in, create a folder in the class' scratch space:
+<pre><code>
+mkdir -p /share/gis714s22/$USER
+</code></pre>
+
+We will then copy our prepared data from mass storage (<code>/gpfs_archive/gis714s22</code>)
+to our scratch space and unzip.
+<span class="question">
+    Why do we need to copy it there?
+</span>
+
+<pre><code>
+mkdir /share/gis714s22/$USER/input_data
+cd /share/gis714s22/$USER/input_data
+cp /gpfs_archive/gis714s22/nlcd_2019_land_cover_l48_20210604.zip .
+unzip nlcd_2019_land_cover_l48_20210604.zip
+</code></pre>
+
+Note: unzipping can take some time, if we would be unzipping multiple files like these,
+we would need to do that on a compute node rather than on a login node.
+<span class="question">
+    Why?
+</span>
+
+<h3>Loading GRASS GIS</h3>
+On HPC you need to first load GRASS GIS to be able to use it. 
+First, append geospatial modules to list of available modules:
+
+<pre><code>
+module use --append /usr/local/usrapps/geospatial/modulefiles
+</code></pre>
+
+You can see what is currently the default version and what are the other versions and software available.
+See also the installed versions <a href="https://github.com/ncsu-geoforall-lab/grass-gis-on-hpc-henry2/blob/main/docs/available.md">here</a>.
+
+<pre><code>
+module avail
+</code></pre>
+
+At the bottom you will see several available versions of GRASS GIS,
+we will use the latest one, which contains newly parallelized tools:
+<pre><code>
+module load grass/8.1
+</code></pre>
+
+You will need to execute these 2 lines every time you open a new terminal or include them in your job submission:
+
+<pre><code>
+module use --append /usr/local/usrapps/geospatial/modulefiles
+module load grass/8.1
+</code></pre>
+
+<h3>Creating a new Location</h3>
+In your scratch space (<code>/share/gis714s22/$USER</code>) create a new Location
+with CRS matching NLCD data located in the class' mass storage (<code>/gpfs_archive/gis714s22</code>):
+<pre><code>
+    mkdir /share/gis714s22/$USER/grassdata
+    grass -c /share/gis714s22/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img /share/gis714s22/$USER/grassdata/intro --text
+</code></pre>
+This will automatically start in a new mapset PERMANENT and set the default computational region to match the NLCD raster.
+Now, review projection and computational region info and exit:
+<pre><code>
+g.proj -p
+g.region -p
+exit
+</code></pre>
+<span class="question">
+Which projection is NLCD data in? How many cells?
+</span>
+
+<h3>Importing NLCD</h3>
+We will import 2019 NLCD land cover into our newly created location,
+this time in an <a href="https://projects.ncsu.edu/hpc/Documents/LSF.php#interact">interactive session on a compute node</a><div class=""></div>
+We request a single core and 2GB of memory for 30 minutes:
+<pre><code>
+bsub -Is -n 1 -R "rusage[mem=2GB]" -W 30 bash
+</code></pre>
+
+Load GRASS GIS:
+
+<pre><code>
+module use --append /usr/local/usrapps/geospatial/modulefiles
+module load grass/8.1
+</code></pre>
+
+Start GRASS GIS in the newly created Location:
+<pre><code>
+grass /share/gis714s22/$USER/grassdata/intro/PERMANENT
+</code></pre>
+
+Import NLCD land cover data (will take couple minutes):
+<pre><code>
+r.in.gdal input=/share/gis714s22/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img output=nlcd_2019 memory=2000
+</code></pre>
+
+Once you are done, you can launch GUI with <code>g.gui</code> add the new raster.
+Alternatively, launch a GRASS monitor and add the raster like this:
+<pre><code>
+d.mon wx0
+</code></pre>
+Once the display opens, run:
+<pre><code>
+d.rast nlcd_2019
+</code></pre>
+<span class="question">
+    Take a screenshot for the report.
+</span>
+
+Then close the window and exit GRASS GIS and the compute node.
+<pre><code>
+exit
+exit
+</code></pre>
+
+<h3>Running an analysis and export</h3>
+Next we will compute a simple analysis with <code>r.neighbors</code> (number of different values within a 3x3 neighborhood)
+and export the result into tif. We use compression option when exporting to minimize file size
+(consult <a href="https://gdal.org/drivers/raster/gtiff.html">GDAL documentation</a> for further explanation).
+For that we submit a job, we request 1 core, 2GB of memory for 5 hours. GRASS tool is executed
+using the <code>--exec</code> interface which starts a GRASS session in specified Location, executed the command and ends the session.
+
+We will create a text file in your home folder using nano editor:
+<pre><code>
+nano /home/$USER/bsub_neighbors.sh
+</code></pre>
+
+Copy and paste the following content and exit (Ctrl+X) and save (Shift+Y):
+<pre><code>
+#!/bin/bash
+#BSUB -n 1
+#BSUB -W 5:00    
+#BSUB -R "rusage[mem=2GB]"
+#BSUB -oo neighbors_out
+#BSUB -eo neighbors_err
+#BSUB -J neighbors
+
+module use --append /usr/local/usrapps/geospatial/modulefiles
+module load grass/8.1
+
+grass /share/gis714s22/$USER/grassdata/intro/PERMANENT --exec r.neighbors input=nlcd_2019 output=diversity_2019 size=3 method=diversity
+grass /share/gis714s22/$USER/grassdata/intro/PERMANENT --exec r.out.gdal input=diversity_2019 output=/share/gis714s22/$USER/diversity_2019.tif type=Byte createopt=COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES
+</code></pre>
+
+Submit the job from scratch space:
+<pre><code>
+cd /share/gis714s22/$USER/
+bsub < /home/$USER/bsub_neighbors.sh
+</code></pre>
+
+Now check that job is submitted. 
+<pre><code>
+bjobs
+</code></pre>
+
+Once it runs, check the error output for progress messages from GRASS GIS.
+<pre><code>
+less neighbors_err
+</code></pre>
+
+Once the job is finished, inspect the summary output and see how long it took:
+<pre><code>
+less neighbors_out
+</code></pre>
+
+Check the tif file is created and copy it on  your local machine and open it in a GIS.
+<span class="question">
+    Take a screenshot for the report.
+</span>

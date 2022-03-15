@@ -1,5 +1,5 @@
 <section>
-    <h2>Geometry-based water flow simulation</h2>
+    <h2>Geometry-based flow simulation</h2>
     <p style="margin-top: 0.5em">
         Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
     <p class="title-foot">
@@ -15,8 +15,8 @@
    <li>concept of geometry driven flow and spread
    <li>surface gradient and flowlines
    <li>flat areas and depressions
-   <li>methods for flow routing on raster DEMs
-   <li>flooding as spread
+   <li>methods for flow routing on raster surfaces
+   <li>inundation flooding as spread
    <li>height above the nearest drainage technique
 </ul>
 </section>
@@ -25,12 +25,22 @@
    <h3>Geometry driven flow simulations</h3>
 <p>
 <ul>
-<li class="fragment">special case of process based, deterministic modeling
-<li class="fragment">focus on spatial pattern, steady state
-<li class="fragment">flowtracing or flooding over complex surfaces
-<li class="fragment">controled by elevation surface represented as DEM
-<li class="fragment">in optimization problems: cost surface
+<li class="fragment">simplified cases of process based modeling, focus on spatial pattern
+<li class="fragment">flow of mass, information, biological or anthropogenic flows
+<li class="fragment">flow over physical surfaces (elevation) or abstract cost surfaces
+<li class="fragment">example: water flow pattern over complex terrain
+<li class="fragment">example: finding least cost path(s) over a cost surface, solving in optimization problems
 </ul>
+</section>
+
+<section>
+   <h3>Example: Migration in US in 80s</h3>
+<p>Surface: pressure to move. Migration pattern: flow over this surface
+<br>
+<img height="200" src="img/water_geometry/Tobler_pressuretomove.jpg">
+<br><img height="250" src="img/water_geometry/Tobler_populationflows.jpg">
+<br>
+<small>Surface is based on Tobler's continuous spatial gravity model, figures are from Professor Tobler's slides.</small>
 </section>
 
 <section>
@@ -39,12 +49,12 @@
 <ul>
 <li class="fragment">Surface water flow - overland flow accumulation
 <li class="fragment">Flooding / inundation - spread of rising water level
-<li class="fragment">Coupled inundation + overland flow 
-<li class="fragment">Coupled storm surge + inundation + overland flow
+<li class="fragment">Coupled: inundation + overland flow 
+<li class="fragment">Coupled: storm surge + inundation + overland flow
 </ul>
-<p class="fragment">
-<img height="260" src="img/water_geometry/accum_5Kmfd.jpg">
-<img height="260" src="img/water_geometry/floodedarea.jpg">
+<p>
+<img class="fragment" height="260" src="img/water_geometry/accum_5Kmfd.jpg">
+<img class="fragment" height="260" src="img/water_geometry/floodedarea.jpg">
 <p class="fragment">
 These processes are controled by elevation surface
 </section>
@@ -59,10 +69,10 @@ These processes are controled by elevation surface
 <p>
  <li class="fragment">flow over this surface is driven by  <b>surface gradient</b> 
 <p>
-$$ \nabla f = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right) = (f_x, f_y)$$
+$$ \nabla f = \left( {\partial z \over \partial x}, {\partial z \over \partial y} \right) = (f_x, f_y)$$
 <p>
  <li class="fragment">where $f_x, f_y$ are partial derivatives of $f(x,y)$
- <li class="fragment"> $\nabla f$ is a vector in the direction of largest increase in $z$  
+ <li class="fragment"> $\nabla f$ is a vector in the direction of <b>largest increase in $z$ </b>  
  <li class="fragment">direction and magnitude of flow velocity over complex surface is controled 
 by the surface gradient field $\nabla f$.  
 </ul>
@@ -70,23 +80,22 @@ by the surface gradient field $\nabla f$.
 </section>
 
 <section>
+   <h3>Surface gradient</h3>
+<p>Gradient vector field: direction and magnitude of the <b>largest change in $z$ </b>
+<p><img height="400" src="img/water_geometry/gradient_elev.png">
+</section>
+
+<section>
    <h3>Gradient vector: slope and aspect</h3>
-<p>
-<small>
 <ul>
- <li>$- \nabla f$: vector in the steepest slope direction (aspect),
-  magnitude is slope steepness
- <li class="fragment">slope $\beta$ and aspect $\alpha$: 
-<p>
+ <li>$- \nabla f$ is a vector in the steepest slope direction - aspect $\alpha$,
+ <li> its magnitude (length) is slope steepness $\beta$:
+</ul>
 $$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2}$$
 $$\alpha^\circ = {\arccos} \left( -f_y \over \sqrt{f_x^2+f_y^2} \right) $$
-<li class="fragment">we can compute gradient using slope and aspect angle 
 <p>
+We can compute gradient vector using slope and aspect angle 
 $$ f_x = \tan \beta . \cos \alpha, \qquad f_y = \tan \beta . \sin \alpha$$
-</ul>
-<p>
-$$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial y} \right), \; z = f(x,y)$$
-</small>
 </section>
 
 <section>
@@ -94,11 +103,17 @@ $$(f_x, f_y) = \left( {\partial f \over \partial x}, {\partial f \over \partial 
 <p>
 <ul>
 <p>
-  <li class="fragment">Discrete: D8 or D16 $\Delta z_{max}$ in 3x3 or 5x5 moving window, 
-  results in discrete directions e.g., 0,45, ... deg 
+  <li class="fragment">Discrete: D8 or D16 
+  <ul>
+    <li>$\Delta z_{max}$ is found in a 3x3 or 5x5 moving window, 
+    <li>results in discrete directions e.g., 0,45, ... deg 
+  </ul>
 <p>
-  <li class="fragment">Continuous D-infinity: partial derivatives of 
-a suitable approximation function, such as spline or polynomial
+  <li class="fragment">Continuous: D-infinity 
+  <ul>
+    <li>partial derivatives of a suitable approximation function, such as spline or polynomial
+    <li>continuous gradient direction (aspectangle) <0, 360> degrees
+  </ul>
 </ul>
 </section>
 
@@ -131,6 +146,7 @@ $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1
 
 <section>
    <h3>Flow routing over complex surfaces</h3>
+<p>
 <ul>
 <li>flowline - path of a single drop following gradient, 
 <p>
@@ -153,9 +169,8 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 
 <section>
    <h3>Flow routing over complex surfaces</h3>
-<p>D-inf vector-based algorithm for generating flowlines
-<p>flowlines are perpendicular to contours
-<img height="380" src="img/water_geometry/rflowfigure.jpg">
+<p>D-inf vector-based algorithm for generating flowlines which are perpendicular to isolines
+<p><img height="380" src="img/water_geometry/rflowfigure.jpg">
 <img height="380" src="img/water_geometry/flowlines_and_contours.png">
 </section>
 
@@ -163,12 +178,15 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
    <h3>Flow routing over complex surfaces</h3>
 <p>Flowlines and flow accumulation
 <img height="420" src="img/water_geometry/flowlines_flowaccum.jpg">
+<p>Flowlines are perpendicular to contours, color map represents number of flowlines 
+passing through each grid cell: flowaccumulation
 </section>
 
 <section>
    <h3>Flow accumulation across landscape</h3>
 <p>Evolution of steady state flow  with steady rainfall and uniform flow velocity
 <p><img height="400" src="img/water_geometry/water.gif">
+<p>Flowline density is computed after each 10 flow routing steps
 </section>
 
 <section>
@@ -190,8 +208,19 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 <p>
 <p class="fragment">
 <!--<img height="350" src="img/water_geometry/flowdispersal.jpg">-->
-<img height="360" src="img/water_geometry/accum5K_gr65_feb10b.jpg">
+<img height="360" src="img/water_geometry/accum5K_gr65_sep09b.jpg">
 <img height="360" src="img/water_geometry/accum5K_gr65_mfd.jpg">
+</section>
+
+<section>
+   <h3>Weighted flow routing</h3>
+<p>Simulation of spatialy variable source areas
+<p class="fragment">
+<img height="350" src="img/water_geometry/landclass_30m.jpg">
+<img height="350" src="img/water_geometry/accum_runoffdiff_30m3d.jpg">
+<p class="fragment"><small>
+Land use map with developed areas (orange) and associated runoff weights - in blue areas all water gets routed, in grey areas only a fraction
+</p></small>
 </section>
 
 <section>
@@ -200,6 +229,26 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 <p class="fragment">
 <img height="350" src="img/water_geometry/accum_runoffuni_30m3d.jpg">
 <img height="350" src="img/water_geometry/accum_runoffvar_30m3d.jpg">
+<p><small>Note that the flow accumulation in some of the rivers cannot be used to estimate peak flow because the flow is not routed 
+through the entire watershed - upper part of the contributing area is outside the region</small>
+</section>
+
+<section>
+   <h3>Stream extraction</h3>
+<ul>
+ <li class="fragment">Automated stream mapping: extracting connected stream network from flow accumulation map
+ <li class="fragment">Stream raster map is derived using map algebra based on flow accumulation threshold
+ <li class="fragment">Result is converted to vector representation of a connected stream network
+ <li class="fragment">Stream origin is dynamic, often driven by groundwater: 
+additional information is needed for accurate identification
+</ul>
+</section>
+
+<section>
+   <h3>Stream extraction</h3>
+Flow accumulation from 30m NED using SFD D8 method, threshold accumulation: 100 cells,
+and a vectorized extracted stream network 
+<p><img height="380" src="img/water_geometry/stream_extract.jpg">
 </section>
 
 <section>
@@ -229,6 +278,13 @@ http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.htm
 </section>
 
 <section>
+   <h3>Depressions filling: lidar DEM</h3>
+Depressions in lidar-based DEM and flow accumulation using DEM filling
+<p><img height="400" src="img/water_geometry/depressions_lidardem.jpg">
+<p><small>Many depressions are artificial lakes where bridges or roads create dams</small>
+</section>
+
+<section>
    <h3>Handling depressions</h3>
 Filling
 <p><img height="360" src="img/water_geometry/depressions1.png">
@@ -253,13 +309,6 @@ Filling, carving, hybrid, least cost path
 </section>
 
 <section>
-   <h3>Depressions filling: lidar DEM</h3>
-Depressions in lidar-based DEM and flow accumulation using DEM filling
-<p><img height="400" src="img/water_geometry/depressions_lidardem.jpg">
-<p><small>Many depressions are artificial lakes where bridges or roads create dams</small>
-</section>
-
-<section>
    <h3>Depressions filling: radar DSM</h3>
 <p>Radar (SRTM, IFSARE) DSM include vegetation surface leading to complex, nested depressions
 <p><img height="360" src="img/water_geometry/depressions_ifsare.jpg">
@@ -267,6 +316,7 @@ Depressions in lidar-based DEM and flow accumulation using DEM filling
 <p><small>Filling alters elevation in large areas</small>
 </section>
 
+<!--
 <section>
    <h3>Depressions: algorithm comparison </h3>
 <p>
@@ -276,6 +326,7 @@ Depressions in lidar-based DEM and flow accumulation using DEM filling
 </ul>
 <p><img height="350" src="img/water_geometry/lcp_fill1_fill2_compare.jpg">
 </section>
+-->
 
 <section>
    <h3>Depressions: LCP issues </h3>
@@ -401,6 +452,17 @@ and the the cell on the stream into which the cell drains.
 </ul>
 <p><img height="330" src="img/intro/FIMAN_swiftcreek_scenario.jpg">
 <p><small><a href="https://fiman.nc.gov/fiman/#">Flood inundation mapping and alert network</a></small>
+</section>
+
+<section>
+ <h3>Summary</h3>
+<ul>
+<li class="fragment">we have defined surface gradient and how to compute it from a raster surface
+<li class="fragment">we have learned about methods for computing flow direction (D8, Dinf) and flow routing SFD, MFD
+<li class="fragment">we discussed flow through flat areas and depressions
+<li class="fragment">we have applied flow routing to extract streams 
+<li class="fragment">we have learned about methods to map inundation flooding 
+</ul>
 </section>
 
 

@@ -1,0 +1,103 @@
+<h2>Urban growth modeling with FUTURES on Henry2</h2>
+Here we demonstrate how to run parallel jobs in GRASS using an urban growth modeling case study.
+
+<p>
+We will all share PERMANENT mapset of Location <code>albers</code> with prepared data and each student will create
+their own mapset (using their user name) for computations in their own folder (<a href="https://github.com/ncsu-geoforall-lab/grass-gis-on-hpc-henry2/blob/main/docs/data.md#sharing-a-database-between-different-users">
+    description of this setup</a>).
+Typically, the PERMANENT Mapset may be in a research storage and you may not have write access to it.
+Please do not modify anything in the PERMANENT mapset.
+
+<pre><code>
+mkdir /share/gis714s22/$USER/grassdata/albers
+ln -s /share/gis714s22/grassdata/albers/PERMANENT/ /share/gis714s22/$USER/grassdata/albers/
+</code></pre>
+
+
+Start GRASS GIS in the newly created mapset:
+
+<pre><code>
+module use --append /usr/local/usrapps/geospatial/modulefiles
+module load grass/8.1
+grass -c /share/gis714s22/$USER/grassdata/albers/$USER
+</code></pre>
+
+Check you can access the data:
+<pre><code>
+g.list type=raster,vector  -mt
+</code></pre>
+
+Install FUTURES extension:
+<pre><code>
+g.extension r.futures
+</code></pre>
+
+Exit GRASS session:
+<pre><code>
+exit
+</code></pre>
+
+<h3>Computing slope</h3>
+Tool <code>r.slope.aspect</code> can take advantage of multiple cores, because it uses OpenMP library to automatically distribute
+work among certain number of threads. OpenMP uses shared memory and therefore the job needs to run on a single node.
+We will submit a parallel job,
+that requests 4 cores and specifies that those cores need to be on one computing node (<code>span[hosts=1]</code>).
+The number of cores specified in the header should match the number in <code>nprocs</code> parameter.
+We will compute slope in a separate mapset called $USER_slope.
+
+<pre><code>
+#!/bin/bash
+#BSUB -n 4
+#BSUB -W 1:00
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -R span[hosts=1] 
+#BSUB -oo slope_out
+#BSUB -eo slope_err
+#BSUB -J slope
+
+module use --append /usr/local/usrapps/geospatial/modulefiles
+module load grass/8.1
+
+# remove this mapset which may exist from a previous run of this job
+rm -rf /share/gis714s22/$USER/grassdata/albers/${USER}_slope
+
+# create a new mapset with -c flag
+grass -c /share/gis714s22/$USER/grassdata/albers/${USER}_slope --exec r.slope.aspect elevation=DEM slope=slope nprocs=4 --o
+</code></pre>
+
+<span class="question">
+    Submit this job with 1, 4, and 8 cores and compare the run time.
+</span>
+
+<h3>Computing distance</h3>
+Here we compute distance to roads, water and forest that will serve as predictors.
+Since tool <code>r.grow.distance</code> is not internally parallelized, we will execute distance to roads, water, and forest
+so that they run concurrently using 3 cores. This can be simply achieved by executing them in the background.
+
+<pre><code>
+#!/bin/bash
+#BSUB -n 3
+#BSUB -W 2:00
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -oo dist_out
+#BSUB -eo dist_err
+#BSUB -J dist
+
+module use --append /usr/local/usrapps/geospatial/modulefiles
+module load grass/8.1
+
+rm -rf /share/gis714s22/$USER/grassdata/albers/${USER}_roads
+rm -rf /share/gis714s22/$USER/grassdata/albers/${USER}_water
+rm -rf /share/gis714s22/$USER/grassdata/albers/${USER}_forest
+
+# run in background by appending & after the tool
+grass -c /share/gis714s22/$USER/grassdata/albers/${USER}_roads --exec r.grow.distance input=roads distance=dist_to_roads -m &
+grass -c /share/gis714s22/$USER/grassdata/albers/${USER}_water --exec r.grow.distance input=water distance=dist_to_water -m &
+grass -c /share/gis714s22/$USER/grassdata/albers/${USER}_forest --exec r.grow.distance input=forest distance=dist_to_forest -m &
+# this will wait for the processes to finish before starting the next set of processes
+wait
+grass /share/gis714s22/$USER/grassdata/albers/${USER}_roads --exec r.mapcalc "log_dist_to_roads = log(dist_to_roads + 1)" &
+grass /share/gis714s22/$USER/grassdata/albers/${USER}_water --exec r.mapcalc "log_dist_to_water = log(dist_to_water + 1)" &
+grass /share/gis714s22/$USER/grassdata/albers/${USER}_forest --exec r.mapcalc "log_dist_to_forest = log(dist_to_forest + 1)" &
+wait
+</code></pre>
