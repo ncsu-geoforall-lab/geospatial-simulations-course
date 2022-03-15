@@ -1,5 +1,5 @@
 <section>
-    <h2><b>Geostatistical simulations and error propagation</b></h2>
+    <h2><b>Geostatistical simulations</b></h2>
     <p style="margin-top: 0.5em">
         Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
     <p class="title-foot">
@@ -13,8 +13,8 @@
 <p>
 <ul>
 <li>motivation for geostatistical simulations
+<li>when to use spatial interpolation or geostatistical simulation 
 <li>geostatistical conditional simulations
-<li>Gaussian Sequential Simulation
 <li>simulations for error propagation
 <li>coupling GRASS and R for geostatistics
 </ul>
@@ -23,10 +23,10 @@
 <section>
     <h3>Problem formulation</h3>
 <p>In previous units we generated DEMs with simulated noise
-by adding random values to the DEM with:
+by adding a single realization of random values to a DEM with:
 <ul>
   <li class="fragment">uniform distribution
-  <li class="fragment">gaussian distribution
+  <li class="fragment">Gaussian distribution
   <li class="fragment">distribution with spatial autocorrelation
   <li class="fragment">fractal
 </ul>
@@ -37,24 +37,42 @@ on the flow pattern modeling and stream extraction.
 
 <section>
     <h3>Problem formulation</h3>
-Patterns of flow accumulation from noisy DEMs
+Patterns of flow accumulation from noisy DEMs:
+<br>uniform, fractal, gaussian with spatial dependence
+<p>
 <img height="210" src="img/data_sim/accum5k_noise.jpg">
 <img height="210" src="img/data_sim/accum5k_noise_frac.jpg">
 <img height="210" src="img/data_sim/accum5k_noise_spat.jpg">
 <p>How to quantify uncertainty in the spatial pattern of the modeled variable
 due to uncertainty in elevation values?
+<p>Where is the high probability of a stream?
 </section>
 
 <section>
     <h3>Problem formulation</h3>
-<p>To quantitatively evaluate uncertainty in parameters derived from a DEM     
-we can generate multiple realizations of a DEM by starting with different seed
-<p class="fragment">
-This approach does not take into account the spatial dependency of the elevation values in our DEM
-<p class="fragment">
-We can use <b>geostatistical simulation</b> to generate multiple DEM realizations and use them
-to estimate error propagation in derived variables
+<ul>
+   <li>To quantitatively evaluate uncertainty in parameters derived from a DEM     
+  we can generate multiple realizations of a DEM by starting with different seed
+  <li class="fragment">This approach does not take into account 
+  the spatial dependency of the elevation values in our data
+  <li class="fragment">
+  We can use <b>geostatistical conditional simulation</b> to generate multiple DEM realizations and use them
+  to estimate error propagation in derived variables
+</section>
 
+<section>
+    <h3>Computing the surface model</h3>
+From scattered points (red) to a regular grid (blue)
+<p>
+<img height="360px" src="img/geostats/elevrandpts.jpg">
+<img height="360px" src="img/geostats/pointstogrid.jpg">
+<p>
+The scattered points can be the original measured data or a random sampling of a given raster (e.g. DEM)
+<!--
+<small>Interpolation: distance between grid points similar to average distance between given points
+<p>Simulation: distance between grid points can be much smaller than distance between given points
+</small>
+-->
 </section>
 
 <section>
@@ -70,67 +88,234 @@ See GIS582 Spatial interpolation topic</a></small>
 <li class="fragment">if the measured data are limited and we know statistical properties of the distribution,
 we can use <b>simulation</b>
 </ul>
-<p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations 
+</section>
+
+<section>
+    <h3>Spatial interpolation</h3>
+<p>
+Given $m$-points $(x_i, y_i, z_i), i=1,m$ 
+<br>find such continuous function $F(x,y)$ that for each $i=1,m$
+<p>
+           $$z_i=F(x_i,y_i)$$
+
+$$ F(r) = T(r) + \sum_i^m \lambda_i R(r,r_i) $$
+<small>
+<ul>
+<li> $r = (x,y)$ is unsampled point and $r_i=(x_i,y_i)$ is a measured point
+<li>$T(r)$ is trend (low order polynomial)
+<li>$λ_i$ are coefficients computed by solving a system of linear equations 
+<li>$R(r,r_i)$ is a function of distance between unsampled and measured points (e.g. radial basis function, model variogram)
+<!--<li>$e(r_i)$ is estimate of measurement error-->
+</ul>
+</small>
+<p>then use  $F(r)$ to compute $z$ at unsampled grid points
+</section>
+
+<section>
+    <h3>Spatial interpolation</h3>
+The problem of finding $F(x,y,)$ that passes through (or close to) the given points does not have a unique solution:
+<p class="fragment">
+<img height="440px" src="img/geostats/interp1d.gif">
+</section>
+
+<section>
+  <h3>Interpolation with radial basis functions</h3>
+<p>Variational approach is based on minimizing:
+<ul>
+  <li class="fragment">deviations from the given points
+  <li class="fragment">smoothness seminorm or roughness penalty
+</ul>
+<p class="fragment"> Radial basis functions: multiquadrics, splines
+<p class="fragment"> Physics-based interpretation:  spline interpolation function is a thin flexible plate with tunable bending energy,
+formally equivalent to universal kriging
+<p class="fragment">
+Spline tension rescales distances, it has similar effect to shortening range in kriging
+or decreasing the distance weight exponent in IDW
+</section>
+
+<section>
+   <h3>Spline: tension</h3>
+Tension controls the stiffness of the plate:
+<ul>
+ <li> high tension: soft rubber sheet, short range
+ <li> low tension: stiff steel plate, long range
+</ul>
+<p>
+<img height="400" src="img/geostats/tension.gif"> </p>
+</section>
+
+<section>
+   <h3>Spline: tension t=160</h3>
+<p>
+<img height="420" src="img/geostats/asp_rst_t160.png">
+</section>
+
+<section>
+   <h3>Spline: tension t=40</h3>
+<p>
+<img height="420" src="img/geostats/asp_rst_t40.png">
+</section>
+
+<section>
+   <h3>Spline: tension t=10</h3>
+<p>
+<img height="420" src="img/geostats/asp_rst_t10.png">
+</section>
+
+<section>
+   <h3>Spline: tension</h3>
+<p>
+<img height="220" src="img/geostats/asp_rst_t160.png">
+<img height="220" src="img/geostats/asp_rst_t40.png">
+<img height="220" src="img/geostats/asp_rst_t10.png">
+<p><small>
+High tension, short  range of influence, soft rubber sheet, results in a rough surface with a peak or pit in each data point
+<br>
+Low tension, long range of influence, stiffer steel plate, results in a smoother surface with possible overshoots.
+<br>Note that tension is inverse of stiffness
+</small>
+</section>
+
+<section>
+   <h3>Spline: smoothing</h3>
+<p>
+Smoothing controls the deviation from the data points, large smoothing results in trend surface $T(x,y)$
+<p>
+<img height="400" src="img/geostats/smooth.gif"> </p>
+<p>Reduces overshoots, noise, improves numerical stability, can be applied to individual points
+</section>
+
+<section>
+    <h3>Spatial interpolation</h3>
+Example of using smoothing spline with tension:
+<p>
+<!--
+<img height="150" src="img/geostats/lidarmrpts3dcolored.jpg">
+-->
+<img height="230" src="img/data_sim/elev_lid_default.jpg">
+<img height="230" src="img/data_sim/elev_lid_smooth.jpg">
+<p>
+<p class="fragment"><small>Note: Spline interpolation methods are based on deterministic, process-based simulations
 of a thin flexible sheet, but they are also equivalent to universal kriging with the covariance function
 determined by a roughness penalty (smoothness seminorm)
 see <a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/mitas_mitasova_1999_2005.pdf">Mitas 1999</a></small>
 </section>
 
 <section>
-    <h3>Computing the surface model</h3>
+   <h3>Predictive accuracy</h3>
 <p>
-Given $m$-points $(x_i, y_i, z_i), i=1,m$ 
-<br>find such $F(x,y)$ that for each $i=1,m$
-<p>
-           $$z_i=F(x_i,y_i) + e(x_i,y_i)$$
-<br>
-$$
-F(r) = T(r) + \sum_i^m \lambda_i R(r,r_i)
-$$
-<small>
+Predictive accuracy: crossvalidation error
+$$e_z (x,y) = z' (x,y) – z_o (x,y)$$
 <ul>
-<li> $r = (x,y)$ is unsampled point and $r_i=(x_i,y_i)$ is a measured point
-<li>$T(r)$ is trend (low order polynomial),
-<li>$λ_i$ are coefficients computed by solving a system of linear equations 
-<li>$R(r,r_i)$ is a function of distance between unsampled and measured points (e.g. radial basis function, model variogram)
-<li>$e(r_i)$ is estimate of measurement error
+<li class="fragment">
+where $z'$ is the interpolated and $z_o$ is the given value in a point that was omitted
+from the set of points used for the interpolation.
+<li class="fragment">
+n-interpolations are performed, each time omitting one point in which $e_z$ is computed:
+also called
+<a href="http://en.wikipedia.org/wiki/Cross-validation_(statistics)">
+leave-one-out cross-validation (LOOCV)</a>
+<li class="fragment">
+Artifacts, bias can be found using histograms, aspect maps, curvatures
 </ul>
-<p>then use  $F(r)$ to compute $z$ at unsampled grid points
-</small>
 </section>
 
 <section>
-    <h3>Computing the surface model</h3>
-From scattered points (red) to regular grid (blue)
+   <h3>Interpolated surface predictive errors </h3>
+Map showing spatial pattern of predictive errors
 <p>
-<img height="360px" src="img/geostats/elevrandpts.jpg">
-<img height="360px" src="img/geostats/pointstogrid.jpg">
+<img height="350" src="img/geostats/crossval2d.png">
+<img height="350" src="img/geostats/crossval3d.jpg"> </p>
+</section>
+
+<section>
+   <h3>Geostatistical approach to interpolation</h3>
+General equation
 <p>
-<!--
-<small>Interpolation: distance between grid points similar to average distance between given points
-<p>Simulation: distance between grid points can be much smaller than distance between given points
+$$
+F(r) = T(r) + ∑ λ_j R(r,r_j)  \;    j=1,m
+$$
+<ul>
+<li class="fragment"> $r = (x,y)$ is location of a unsampled grid point,
+<li class="fragment">$r_j=(x_j,y_j$) is location of a measured point
+<li class="fragment">$T(r)$ is trend (low order polynomial),
+<li class="fragment">$λ_j$ are coefficients
+<li class="fragment">$R(r,r_j)$ is a model variogram (function of distance between unsampled and measured point)
+</ul>
+<p class="fragment">The coefficients $λ_j$ are found by solving a system of $m$ linear equations</p>
+</section>
+
+<section>
+   <h3>Geostatistical approach</h3>
+We assume that the points that are close to each other have smaller differences in measured values
+than the points that are farther appart
+<p>
+<ul>
+<li class="fragment">Model variogram $R(r,r_j)$ is derived by fitting a suitable function to empirical variogram
+<li class="fragment">empirical variogram is derived from data as
+<p>
+$$
+\gamma (h) = (1/m_h) ∑[z(r_i) - z(r_j)]^2 \;  i=1,…, m_h
+$$
+<p>
+<small>which is mean square of differences in measured values $z$ for points that are separated
+by a distance $h$ (with some tolerance defining the size of histogram bin)
 </small>
--->
+<p>
+Many model functions can be used: spherical, exponential, Gaussian, …
+</section>
+
+<section>
+   <h3>Experimental variogram</h3>
+Given set of elevation points and derived experimental variogram
+<p>
+<img height="300" src="img/geostats/bar_pts_all.png">
+<img height="300" src="img/geostats/expvariogram_barania2.png"> </p>
+<p><small>Maximum distance is 2000 m, histogram bin is ~150m.
+Adapted from <a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">A Practical Guide to Geostatistical Mapping by T. Hengl.</a></small>
+</section>
+
+<section>
+   <h3>Model variogram</h3>
+Optimized fit of a suitable function to empirical variogram: linear
+<p>
+<img height="280" src="img/geostats/expvariogram_barania2.png">
+<img height="280" src="img/geostats/exp_model_variogram_lin_bar.png">
+</section>
+
+<section>
+   <h3>Model variogram</h3>
+Optimized fit of a suitable function to empirical variogram: gaussian, spherical
+<p>
+<img height="280" src="img/geostats/exp_model_variogram_gaus_bar.png">
+<img height="280" src="img/geostats/exp_model_variogram_spher_bar.png">
+</section>
+
+<section>
+   <h3>Model variogram</h3>
+Optimized fit of a suitable function to empirical variogram: exponential, Matern
+<p>
+<img height="280" src="img/geostats/exp_model_variogram_exp_bar.png">
+<img height="280" src="img/geostats/exp_model_variogram_Mat_bar.png">
+</section>
+
+<section>
+   <h3>Kriging: Interpolated surface</h3>
+Single realization of a DEM interpolated with kriging using Matern model variogram
+<p>
+<img height="380" src="img/geostats/bar_simdem10m_10.png"> </p>
+</small>
 </section>
 
 <section>
     <h3>Interpolation or simulation?</h3>
 <ul>
-<li class="fragment">The problem does not have a unique solution so additional conditions are used.
-<li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations
-<li class="fragment">Simulation: we use $F(x,y)$ to condition our simulation of a more complex surface
+<li class="fragment">Interpolation: we use $F(x,y)$ to estimate values at unsampled locations resulting 
+in a single realization of the surface
+<li class="fragment">Simulation: we use $F(x,y)$ to condition our simulation of a <b>more complex surface</b>
+than what we could generate using interpolation from the given points
 </ul>
 </section>
-
-<!--
-<section>
-    <h3>Multiple solutions</h3>
-<p class="fragment">
-<img height="440px" src="img/geostats/interp1d.gif">
-$$ F({\bf r}_j)=z_j,\quad j=1,\ldots ,m $$
-<p class="fragment"><small>draw simulation on the board</small>
-</section>
--->
 
 <section>
     <h3>Geostatistical simulations</h3>
@@ -157,6 +342,7 @@ Observations where sampling is limited:
 </ul>
 </section>
 
+<!--
 <section>
     <h3>Geostatistical simulations</h3>
 <p>
@@ -164,7 +350,6 @@ Observations where sampling is limited:
 Conditional simulation</a>
 </section>
 
-<!--
 <section>
     <h3>Geostatistical simulations</h3>
 <p>Raster-based: continuous or categorical data
@@ -396,8 +581,10 @@ and threshold 300 of 10m resolution cells: deterministic result
 
 <section>
     <h3>Examples of Applications</h3>
+<p>
 The approach can be applied to estimate uncertainty and error propagation for 
 other analysis and modeling problems using the $n$ DEM realizations: 
+<p>
 <ul>
   <li>flood extent prediction
   <li>viewshed mapping  and visibility analysis
@@ -407,7 +594,6 @@ other analysis and modeling problems using the $n$ DEM realizations:
 </ul>
 </section>
 
-<!--
 <section>
     <h3>Elevation data analysis </h3>
 <p>Lake Wheeler SECREF DEM and plot of given points 
@@ -433,7 +619,6 @@ other analysis and modeling problems using the $n$ DEM realizations:
 <p><img height="420px" src="img/geostats/inglis_probability_stream.jpg">
 <p><small>Inglis N., 2019, GIS714 course assignment report.</small>
 </section>
--->
 
 <section>
     <h3>Resources</h3>

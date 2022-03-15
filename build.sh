@@ -70,7 +70,9 @@ for DIR in resources
 do
     mkdir -p $OUTDIR/$DIR
 
-    for FILE in `ls $DIR/*.html $DIR/*.geojson $DIR/*.png $DIR/*.R $DIR/*.py`
+    # Copy all files with name and extension naming scheme.
+    # (Ignore anything which looks special, e.g., directories.)
+    for FILE in `ls $DIR/*.*`
     do
         cp $FILE $OUTDIR/$DIR
     done
