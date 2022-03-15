@@ -43,11 +43,12 @@ work among certain number of threads. OpenMP uses shared memory and therefore th
 We will submit a parallel job,
 that requests 4 cores and specifies that those cores need to be on one computing node (<code>span[hosts=1]</code>).
 The number of cores specified in the header should match the number in <code>nprocs</code> parameter.
+We will compute slope in a separate mapset called $USER_slope.
 
 <pre><code>
 #!/bin/bash
 #BSUB -n 4
-#BSUB -W 1:00    
+#BSUB -W 1:00
 #BSUB -R "rusage[mem=1GB]"
 #BSUB -R span[hosts=1] 
 #BSUB -oo slope_out
@@ -57,9 +58,46 @@ The number of cores specified in the header should match the number in <code>npr
 module use --append /usr/local/usrapps/geospatial/modulefiles
 module load grass/8.1
 
-grass /share/gis714s22/$USER/grassdata/albers/PERMANENT/$USER --exec r.slope.aspect elevation=DEM slope=slope nprocs=4 --o
+# remove this mapset which may exist from a previous run of this job
+rm -rf /share/gis714s22/$USER/grassdata/albers/${USER}_slope
+
+# create a new mapset with -c flag
+grass -c /share/gis714s22/$USER/grassdata/albers/${USER}_slope --exec r.slope.aspect elevation=DEM slope=slope nprocs=4 --o
 </code></pre>
 
 <span class="question">
     Submit this job with 1, 4, and 8 cores and compare the run time.
 </span>
+
+<h3>Computing distance</h3>
+Here we compute distance to roads, water and forest that will serve as predictors.
+Since tool <code>r.grow.distance</code> is not internally parallelized, we will execute distance to roads, water, and forest
+so that they run concurrently using 3 cores. This can be simply achieved by executing them in the background.
+
+<pre><code>
+#!/bin/bash
+#BSUB -n 3
+#BSUB -W 2:00
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -oo dist_out
+#BSUB -eo dist_err
+#BSUB -J dist
+
+module use --append /usr/local/usrapps/geospatial/modulefiles
+module load grass/8.1
+
+rm -rf /share/gis714s22/$USER/grassdata/albers/${USER}_roads
+rm -rf /share/gis714s22/$USER/grassdata/albers/${USER}_water
+rm -rf /share/gis714s22/$USER/grassdata/albers/${USER}_forest
+
+# run in background by appending & after the tool
+grass -c /share/gis714s22/$USER/grassdata/albers/${USER}_roads --exec r.grow.distance input=roads distance=dist_to_roads -m &
+grass -c /share/gis714s22/$USER/grassdata/albers/${USER}_water --exec r.grow.distance input=water distance=dist_to_water -m &
+grass -c /share/gis714s22/$USER/grassdata/albers/${USER}_forest --exec r.grow.distance input=forest distance=dist_to_forest -m &
+# this will wait for the processes to finish before starting the next set of processes
+wait
+grass /share/gis714s22/$USER/grassdata/albers/${USER}_roads --exec r.mapcalc "log_dist_to_roads = log(dist_to_roads + 1)" &
+grass /share/gis714s22/$USER/grassdata/albers/${USER}_water --exec r.mapcalc "log_dist_to_water = log(dist_to_water + 1)" &
+grass /share/gis714s22/$USER/grassdata/albers/${USER}_forest --exec r.mapcalc "log_dist_to_forest = log(dist_to_forest + 1)" &
+wait
+</code></pre>
