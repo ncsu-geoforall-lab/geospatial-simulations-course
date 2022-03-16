@@ -37,6 +37,11 @@ Exit GRASS session:
 exit
 </code></pre>
 
+We won't be going through the entire workflow, but rather demonstrating some parallel computation techniques on selected
+parts of the workflow. The next three sections (computing slope, distance to features, and development pressure)
+are independent, so you can submit all the jobs at the same time.
+
+
 <h3>Computing slope</h3>
 Tool <code>r.slope.aspect</code> can take advantage of multiple cores, because it uses OpenMP library to automatically distribute
 work among certain number of threads. OpenMP uses shared memory and therefore the job needs to run on a single node.
@@ -44,6 +49,8 @@ We will submit a parallel job,
 that requests 4 cores and specifies that those cores need to be on one computing node (<code>span[hosts=1]</code>).
 The number of cores specified in the header should match the number in <code>nprocs</code> parameter.
 We will compute slope in a separate mapset called $USER_slope.
+Note that we don't have to set computational region for the new mapset because all new mapsets are using default region
+that is set in PERMANENT.
 
 <pre><code>
 #!/bin/bash
@@ -77,7 +84,7 @@ so that they run concurrently using 3 cores. This can be simply achieved by exec
 <pre><code>
 #!/bin/bash
 #BSUB -n 3
-#BSUB -W 2:00
+#BSUB -W 3:00
 #BSUB -R "rusage[mem=1GB]"
 #BSUB -oo dist_out
 #BSUB -eo dist_err
@@ -100,4 +107,40 @@ grass /share/gis714s22/$USER/grassdata/albers/${USER}_roads --exec r.mapcalc "lo
 grass /share/gis714s22/$USER/grassdata/albers/${USER}_water --exec r.mapcalc "log_dist_to_water = log(dist_to_water + 1)" &
 grass /share/gis714s22/$USER/grassdata/albers/${USER}_forest --exec r.mapcalc "log_dist_to_forest = log(dist_to_forest + 1)" &
 wait
+</code></pre>
+
+<h3>Computing development pressure</h3>
+Here we combine the two previous approaches to compute development pressure for 2001 and 2019.
+Tool <a href="https://grass.osgeo.org/grass80/manuals/addons/r.futures.devpressure.html">r.futures.devpressure</a>
+is internally parallelized, so we can run the tool for both years concurrently and for each of them request certain number of cores.
+Notice that we need to request twice as many cores then (on a single node).
+
+<pre><code>
+#!/bin/bash
+#BSUB -n 16
+#BSUB -W 10:00
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=2GB]"
+#BSUB -oo devpressure_out
+#BSUB -eo devpressure_err
+#BSUB -J devpressure
+
+module use --append /usr/local/usrapps/geospatial/modulefiles
+module load grass/8.1
+
+rm -rf /share/gis714s22/$USER/grassdata/albers/${USER}_devpressure_2001
+rm -rf /share/gis714s22/$USER/grassdata/albers/${USER}_devpressure_2019
+
+# run in background by appending & after the tool
+grass -c /share/gis714s22/$USER/grassdata/albers/${USER}_devpressure_2001 --exec r.futures.devpressure input=urban_no_roads_2001 output=devpressure_2001 size=20 gamma=1 nprocs=8 &
+grass -c /share/gis714s22/$USER/grassdata/albers/${USER}_devpressure_2019 --exec r.futures.devpressure input=urban_no_roads_2019 output=devpressure_2019 size=20 gamma=1 nprocs=8 &
+
+# this will wait for the processes to finish
+wait
+</code></pre>
+
+<h3>Running the simulation</h3>
+
+<pre><code>
+g.mapsets operation=add mapset=${USER}_roads,${USER}_water,${USER}_forest,${USER}_slope,${USER}_devpressure_2001,${USER}_devpressure_2019
 </code></pre>
