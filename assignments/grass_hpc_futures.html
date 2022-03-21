@@ -14,12 +14,18 @@ ln -s /share/gis714s22/grassdata/albers/PERMANENT/ /share/gis714s22/$USER/grassd
 </code></pre>
 
 
-Start GRASS GIS in the newly created mapset:
+Install <a href="https://github.com/ncsu-landscape-dynamics/pynodelauncher">pynodelauncher</a>:
 
 <pre><code>
 module use --append /usr/local/usrapps/geospatial/modulefiles
 module load grass/8.1
-grass -c /share/gis714s22/$USER/grassdata/albers/$USER
+module load PrgEnv-intel
+pip install git+https://github.com/ncsu-landscape-dynamics/pynodelauncher.git
+</code></pre>
+
+Start GRASS GIS in a temporary mapset mapset:
+<pre><code>
+grass --tmp-mapset /share/gis714s22/$USER/grassdata/albers/
 </code></pre>
 
 Check you can access the data:
@@ -32,7 +38,7 @@ Install FUTURES extension:
 g.extension r.futures
 </code></pre>
 
-Exit GRASS session:
+Exit GRASS session (temporary mapset will be removed):
 <pre><code>
 exit
 </code></pre>
@@ -55,7 +61,7 @@ that is set in PERMANENT.
 <pre><code>
 #!/bin/bash
 #BSUB -n 4
-#BSUB -W 1:00
+#BSUB -W 15
 #BSUB -R "rusage[mem=1GB]"
 #BSUB -R span[hosts=1] 
 #BSUB -oo slope_out
@@ -69,11 +75,11 @@ module load grass/8.1
 rm -rf /share/gis714s22/$USER/grassdata/albers/slope
 
 # create a new mapset with -c flag
-grass -c /share/gis714s22/$USER/grassdata/albers/slope --exec r.slope.aspect elevation=DEM slope=slope nprocs=4 --o
+grass -c /share/gis714s22/$USER/grassdata/albers/slope --exec r.slope.aspect elevation=DEM slope=slope nprocs=4
 </code></pre>
 
 <span class="question">
-    Submit this job with 1, 4, and 8 cores and compare the run time.
+    Submit this job with a different number of cores and compare the run time. Change the name of the mapset if you want to run it at the same time.
 </span>
 
 <h3>Computing distance</h3>
@@ -153,10 +159,10 @@ r.mask raster=masking
 r.futures.pga developed=urban_2019 development_pressure=devpressure_2019@devpressure_2019 \
     compactness_mean=0.5 compactness_range=0.1 discount_factor=1 \
     predictors=log_dist_to_forest@forest,log_dist_to_roads@roads,log_dist_to_water@water,slope@slope \
-    n_dev_neighbourhood=20 devpot_params=/share/gis714s22/inputs/best_model.csv num_neighbors=4 seed_search=probability \
-    development_pressure_approach=gravity gamma=1 scaling_factor=1 \
-    subregions=state_${1} demand=/share/gis714s22/inputs/demand_${1}.csv \
-    output=out_state_${1}_seed_${2} patch_sizes=/share/gis714s22/inputs/patch_sizes_${1}.csv memory=12 random_seed=${2}
+    n_dev_neighbourhood=20 devpot_params=/share/gis714s22/input_csv/best_model.csv num_neighbors=4 seed_search=probability \
+    development_pressure_approach=gravity gamma=1 scaling_factor=1 num_steps=31 \
+    subregions=state_${1} demand=/share/gis714s22/input_csv/demand_${1}.csv \
+    output=out_state_${1}_seed_${2} patch_sizes=/share/gis714s22/input_csv/patch_sizes_${1}.csv memory=12 random_seed=${2}
 </code></pre>
 
 Then create a script "bsub_futures.sh" with the content below:
@@ -202,3 +208,53 @@ Notice the submission parameters, there are slightly more complex. In the script
 9 concurrent simulations (we need to keep some padding). Therefore, we specify that with <code>rusage[mem=120GB]</code> and <code>span[ptile=9]</code>. When we request 19 cores, that will result in requesting 2 x 128GB nodes.
 We request 19 instead of 18 to include one extra core for MPI thread management. There will be total of 60 (6 states x 10 seeds) FUTURES computations on 18 cores, once a computation from the list is finished
 the next one is started. When you submit your job, it may be pending for a while, you are requesting a lot of resources for a long time.
+
+
+<h3>Postprocessing</h3>
+We need to patch the results for individual states. For that we will use
+tool <code>r.patch</code> which is internally parallelized. Since we
+need to do that for each random seed, we can use MPI to distribute the computation across
+multiple nodes. This example shows how to submit a
+<a href="https://projects.ncsu.edu/hpc/Documents/hybridjobs.php">"hybrid job"</a> that
+distributes each r.patch call on a different node,
+allowing r.patch to use all the cores available on that node (<code>nprocs --all</code>).
+<p>
+Note: this is not the most efficient way of using HPC resources.
+One problem is that r.patch will not run much faster with 12 cores than 4. Also, pynodelauncher
+needs one extra core for managing threads, which (because of using <code>-x</code>) results in one almost idle node.
+More complex options to improve this would be to
+e.g., place multiple r.patch calls on one node and/or request specific node size (e.g., <code>-R "select[qc]"</code> for 8 available cores).
+
+
+<pre><code>
+#!/bin/bash
+#BSUB -n 11
+#BSUB -x
+#BSUB -R span[ptile=1]
+#BSUB -W 1:00
+#BSUB -oo patch_out
+#BSUB -eo patch_err
+#BSUB -J patch
+
+module use --append /usr/local/usrapps/geospatial/modulefiles
+module load grass/8.1
+module load PrgEnv-intel
+
+
+rm -f /share/gis714s22/${USER}/patch_jobs.sh
+for SEED in {1..10}
+do
+    # list results for each state for a single seed and save to a variable
+    MAPS=$(grass --tmp-mapset /share/gis714s22/$USER/grassdata/albers --exec \
+         g.list type=raster pattern="out_state_*_seed_${SEED}" mapset="*" -m separator=comma)
+    rm -rf /share/gis714s22/$USER/grassdata/albers/results_${SEED}
+    echo grass -c /share/gis714s22/$USER/grassdata/albers/results_${SEED} --exec  r.patch input=${MAPS} output="out_seed_${SEED}" nprocs=$(nproc --all) >> /share/gis714s22/${USER}/patch_jobs.sh
+
+done
+
+mpiexec python -m mpi4py -m pynodelauncher /share/gis714s22/${USER}/patch_jobs.sh
+</code></pre>
+
+<span class="question">
+    Report the run times for all your computations and include a figure with the results.
+</span>
