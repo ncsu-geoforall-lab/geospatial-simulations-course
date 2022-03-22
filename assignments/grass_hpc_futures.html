@@ -221,14 +221,14 @@ allowing r.patch to use all the cores available on that node (<code>nprocs --all
 <p>
 Note: this is not the most efficient way of using HPC resources.
 One problem is that r.patch will not run much faster with 12 cores than 4. Also, pynodelauncher
-needs one extra core for managing threads, which (because of using <code>-x</code>) results in one almost idle node.
+will use one core for managing threads, which (because of using <code>-x</code>) results in one almost idle node.
 More complex options to improve this would be to
 e.g., place multiple r.patch calls on one node and/or request specific node size (e.g., <code>-R "select[qc]"</code> for 8 available cores).
 
 
 <pre><code>
 #!/bin/bash
-#BSUB -n 11
+#BSUB -n 6
 #BSUB -x
 #BSUB -R span[ptile=1]
 #BSUB -W 1:00
