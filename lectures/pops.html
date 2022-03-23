@@ -50,14 +50,14 @@ establishment
 <li> Spatial distribution of infected host probabilities over time
 </ul>
 <p>
+<img height="80" src="img/pops/pops_logo.png" alt="PoPS logo">
 <a href="https://popsmodel.org/about/the-pops-model/">PoPS model description</a>
-<br><img height="120px" src="img/pops/pops_logo.png" alt="PoPS logo">
 </section>
 
 <section>
 <h3>Governing equation</h3>
 Describes density of infected hosts at time $t$
-as a function of dispersers reproduction, dispersal, and establishment
+as a function of pests/pathogens reproduction, dispersal, and establishment
 <p>
 $$ \Psi_{ijt} = \beta W_{it} I_{it} * K (d, w) * (W_{jt} S_{jt}) / N_j$$
 <p>
@@ -65,7 +65,7 @@ where
 <small>
 <ul>
  <li> $\Psi_{ijt}$ is number of infested hosts in cell $j$ as a result of pest dispersal from cell $i$
- <li> $\beta$ number of dispersers from a single host under optimal conditions
+ <li> $\beta$ number of pests/pathogens from a single host under optimal conditions
  <li> $W_{it}$ is weather in cell $i$, $I_{it}$ number of infected hosts in cell $i$
  <li> $K (d, w)$ is the dispersal as a function of distance parameters $d$ and wind properties $w$
  <li> $W_{jt}$ is weather in cell $j$, $S_{jt}$ number of susceptible hosts in cell $j$, 
@@ -77,19 +77,19 @@ where
 </section>
 
 <section>
-<h3>Generating dispersers </h3>
-Number of dispersers each infected host produces $\lambda$:
+<h3>Generating pests/pathogens: reproduction </h3>
+Number of pests/pathogens each infected host produces $\lambda$:
 <p>
 $$\lambda = \beta X_{it} P_{it} T_{it}$$
 <p>
 where
 <small>
 <ul>
- <li> $\beta$ number of dispersers from a single host under optimal conditions
+ <li> $\beta$ number of pests/pathogens from a single host under optimal conditions
  <li> $X_{it} P_{it} T_{it}$ is weather: seasonality, precipitation, temperature
  <li> weather is implemented as <a href="https://github.com/ncsu-landscape-dynamics/weather-coefficient"> weather coefficient</a>
 derived from historical weather data
- <li> number of dispersers is randomly selected from 
+ <li> number of pests/pathogens is randomly selected from 
 <a href="https://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a>
 </ul>
 </p>
@@ -98,8 +98,8 @@ derived from historical weather data
 </section>
 
 <section>
-<h3>Spreading the dispersers</h3>
-The distance and direction of dispersers spread from cell $i$ to cell $j$ is:
+<h3>Spreading the pests/pathogens: dispersal</h3>
+The vector of pests/pathogens spread from cell $i$ to cell $j$ is:
 <p>
  $$ V_{ij} = K(d_{ij}; \alpha_1, \alpha_2, \gamma, D(\omega, \kappa))$$
 <p>
@@ -119,7 +119,7 @@ The distance and direction of dispersers spread from cell $i$ to cell $j$ is:
 </section>
 
 <section>
-<h3>Establishment of dispersers</h3>
+<h3>Establishment of pests/pathogens</h3>
 The number of infected susceptible hosts in a cell $j$:
 <p>
 $$E_j =  X_{jt} P_{jt} T_{jt} S_{jt}/N_j $$
@@ -139,10 +139,10 @@ where
 <h3>Spatial outputs of stochastic simulations</h3>
 <p>
 <ul>
-  <li>Number of infected trees in each cell from individual stochastic runs
-  <li>Probability infection map: probability that the hosts will be infected over given period of time
+  <li class="fragment">Number of infected hosts (trees, plants) in each cell from individual stochastic runs
+  <li class="fragment">Probability infection map: probability that the hosts will be infected over given period of time
       derived from large number of stochastic runs
-  <li>Average number of infected hosts in each grid cell from large number of stochastic runs and associated 
+  <li class="fragment">Average number of infected hosts in each grid cell from large number of stochastic runs and associated 
       standard deviations map
 </ul>
 </section>
@@ -203,7 +203,7 @@ Geospatial simulation steering for adaptive management. Environmental Modelling 
 
 <section>
 <h3>PoPS application for SOD scenario modeling</h3>
-<p>Simulations with different dispersal kernels 
+<p>Number of infected hosts per cell from single run simulations with different dispersal kernels 
 (exponential with modified distance and wind strength, Cauchy, anisotropic)
 <p>
 <img src="img/pops/pops_spread_dist.jpg" height="290px">
@@ -213,7 +213,7 @@ Geospatial simulation steering for adaptive management. Environmental Modelling 
 
 <section>
 <h3>PoPS application for SOD scenario modeling</h3>
-<p>Management scenarios: local buffers, massive barrier clear cut                        
+<p>Probability of hosts getting infected in a grid cell for management scenarios: local buffers, massive barrier clear cut                        
 <p>
 <img src="img/pops/pops_prob_trA_23.jpg" height="390px">&nbsp;
 <img src="img/pops/pops_prob_trC_23.jpg" height="390px">
@@ -252,11 +252,11 @@ All open source, hosted on GitHub
 <h3>PoPS Forecasting and Control System</h3>
   <p style="text-align:left">Interconnected components:
 <ul>
-  <li><strong>PoPS model:</strong> predicts probability of infection
-  <li><strong>Spatial Decision Support System:</strong> interactive dashboard for stakeholders
-  <li><strong>Iterative sampling and management:</strong> validation of forecasts and improving calibration
-  <li><strong>Pest/Pathogen parameter library:</strong> biological characteristics influencing spread
-  <li><strong>Host map library:</strong> satellite data + machine learning algorithms
+  <li class="fragment"><strong>PoPS model:</strong> predicts probability of infection
+  <li class="fragment"><strong>Spatial Decision Support System:</strong> interactive dashboard for stakeholders
+  <li class="fragment"><strong>Iterative sampling and management:</strong> validation of forecasts and improving calibration
+  <li class="fragment"><strong>Pest/Pathogen parameter library:</strong> biological characteristics influencing spread
+  <li class="fragment"><strong>Host map library:</strong> satellite data + machine learning algorithms
 </ul>
 </p>
 </section>
