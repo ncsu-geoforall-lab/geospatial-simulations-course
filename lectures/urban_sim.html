@@ -260,6 +260,7 @@ $$
 </div>
 </section>
 
+<section>
 <h3>Modeling framework</h3>
 <p>
 <!--<img style="margin-top:2em;margin-left:5em; max-width: 58% !important;" src="img/urban/FUTURES_schema.png">-->
@@ -282,9 +283,9 @@ accounts for variation among subregions </li>
 <li>inputs are uncorrelated predictors (distance to roads, distance from existing development, slope, ...)</li>
 </ul>
 <br>
-<img src="img/urban/r_futures_potsurface.png" height="250">
-<img src="img/urban/disttowaterlakes_zoom.png" height="250">
-<p style="font-size:70%">surface: potential, orange: developed areas, green: undeveloped areas
+<img src="img/urban/disttowaterlakes_zoom.png" height="280">
+<img src="img/urban/r_futures_potsurface.png" height="280">
+<p style="font-size:70%">Predictors: distance to lakes, surface: potential, orange: developed areas, green: undeveloped areas
 </section>
 
 <section>
@@ -351,17 +352,16 @@ Surface represents the development pressure, color is the initial development
 </section>
 
 <section>
-<h3>Development pressure</h3>
-Surface represents the development pressure, color is the initial development
-<p><img src="img/urban/devpressure92.jpg" height="400">
+<h3>Development pressure 1992</h3>
+<p><img src="img/urban/devpressure92.jpg" height="450">
 </section>
 
 <section>
-<h3>Development pressure</h3>
-Surface represents the development pressure, color is the initial development
-<p><img src="img/urban/devpressure2011.jpg" height="400">
+<h3>Development pressure 2011</h3>
+<p><img src="img/urban/devpressure2011.jpg" height="450">
 </section>
 
+<section>
 <h3>Modeling framework</h3>
 <p>
 <!--<img style="margin-top:2em;margin-left:5em; max-width: 58% !important;" src="img/urban/FUTURES_schema.png">-->
@@ -389,11 +389,23 @@ derived from historical data</li>
 </section>
 
 <section>
-<h3>Historical urban development data</h3>
-<p><img src="img/urban/urban1992.png" height="300">
-<img src="img/urban/urban2001.png" height="300">
-<img src="img/urban/urban2006.png" height="300">
-<img src="img/urban/urban2011.png" height="300">
+<h3>Historical urban development data: 1992</h3>
+<p><img src="img/urban/urban1992.png" height="450">
+</section>
+
+<section>
+<h3>Historical urban development data 2001</h3>
+<img src="img/urban/urban2001.png" height="450">
+</section>
+
+<section>
+<h3>Historical urban development data 2006</h3>
+<img src="img/urban/urban2006.png" height="450">
+</section>
+
+<section>
+<h3>Historical urban development data 2011</h3>
+<img src="img/urban/urban2011.png" height="450">
 </section>
 
 <section>
@@ -444,7 +456,6 @@ $$P_{new} = P . C, \quad C \in \langle 0, 1\rangle $$
 $$P_{new} = P + S - P.S, \quad S \in \langle 0, 1 \rangle$$
 </section>
 
-
 <section>
 <h3>r.futures</h3>
 Information flow diagram for the set of FUTURES modules 
@@ -455,7 +466,13 @@ Information flow diagram for the set of FUTURES modules
 <p><small>
 Additionally, <em>r.futures.parallelpga</em> can be used instead of <em>r.futures.pga</em>.
 </small></p>
+</section>
 
+<section>
+<h3>Visualization</h3>
+Rendering the futures output in 3D using development type typology
+<p>
+<img height=450 src="img/urban/futures_anim.gif">
 </section>
 
 <section>
