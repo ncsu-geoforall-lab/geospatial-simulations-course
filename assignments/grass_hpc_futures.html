@@ -59,7 +59,7 @@ Note that we don't have to set computational region for the new mapset because a
 that is set in PERMANENT.
 
 <pre><code>
-#!/bin/bash
+#!/bin/tcsh
 #BSUB -n 4
 #BSUB -W 15
 #BSUB -R "rusage[mem=1GB]"
@@ -88,7 +88,7 @@ Since tool <code>r.grow.distance</code> is not internally parallelized, we will 
 so that they run concurrently using 3 cores. This can be simply achieved by executing them in the background.
 
 <pre><code>
-#!/bin/bash
+#!/bin/tcsh
 #BSUB -n 3
 #BSUB -W 3:00
 #BSUB -R "rusage[mem=1GB]"
@@ -122,7 +122,7 @@ is internally parallelized, so we can run the tool for both years concurrently a
 Notice that we need to request twice as many cores then (on a single node).
 
 <pre><code>
-#!/bin/bash
+#!/bin/tcsh
 #BSUB -n 16
 #BSUB -W 10:00
 #BSUB -R span[hosts=1]
@@ -168,7 +168,7 @@ r.futures.pga developed=urban_2019 development_pressure=devpressure_2019@devpres
 Then create a script "bsub_futures.sh" with the content below:
 
 <pre><code>
-#!/bin/bash
+#!/bin/tcsh
 #BSUB -n 19
 #BSUB -R "rusage[mem=120GB]"
 #BSUB -R span[ptile=9]
@@ -183,13 +183,12 @@ module load PrgEnv-intel
 
 
 rm -f /share/gis714s22/${USER}/pga_jobs.sh
-for SEED in {1..10}
+foreach SEED (`seq 1 10`)
 do
-    for STATE in 1 12 13 37 45 47
-    do
+    foreach STATE  ( 1 12 13 37 45 47 )
         rm -rf /share/gis714s22/$USER/grassdata/albers/pga_${STATE}_${SEED}
         echo grass -c /share/gis714s22/$USER/grassdata/albers/pga_${STATE}_${SEED} --exec bash /home/${USER}/pga.sh ${STATE} ${SEED} >> /share/gis714s22/${USER}/pga_jobs.sh
-    done
+    end
 done
 
 mpiexec python -m mpi4py -m pynodelauncher /share/gis714s22/${USER}/pga_jobs.sh
@@ -227,7 +226,7 @@ e.g., place multiple r.patch calls on one node and/or request specific node size
 
 
 <pre><code>
-#!/bin/bash
+#!/bin/tcsh
 #BSUB -n 6
 #BSUB -x
 #BSUB -R span[ptile=1]
@@ -242,15 +241,13 @@ module load PrgEnv-intel
 
 
 rm -f /share/gis714s22/${USER}/patch_jobs.sh
-for SEED in {1..10}
-do
+foreach SEED (`seq 1 10`)
     # list results for each state for a single seed and save to a variable
-    MAPS=$(grass --tmp-mapset /share/gis714s22/$USER/grassdata/albers --exec \
+    set MAPS=$(grass --tmp-mapset /share/gis714s22/$USER/grassdata/albers --exec \
          g.list type=raster pattern="out_state_*_seed_${SEED}" mapset="*" -m separator=comma)
     rm -rf /share/gis714s22/$USER/grassdata/albers/results_${SEED}
     echo grass -c /share/gis714s22/$USER/grassdata/albers/results_${SEED} --exec  r.patch input=${MAPS} output="out_seed_${SEED}" nprocs=$(nproc --all) >> /share/gis714s22/${USER}/patch_jobs.sh
-
-done
+end
 
 mpiexec python -m mpi4py -m pynodelauncher /share/gis714s22/${USER}/patch_jobs.sh
 </code></pre>
