@@ -214,7 +214,7 @@ We need to patch the results for individual states. For that we will use
 tool <code>r.patch</code> which is internally parallelized. Since we
 need to do that for each random seed, we can use MPI to distribute the computation across
 multiple nodes. This example shows how to submit a
-<a href="https://projects.ncsu.edu/hpc/Documents/hybridjobs.php">"hybrid job"</a> that
+<a href="https://hpc.ncsu.edu/Documents/hybridjobs.php">"hybrid job"</a> that
 distributes each r.patch call on a different node,
 allowing r.patch to use all the cores available on that node (<code>nprocs --all</code>).
 <p>
