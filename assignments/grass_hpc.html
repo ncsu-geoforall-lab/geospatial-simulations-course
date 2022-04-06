@@ -85,7 +85,7 @@ Set region to smaller area so that we don't have to wait too much:
 g.region n=1690185 s=252165 e=1838925 w=514635 res=30 -p
 </code></pre>
 
-We will import data in an <a href="https://projects.ncsu.edu/hpc/Documents/LSF.php#interact">interactive session on a compute node</a><div class=""></div>
+We will import data in an <a href="https://hpc.ncsu.edu/Documents/LSF.php#interact">interactive session on a compute node</a><div class=""></div>
 We request a single core and 2GB of memory for 30 minutes:
 <pre><code>
 bsub -Is -n 1 -R "rusage[mem=2GB]" -W 30 tcsh
