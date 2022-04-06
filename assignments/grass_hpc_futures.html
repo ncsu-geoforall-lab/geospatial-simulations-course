@@ -20,6 +20,7 @@ Install <a href="https://github.com/ncsu-landscape-dynamics/pynodelauncher">pyno
 module use --append /usr/local/usrapps/geospatial/modulefiles
 module load grass/8.1
 module load PrgEnv-intel
+module load gcc
 pip install git+https://github.com/ncsu-landscape-dynamics/pynodelauncher.git
 </code></pre>
 
@@ -184,12 +185,11 @@ module load PrgEnv-intel
 
 rm -f /share/gis714s22/${USER}/pga_jobs.sh
 foreach SEED (`seq 1 10`)
-do
     foreach STATE  ( 1 12 13 37 45 47 )
         rm -rf /share/gis714s22/$USER/grassdata/albers/pga_${STATE}_${SEED}
         echo grass -c /share/gis714s22/$USER/grassdata/albers/pga_${STATE}_${SEED} --exec bash /home/${USER}/pga.sh ${STATE} ${SEED} >> /share/gis714s22/${USER}/pga_jobs.sh
     end
-done
+end
 
 mpiexec python -m mpi4py -m pynodelauncher /share/gis714s22/${USER}/pga_jobs.sh
 </code></pre>
