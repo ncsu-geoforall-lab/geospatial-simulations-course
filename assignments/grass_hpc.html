@@ -80,10 +80,6 @@ Which projection is NLCD data in? How many cells?
 
 <h3>Importing NLCD</h3>
 We will import 2019 NLCD land cover into our newly created location.
-Set region to smaller area so that we don't have to wait too much:
-<pre><code>
-g.region n=1690185 s=252165 e=1838925 w=514635 res=30 -p
-</code></pre>
 
 We will import data in an <a href="https://hpc.ncsu.edu/Documents/LSF.php#interact">interactive session on a compute node</a><div class=""></div>
 We request a single core and 2GB of memory for 30 minutes:
@@ -101,6 +97,11 @@ module load grass/8.1
 Start GRASS GIS in the newly created Location:
 <pre><code>
 grass /share/gis714s22/$USER/grassdata/intro/PERMANENT
+</code></pre>
+
+Set region to smaller area so that we don't have to wait too much:
+<pre><code>
+g.region n=1690185 s=252165 e=1838925 w=514635 res=30 -p
 </code></pre>
 
 Import NLCD land cover data (will take couple minutes):
