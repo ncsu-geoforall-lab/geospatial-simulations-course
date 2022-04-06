@@ -243,8 +243,8 @@ module load PrgEnv-intel
 rm -f /share/gis714s22/${USER}/patch_jobs.sh
 foreach SEED (`seq 1 10`)
     # list results for each state for a single seed and save to a variable
-    set MAPS=$(grass --tmp-mapset /share/gis714s22/$USER/grassdata/albers --exec \
-         g.list type=raster pattern="out_state_*_seed_${SEED}" mapset="*" -m separator=comma)
+    set MAPS=`grass --tmp-mapset /share/gis714s22/$USER/grassdata/albers --exec \
+         g.list type=raster pattern="out_state_*_seed_${SEED}" mapset="*" -m separator=comma`
     rm -rf /share/gis714s22/$USER/grassdata/albers/results_${SEED}
     echo grass -c /share/gis714s22/$USER/grassdata/albers/results_${SEED} --exec  r.patch input=${MAPS} output="out_seed_${SEED}" nprocs=$(nproc --all) >> /share/gis714s22/${USER}/patch_jobs.sh
 end
