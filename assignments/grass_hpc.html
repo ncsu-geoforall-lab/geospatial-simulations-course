@@ -106,7 +106,7 @@ g.region n=1690185 s=252165 e=1838925 w=514635 res=30 -p
 
 Import NLCD land cover data (will take couple minutes):
 <pre><code>
-r.in.gdal input=/share/gis714s22/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img output=nlcd_2019 memory=2000
+r.in.gdal input=/share/gis714s22/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img output=nlcd_2019 memory=2000 -r
 </code></pre>
 
 Once you are done, you can launch GUI with <code>g.gui</code> add the new raster.
