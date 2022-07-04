@@ -47,7 +47,7 @@ Netherlands provides standardized geospatial data through
 <h3>Practice instructions</h3>
 
 <p>
-First create three directories (folders) where you will store the files that we will work with:
+Unless you already have it, create three directories (folders) where you will store the files that we will work with:
 <ul>
    <li> <code>grassdata</code> directory for GRASS GIS databases
    <li> <code>gisexternal</code> directory for external geospatial data, for example, data downloaded 
@@ -92,13 +92,16 @@ d.rast dsm_05mfill
 d.rast dsm_05mfillsh
 </code></pre>
 
-in a similar way we can display the pojnts that represent  our exhibits and the participant data
+in a similar way we can display the points that represent  our exhibits and the participant data
 
 <pre><code>
 d.vect map=exhibits_all_om@nuenen_outdoor icon=basic/circle size=10
 d.vect
 </code></pre>
 
+<p>
+Note: You can work in GRASS GIS through the graphical user interface (GUI) or using command line interface (CLI)
+by typing (or copy-paste) commands in the Console or for linux/mac Grass Terminal
 <p>
 We can import and rasterize our participant data directly from the csv files. 
 To access the files without the need to specify full path we 
