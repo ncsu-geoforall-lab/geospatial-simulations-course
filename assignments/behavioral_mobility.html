@@ -122,24 +122,31 @@ r.in.xyz in=opt20h.csv out=opt20_mean_2m meth=mean sep=, x=3 y=4 z=13 skip=0
 r.in.xyz in=opt21h.csv out=opt21_mean_2m meth=mean sep=, x=3 y=4 z=13 skip=0
 </code></pre>
 
-#number of p[articipants per each grid cell
+<p>number of p[articipants per each grid cell
+<pre><code>
 r.series in=opt11_mean_2m,opt20_mean_2m,opt14_mean_2m,opt13_mean_2m,opt21_mean_2m out=opt_count_2m meth=count
+</code></pre>
 
 order the participants by recommendation level
+<pre><code>
 11 - 0
 20 - 7
 14 - 8
 13 - 9
 21 - 9
+</code></pre>
 
 #mean and regression for a subset for cells with at least 3 participants?
+<pre><code>
 r.to.vect opt_slope out=opt_slope
 r.series in=opt11_mean,opt14_mean,opt20_mean,opt13_mean,opt21_mean out=opt_mean meth=mean
 r.series in=opt11_mean,opt14_mean,opt20_mean,opt13_mean,opt21_mean out=opt_slope meth=slope
 r.series in=opt11_mean0,opt20_mean7,opt14_mean8,opt13_mean9,opt21_mean9 out=opt_slope meth=slope
 r.series in=opt11_mean0,opt20_mean7,opt14_mean8,opt13_mean9,opt21_mean9 out=opt_detcoef meth=detcoef
+</code></pre>
 
 #compute weighted mean phasic - first change null to zeroes
+<pre><code>
 r.null opt11_mean null=0
 r.null opt13_mean null=0
 r.null opt14_mean null=0
@@ -148,8 +155,10 @@ r.null opt21_mean null=0
 
 r.mapcalc "opt_partwmeanph = (opt11_n*opt11_mean + opt13_n*opt13_mean + opt14_n*opt14_mean + opt20_n*opt20_mean + opt21_n*opt21_mean) \
 /(opt11_n + opt13_n + opt14_n + opt20_n + opt13_n)"
+</code></pre>
 
 #interpolate mean phasic to create continuous representation map
+<pre><code>
 g.region res=0.5
 r.to.vect -z in=opt_partwmeanph out=opt_partwmeanph type=point
 v.surf.rst in=opt_partwmeanph elev=opt_partwmeanph_rstdef
@@ -158,6 +167,12 @@ r.colors opt_partwmeanph_rstdef rules=co_phasic_pmean.txt
 r.to.vect -z in=opt_detcoef out=opt_detcoef type=point
 v.surf.rst in=opt_detcoef elev=opt_detcoef
 r.colors opt_detcoef rules=co_detcoef.txt
+</code></pre>
+
+#overijssel
+<pre><code>
+switch to mapset in a different location
+</code></pre>
 
 
 To add the newly output pngs to a web map continue by following the instructions found in the next tutorial here
