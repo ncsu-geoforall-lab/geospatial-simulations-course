@@ -2,13 +2,13 @@
 
 <p>We will cover the following tasks:
 <ul>
-   <li>basic vector operations (clipping),
-       computing and analyzing kernel density maps of participants travelling patterns (Overijssel)
    <li>per cell correlation maps between variables: binned or interpolated participant data
        with visualization over lidar DSM, computing viewsheds and distances to attractions
 <!--(Nuennen, see also gm_nuenen mapset) see run_nuenen_part_recall2, nuenen_workflows.txt-->
-   <li>viewshed composition summaries and viewshed maps for cycklists (CHIPS)
-   <li>working with own data, identifying suitable data and tools
+   <li>basic vector operations (clipping), computing and analyzing kernel density maps of participants travelling patterns,
+       distances to attractions (Overijssel)
+   <li>viewshed composition summaries and viewshed maps for cycklists, relations to participant data (CHIPS)
+   <li>working with own data, identifying suitable data and tools, setting up a project location
 </ul>
 
 <h3>Software</h3>
@@ -44,23 +44,24 @@ Learn more (slides with brief description and related links):
 Netherlands provides standardized geospatial data through 
 <a href="https://www.pdok.nl/">PDOK</a> web portal.
 
-<h3>Practice instructions</h3>
-
-<p>
-Unless you already have it, create three directories (folders) where you will store the files that we will work with:
-<ul>
-   <li> <code>grassdata</code> directory for GRASS GIS databases
-   <li> <code>gisexternal</code> directory for external geospatial data, for example, data downloaded 
-   from on-line repositoriesnor or your georeferenced participant data
-   <li> <code>giswork</code> directory for various supporting files (color ramps, series lists, etc.) 
-        and your outputs 
-</ul>
-Then download 
+Download the datasets from links provided through email
 <ul>
    <li><a href="LINK"><code>nl_epsg28992_amersfoort_workshp.zip</code></a> and 
        <a href="LINK"><code>nl_epsg28992_amersf_overijssel.zip</code></a>  datasets, and save them in the <code>grassdata</code>directory.
    <li><a href="LINK">observations.zip</a> dataset and save it in the <code>gisexternal</code> directory.
    <li><a href="LINL">supportingfiles.zip</a> data and save it in the <code>giswork</code> directory.
+</ul>
+
+<p>
+Before starting it is useful to go through 
+<a href="https://grass.osgeo.org/grass82/manuals/helptext.html">GRASS GIS Quickstart</a>
+and  learn some GRASS GIS terminology for its data organization. 
+
+Move the unzipped folder <code>nl_epsg28992_amersfoort_worksh </code> (this is our project <b>location</b>)
+into the <code>grassdata</code> directory (grass <b>database</b>)  created automatically when installing  GRASS GIS.
+Then create a directory <code>giswork</code> outside <code>grassdata</code>
+    for external geospatial data, for example, data downloaded from on-line repositoriesnor or your georeferenced participant data.
+You can also use it for various supporting files (color ramps, series lists, etc.) and your outputs
 </ul>
 
 <h3>Start GRASS GIS</h3>
