@@ -5,8 +5,8 @@
    <li>basic vector operations (clipping),
        computing and analyzing kernel density maps of participants travelling patterns (Overijssel)
    <li>per cell correlation maps between variables: binned or interpolated participant data
-       with visualization over lidar DSM, computing viewsheds (Nuennen, see also gm_nuenen mapset)
-       see run_nuenen_part_recall2, nuenen_workflows.txt
+       with visualization over lidar DSM, computing viewsheds and distances to attractions
+<!--(Nuennen, see also gm_nuenen mapset) see run_nuenen_part_recall2, nuenen_workflows.txt-->
    <li>viewshed composition summaries and viewshed maps for cycklists (CHIPS)
    <li>working with own data, identifying suitable data and tools
 </ul>
@@ -26,6 +26,7 @@
 </ul>
 Note that there are other official CRS used in NL, such as 
 EPSG 7415 Amersfoort / RD New + NAP height, or EPSG 4289 which is lat/long registered to Bessel elipsoid 1841.
+Always use software with projection conversions support to process geospatial data.
 <p>
 Learn more (slides with brief description and related links):
 <ul>
@@ -56,9 +57,11 @@ First create three directories (folders) where you will store the files that we 
 </ul>
 Then download 
 <ul>
-   <li><a href="LINK"><code>nl_epsg28992_amersfoort_workshp.zip</code> dataset </a>, and save it in the <code>grassdata</code>directory.
-   <li><a href="LINK">observations.zip</a> data set and save it in the gisexternal directory.
-   <li><a href="LINL">supportingfiles.zip</a> data and save it in the giswork directory.
+   <li><a href="LINK"><code>nl_epsg28992_amersfoort_workshp.zip</code></a> and 
+       <a href="LINK"><code>nl_epsg28992_amersf_overijssel.zip</code></a>  datasets, and save them in the <code>grassdata</code>directory.
+   <li><a href="LINK">observations.zip</a> dataset and save it in the <code>gisexternal</code> directory.
+   <li><a href="LINL">supportingfiles.zip</a> data and save it in the <code>giswork</code> directory.
+</ul>
 
 <h3>Start GRASS GIS</h3>
 Start GRASS - click on GRASS icon or type<br>
