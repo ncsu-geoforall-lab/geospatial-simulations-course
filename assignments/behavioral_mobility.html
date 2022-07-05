@@ -100,17 +100,30 @@ in a similar way we can display the points that represent  our exhibits and the 
 
 <pre><code>
 d.vect map=exhibits_all_om@nuenen_outdoor icon=basic/circle size=10
-d.vect
+d.vect nu_all_hres
 </code></pre>
 
 <p>
 Note: You can work in GRASS GIS through the graphical user interface (GUI) or using command line interface (CLI)
 by typing (or copy-paste) commands in the Console or for linux/mac Grass Terminal
+
+<p>
+To transform our point data into a continuous point density representation we can compute 
+a kernel density map - it approximates the pattern of most used areas in terms of number of people and time.
+First we define the spatial extent and resolution for our analysis, then we run the kernel density tool
+and finally we adjust the output color ramp and display only values above min threshold
+<pre><code>
+g.region raster=dsm_05mfill res=0.5
+v.kernel nu_all_hres out=kd_nu_all_hres rad=7 kern=epanechnikov
+r.null setnull=0 map=kd_nu_all_hres
+r.colors kd_nu_all_hres co=gyr
+</pre></code>
+
 <p>
 We can import and rasterize our participant data directly from the csv files. 
 To access the files without the need to specify full path we 
-change working directory to <code>gisexternal</code><br>
-<em>Settings</em> > <em>GRASS working environment</em> > <em>Change working directory</em> > select <code>grasswork</code><br>
+change working directory to <code>giswork</code><br>
+<em>Settings</em> > <em>GRASS working environment</em> > <em>Change working directory</em> > select <code>giswork</code><br>
 or type <code>cd</code> (stands for change directory) into the GUI <em>Console</em> and hit Enter:
 <pre><code>
 cd
