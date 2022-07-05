@@ -134,7 +134,9 @@ cd
 Now you can use the commands from the assignment requiring external supporting text files
 without the need to specify the full path to the file.
 
-To perform processing and analysis we define our spatial extent and grid (raster) resolution and then if our data are csv we can import them as points or rasterize (bin) upon import using mean and also count number of points per grid cell
+To perform processing and analysis we define our spatial extent and grid (raster) resolution.
+If our data are in csv format we can import them as points (e.g. v.in.ascii or v.in.csv)
+ or rasterize (bin) upon import using mean (e.g. phasic z in our example):
 
 <pre><code>
 g.region raster=dsm_05mfill res=2
@@ -146,7 +148,7 @@ r.in.xyz in=opt20h.csv out=opt20_mean_2m meth=mean sep=, x=3 y=4 z=13 skip=0
 r.in.xyz in=opt21h.csv out=opt21_mean_2m meth=mean sep=, x=3 y=4 z=13 skip=0
 </code></pre>
 
-<p>number of p[articipants per each grid cell
+<p>number of participants per each grid cell
 <pre><code>
 r.series in=opt11_mean_2m,opt20_mean_2m,opt14_mean_2m,opt13_mean_2m,opt21_mean_2m out=opt_count_2m meth=count
 </code></pre>
@@ -160,7 +162,7 @@ order the participants by recommendation level
 21 - 9
 </code></pre>
 
-#mean and regression for a subset for cells with at least 3 participants?
+#mean and regression for a subset for cells with at least 3 participants
 <pre><code>
 r.to.vect opt_slope out=opt_slope
 r.series in=opt11_mean,opt14_mean,opt20_mean,opt13_mean,opt21_mean out=opt_mean meth=mean
