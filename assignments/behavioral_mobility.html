@@ -77,10 +77,9 @@ grass82
 
 <p>
 In data catalog select <code>grassdata</code> as your database and <code>nl_epsg28992_amersfoort_workshp</code>
-as your location (project) which has several mapsets (shown as subdirectories) where we store our data
-and perform our processing. 
-
-In this section we work with the mapset <code>nuenen_outdoor</code>
+as your location (project) which has several mapsets (shown as subdirectories). Double-click 
+on <code>nuenen_outdoor</code> and select <code>Switch mapset</code> - <code>nuenen_outdoor</code> will be
+shown in bold and we can start working with our data.
 
 <h3>Display the available data </h3>
 
@@ -89,7 +88,7 @@ and the layer manager (Layers tab). To display the aerial photography and urban 
 <code> ortho_vinc_patch05,  dsm_05mfill,  dsm_05mfillsh </code>. To manage the displayed layers switch to Layers
 and you can change the opacity of <code>dsm_05mfillsh</code> (right click and select Change opacity level) to create
 a colored shaded relief. On the bottom of the Layer manager window you can see the command line (CLI) equivalents
-of the displaying the data
+of displaying data:
 
 <pre><code>
 d.rast ortho_vinc_patch05
@@ -97,15 +96,16 @@ d.rast dsm_05mfill
 d.rast dsm_05mfillsh
 </code></pre>
 
-in a similar way we can display the points that represent  our exhibits and the participant data
+in a similar way we can display the points that represent  our exhibits and the participant data,
+to use CLI you can paste these commands into Console or just double click the layer in the Data catalog:
 
 <pre><code>
 d.vect map=exhibits_all_om@nuenen_outdoor icon=basic/circle size=10
-d.vect nu_all_hres
+d.vect nu_all_hres size=2
 </code></pre>
 
 <p>
-Note: You can work in GRASS GIS through the graphical user interface (GUI) or using command line interface (CLI)
+Note: You can work in GRASS GIS through the <b>graphical user interface (GUI)</b> or using <b>command line interface (CLI)</b>
 by typing (or copy-paste) commands in the Console or for linux/mac Grass Terminal
 
 <p>
@@ -197,6 +197,8 @@ r.colors opt_detcoef rules=co_detcoef.txt
 <pre><code>
 switch to mapset in a different location
 </code></pre>
+
+Workflows for this part and more Nuennen and CHIPS analysis are available as text files and selected subsets will be added here.
 
 
 To add the newly output pngs to a web map continue by following the instructions found in the next tutorial here
