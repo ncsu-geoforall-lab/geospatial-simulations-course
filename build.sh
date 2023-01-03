@@ -84,23 +84,3 @@ do
         fi
     done
 done
-
-# Topics index
-FILES="`./extract-links.py "topics/.+html" schedule.html`"
-TITLE="Topics"
-HEAD_TEXT=""
-# if this gets longer, it must go to a file
-FOOT_TEXT="<h3>Related courses</h3>
-
-To learn more about these topics, here are some
-<a href=\"https://geospatial.ncsu.edu/geoforall/courses.html\">related courses</a>
-which may be useful for you.
-<p>
-<img src='../img/graphics.png' style='max-width: 90%;'>"
-DIR="topics"
-
-TGT_FILE=$OUTDIR/$DIR/index.html
-./increase-link-depth.py < $HEAD_FILE > $TGT_FILE
-echo "<!-- This is a generated file. Do not edit. -->" >> $TGT_FILE
-./generate-index.py "$TITLE" "$HEAD_TEXT" "$FOOT_TEXT" $DIR/ ul ul $FILES >> $TGT_FILE
-./increase-link-depth.py < $FOOT_FILE >> $TGT_FILE
