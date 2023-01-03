@@ -8,13 +8,15 @@ link_element = re.compile(r'link.+href="(.+)"')
 a_element = re.compile(r'a.+href="(.+)"')
 img_element = re.compile(r'img.+src="(.+)"')
 
-protocols = ['http://', 'https://', 'ftp://']
+protocols = ["http://", "https://", "ftp://"]
+
 
 def is_absolute(line):
     for protocol in protocols:
         if protocol in line:
             return True
     return False
+
 
 for line in fileinput.input():
     # ignore header
