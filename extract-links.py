@@ -15,7 +15,7 @@ link = re.compile(r'<a href="({l})">'.format(l=link_pattern))
 entries = []
 
 for name in files:
-    with open(name, 'r') as f:
+    with open(name, "r") as f:
         for line in f:
             match = link.search(line)
             if match:
@@ -37,4 +37,4 @@ for entry, origin in entries:
         unique_entries.append(entry)
 
 # print in one line
-sys.stdout.write(' '.join(unique_entries))
+sys.stdout.write(" ".join(unique_entries))
