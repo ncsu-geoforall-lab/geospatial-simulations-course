@@ -89,10 +89,18 @@ time series and multitemporal examples</h3> </section>
 
 <section>
    <h3>Observation time series</h3>
-<p>Annual dynamics of <b>30yr average monthly precipitation</b> in South America 
+<p>Annual dynamics of <b>30yr monthly precipitation</b> in South America 
 <br>$p_i = f_i(x,y), i=1, ... 12$ 
 <br>bi-variate interpolation from 130 point data
 <p> <img height="410" src="img/geodynamics/samprec.gif">
+<p><small>aggregated over each month, averaged over 30 years </small>
+</section>
+
+<section>
+   <h3>Observation time series</h3>
+<p>Annual dynamics of <b>monthly precipitation</b> in North Carolina for the years 2004,2005,2006
+<p> <img height="410" src="img/geodynamics/precip_monthly_2004-2006lgtopo.gif">
+<p><small>aggregated over each month, subset from 2000-2012 time series used in the assignemnt</small>
 </section>
 
 <section>
@@ -232,12 +240,16 @@ Simulation of fire spread at 1m spatial resolution with time step dependent on w
  <li class="fragment">individual maps with assigned <b>time-stamp</b> represent the state of a dynamic variable at a given time
 </ul>
 <p>
-<p class="fragment"> <small>
-<a href="https://www.sciencedirect.com/science/article/pii/S136481521300282X?via%3Dihub">
+<p class="fragment"> 
+<small>
+<ul>
+ <li><a href="https://www.sciencedirect.com/science/article/pii/S136481521300282X?via%3Dihub">
 Gebbert S., Pebesma E. 2014. A temporal GIS for field based environmental modeling. EMS 53, 1-12.</a>
-<br>
-<a href="https://www.tandfonline.com/doi/full/10.1080/13658816.2017.1306862">
+ <li><a href="https://www.tandfonline.com/doi/full/10.1080/13658816.2017.1306862">
 Gebbert S.,  Pebesma, E. 2017.  The GRASS GIS temporal framework. IJGIS, pp. 1273-1292</a>
+ <li><a href="https://veroandreo.github.io/grass_opengeohub2021/presentation.html#1">Veronica Andreo, 2021,
+Analyzing space-time satellite data for ecological applications with GRASS and R</a> (presentation)
+</ul>
 </small>
 </p>
 </section>
@@ -322,8 +334,18 @@ Analyze spatial coverage of DEMs in the strds:
 </section>
 
 <section>
+   <h3>Corrections for systematic errors</h3>
+Using stable features (e.g. roads) to identify potential systematic errors
+and apply corrections
+<p>
+<img height="150" src="img/geodynamics/profile_99_15_lgorig2.jpg">
+<br><img height="150" src="img/geodynamics/profile_99_15_lgcorr.jpg">
+<p><small>Critical for computing coastal erosion but also for growth of vegetation and other applications</small>
+</section>
+
+<section>
    <h3>Visualize DEMs</h3>
-<p>Visualize the Jockey's Ridge strds as a 3D animation masked by the intersection map:  
+<p>Visualize the Jockey's Ridge harmonized strds as a 3D animation masked by the intersection map:  
 <p> <img height="380" src="img/geodynamics/jr_74_17_anim3dlgfix.gif">
 <p><small>Note that the visualization does not respect the variable time interval</small>
 </section>
@@ -363,8 +385,14 @@ Given $n$ DEM snaphots $z(i,j,t_k)  \quad k=1, ..., n$, per-cell operation can b
  <li class="fragment">Time of min: $t_{min} (i,j) = t_p, \quad   {\rm where} \quad z(i,j,t_p) = z_{core}(i,j)$
 </ul>
 <p><small>
-Core surface is the minimum elevation and envelope surface as the maximum elevation measured at each cell over the given time period,
-core defines the volume of sand that has not moved, envelope defines the space within which the dune surface evolved.
+<ul>
+  <li>Core surface is the minimum elevation 
+      measured at each cell over the given time period,
+      core defines the volume of sand that has not moved, 
+  <li>Envelope surface as the maximum elevation 
+      measured at each cell over the given time period,
+      envelope defines the space within which the dune surface evolved.
+</ul>
 </small>
 </section>
 
@@ -373,6 +401,15 @@ core defines the volume of sand that has not moved, envelope defines the space w
  East Jockey's Ridge dune: (a) time of elevation maximum map, (b) core, envelope and DEM surfaces
 <p>
     <img width="90%" src="img/geodynamics/Mit_TEC2011_fig1.jpg">
+<p><a href="https://docs.google.com/presentation/d/1bg-lwuuC53iQPZfXImuh__LT4Ueo3QYGFMgvmPiI1M0/edit#slide=id.p1">
+Core and envelope animation</a>
+</section>
+
+<section>
+   <h3>Impact of storms: Changes in structures</h3>
+<p>
+    <img height="350%" src="img/geodynamics/RodantheFallinghousehouse2022.gif">
+    <img height="350%" src="img/geodynamics/Rodanthehouserelocation.jpg">
 </section>
 
 <section>
@@ -386,16 +423,16 @@ Discrete changes - buildings lost or new:
   <li class="fragment">Shoreline band - shoreline from core and envelope
  </ul>
 <p>
-<img class="fragment" height="350" src="img/geodynamics/NH_homes_picBot.png">
+<img height="350" src="img/geodynamics/NH_homes_picBot.png">
 &nbsp; &nbsp;
-<img class="fragment" height="350" src="img/geodynamics/NH_shoreband9608.png">
+<img height="350" src="img/geodynamics/NH_shoreband9608.png">
 </section>
 
 <section>
    <h3>Basic time series analysis: regression</h3>
 <ul>
  <li>applies to systematic monitoring with longer time series, with rate of change close to linear 
- <li>per cell linear regression analysis: map of regression slope and offset 
+ <li>per cell linear regression analysis: map of regression slope (rate of change)
 </ul>
 <p>
     <img width="90%" src="img/geodynamics/NH_regrslope_E.jpg">
@@ -436,6 +473,13 @@ Extracted from Public Webcams. In: ISPRS Int. J. Geo-Inf, 8(12).</a></small></p>
   <li>output is a new strds which is registered as a new space-time dataset
   <li>this is different (and much simpler) from temporal map algebra
 </ul>
+</section>
+
+<section>
+ <h3>STAC: Spatio-Temporal Asset Catalog</h3>
+<p>
+Discover and work with spatio-temporal data using a new Common language to describe geospatial information
+<a href="https://docs.google.com/presentation/d/1t7Qma_N-fy5wA5E1WRfHHzq4yUWug2T8BayTz1IAbBw/edit#slide=id.p">Intro to STAC</a> 
 </section>
 
 <section>
