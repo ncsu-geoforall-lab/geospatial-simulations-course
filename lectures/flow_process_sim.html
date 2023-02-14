@@ -21,20 +21,6 @@
 </ul>
 </section>
 
-<!--
-<section>
-   <h3>Modeling components</h3>
-When performing simulations we need to consider:
-<p>
-<ul>
-  <li class="fragment"> <b>Modeled quantity [units]:</b> water, pollutant, vegetation, population density, individual organism, ...
-  <li class="fragment"> <b>Spatial and temporal scale</b>
-  <li class="fragment"> <b>Configuration space and interactions:</b> modeled quantity as function of environmental variables, e.g., topography, land cover, infrastructure...
-  <li class="fragment"> <b>Governing equations or rules:</b> continuity/mass conservation, diffusion, momentum conservation, ...
-</ul>
-</section>
--->
-
 <section>
    <h3>Modeling components: overland flow</h3>
 <ul>
@@ -48,44 +34,6 @@ When performing simulations we need to consider:
      <b class="fragment"> bivariate shallow water flow equation, Mannings equation.. </b>
 </ul>
 </section>
-
-<!--
-<section>
-   <h3>Rational equation</h3>
-<ul>
-  <li>Simplest approximation of discharge from small watersheds (few tens of acres)
-  <li>Assumes steady state, uniform rainfall excess (runoff) and constant velocity
-  <li>Discharge is then sum of rainfall excess produced by each grid cell routed to the outlet
-</ul>
-</section>
-
-<section>
-   <h3>Rational equation</h3>
-<p>
-$$ Q = C \, i \, A $$
-<p>
-<ul>
- <li class="fragment">$Q$ [$\rm m^3/s$] is maximum rate of runoff (discharge)
-<p>
- <li class="fragment">$C$ is runoff coefficient
- (ratio of rainfall that becomes runoff : forest 0.05-0.25, pavement 0.75-0.95)
-<p>
- <li class="fragment">$i$ [$\rm m/s$] average rainfall intensity
-<p>
- <li class="fragment">$A$ [$\rm m^2$] is upslope contributing area 
-</ul>
-<p class="fragment">Time to concentration is used to identify length of rainfall needed to reach the steady state
-</section>
-
-<section>
-   <h3>Rational equation</h3>
-<p>
-$$ Q = C \, i \, A $$
-<p>
-<img height="360" src="img/water_geometry/accum_5Kmfd.jpg">
-<img height="360" src="img/water_geometry/accum_runoffvar_30m3d.jpg">
-</section>
--->
 
 <section>
    <h3>Shallow water flow equation</h3>
@@ -132,9 +80,9 @@ Continuity equation for flow in open channel
    <h3>Shallow water flow during storm</h3>
 Given rainfall excess rate $i_e$ SWF can be written as:
 <p>
- $$ {\partial h \over \partial t} + \left( {\partial h v_x \over \partial x} + {\partial h v_y \over \partial y} \right) = 0$$
+ $$ {\partial h \over \partial t} + \left( {\partial h v_x \over \partial x} + {\partial h v_y \over \partial y} \right) = i_e$$
 <!-- $$ {\partial h \over \partial t} + \nabla \cdot h \, {\bf v} = i_e$$-->
-<p>where flow velocity ${\bf v}$ is given by Manning's relation
+<p>where flow velocity ${\bf v} = (v_x, v_y)$ is given by Manning's relation
 <p>
 $${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$$
 <small>
@@ -168,8 +116,8 @@ $$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
 Estimate water depth $h$ at a location $(x,y)$ and time $t$.
 <p>
 <ul>
-  <li>Simplified approximations for steady state
-  <li>Numerical solutions for 
+  <li>Simplified approximations for steady state: function of flow accumulation (contributing area)
+  <li>Numerical solutions:
    <ul>
     <li>dynamic wave: coupled continuity and momentum conservation equations
     <li>diffusive wave: dynamic water surface slope $s_f$ different from static terrain slope $s$ 
@@ -211,31 +159,19 @@ where
 -->
 
 <section>
-   <h3>SWF simplified</h3>
-Solution of continuity and momentum equations for
-a steady water flow that is close to kinematic wave approximation
-<p>
-$$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
-<p>approximate diffusive wave effects $ \propto \nabla^2 [h^{5/3}({\bf r})]$ :
-$$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
+   <h3>Dynamic surface flow modeling</h3>
+Shallow water flow modeling with diffusion term using path sampling method: 
+<p><img height="360" src="img/diffusion_flows/gisemhhdifu.gif">
 </section>
 
-<section>
-   <h3>Green's function solution</h3>
-<p>Evolution of the water depth solution
-<p><img height="400" src="img/diffusion_flows/evolfig.jpg">
-</section>
-
-<!--
 <section>
    <h3>Path sampling method</h3>
-<p>Method for solving linear partial differential equations developed in physics, used also in chemistry, finance
-<p> Governing  equation: $L(c) = S$ 
-<p>S is sources-sinks, c is the modeled quantity, L is the operator e.g.,diffusion+ flow/drift + proliferation/decay
-<p> Solution: $c = L^{-1} (S)$,  $L^{-1}$ is the inverse operator
-<p>sample the source term field simulate action of L-1 on S estimate c from the density
+Solution of SWF equation is based on duality between particle and field representation
+</ul>
+<p class="fragment"> <img height="380" src="img/diffusion_flows/fanimwalk.gif">
+<img class="fragment" height="380" src="img/diffusion_flows/fanimhhcolp.gif">
+<p>Particles show single impulse, water depth shows accumulated depth 
 </section>
--->
 
 <section>
    <h3>Duality of particles and fields</h3>
@@ -249,41 +185,33 @@ $$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({
 </section>
 
 <section>
-   <h3>Duality of particles and fields</h3>
-<p>Process can be modeled as
-<ul>
-  <li>evolution of fields
-  <li>evolution of spatially distributed particles
-</ul>
-<br>
-<img height="300" src="img/diffusion_flows/fanimwalk.gif">
-<img height="300" src="img/diffusion_flows/fanimhhcolp.gif">
-<p><small>Path sampling method uses this duality to solve the governing equations</small>
+   <h3>Path sampling method for SWF</h3>
+Solution of continuity equations for
+a steady water flow that is close to kinematic wave approximation
+<p>
+$$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
+<p>approximate diffusive wave effects $ \propto \nabla^2 [h^{5/3}({\bf r})]$ :
+$$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
+<p>
+add equation for particle movement
 </section>
 
 <!--
 <section>
-   <h3>Evolution of water depth solution</h3>
-<ul>
-<li>Particles show single impulse, water depth shows accumulated depth 
-</ul>
-<p><img height="320" src="img/diffusion_flows/fanimwalk.gif">
-<img height="320" src="img/diffusion_flows/fanimhhcolp.gif">
+   <h3>Green's function solution</h3>
+<p>Evolution of the water depth solution
+<p><img height="400" src="img/diffusion_flows/evolfig.jpg">
 </section>
 
 <section>
-   <h3>Water flow: methods comparison</h3>
-<p>
-<img height="450" src="img/diffusion_flows/gisemflow1hh.gif">
-<p><small>geometry based methods, kinematic wave, approx. diffusion wave</small>
+   <h3>Path sampling method</h3>
+<p>Method for solving linear partial differential equations developed in physics, used also in chemistry, finance
+<p> Governing  equation: $L(c) = S$ 
+<p>S is sources-sinks, c is the modeled quantity, L is the operator e.g.,diffusion+ flow/drift + proliferation/decay
+<p> Solution: $c = L^{-1} (S)$,  $L^{-1}$ is the inverse operator
+<p>sample the source term field simulate action of L-1 on S estimate c from the density
 </section>
 -->
-
-<section>
-   <h3>Water flow with diffusion term</h3>
-<p>
-<img height="350" src="img/diffusion_flows/gisemhhdifu.gif">
-</section>
 
 <section>
    <h3>Path sampling method: accuracy</h3>
