@@ -21,6 +21,7 @@
 </ul>
 </section>
 
+<!--
 <section>
    <h3>Modeling components</h3>
 When performing simulations we need to consider:
@@ -32,6 +33,7 @@ When performing simulations we need to consider:
   <li class="fragment"> <b>Governing equations or rules:</b> continuity/mass conservation, diffusion, momentum conservation, ...
 </ul>
 </section>
+-->
 
 <section>
    <h3>Modeling components: overland flow</h3>
@@ -43,10 +45,11 @@ When performing simulations we need to consider:
   <li>Configuration space and interactions: 
      <b class="fragment">water depth and precipitation interaction with topography, soil properties, land cover, infrastructure...</b>
   <li>Governing equations:
-     <b class="fragment"> bivariate shallow water flow equation, Mannings equation, rational equation ... </b>
+     <b class="fragment"> bivariate shallow water flow equation, Mannings equation.. </b>
 </ul>
 </section>
 
+<!--
 <section>
    <h3>Rational equation</h3>
 <ul>
@@ -72,8 +75,6 @@ $$ Q = C \, i \, A $$
  <li class="fragment">$A$ [$\rm m^2$] is upslope contributing area 
 </ul>
 <p class="fragment">Time to concentration is used to identify length of rainfall needed to reach the steady state
-<!-- show in mapcalc disch = 0.7 * 50 * 0.001/3600 * A * 1, general
-disch = coef * rain * A * res*res * units -->
 </section>
 
 <section>
@@ -83,13 +84,13 @@ $$ Q = C \, i \, A $$
 <p>
 <img height="360" src="img/water_geometry/accum_5Kmfd.jpg">
 <img height="360" src="img/water_geometry/accum_runoffvar_30m3d.jpg">
-<!--show in mapcalc disch = 0.7 * 50 * 0.001/3600 * A * 1, general disch = coef * rain * A * res*res * units -->
 </section>
+-->
 
 <section>
    <h3>Shallow water flow equation</h3>
-Assuming that vertical variability in flow velocity is negligible 
-it is used to simulate:
+Assumes that vertical variability in flow velocity is negligible 
+and it is used to simulate:
 <p>
    <ul>
    <li class="fragment">overland flow  
@@ -98,7 +99,7 @@ it is used to simulate:
    <li class="fragment">lava flows
    <li class="fragment"><a href="https://en.wikipedia.org/wiki/Shallow_water_equations">many other flow processes </a>
    </ul>
-<p class="fragment">
+<p>
 <img height="250" src="img/diffusion_flows/streambufferflood.jpg">
 <img height="250" src="img/diffusion_flows/IM_A0019storm2006Alberto.JPG.jpg">
 </section>
@@ -107,15 +108,14 @@ it is used to simulate:
    <h3>Shallow water flow equations</h3>
 <ul>
 <li class="fragment">Continuity equation: mass conservation 
-<li class="fragment">Momentum conservation equations 
+<li class="fragment">Momentum conservation equations (not considered here) 
 </ul>
 <p class="fragment">
 also refered to as St Venant equations.
 <p class="fragment">
 Continuity equation for flow in open channel
 <p class="fragment">
- $$ {\partial h \over \partial t} + 
-\left( {\partial h v_x \over \partial x} + {\partial h v_y \over \partial y} \right) = 0$$
+ $$ {\partial h \over \partial t} + \left( {\partial h v_x \over \partial x} + {\partial h v_y \over \partial y} \right) = 0$$
 <small>
 <ul>
  <li class="fragment">$h$ [m] is the depth of flow,
@@ -132,14 +132,15 @@ Continuity equation for flow in open channel
    <h3>Shallow water flow during storm</h3>
 Given rainfall excess rate $i_e$ SWF can be written as:
 <p>
- $$ {\partial h \over \partial t} + \nabla \cdot h \, {\bf v} = i_e$$
+ $$ {\partial h \over \partial t} + \left( {\partial h v_x \over \partial x} + {\partial h v_y \over \partial y} \right) = 0$$
+<!-- $$ {\partial h \over \partial t} + \nabla \cdot h \, {\bf v} = i_e$$-->
 <p>where flow velocity ${\bf v}$ is given by Manning's relation
 <p>
 $${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$$
 <small>
 <ul>
  <li>$i_e$ [m/s] is rainfall excess (runoff)  = (rainfall $-$ infiltration $-$ vegetation intercept)
- <li>$\nabla$ is divergence operator
+<!-- <li>$\nabla$ is divergence operator-->
 <li>$n$ is dimensionless Manning's coefficient
 <li>k=1 [$m^{1/3}/s$] is corresponding dimension constant
 <li>$s$ is slope 
@@ -163,7 +164,7 @@ $$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
 -->
 
 <section>
-   <h3>SWF solutions</h3>
+   <h3>SWF equations solutions</h3>
 Estimate water depth $h$ at a location $(x,y)$ and time $t$.
 <p>
 <ul>
@@ -171,11 +172,28 @@ Estimate water depth $h$ at a location $(x,y)$ and time $t$.
   <li>Numerical solutions for 
    <ul>
     <li>dynamic wave: coupled continuity and momentum conservation equations
-    <li>diffusive wave: dynamic $s_f$ different from $s$ 
+    <li>diffusive wave: dynamic water surface slope $s_f$ different from static terrain slope $s$ 
     <li>kinematic wave: $s_f = s$
    </ul>
 </ul>
 Numerical methods: finite difference, finite element, finite volume, QMC path sampling 
+</section>
+
+<section>
+<h3>Surface flow modeling methods</h3>
+<p>
+<div class="left" style="max-width: 45% !important">
+<ul>
+<li class="fragment">input: DEM with depression</li>
+<li class="fragment">steady-state approximation: flow accumulation using least cost path</li>
+<li class="fragment">D-inf flow accumulations with depression as sink</li>
+<li class="fragment">kinematic wave: water accumulates is depression</li>
+<li class="fragment">diffusive wave: water fills depression and flows out</li>
+<li class="fragment">diffusive wave with predefined channel through depression</li>
+</ul>
+</div>
+
+<img class="right" style="max-width: 50% !important" height="450" src="img/diffusion_flows/gisemflow1hh.gif">
 </section>
 
 <!--
@@ -252,7 +270,6 @@ $$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({
 <p><img height="320" src="img/diffusion_flows/fanimwalk.gif">
 <img height="320" src="img/diffusion_flows/fanimhhcolp.gif">
 </section>
--->
 
 <section>
    <h3>Water flow: methods comparison</h3>
@@ -260,6 +277,7 @@ $$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({
 <img height="450" src="img/diffusion_flows/gisemflow1hh.gif">
 <p><small>geometry based methods, kinematic wave, approx. diffusion wave</small>
 </section>
+-->
 
 <section>
    <h3>Water flow with diffusion term</h3>
