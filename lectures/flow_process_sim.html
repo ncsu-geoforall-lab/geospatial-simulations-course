@@ -37,12 +37,12 @@
 
 <section>
    <h3>Shallow water flow equation</h3>
-Assumes that vertical variability in flow velocity is negligible 
-and it is used to simulate:
+Assumes negligible vertical variability in flow velocity, 
+it is used to simulate:
 <p>
    <ul>
-   <li class="fragment">overland flow  
-   <li class="fragment">dam breach flooding
+   <li class="fragment">overland water flow  
+   <li class="fragment">flooding from dam breach 
    <li class="fragment">storm surge
    <li class="fragment">lava flows
    <li class="fragment"><a href="https://en.wikipedia.org/wiki/Shallow_water_equations">many other flow processes </a>
@@ -89,7 +89,7 @@ $${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$$
 <ul>
  <li>$i_e$ [m/s] is rainfall excess (runoff)  = (rainfall $-$ infiltration $-$ vegetation intercept)
 <!-- <li>$\nabla$ is divergence operator-->
-<li>$n$ is dimensionless Manning's coefficient
+<li>$n$ is dimensionless Manning's roughness coefficient
 <li>k=1 [$m^{1/3}/s$] is corresponding dimension constant
 <li>$s$ is slope 
 <li>${\bf s_0}$ is unit vector in the flow direction
@@ -124,6 +124,7 @@ Estimate water depth $h$ at a location $(x,y)$ and time $t$.
     <li>kinematic wave: $s_f = s$
    </ul>
 </ul>
+<p>
 Numerical methods: finite difference, finite element, finite volume, QMC path sampling 
 </section>
 
@@ -166,22 +167,12 @@ Shallow water flow modeling with diffusion term using path sampling method:
 
 <section>
    <h3>Path sampling method</h3>
-Solution of SWF equation is based on duality between particle and field representation
+Solution of SWF equation is based on duality between particle and field representation: 
+density of particles represents water depth
 </ul>
 <p class="fragment"> <img height="380" src="img/diffusion_flows/fanimwalk.gif">
 <img class="fragment" height="380" src="img/diffusion_flows/fanimhhcolp.gif">
 <p>Particles show single impulse, water depth shows accumulated depth 
-</section>
-
-<section>
-   <h3>Duality of particles and fields</h3>
-<p>Modeled quantities can be represented by
-<ul>
-  <li>fields - continuous distribution (scalar, vector, tensor)
-  <li>particles - discrete sampling of fields
-</ul>
-<p>Corresponce between the two representations:
-<p>density of particles - field $f(r)$
 </section>
 
 <section>
@@ -248,23 +239,12 @@ the weight of the particles
    <h3>Spatially variable source</h3>
 <p>Scenarios with spatialy variable source areas
 <p>
+<img height="450" src="img/intro/CCgolf_landchange.001.jpeg">
+<!--
 <img height="220" src="img/diffusion_flows/gimlcbf1dcchdcut2.jpg">
 <img height="220" src="img/diffusion_flows/gimwaterchdcut2.jpg">
 <img height="220" src="img/diffusion_flows/gimwaterdcchdcut2.jpg">
-</section>
-
-<section>
-   <h3>Visualization</h3>
-<p>Flow depth during and after rainfall: approximate diffusive wave
-<p>
-<img height="450" src="img/diffusion_flows/irwinhhanim.gif">
-</section>
-
-<section>
-   <h3>Finite volume solution</h3>
-<p>Dam breach model - full diffusive wave solution with backwater effect
-<p><img height="400" src="img/diffusion_flows/sim3_ortho_small.gif">
-<p><small>see supplemental material for equations and r.damflood manual page for references</small>
+-->
 </section>
 
 <section>
@@ -298,6 +278,13 @@ and land cover, approx. diffusive wave
    <h3>Applications</h3>
 <p>Surface water at ultra high resolutions (0.3m): tilled field
 <p><img height="380" src="img/diffusion_flows/field_waterdepth_simwe0008.png">
+</section>
+
+<section>
+   <h3>Finite volume solution</h3>
+<p>Dam breach model - full diffusive wave solution with backwater effect
+<p><img height="400" src="img/diffusion_flows/sim3_ortho_small.gif">
+<p><small>see supplemental material for equations and r.damflood manual page for references</small>
 </section>
 
 <section>
@@ -346,17 +333,12 @@ in grid cells where stream is located using map algebra</small>
 <img height="300" src="img/diffusion_flows/lw_wdepth_varcover2dlglg.jpg">
 </section>
 
-<!--
 <section>
-   <h3>Applications</h3>
-<ul>
-<li>natural and socio-economic processes
-<li>generalize the concept - define appropriate gradient field and density
-<li>how does your research relate to diffusion, dispersal, flux and related processes?
-</ul>
-<small>growing cities - inverse of population density or economic opportunity fields
+   <h3>Flow depth dynamics</h3>
+<p>Flow depth during and after rainfall: approximate diffusive wave
+<p>
+<img height="450" src="img/diffusion_flows/irwinhhanim.gif">
 </section>
--->
 
 <section>
  <h3>Summary</h3>
