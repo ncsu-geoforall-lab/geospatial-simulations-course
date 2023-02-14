@@ -64,16 +64,16 @@ also refered to as St Venant equations.
 Continuity equation for flow in open channel
 <p class="fragment">
  $$ {\partial h \over \partial t} + \left( {\partial h v_x \over \partial x} + {\partial h v_y \over \partial y} \right) = 0$$
-<small>
 <ul>
+<small>
  <li class="fragment">$h$ [m] is the depth of flow,
  <li class="fragment">$t$ [s] is the time,
  <li class="fragment">${\bf v}=(v_x,v_y)$ [m/s] is the flow velocity vector
  <li class="fragment">$(x,y)$ location in 2D space
  <li class="fragment">$h$ and ${\bf v}$ are variable in space and time (dynamic fields)
+</small>
 <!-- <li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width,-->
 </ul>
-</small>
 </section>
 
 <section>
@@ -145,6 +145,7 @@ finite difference, finite element, finite volume, QMC path sampling
 </div>
 
 <img class="right" style="max-width: 50% !important" height="450" src="img/diffusion_flows/gisemflow1hh.gif">
+<p><small>Water depth is represented as a surface in 3D to highlight the differences in methods</small>
 </section>
 
 <!--
@@ -196,14 +197,14 @@ add equation for particle movement: Green's function solution
 
 <section>
    <h3>Path sampling method</h3>
-Solution of SWF equation incorporates spatially variable flow velocity due to: 
+Solution of SWF equation incorporates spatially variable flow velocity: 
 <ul>
    <li>variable rainfall excess (impact of soils and land cover on infiltration),
    <li>topography (slope steepness) 
    <li>land cover (Mannings roughness coefficient)
 </ul>
-<p class="fragment"> <img height="380" src="img/diffusion_flows/balsam_sideimg.jpg">
-<img class="fragment" height="380" src="img/diffusion_flows/fanimhhcolp.gif">
+<p class="fragment"> <img height="400" src="img/diffusion_flows/balsam_sideimg.jpg">
+<img class="fragment" height="400" src="img/diffusion_flows/fanimhhcolp.gif">
 </section>
 
 <!--
@@ -216,30 +217,6 @@ Solution of SWF equation incorporates spatially variable flow velocity due to:
 <p>sample the source term field simulate action of L-1 on S estimate c from the density
 </section>
 -->
-
-<section>
-   <h3>Path sampling method: accuracy</h3>
-<p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
-<p>
-<img height="300" src="img/diffusion_flows/mcsf_steady.gif">
-<img height="300" src="img/diffusion_flows/mcsf3_steady.gif">
-</section>
-
-<section>
-   <h3>Path sampling method: accuracy</h3>
-<p>Error is proportional to $1/\sqrt N$, $N$ is number of particles
-<p>
-<img height="380" src="img/diffusion_flows/mcsimwelg.gif">
-</section>
-
-<section>
-   <h3>Multiscale implementation</h3>
-<p>Path sampling enables implementation with multiple resolutions by adjusting
-the weight of the particles
-<p class="fragment">
-<img height="350" src="img/diffusion_flows/mcwc.gif">
-<img height="350" src="img/diffusion_flows/multiscale_hohen.jpg">
-</section>
 
 <section>
    <h3>Applications for different types of landscapes</h3>
@@ -293,6 +270,32 @@ and land cover, approx. diffusive wave
 <img height="220" src="img/diffusion_flows/gimwaterdcchdcut2.jpg">
 -->
 </section>
+
+<section>
+   <h3>Path sampling method: accuracy</h3>
+<p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
+<p>
+<img height="300" src="img/diffusion_flows/mcsf_steady.gif">
+<img height="300" src="img/diffusion_flows/mcsf3_steady.gif">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy</h3>
+<p>Error is proportional to $1/\sqrt N$, $N$ is number of particles
+<p>
+<img height="380" src="img/diffusion_flows/mcsimwelg.gif">
+</section>
+
+<section>
+   <h3>Multiscale implementation</h3>
+<p>Path sampling enables implementation with multiple resolutions by adjusting
+the weight of the particles
+<p class="fragment">
+<img height="350" src="img/diffusion_flows/mcwc.gif">
+<img height="350" src="img/diffusion_flows/multiscale_hohen.jpg">
+</section>
+
+
 
 <section>
    <h3>Finite volume solution</h3>
