@@ -14,7 +14,7 @@
 <ul>
    <li>surface water flow modeling components
    <li>shallow water flow equations
-   <li>numerical methods 
+   <li>numerical methods, path sampling 
  <!--  <li>coupling with stormwater networks, groundwater models, storm surge-->
    <li>applications: surface runoff, dam breach
    <li>visualization of surface water flow dynamics
@@ -38,11 +38,11 @@
 <section>
    <h3>Shallow water flow equation</h3>
 Assumes negligible vertical variability in flow velocity, 
-it is used to simulate:
+<br>it is used to simulate:
 <p>
    <ul>
-   <li class="fragment">overland water flow  
-   <li class="fragment">flooding from dam breach 
+   <li class="fragment">overland water flow and open channel flow  
+   <li class="fragment">flooding from dam breach
    <li class="fragment">storm surge
    <li class="fragment">lava flows
    <li class="fragment"><a href="https://en.wikipedia.org/wiki/Shallow_water_equations">many other flow processes </a>
@@ -91,9 +91,9 @@ $${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$$
 <!-- <li>$\nabla$ is divergence operator-->
 <li>$n$ is dimensionless Manning's roughness coefficient
 <li>k=1 [$m^{1/3}/s$] is corresponding dimension constant
-<li>$s$ is slope 
+<li>$s$ is slope steepness 
 <li>${\bf s_0}$ is unit vector in the flow direction
-<li>we assume that slope of water surface (friction slope $s_f$) is the same as elevation surface slope $s$
+<li>we assume that slope of water surface is the same as elevation surface slope 
 </ul>
 </small>
 </section>
@@ -117,15 +117,16 @@ Estimate water depth $h$ at a location $(x,y)$ and time $t$.
 <p>
 <ul>
   <li>Simplified approximations for steady state: function of flow accumulation (contributing area)
-  <li>Numerical solutions:
+  <li>Numerical solutions are used for modeling:
    <ul>
-    <li>dynamic wave: coupled continuity and momentum conservation equations
-    <li>diffusive wave: dynamic water surface slope $s_f$ different from static terrain slope $s$ 
-    <li>kinematic wave: $s_f = s$
+    <li class="fragment">dynamic wave: coupled continuity and momentum conservation equations
+    <li class="fragment">diffusive wave: incorporates dynamic water surface slope  
+    <li class="fragment">kinematic wave: approximates water surface slope by static elevation surface slope
    </ul>
 </ul>
 <p>
-Numerical methods: finite difference, finite element, finite volume, QMC path sampling 
+Numerical methods: 
+<br>finite difference, finite element, finite volume, QMC path sampling 
 </section>
 
 <section>
