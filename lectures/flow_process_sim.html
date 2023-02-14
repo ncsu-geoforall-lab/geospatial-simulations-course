@@ -89,7 +89,7 @@ $${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$$
 <ul>
  <li>$i_e$ [m/s] is rainfall excess (runoff)  = (rainfall $-$ infiltration $-$ vegetation intercept)
 <!-- <li>$\nabla$ is divergence operator-->
-<li>$n$ is dimensionless Manning's roughness coefficient
+<li>$n$ is dimensionless Manning's roughness coefficient (property of land cover)
 <li>k=1 [$m^{1/3}/s$] is corresponding dimension constant
 <li>$s$ is slope steepness 
 <li>${\bf s_0}$ is unit vector in the flow direction
@@ -118,15 +118,16 @@ Estimate water depth $h$ at a location $(x,y)$ and time $t$.
 <ul>
   <li>Simplified approximations for steady state: function of flow accumulation (contributing area)
   <li>Numerical solutions are used for modeling:
+<p>
    <ul>
     <li class="fragment">dynamic wave: coupled continuity and momentum conservation equations
     <li class="fragment">diffusive wave: incorporates dynamic water surface slope  
     <li class="fragment">kinematic wave: approximates water surface slope by static elevation surface slope
    </ul>
 </ul>
-<p>
+<p class="fragment">
 Numerical methods: 
-<br>finite difference, finite element, finite volume, QMC path sampling 
+finite difference, finite element, finite volume, QMC path sampling 
 </section>
 
 <section>
@@ -169,11 +170,16 @@ Shallow water flow modeling with diffusion term using path sampling method:
 <section>
    <h3>Path sampling method</h3>
 Solution of SWF equation is based on duality between particle and field representation: 
-density of particles represents water depth
+water depth is a function of particle density
 </ul>
 <p class="fragment"> <img height="380" src="img/diffusion_flows/fanimwalk.gif">
 <img class="fragment" height="380" src="img/diffusion_flows/fanimhhcolp.gif">
 <p>Particles show single impulse, water depth shows accumulated depth 
+</section>
+
+<section>
+   <h3>Evolution of water depth</h3>
+<p><img height="400" src="img/diffusion_flows/evolfig.jpg">
 </section>
 
 <section>
@@ -185,16 +191,20 @@ $$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot 
 <p>approximate diffusive wave effects $ \propto \nabla^2 [h^{5/3}({\bf r})]$ :
 $$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
 <p>
-add equation for particle movement
+add equation for particle movement: Green's function solution
+</section>
+
+<section>
+   <h3>Path sampling method</h3>
+Solution of SWF equation incorporates spatially variable flow velocity due to 
+variable rainfall excess (impact of soils and land cover on infiltration),
+topography (slope steepness) and land cover (Mannings roughness coefficient)
+</ul>
+<p class="fragment"> <img height="380" src="img/diffusion_flows/balsam_sideimg.gif">
+<img class="fragment" height="380" src="img/diffusion_flows/fanimhhcolp.gif">
 </section>
 
 <!--
-<section>
-   <h3>Green's function solution</h3>
-<p>Evolution of the water depth solution
-<p><img height="400" src="img/diffusion_flows/evolfig.jpg">
-</section>
-
 <section>
    <h3>Path sampling method</h3>
 <p>Method for solving linear partial differential equations developed in physics, used also in chemistry, finance
