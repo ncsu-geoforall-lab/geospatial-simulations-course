@@ -71,9 +71,10 @@ Continuity equation for flow in open channel
  <li class="fragment">${\bf v}=(v_x,v_y)$ [m/s] is the flow velocity vector
  <li class="fragment">$(x,y)$ location in 2D space
  <li class="fragment">$h$ and ${\bf v}$ are variable in space and time (dynamic fields)
+ <li class="fragment">
 </small>
-<!-- <li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width,-->
 </ul>
+<!-- <li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width,-->
 </section>
 
 <section>
@@ -85,8 +86,8 @@ Given rainfall excess rate $i_e$ SWF can be written as:
 <p>where flow velocity ${\bf v} = (v_x, v_y)$ is given by Manning's relation
 <p>
 $${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$$
-<small>
 <ul>
+<small>
  <li>$i_e$ [m/s] is rainfall excess (runoff)  = (rainfall $-$ infiltration $-$ vegetation intercept)
 <!-- <li>$\nabla$ is divergence operator-->
 <li>$n$ is dimensionless Manning's roughness coefficient (property of land cover)
@@ -94,8 +95,8 @@ $${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$$
 <li>$s$ is slope steepness 
 <li>${\bf s_0}$ is unit vector in the flow direction
 <li>we assume that slope of water surface is the same as elevation surface slope 
-</ul>
 </small>
+</ul>
 </section>
 
 <!--
@@ -117,17 +118,15 @@ Estimate water depth $h$ at a location $(x,y)$ and time $t$.
 <p>
 <ul>
   <li>Simplified approximations for steady state: function of flow accumulation (contributing area)
-  <li>Numerical solutions are used for modeling:
+  <li>Numerical solutions are needed for modeling:
 <p>
    <ul>
     <li class="fragment">dynamic wave: coupled continuity and momentum conservation equations
     <li class="fragment">diffusive wave: incorporates dynamic water surface slope  
     <li class="fragment">kinematic wave: approximates water surface slope by static elevation surface slope
    </ul>
+  <li class="fragment"> Numerical methods: finite difference, finite element, finite volume, QMC path sampling 
 </ul>
-<p class="fragment">
-Numerical methods: 
-finite difference, finite element, finite volume, QMC path sampling 
 </section>
 
 <section>
@@ -179,11 +178,6 @@ water depth is a function of particle density
 </section>
 
 <section>
-   <h3>Evolution of water depth</h3>
-<p><img height="400" src="img/diffusion_flows/evolfig.jpg">
-</section>
-
-<section>
    <h3>Path sampling method for SWF</h3>
 Solution of continuity equations for
 a steady water flow that is close to kinematic wave approximation
@@ -196,8 +190,20 @@ add equation for particle movement: Green's function solution
 </section>
 
 <section>
+   <h3>Evolution of water depth</h3>
+<p><img height="400" src="img/diffusion_flows/evolfig.jpg">
+</section>
+
+<section>
+   <h3>Evolution of water depth</h3>
+D-inf SFD approximation and path sampling solution
+<p><img height="400" src="img/diffusion_flows/water1994.gif">
+<img class="fragment" height="400" src="img/diffusion_flows/irwinhhanim.gif">
+</section>
+
+<section>
    <h3>Path sampling method</h3>
-Solution of SWF equation incorporates spatially variable flow velocity: 
+Solution of SWF equation incorporates spatially variable flow velocity ${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$: 
 <ul>
    <li>variable rainfall excess (impact of soils and land cover on infiltration),
    <li>topography (slope steepness) 
@@ -237,19 +243,22 @@ and land cover, approx. diffusive wave
 <p>
 <img height="250" src="img/diffusion_flows/carysimwe_eeidstorm.jpg">
 <img height="250" src="img/diffusion_flows/carysimwe_eeidpoststorm.jpg">
+<p>
+<img height="200" src="img/diffusion_flows/streambufferflood.jpg">
 </section>
 
 <section>
    <h3>Landscape with pits</h3>
 <p>Surface water simulation in a landscape with numerous depressions 
 <p><img height="400" src="img/diffusion_flows/waterdepth_simwe1m_SWc.jpg">
-<p><small>Geometry-based simulation would combine depression filling, independtly run with flow routing </small>
+<p><small>Geometry-based simulation would combine depression filling with indepently run flow routing </small>
 </section>
 
 <section>
    <h3>Overland flow with microtpography</h3>
 <p>Surface water at ultra high resolutions (0.3m): tilled field
 <p><img height="380" src="img/diffusion_flows/field_waterdepth_simwe0008.png">
+<img class="fragment" height="280" src="img/geodynamics/agisoft_jan.gif">
 </section>
 
 <section>
@@ -357,12 +366,14 @@ in grid cells where stream is located using map algebra</small>
 <img height="300" src="img/diffusion_flows/lw_wdepth_varcover2dlglg.jpg">
 </section>
 
+<!--
 <section>
    <h3>Flow depth dynamics</h3>
 <p>Flow depth during and after rainfall: approximate diffusive wave
 <p>
 <img height="450" src="img/diffusion_flows/irwinhhanim.gif">
 </section>
+-->
 
 <section>
  <h3>Summary</h3>
