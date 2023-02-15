@@ -178,32 +178,39 @@ water depth is a function of particle density
 </section>
 
 <section>
-   <h3>Path sampling method for SWF</h3>
-Solution of continuity equations for
-a steady water flow that is close to kinematic wave approximation
-<p>
-$$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
-<p>approximate diffusive wave effects $ \propto \nabla^2 [h^{5/3}({\bf r})]$ :
-$$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
-<p>
-add equation for particle movement: Green's function solution
-</section>
-
-<section>
    <h3>Evolution of water depth</h3>
 <p><img height="400" src="img/diffusion_flows/evolfig.jpg">
 </section>
 
 <section>
+   <h3>Path sampling method for SWF</h3>
+Steady-state diffusive wave is approximated by a kinematic wave with diffusion term:
+<p>
+$$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
+<p>approximate diffusive wave effects $ \propto \nabla^2 [h^{5/3}({\bf r})]$ :
+$$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
+<p>the solution is found by routing the particles, where the new position of m-th particle is computed as:
+$${\bf r_m^{new}} = {\bf r_m} + t{\bf v} + {\bf g}$$ 
+where ${\bf r_m} = (x,y)$ is position of a particle, ${\bf v}$ is velocity vector, $t$ is time step 
+and {\bf g} is a random vector with Gaussian distribution around ${\bf r_m}$.
+</section>
+
+<section>
    <h3>Evolution of water depth</h3>
-D-inf SFD approximation and path sampling solution
+Geometry-based (D-inf SFD) approximation: steady, uniform rainfall, constant velocity 
 <p><img height="400" src="img/diffusion_flows/water1994.gif">
+</section>
+
+<section>
+   <h3>Evolution of water depth</h3>
+Path sampling solution during and after storm with diffusive flow on alluvial fan
 <img class="fragment" height="400" src="img/diffusion_flows/irwinhhanim.gif">
 </section>
 
 <section>
    <h3>Path sampling method</h3>
-Solution of SWF equation incorporates spatially variable flow velocity ${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$: 
+Solution of SWF equation incorporates spatially variable flow velocity 
+<!--${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$: -->
 <ul>
    <li>variable rainfall excess (impact of soils and land cover on infiltration),
    <li>topography (slope steepness) 
@@ -239,7 +246,7 @@ and land cover, approx. diffusive wave
 
 <section>
    <h3>Urban flooding: sub-meter resolution</h3>
-<p>Post-storm water in a floodplain 
+<p>Extreme storm and post-storm water depth in a floodplain 
 <p>
 <img height="250" src="img/diffusion_flows/carysimwe_eeidstorm.jpg">
 <img height="250" src="img/diffusion_flows/carysimwe_eeidpoststorm.jpg">
@@ -250,8 +257,9 @@ and land cover, approx. diffusive wave
 <section>
    <h3>Landscape with pits</h3>
 <p>Surface water simulation in a landscape with numerous depressions 
-<p><img height="400" src="img/diffusion_flows/waterdepth_simwe1m_SWc.jpg">
-<p><small>Geometry-based simulation would combine depression filling with indepently run flow routing </small>
+<p><img height="380" src="img/diffusion_flows/waterdepth_simwe1m_SWc.jpg">
+<p><img height="200" src="img/diffusion_flows/depth3d_2.jpg">
+<p><small>1m resolution DEM, most craters are diminished at 10m resolution </small>
 </section>
 
 <section>
@@ -259,6 +267,7 @@ and land cover, approx. diffusive wave
 <p>Surface water at ultra high resolutions (0.3m): tilled field
 <p><img height="320" src="img/diffusion_flows/field_waterdepth_simwe0008.png">
 <img class="fragment" height="280" src="img/geodynamics/agisoft_jan.gif">
+<p><small>At lower resolutions, the tillage is represented by appropriate Mannings coefficient</small>
 </section>
 
 <section>
@@ -266,8 +275,8 @@ and land cover, approx. diffusive wave
 <p>Overland flow with spatialy variable land cover and storm water control measures:
 constructed wetland and checkdams
 <p>
-<img height="480" src="img/diffusion_flows/lu01bldg3db.jpg">
-<img height="480" src="img/diffusion_flows/water01dsmall.gif">
+<img height="420" src="img/diffusion_flows/lu01bldg3db.jpg">
+<img height="420" src="img/diffusion_flows/water01dsmall.gif">
 </section>
 
 <section>
@@ -289,7 +298,7 @@ where stream buffers offer only limited protection
 <p>Scenarios with spatialy variable land cover due to construction and land change
 where extension of stream buffers upstream  improves protection
 <p>
-<img height="450" src="img/diffusion_flows/CCgolf_scenariobuffers.png">
+<img height="450" src="img/diffusion_flows/CCgolf_scenariobuffers.jpeg">
 <!--
 <img height="220" src="img/diffusion_flows/gimlcbf1dcchdcut2.jpg">
 <img height="220" src="img/diffusion_flows/gimwaterchdcut2.jpg">
@@ -367,8 +376,8 @@ in grid cells where stream is located using map algebra</small>
 <p>Simulation of flodding from HAND method (inundation from a stream)
 and path sampling SIMWE method (overland flow)
 <p>
-<img height="300" src="img/diffusion_flows/hand.gif">
-<img class="fragment" height="300" src="img/diffusion_flows/simwe.gif">
+<img height="350" src="img/diffusion_flows/hand.gif">
+<img class="fragment" height="350" src="img/diffusion_flows/simwe.gif">
 </section>
 
 <section>
