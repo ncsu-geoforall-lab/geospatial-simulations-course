@@ -184,15 +184,15 @@ water depth is a function of particle density
 
 <section>
    <h3>Path sampling method for SWF</h3>
-Steady-state diffusive wave is approximated by a kinematic wave with diffusion term:
+Steady-state diffusive wave is approximated by a kinematic wave with 
+approximate diffusive wave effects $ \propto \nabla^2 [h^{5/3}({\bf r})]$ :
 <p>
-$$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
-<p>approximate diffusive wave effects $ \propto \nabla^2 [h^{5/3}({\bf r})]$ :
+<!--$$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$-->
 $$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
 <p>the solution is found by routing the particles, where the new position of m-th particle is computed as:
-$${\bf r_m^{new}} = {\bf r_m} + t{\bf v} + {\bf g}$$ 
-where ${\bf r_m} = (x,y)$ is position of a particle, ${\bf v}$ is velocity vector, $t$ is time step 
-and {\bf g} is a random vector with Gaussian distribution around ${\bf r_m}$.
+$${\bf r}_m^{new} = {\bf r}_m + t{\bf v(r)} + {\bf g(r)}$$ 
+where ${\bf r}_m = (x,y)$ is position of a particle, ${\bf v}$ is velocity vector, $t$ is time step 
+and ${\bf g}$ is a random vector with Gaussian distribution around ${\bf r_m}$.
 </section>
 
 <section>
@@ -204,7 +204,7 @@ Geometry-based (D-inf SFD) approximation: steady, uniform rainfall, constant vel
 <section>
    <h3>Evolution of water depth</h3>
 Path sampling solution during and after storm with diffusive flow on alluvial fan
-<img class="fragment" height="400" src="img/diffusion_flows/irwinhhanim.gif">
+<p><img class="fragment" height="400" src="img/diffusion_flows/irwinhhanim.gif">
 </section>
 
 <section>
@@ -257,8 +257,8 @@ and land cover, approx. diffusive wave
 <section>
    <h3>Landscape with pits</h3>
 <p>Surface water simulation in a landscape with numerous depressions 
-<p><img height="380" src="img/diffusion_flows/waterdepth_simwe1m_SWc.jpg">
-<p><img height="200" src="img/diffusion_flows/depth3d_2.jpg">
+<p><img height="350" src="img/diffusion_flows/waterdepth_simwe1m_SWc.jpg">
+<img height="200" src="img/diffusion_flows/depth3d_2.jpg">
 <p><small>1m resolution DEM, most craters are diminished at 10m resolution </small>
 </section>
 
@@ -384,8 +384,8 @@ and path sampling SIMWE method (overland flow)
    <h3>Path sampling method: accuracy</h3>
 <p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
 <p>
-<img height="300" src="img/diffusion_flows/mcsf_steady.gif">
-<img height="300" src="img/diffusion_flows/mcsf3_steady.gif">
+<img height="280" src="img/diffusion_flows/mcsf_steady.gif">
+<img height="280" src="img/diffusion_flows/mcsf3_steady.gif">
 </section>
 
 <section>
