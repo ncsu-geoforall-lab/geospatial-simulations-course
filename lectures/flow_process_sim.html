@@ -257,58 +257,50 @@ and land cover, approx. diffusive wave
 <section>
    <h3>Overland flow with microtpography</h3>
 <p>Surface water at ultra high resolutions (0.3m): tilled field
-<p><img height="380" src="img/diffusion_flows/field_waterdepth_simwe0008.png">
+<p><img height="320" src="img/diffusion_flows/field_waterdepth_simwe0008.png">
 <img class="fragment" height="280" src="img/geodynamics/agisoft_jan.gif">
 </section>
 
 <section>
-   <h3>Spatially variable land cover</h3>
-<p>Overland flow with spatialy variable land cover parameters (rainfall excess, Mannings n)
-<br>
+   <h3>Development with storm water controls</h3>
+<p>Overland flow with spatialy variable land cover and storm water control measures:
+constructed wetland and checkdams
+<p>
+<img height="480" src="img/diffusion_flows/lu01bldg3db.jpg">
 <img height="480" src="img/diffusion_flows/water01dsmall.gif">
 </section>
 
 <section>
-   <h3>Impact of development</h3>
+   <h3>Impact of construction</h3>
 <p>Scenarios with spatialy variable land cover due to construction and land change
+where stream buffers offer only limited protection
 <p>
-<img height="450" src="img/intro/CCgolf_landchange.001.jpeg">
+<img height="450" src="img/diffusion_flows/middleschool_scen.png">
 <!--
 <img height="220" src="img/diffusion_flows/gimlcbf1dcchdcut2.jpg">
 <img height="220" src="img/diffusion_flows/gimwaterchdcut2.jpg">
 <img height="220" src="img/diffusion_flows/gimwaterdcchdcut2.jpg">
+<img height="450" src="img/intro/CCgolf_landchange.001.jpeg">
 -->
 </section>
 
 <section>
-   <h3>Path sampling method: accuracy</h3>
-<p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
+   <h3>Impact of construction</h3>
+<p>Scenarios with spatialy variable land cover due to construction and land change
+where extension of stream buffers upstream  improves protection
 <p>
-<img height="300" src="img/diffusion_flows/mcsf_steady.gif">
-<img height="300" src="img/diffusion_flows/mcsf3_steady.gif">
+<img height="450" src="img/diffusion_flows/CCgolf_scenariobuffers.png">
+<!--
+<img height="220" src="img/diffusion_flows/gimlcbf1dcchdcut2.jpg">
+<img height="220" src="img/diffusion_flows/gimwaterchdcut2.jpg">
+<img height="220" src="img/diffusion_flows/gimwaterdcchdcut2.jpg">
+<img height="450" src="img/intro/CCgolf_landchange.001.jpeg">
+-->
 </section>
 
 <section>
-   <h3>Path sampling method: accuracy</h3>
-<p>Error is proportional to $1/\sqrt N$, $N$ is number of particles
-<p>
-<img height="380" src="img/diffusion_flows/mcsimwelg.gif">
-</section>
-
-<section>
-   <h3>Multiscale implementation</h3>
-<p>Path sampling enables implementation with multiple resolutions by adjusting
-the weight of the particles
-<p class="fragment">
-<img height="350" src="img/diffusion_flows/mcwc.gif">
-<img height="350" src="img/diffusion_flows/multiscale_hohen.jpg">
-</section>
-
-
-
-<section>
-   <h3>Finite volume solution</h3>
-<p>Dam breach model - full diffusive wave solution with backwater effect
+   <h3>Dynamic wave applications</h3>
+<p>Dam breach model - full dynamic wave solution with backwater effect, using finite volume method
 <p><img height="400" src="img/diffusion_flows/sim3_ortho_small.gif">
 <p><small>see supplemental material for equations and r.damflood manual page for references</small>
 </section>
@@ -365,6 +357,44 @@ in grid cells where stream is located using map algebra</small>
 <img height="300" src="img/diffusion_flows/lw_wdepth_varcover.jpg">
 <img height="300" src="img/diffusion_flows/lw_wdepth_varcover2dlglg.jpg">
 </section>
+
+<section>
+   <h3>Few additional notes about path sampling method</h3>
+</section>
+
+<section>
+   <h3>Pluvial and fluvial flooding</h3>
+<p>Simulation of flodding from HAND method (inundation from a stream)
+and path sampling SIMWE method (overland flow)
+<p>
+<img height="300" src="img/diffusion_flows/hand.gif">
+<img class="fragment" height="300" src="img/diffusion_flows/simwe.gif">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy</h3>
+<p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
+<p>
+<img height="300" src="img/diffusion_flows/mcsf_steady.gif">
+<img height="300" src="img/diffusion_flows/mcsf3_steady.gif">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy</h3>
+<p>Error is proportional to $1/\sqrt N$, $N$ is number of particles
+<p>
+<img height="380" src="img/diffusion_flows/mcsimwelg.gif">
+</section>
+
+<section>
+   <h3>Multiscale implementation</h3>
+<p>Path sampling enables implementation with multiple resolutions by adjusting
+the weight of the particles
+<p class="fragment">
+<img height="350" src="img/diffusion_flows/mcwc.gif">
+<img height="350" src="img/diffusion_flows/multiscale_hohen.jpg">
+</section>
+
 
 <!--
 <section>
