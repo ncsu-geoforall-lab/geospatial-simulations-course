@@ -301,6 +301,7 @@ using multilevel logistic regression
 $$
 s_i = a_{j,i} + \sum_{h=1}^{n} \beta_{j, i, h} \, x_{i, h}
 $$
+<small>
 <ul>
   <li>$j$ is the level
   <li> $h$ is a predictor (e.g. development pressure, slope, ...)
@@ -309,6 +310,8 @@ $$
   <li> $\beta_{j, i, h}$ is regression coefficient 
   <li> $x_{i, h}$ is the value of $h$ at cell $i$
 </ul>
+</small>
+<p>
 To grow patches the development potential $s_i$ for cell $i$
 is converted to development probability $p_i$
 $$
@@ -318,6 +321,7 @@ $$
 
 <section>
 <h3>Potential submodel: workflow</h3>
+<p>
 <ol>
     <li class="fragment">stratified random sampling of predictors and response variable (developed/undeveloped raster)</li>
     <li class="fragment">multilevel logistic regression to relate cell suitability factors (predictors)
