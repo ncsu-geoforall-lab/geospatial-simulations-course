@@ -84,7 +84,7 @@ still lifes and oscilators to complex and surprising evolution
 <p>
 <a href="https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of many different configurations</a> on YouTube
 <p><img height="200" src="img/urban/Gospers_glider_gun_wikipedia.gif">
-<p><small>Gosper glider gun, by Kieff, CC BY-SA 3.0,<br>
+<p><small>Gosper glider by Kieff, CC BY-SA 3.0,<br>
  https://commons.wikimedia.org/w/index.php?curid=101736</small>
 </section>
 
@@ -92,7 +92,7 @@ still lifes and oscilators to complex and surprising evolution
     <h3>Geospatial cellular automata</h3>
 <p>
 <ul>
-  <li class="fragment">initial state is based on land use / land cover data, usually from RS or GIS
+  <li class="fragment">initial state is based on land use data, usually from RS or GIS
   <li class="fragment">rules are derived from socio-economic data and interactions between humans and environment 
   <li class="fragment">models are calibrated and validated using time series of land use data 
 </ul>
@@ -112,54 +112,27 @@ Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141</small>
     <h3>SLEUTH urban growth model</h3>
 <p>
 <ul>
-<!--  <li>started as wildfire spread model-->
-  <li>couples Urban Growth Model (UGM) and Land Cover Deltatron Model (LCD)
-  <li>SLEUTH is an acronym for inputs:
-<p>
-  <ul>
-    <li>Slope
-    <li>Land Cover
-    <li>Excluded
-    <li>Urban
-    <li>Transportation
-    <li>Hillshade
-  </ul>
-</ul>
-<p>
-Open source model 
-</section>
-
-<section>
-    <h3>SLEUTH principle</h3>
-Urban areas behave like a living organism trained by transition rules:
-<p>
+  <li>couples Urban Growth Model and Land Cover Deltatron Model 
+  <li>SLEUTH is an acronym for inputs: Slope, Land Cover, Excluded, Urban, Transportation, Hillshade
+  <li>Urban areas behave like a living organism trained by transition rules:
 <ul>
   <li class="fragment">class to class transition matrix derived from 2 LU maps
   <li class="fragment">time series of 4 urban maps is used for calibration
   <li class="fragment">parameters derived from past growth: dispersion, breed, spread, slope resistance, road gravity
-  <li class="fragment">growth types: diffusive, new spreading center, organic, road influenced 
+  <li class="fragment">growth types: diffusive, new spreading center, organic, road influenced
 </ul>
-</section>
-
-<section>
-    <h3>SLEUTH applications and innovation</h3>
-<p>Learn more about SLEUTH at
-<a href="http://www.ncgia.ucsb.edu/projects/gig/index.html">Project Gigalopolis</a>
-<p>
-Chaudhuri, Gargi and Clarke, Keith. (2013). 
-<a href="https://www.researchgate.net/publication/237052846_The_SLEUTH_land_use_change_model_A_review">
-The SLEUTH land use change model: A review. International Journal Of Environmental Resource Research. 1. 88 - 105.</a>
-<p>
-<a href="https://doi.org/10.1038/s41597-019-0048-z">Zhou, Y., Varquez, A.C.G., Kanda, M. 2019, High-resolution global urban growth projection based on multiple applications of the SLEUTH urban growth model. Sci Data 6, 34. </a>Includes R scripts for 
-input and output data processing and link to <a href="https://pypi.org/project/sleuth-automation/">Python wrapper for SLEUTH</a>
+</ul>
+<p class="fragment"><small>Learn more about SLEUTH at <a href="http://www.ncgia.ucsb.edu/projects/gig/index.html">Project Gigalopolis</a></small>
 </section>
 
 <section>
     <h3>Probabilistic CA urban growth models</h3>
+<p>
 <ul>
+<li class="fragment">Special case of land change models
 <li class="fragment">Probabilistic transition rules and a stochastic perturbation term
-<li class="fragment">Statistical methods are used to develop the transition rules, based on past time series
-<li class="fragment">Logistic regression, neural networks, decision trees
+<li class="fragment">Statistical methods are used to develop the transition rules, based on past time series:
+logistic regression, neural networks, decision trees
 <li class="fragment">Beyond square grids: hexagons, irregular probabilistic patches
 <li class="fragment">Interactions and spread beyond the immediate neighborhood
 </ul>
@@ -171,6 +144,7 @@ FUTure Urban-Regional Environment Simulation,
 <a href="http://dx.doi.org/10.1080/00045608.2012.707591">
 Meentemeyer et al., 2013</a>
 <div class="left" style="max-width: 60% !important">
+<p>
 <ul>
 <li class="fragment">urban growth model</li>
 <li class="fragment">patch-based</li>
@@ -216,6 +190,8 @@ is the actual engine of FUTURES, growing the patches of calibrated size and shap
 each subregion</li>
 <li class="fragment">extrapolates between historical changes in population and land conversion</li>
 <li class="fragment">inputs are historical landuse, population data, population projection</li>
+<li class="fragment">output is land area that needs to be developed each year to satisfy the demand
+driven by the population growth</li>
 </ul>
 <img src="img/urban/r_futures_demand_plot_logarithmic.png">
 </section>
@@ -274,18 +250,48 @@ is the actual engine of FUTURES, growing the patches of calibrated size and shap
 </aside>
 </section>
 
-
 <section>
 <h3>Potential submodel</h3>
 <ul>
 <li>development suitability is estimated using multilevel logistic regression which
 accounts for variation among subregions </li>
-<li>inputs are uncorrelated predictors (distance to roads, distance from existing development, slope, ...)</li>
+<li>inputs are uncorrelated predictors e.g., distance to roads, distance from existing development, slope, ...</li>
 </ul>
 <br>
 <img src="img/urban/disttowaterlakes_zoom.png" height="280">
 <img src="img/urban/r_futures_potsurface.png" height="280">
-<p style="font-size:70%">Predictors: distance to lakes, surface: potential, orange: developed areas, green: undeveloped areas
+<p style="font-size:70%">Example predictors: distance to lakes, development pressure dependent on distance from developed areas
+(orange: developed areas, green: undeveloped areas)
+</section>
+
+<section>
+<h3>Development pressure</h3>
+<ul>
+    <li>Feedback between predicted change and change in subsequent steps</li>
+    <li>Predictor based on number of neighboring developed cells within search distance, 
+    weighted by distance: gravity model</li>
+</ul>
+$$pressure = \sum^{n_i}_{k=1} \frac{state_k} {d^{\gamma}_{ik}}$$
+<ul>
+<li> $state_k$ indicates whether neighboring cell $k$ is 1 or 0 (developed or undeveloped) <br>
+<li> $d_{ik}$ is distance between cell $i$ and neighboring cell $k$ <br>
+<li> $\gamma$ controls the influence of distance between neighboring cells</small>
+</section>
+
+<section>
+<h3>Development pressure</h3>
+Surface represents the development pressure, color is the initial development
+<p><img src="img/urban/r_futures_devpressure_3D.png" height="400">
+</section>
+
+<section>
+<h3>Development pressure 1992</h3>
+<p><img src="img/urban/devpressure92.jpg" height="450">
+</section>
+
+<section>
+<h3>Development pressure 2011</h3>
+<p><img src="img/urban/devpressure2011.jpg" height="450">
 </section>
 
 <section>
@@ -324,6 +330,7 @@ $x_{i, h}$ is the value of $h$ at cell $i$
 </ol>
 </section>
 
+<!--
 <section>
 <h3>Potential submodel: notes</h3>
     <ul>
@@ -331,35 +338,7 @@ $x_{i, h}$ is the value of $h$ at cell $i$
         <li>avoid multicollinearity</li>
     </ul>
 </section>
-
-<section>
-<h3>Development pressure</h3>
-<ul>
-    <li>Predictor based on number of neighboring developed cells within search distance, weighted by distance.</li>
-    <li>Feedback between predicted change and change in subsequent steps.</li>
-    </ul>
-$$pressure = \sum^{n_i}_{k=1} \frac{state_k} {d^{\gamma}_{ik}}$$
-<ul>
-<li> $state_k$ indicates whether neighboring cell $k$ is 1 or 0 (developed or undeveloped) <br>
-<li> $d_{ik}$ is distance between cell $i$ and neighboring cell $k$ <br>
-<li> $\gamma$ controls the influence of distance between neighboring cells</small>
-</section>
-
-<section>
-<h3>Development pressure</h3>
-Surface represents the development pressure, color is the initial development
-<p><img src="img/urban/r_futures_devpressure_3D.png" height="400">
-</section>
-
-<section>
-<h3>Development pressure 1992</h3>
-<p><img src="img/urban/devpressure92.jpg" height="450">
-</section>
-
-<section>
-<h3>Development pressure 2011</h3>
-<p><img src="img/urban/devpressure2011.jpg" height="450">
-</section>
+-->
 
 <section>
 <h3>Modeling framework</h3>
