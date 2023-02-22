@@ -296,26 +296,24 @@ Surface represents the development pressure, color is the initial development
 
 <section>
 <h3>Potential submodel</h3>
-<div class="left" style="max-width: 50% !important">
-$$
-p_i = \frac{e^{s_i}}{1 + e^{s_i}}
-$$
-<p>
-$p_i$ is development probability for cell $i$<br>
-$s_i$ is development potential for cell $i$
-</div>
-<div class="right" style="max-width: 48% !important">
+Predicts development potential for each cell as a function of predictor variables
+using multilevel logistic regression
 $$
 s_i = a_{j,i} + \sum_{h=1}^{n} \beta_{j, i, h} \, x_{i, h}
 $$
-$j$ is the level (e.g. counties)<br>
-$h$ is a predictor (e.g. slope)<br>
-$n$ is the number of predictor variables <br>
-$a_{j,i}$ is intercept <br>
-$\beta_{j, i, h}$ is regression coefficient <br>
-$x_{i, h}$ is the value of $h$ at cell $i$
-
-</div>
+<ul>
+  <li>$j$ is the level
+  <li> $h$ is a predictor (e.g. development pressure, slope, ...)
+  <li> $n$ is the number of predictor variables 
+  <li> $a_{j,i}$ is intercept 
+  <li> $\beta_{j, i, h}$ is regression coefficient 
+  <li> $x_{i, h}$ is the value of $h$ at cell $i$
+</ul>
+To grow patches the development potential $s_i$ for cell $i$
+is converted to development probability $p_i$
+$$
+p_i = \frac{e^{s_i}}{1 + e^{s_i}}
+$$
 </section>
 
 <section>
@@ -323,10 +321,13 @@ $x_{i, h}$ is the value of $h$ at cell $i$
 <ol>
     <li class="fragment">stratified random sampling of predictors and response variable (developed/undeveloped raster)</li>
     <li class="fragment">multilevel logistic regression to relate cell suitability factors (predictors)
-        to the probability of a cell becoming developed for each subregion:
+        to its development potential for each subregion 
+<!--
     <br><code>glm(developed ~ (1|subregion) + distance_to_water + development_pressure + road_density + ...)</code>
     <br>automatic model selection is based on Akaike information criterion (AIC)</li>
-    <li class="fragment">development probability surface from regression coefficients</li>
+-->
+    <li class="fragment">use the regression coefficients to compute the development potential
+and development probability surface</li>
 </ol>
 </section>
 
