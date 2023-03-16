@@ -1,18 +1,18 @@
-<h2>Running basic analysis with GRASS GIS on Henry2</h2>
+<h2>Running basic analysis with GRASS GIS on Hazel</h2>
 The goal of this section is to become familiar with running basic GRASS GIS commands
 on HPC, including creating a Location, importing data, running a simple analysis and exporting data.
 <p>
 
-First, we will copy our prepared data from mass storage (<code>/gpfs_archive/gis714s22</code>)
+First, we will copy our prepared data from mass storage (<code>/gpfs_archive/gis714s23</code>)
 to our scratch space and unzip.
 <span class="question">
     Why do we need to copy it there?
 </span>
 
 <pre><code>
-mkdir /share/gis714s22/$USER/input_data
-cd /share/gis714s22/$USER/input_data
-cp /gpfs_archive/gis714s22/nlcd_2019_land_cover_l48_20210604.zip .
+mkdir /share/gis714s23/$USER/input_data
+cd /share/gis714s23/$USER/input_data
+cp /gpfs_archive/gis714s23/nlcd_2019_land_cover_l48_20210604.zip .
 unzip nlcd_2019_land_cover_l48_20210604.zip
 </code></pre>
 
@@ -22,15 +22,6 @@ we would need to do that on a compute node rather than on a login node.
     Why?
 </span>
 
-<!-- <p>Since this tutorial is written for Bash instead of Tcsh shell (the default one on Henry2, but it's not commonly used)
-you need to run (ignore the error from the first command):
-
-<pre><code>
-mv ~/.bashrc ~/.bashrc_backup
-cp /etc/skel/.bashrc ~
-</code></pre>
-
-Then logout and login again. -->
 
 <h3>Loading GRASS GIS</h3>
 On HPC you need to first load GRASS GIS to be able to use it. 
@@ -48,24 +39,24 @@ module avail
 </code></pre>
 
 At the bottom you will see several available versions of GRASS GIS,
-we will use the latest one, which contains newly parallelized tools:
+we will use the default one:
 <pre><code>
-module load grass/8.1
+module load grass
 </code></pre>
 
 You will need to execute these 2 lines every time you open a new terminal or include them in your job submission:
 
 <pre><code>
 module use --append /usr/local/usrapps/geospatial/modulefiles
-module load grass/8.1
+module load grass
 </code></pre>
 
 <h3>Creating a new Location</h3>
-In your scratch space (<code>/share/gis714s22/$USER</code>) create a new Location
-with CRS matching NLCD data located in the class' mass storage (<code>/gpfs_archive/gis714s22</code>):
+In your scratch space (<code>/share/gis714s23/$USER</code>) create a new Location
+with CRS matching NLCD data located in the class' mass storage (<code>/gpfs_archive/gis714s23</code>):
 <pre><code>
-mkdir /share/gis714s22/$USER/grassdata
-grass -c /share/gis714s22/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img /share/gis714s22/$USER/grassdata/intro --text
+mkdir /share/gis714s23/$USER/grassdata
+grass -c /share/gis714s23/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img /share/gis714s23/$USER/grassdata/intro --text
 </code></pre>
 This will automatically start in a new mapset PERMANENT and set the default computational region to match the NLCD raster.
 Now, review projection and computational region info and exit:
@@ -84,19 +75,19 @@ We will import 2019 NLCD land cover into our newly created location.
 We will import data in an <a href="https://hpc.ncsu.edu/Documents/LSF.php#interact">interactive session on a compute node</a><div class=""></div>
 We request a single core and 2GB of memory for 30 minutes:
 <pre><code>
-bsub -Is -n 1 -R "rusage[mem=2GB]" -W 30 tcsh
+bsub -Is -n 1 -R "rusage[mem=2GB]" -W 30 bash
 </code></pre>
 
 Load GRASS GIS:
 
 <pre><code>
 module use --append /usr/local/usrapps/geospatial/modulefiles
-module load grass/8.1
+module load grass
 </code></pre>
 
 Start GRASS GIS in the newly created Location:
 <pre><code>
-grass /share/gis714s22/$USER/grassdata/intro/PERMANENT
+grass /share/gis714s23/$USER/grassdata/intro/PERMANENT
 </code></pre>
 
 Set region to smaller area so that we don't have to wait too much:
@@ -106,7 +97,7 @@ g.region n=1690185 s=252165 e=1838925 w=514635 res=30 -p
 
 Import NLCD land cover data (will take couple minutes):
 <pre><code>
-r.in.gdal input=/share/gis714s22/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img output=nlcd_2019 memory=2000 -r
+r.in.gdal input=/share/gis714s23/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img output=nlcd_2019 memory=2000 -r
 </code></pre>
 
 Once you are done, you can launch GUI with <code>g.gui</code> add the new raster.
@@ -137,12 +128,12 @@ using the <code>--exec</code> interface which starts a GRASS session in specifie
 
 We will create a text file in your home folder using nano editor:
 <pre><code>
-nano /home/$USER/bsub_neighbors.csh
+nano /home/$USER/bsub_neighbors.sh
 </code></pre>
 
 Copy and paste the following content and exit (Ctrl+X) and save (Shift+Y):
 <pre><code>
-#!/bin/tcsh
+#!/bin/bash
 #BSUB -n 1
 #BSUB -W 3:00
 #BSUB -R "rusage[mem=2GB]"
@@ -151,16 +142,16 @@ Copy and paste the following content and exit (Ctrl+X) and save (Shift+Y):
 #BSUB -J neighbors
 
 module use --append /usr/local/usrapps/geospatial/modulefiles
-module load grass/8.1
+module load grass
 
-grass /share/gis714s22/$USER/grassdata/intro/PERMANENT --exec r.neighbors input=nlcd_2019 output=diversity_2019 size=3 method=diversity
-grass /share/gis714s22/$USER/grassdata/intro/PERMANENT --exec r.out.gdal input=diversity_2019 output=/share/gis714s22/$USER/diversity_2019.tif type=Byte createopt=COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES
+grass /share/gis714s23/$USER/grassdata/intro/PERMANENT --exec r.neighbors input=nlcd_2019 output=diversity_2019 size=3 method=diversity
+grass /share/gis714s23/$USER/grassdata/intro/PERMANENT --exec r.out.gdal input=diversity_2019 output=/share/gis714s23/$USER/diversity_2019.tif type=Byte createopt=COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES
 </code></pre>
 
 Submit the job from scratch space:
 <pre><code>
-cd /share/gis714s22/$USER/
-bsub < /home/$USER/bsub_neighbors.csh
+cd /share/gis714s23/$USER/
+bsub < /home/$USER/bsub_neighbors.sh
 </code></pre>
 
 Now check that job is submitted. 
