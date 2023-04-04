@@ -87,6 +87,7 @@ grass -c /share/gis714s23/$USER/grassdata/albers/slope --exec r.slope.aspect ele
 Here we compute distance to roads, water and forest that will serve as predictors.
 Since tool <code>r.grow.distance</code> is not internally parallelized, we will execute distance to roads, water, and forest
 so that they run concurrently using 3 cores. This can be simply achieved by executing them in the background.
+Alternatively, you can split it and execute as 3 separate jobs.
 
 <pre><code>
 #!/bin/bash
@@ -163,16 +164,16 @@ r.futures.pga developed=urban_2019 development_pressure=devpressure_2019@devpres
     n_dev_neighbourhood=20 devpot_params=/share/gis714s23/input_csv/best_model.csv num_neighbors=4 seed_search=probability \
     development_pressure_approach=gravity gamma=1 scaling_factor=1 num_steps=31 \
     subregions=state_${1} demand=/share/gis714s23/input_csv/demand_${1}.csv \
-    output=out_state_${1}_seed_${2} patch_sizes=/share/gis714s23/input_csv/patch_sizes_${1}.csv memory=12 random_seed=${2}
+    output=out_state_${1}_seed_${2} patch_sizes=/share/gis714s23/input_csv/patch_sizes_${1}.csv random_seed=${2}
 </code></pre>
 
 Then create a script "bsub_futures.sh" with the content below:
 
 <pre><code>
 #!/bin/bash
-#BSUB -n 19
-#BSUB -R "rusage[mem=120GB]"
-#BSUB -R span[ptile=9]
+#BSUB -n 21
+#BSUB -R "rusage[mem=150GB]"
+#BSUB -R span[ptile=10]
 #BSUB -W 40:00
 #BSUB -oo futures_out
 #BSUB -eo futures_err
@@ -205,56 +206,52 @@ grass -c /share/gis714s23/akratoc/grassdata/albers/pga_12_1 --exec bash /home/ak
 </pre>
 This file contains commands that will be distributed for computation across multiple nodes, each one of them computing the simulation
 for single state an random seed.
-Notice the submission parameters, there are slightly more complex. In the script "pga.sh" we limited each r.futures.pga run to 12 GB of memory max, so on a node with 128 GB of memory we can fit only around
-9 concurrent simulations (we need to keep some padding). Therefore, we specify that with <code>rusage[mem=120GB]</code> and <code>span[ptile=9]</code>. When we request 19 cores, that will result in requesting 2 x 128GB nodes.
-We request 19 instead of 18 to include one extra core for MPI thread management. There will be total of 60 (6 states x 10 seeds) FUTURES computations on 18 cores, once a computation from the list is finished
+Notice the submission parameters, there are slightly more complex.
+We estimate memory to be 10-15 GB per state (will differ based on the state size), so we can fit around
+10 concurrent simulations on a node when we request 150GB.
+Therefore, we specify that with <code>rusage[mem=150GB]</code> and <code>span[ptile=10]</code>.
+When we request 20 cores, that will result in requesting 2 nodes.
+We request 21 instead of 20 to include one extra core for MPI thread management. This is not necesserily the most efficient way,
+we could also submit separate jobs, but large number of job submissions is generally discouraged. There will be total of 60 (6 states x 10 seeds) FUTURES computations on 18 cores, once a computation from the list is finished
 the next one is started. When you submit your job, it may be pending for a while, you are requesting a lot of resources for a long time.
+For more complex submission you can consult HPC IT.
 
 
 <h3>Postprocessing</h3>
 We need to patch the results for individual states. For that we will use
-tool <code>r.patch</code> which is internally parallelized. Since we
-need to do that for each random seed, we can use MPI to distribute the computation across
-multiple nodes. This example shows how to submit a
-<a href="https://hpc.ncsu.edu/Documents/hybridjobs.php">"hybrid job"</a> that
-distributes each r.patch call on a different node,
-allowing r.patch to use all the cores available on that node (<code>nprocs --all</code>).
-<p>
-Note: this is not the most efficient way of using HPC resources.
-One problem is that r.patch will not run much faster with 12 cores than 4. Also, pynodelauncher
-will use one core for managing threads, which (because of using <code>-x</code>) results in one almost idle node.
-More complex options to improve this would be to
-e.g., place multiple r.patch calls on one node and/or request specific node size (e.g., <code>-R "select[qc]"</code> for 8 available cores).
+tool <code>r.patch</code> which is internally parallelized.
 
-
+First, create a bash script <code>patch.sh</code> that accepts 2 parameters (seed number and number of cores),
+loads grass, lists all FUTURES output rasters belonging to the specified seed
+and executes r.patch in a newly created mapset.
 <pre><code>
-#!/bin/bash
-#BSUB -n 6
-#BSUB -x
-#BSUB -R span[ptile=1]
-#BSUB -W 1:00
-#BSUB -oo patch_out
-#BSUB -eo patch_err
-#BSUB -J patch
+# get parameters
+SEED=${1}
+N=${2}
 
 module use --append /usr/local/usrapps/geospatial/modulefiles
 module load grass
 module load PrgEnv-intel
 
-
-rm -f /share/gis714s23/${USER}/patch_jobs.sh
-for SEED in `seq 1 10`
-do
-    # list results for each state for a single seed and save to a variable
-    MAPS=`grass --tmp-mapset /share/gis714s23/$USER/grassdata/albers --exec \
-         g.list type=raster pattern="out_state_*_seed_${SEED}" mapset="*" -m separator=comma`
-    rm -rf /share/gis714s23/$USER/grassdata/albers/results_${SEED}
-    echo grass -c /share/gis714s23/$USER/grassdata/albers/results_${SEED} --exec  r.patch input=${MAPS} output="out_seed_${SEED}" nprocs=`nproc --all` >> /share/gis714s23/${USER}/patch_jobs.sh
-done
-
-mpiexec python -m mpi4py -m pynodelauncher /share/gis714s23/${USER}/patch_jobs.sh
+# list results for each state for a single seed and save to a variable
+MAPS=`grass --tmp-mapset /share/gis714s23/$USER/grassdata/albers --exec \
+     g.list type=raster pattern="out_state_*_seed_${SEED}" mapset="*" -m separator=comma`
+rm -rf /share/gis714s23/$USER/grassdata/albers/results_${SEED}
+grass -c /share/gis714s23/$USER/grassdata/albers/results_${SEED} --exec r.patch input=${MAPS} output="out_seed_${SEED}" nprocs=${N}
+grass /share/gis714s23/$USER/grassdata/albers/results_${SEED} --exec r.colors map=out_seed_${SEED} raster=out_state_1_seed_${SEED}@pga_1_${SEED}
 </code></pre>
 
+Then create another script that submits the patching jobs for each seed (<code>submit_patch.sh</code>):
+<pre><code>
+N=4
+for SEED in {1..10}
+do
+    bsub -n ${N} -W 1:00 -R span[hosts=1] -J patch_${SEED} -oo patch_${SEED}_out -eo patch_${SEED}_err bash patch.sh ${SEED} ${N}
+done
+</code></pre>
+Run the script with <code>bash submit_patch.sh</code>. This will submit 10 jobs.
+
+The results are rasters <code>out_seed_1@results_1</code>, <code>out_seed_2@results_2</code>, etc.
 <span class="question">
     Report the run times for all your computations and include a figure with the results.
 </span>
