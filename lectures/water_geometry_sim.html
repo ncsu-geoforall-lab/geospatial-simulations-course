@@ -44,19 +44,18 @@
 </section>
 
 <section>
-   <h3>Types of surface water simulations</h3>
+   <h3>Example: Surface water simulations</h3>
 <p>
 <ul>
 <li class="fragment">Surface water flow - overland flow accumulation
 <li class="fragment">Flooding / inundation - spread of rising water level
-<li class="fragment">Coupled: inundation + overland flow 
+<li class="fragment">Storm surge - water pushed by wind 
 <li class="fragment">Coupled: storm surge + inundation + overland flow
 </ul>
-<p>
-<img class="fragment" height="260" src="img/water_geometry/accum_5Kmfd.jpg">
-<img class="fragment" height="260" src="img/water_geometry/floodedarea.jpg">
-<p class="fragment">
-These processes are controled by elevation surface
+<br>
+<img class="fragment" height="240" src="img/water_geometry/accum_5Kmfd.jpg">
+<img class="fragment" height="240" src="img/water_geometry/floodedarea.jpg">
+<br><img  class="fragment" height="130" src="img/intro/hatteras_surge_rlake.gif">
 </section>
 
 <section>
@@ -88,8 +87,8 @@ by the surface gradient field $\nabla f$.
 <section>
    <h3>Gradient vector: slope and aspect</h3>
 <ul>
- <li>$- \nabla f$ is a vector in the steepest slope direction - aspect $\alpha$,
- <li> its magnitude (length) is slope steepness $\beta$:
+ <li> gradient vector magnitude is slope steepness $\beta$:
+ <li> gradient direction is steepest slope direction - aspect $\alpha$,
 </ul>
 $$\beta^\circ = {\arctan}\sqrt{f_x^2+f_y^2} \qquad \beta\%=100 \sqrt{f_x^2+f_y^2}$$
 $$\alpha^\circ = {\arccos} \left( -f_y \over \sqrt{f_x^2+f_y^2} \right) $$
@@ -112,7 +111,7 @@ $$ f_x = \tan \beta . \cos \alpha, \qquad f_y = \tan \beta . \sin \alpha$$
   <li class="fragment">Continuous: D-infinity 
   <ul>
     <li>partial derivatives of a suitable approximation function, such as spline or polynomial
-    <li>continuous gradient direction (aspectangle) <0, 360> degrees
+    <li>continuous gradient direction (aspect angle) <0, 360> degrees
   </ul>
 </ul>
 </section>
@@ -163,8 +162,6 @@ $$f_y={{(z_{i-1,j-1}-z_{i-1,j+1})+2(z_{i,j-1}-z_{i,j+1})+(z_{i+1,j-1}-z_{i+1,j+1
 <p>
 <li class="fragment">gradient magnitude (slope, flow velocity) is omitted
 </ul>
-<p class="fragment"><small>See GIS582 and supplemental material for flow tracing and flow accumulation methods
-http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/flow.html#/10</small>
 </section>
 
 <section>
@@ -442,6 +439,7 @@ and the the cell on the stream into which the cell drains.
 <section>
    <h3>Flooding - inundation dynamic</h3>
 <a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial">Implemented in mapbox</a>
+<p><img height="320" src="img/diffusion_flows/hand.gif">
 </section>
 
 <section>
