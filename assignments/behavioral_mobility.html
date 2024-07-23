@@ -80,6 +80,10 @@ In data catalog select <code>grassdata</code> as your database and <code>nl_epsg
 as your location (project) which has several mapsets (shown as subdirectories). Double-click 
 on <code>nuenen_outdoor</code> and select <code>Switch mapset</code> - <code>nuenen_outdoor</code> will be
 shown in bold and we can start working with our data.
+<p>
+Note: You can work in GRASS GIS through the <b>graphical user interface (GUI)</b> or using <b>command line interface (CLI)</b>
+by typing (or copy-paste) commands in the Console or for linux/mac Grass Terminal
+You can write your workflpws as python scripts and share them in Jupyter notebooks (not covered yet here).
 
 <h3>Display the available data </h3>
 
@@ -105,14 +109,10 @@ d.vect nu_all_hres size=2
 </code></pre>
 
 <p>
-Note: You can work in GRASS GIS through the <b>graphical user interface (GUI)</b> or using <b>command line interface (CLI)</b>
-by typing (or copy-paste) commands in the Console or for linux/mac Grass Terminal
-
-<p>
 To transform our point data into a continuous point density representation we can compute 
 a kernel density map - it approximates the pattern of most used areas in terms of number of people and time.
 First we define the spatial extent and resolution for our analysis, then we run the kernel density tool
-and finally we adjust the output color ramp and display only values above min threshold
+and finally we adjust the output color ramp and display only values above min threshold:
 <pre><code>
 g.region raster=dsm_05mfill res=0.5
 v.kernel nu_all_hres out=kd_nu_all_hres rad=7 kern=epanechnikov
@@ -135,8 +135,9 @@ Now you can use the commands from the assignment requiring external supporting t
 without the need to specify the full path to the file.
 
 To perform processing and analysis we define our spatial extent and grid (raster) resolution.
-If our data are in csv format we can import them as points (e.g. v.in.ascii or v.in.csv)
- or rasterize (bin) upon import using mean (e.g. phasic z in our example):
+If our data are in csv format we can import them as points using v.in.ascii or v.in.csv commands.
+In our example below we rasterize (bin) the point data upon import using 
+mean phasic z computed from points in each grid cell for each participant:
 
 <pre><code>
 g.region raster=dsm_05mfill res=2
