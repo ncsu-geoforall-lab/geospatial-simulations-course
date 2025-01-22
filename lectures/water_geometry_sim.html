@@ -249,6 +249,14 @@ and a vectorized extracted stream network
 </section>
 
 <section>
+   <h3>Stream mapping accuracy</h3>
+<p>Compare USGS NHD stream (red), stream extracted from 1ft resolution DEM (blue), 
+on ground within stream GPS points
+<p><img height="400" src="img/diffusion_flows/Streams_NHD_GRASSlidar.png">
+<img height="400" src="img/diffusion_flows/stream_extraction_lidarc.png">
+</section>
+
+<section>
    <h3>Flat areas and depressions</h3>
 <ul>
 <li>What is gradient in flat area? In depressions?
@@ -279,6 +287,15 @@ and a vectorized extracted stream network
 Depressions in lidar-based DEM and flow accumulation using DEM filling
 <p><img height="400" src="img/water_geometry/depressions_lidardem.jpg">
 <p><small>Many depressions are artificial lakes where bridges or roads create dams</small>
+</section>
+
+<section>
+   <h3>Depressions filling impact on erosion modeling</h3>
+Filled depression in a lidar-based DEM leads to artificial flow pattern, sediment transport
+and erosion distribution
+<p><img height="400" src="img/diffusion_flows/demfill_impactroad.png">
+<p><small>This filled depression is an artificial lake where a roads creates a dam
+(culvert under the road is not captured in the data)</small>
 </section>
 
 <section>
