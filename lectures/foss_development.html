@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="plugin/chalkboard/style.css">
+        <link rel="stylesheet" href="plugin/customcontrols/style.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Open Source Geospatial Software Development</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Vaclav Petras, Anna Petrasova</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+<li>Introduction to basic concepts and infrastructure of FOGSS development 
+<li>More details in <a href="https://doi.org/10.22224/gistbok/2021.2.4">Petras V., Mitasova H., Petrasova, A. 2021. Open Source Software Development. In: The Geographic Information Science & Technology Body of Knowledge (2nd Quarter 2021 Edition), John P. Wilson (ed.).</a>
+<li><a href="https://ncsu-geoforall-lab.github.io/open-science-course/">Petras V. Tools for Open Geospatial Science course</a>
+    <ul>
+       <li><a href="https://wenzeslaus.github.io/presentations/geoforum2014-foss.pdf">Petras V., How Open Source Geospatial Development Works (2014 talk slides)</a>
+       <li><a href="https://ncsu-geoforall-lab.github.io/open-science-course/lectures/open-source.html#/">Petras V. How open source communities and development work (2017 lecture)</a>
+    </ul>
+</ul>
+</section>
+
+<section>
+    <h3>FOGSS projects origins: examples</h3>
+<ul>
+<li class="fragment">single developer, projects attracts more developers and builds formal contributor structures
+<li class="fragment"> government funded project 
+<li class="fragment"> industry releases existing proprietary software as open source (e.g. MAXENT by IBM)
+</ul>
+</section>
+
+<section>
+    <h3>Mature FOGSS projects </h3>
+<p>
+<ul>
+<li class="fragment">Maintainers and core developers
+<li class="fragment">Project steering committee
+<li class="fragment">Broad community of developers
+<li class="fragment">Broad community of users
+</ul>
+<p class="fragment">Close collaboration between developers and users
+</section>
+
+<section>
+    <h3>Development Management Tools</h3>
+<ul>
+   <li class="fragment">Version control systems and source code hosting: Git, GitHub, GitLab 
+   <li class="fragment">Quality control, testing, and reviews: static code analysis tools, linters, automated and manual testing
+   <li class="fragment"> Latest development versions are publicly available: any user can evaluate new version before a release is made. 
+   <li class="fragment">Results of the tests and reviews are also publicly available. 
+</ul>
+</section>
+
+<section>
+    <h3>Release, packaging, and distribution</h3>
+<ul>
+<li class="fragment">new release is tagged in the version control system 
+<li class="fragment">building binaries and executables from the source code
+<li class="fragment">packaging compile-time and runtime dependencies, 
+integration with other software or operating systems, creation of installers
+<li class="fragment">containerization (operating-system-level virtualization): Docker
+<li class="fragment">distribution of software for specific domains or operating systems such as Anaconda
+</ul>
+</section>
+
+<section>
+    <h3>Documentation, manuals, and tutorials </h3>
+<p>
+<ul>
+<li class="fragment">Wiki, Doxygen
+</ul>
+</section>
+
+<section>
+    <h3>Extensions, addons, modules, packages, and plugins</h3>
+<p>
+<ul>
+<li class="fragment">code from broader community
+</ul>
+</section>
+
+<section>
+    <h3>Collaboration and communication</h3>
+<p>
+<ul>
+<li class="fragment">github, historically mailing lists
+</ul>
+</section>
+
+<section>
+    <h3>OSGeo</h3>
+<p><a href="osgeo.org">Open Source Geospatial Foundation:</a>
+ umbrella organization for open source geospatial projects -
+- you are almost for sure using software from the
+<a href="https://gistbok.ucgis.org/bok-topics/open-source-software-development#OSGeo">OSGeo Software Ecosystem</a>:
+<ul>
+<li>Graduated OSGeo projects which passed the incubation process 
+<li> OSGeo Community Projects 
+</ul>
+</section>
+
+
+<section>
+    <h3>Resources</h3>
+<ul>
+   <li><a href="https://doi.org/10.22224/gistbok/2021.2.4">Petras V., Mitasova H., Petrasova, A. 2021. 
+Open Source Software Development. In: The Geographic Information Science & Technology Body of Knowledge 
+(2nd Quarter 2021 Edition), John P. Wilson (ed.).</a>
+   <li><a href="https://doi.org/10.22224/gistbok/2017.3.4">Python for GIS</a>
+   <li><a href="https://doi.org/10.22224/gistbok/2019.1.3">R for Geospatial Analysis and Mapping(link is external)</a>
+   <li><a href="http://doi.org/10.22224/gistbok/2019.1.5">WebGIS Programming(link is external)</a>
+   <li><a href="https://doi.org/10.22224/gistbok/2019.2.15">GIS APIs(link is external)</a>
+   <li><a href="https://doi.org/10.22224/gistbok/2020.4.1">GDAL/OGR and IO Libraries(link is external)</a>
+   <li><a href="https://doi.org/10.22224/gistbok/2021.1.2">GIS and Computational Notebooks(link is external)</a>
+</ul>
+</section>
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script src="plugin/customcontrols/plugin.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard,
+                    RevealCustomControls
+                ],
+
+                customcontrols: {
+                    controls: [
+                        { icon: '<i class="fa fa-pen-square"></i>',
+                        title: 'Toggle chalkboard (B)',
+                        action: 'RevealChalkboard.toggleChalkboard();'
+                        },
+                        { icon: '<i class="fa fa-pen"></i>',
+                        title: 'Toggle notes canvas (C)',
+                        action: 'RevealChalkboard.toggleNotesCanvas();'
+                        }
+                    ]
+                },
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>
