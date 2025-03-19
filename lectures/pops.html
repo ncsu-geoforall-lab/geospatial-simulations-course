@@ -14,11 +14,12 @@
 <p>
 <ul>
     <li>Plant diseases and pests threaten production of food and plant-based materials
-    <li>NCSU CGA &amp; USDA APHIS developing tools to forecast the spread of pests and pathogens and to design effective control measures
+    <li>NCSU CGA &amp; USDA APHIS (Animal and Plant Health Inspection Service) are 
+    developing tools to forecast the spread of pests and pathogens and to design effective control measures
 </ul>
-<p>Spotted lantern fly infestation
-<br>
+<p>
 <img src="img/pops/spotted_lanternfly_grape.jpg" height="250">
+<p><small>Spotted lantern fly infestation</small>
 </section>
 
 <section>
@@ -29,7 +30,8 @@ When performing simulations we need to consider
 <ul>
   <li class="fragment"> <b>Modeled quantity [units]:</b> density of infected plants (hosts) 
   <li class="fragment"> <b>Spatial and temporal extent and scale:</b> field, regional, global spread 
-  <li class="fragment"> <b>Configuration space and interactions:</b> host density, weather, initial infected locations
+  <li class="fragment"> <b>Configuration space and interactions:</b> pathogen/pest properties,
+  host density, weather, initial infected locations
   <li class="fragment"> <b>Governing equations or rules:</b> rate of reproduction, distance and direction of spread,
 establishment 
 </ul>
@@ -38,7 +40,7 @@ establishment
 <section>
 <h3>Pest or Pathogen Spread Model PoPS</h3>
 <p> Geospatial simulation of pests or pathogens over a landscape
-<p> Main drivers: 
+<p> Main inputs (drivers): 
 <ul>
     <li>locations with infected hosts
     <li>host density
@@ -50,8 +52,8 @@ establishment
 <li> Spatial distribution of infected host probabilities over time
 </ul>
 <p>
-<img height="80" src="img/pops/pops_logo.png" alt="PoPS logo">
-<a href="https://popsmodel.org/about/the-pops-model/">PoPS model description</a>
+<img height="50" src="img/pops/pops_logo.png" alt="PoPS logo">
+<br><a href="https://popsmodel.org/model/">PoPS model description</a>
 </section>
 
 <section>
@@ -61,8 +63,8 @@ as a function of pests/pathogens reproduction, dispersal, and establishment
 <p>
 $$ \Psi_{ijt} = \beta W_{it} I_{it} * K (d, w) * (W_{jt} S_{jt}) / N_j$$
 <p>
-where
 <small>
+where
 <ul>
  <li> $\Psi_{ijt}$ is number of infested hosts in cell $j$ as a result of pest dispersal from cell $i$
  <li> $\beta$ number of pests/pathogens from a single host under optimal conditions
@@ -80,13 +82,14 @@ where
 <h3>Generating pests/pathogens: reproduction </h3>
 Number of pests/pathogens each infected host produces $\lambda$:
 <p>
-$$\lambda = \beta X_{it} P_{it} T_{it}$$
+$$\lambda = \beta X_{it} P_{it} T_{it} I_{it}$$
 <p>
-where
 <small>
+where
 <ul>
  <li> $\beta$ number of pests/pathogens from a single host under optimal conditions
  <li> $X_{it} P_{it} T_{it}$ is weather: seasonality, precipitation, temperature
+ <li> $I_{it}$ number of infected hosts in cell $i$
  <li> weather is implemented as <a href="https://github.com/ncsu-landscape-dynamics/weather-coefficient"> weather coefficient</a>
 derived from historical weather data
  <li> number of pests/pathogens is randomly selected from 
@@ -106,7 +109,7 @@ The vector of pests/pathogens spread from cell $i$ to cell $j$ is:
  <small>where
 <ul>
  <li>$d_{ij}$ is distance 
- <li>$\alpha_1, \alpha_2$ are short and long distance dispersal scales
+ <li>$\alpha_1, \alpha_2$ are short (natural) and long distance (human mediated) dispersal scales
  <li>$\gamma$ is percent short distance dispersal 
  <li>$D$ is the wind vector with direction $\omega$ and strength (magnitude) $\kappa$
  <li>distance is selected from 
@@ -140,8 +143,10 @@ where
 <p>
 <ul>
   <li class="fragment">Number of infected hosts (trees, plants) in each cell from individual stochastic runs
+<p>
   <li class="fragment">Probability infection map: probability that the hosts will be infected over given period of time
       derived from large number of stochastic runs
+<p>
   <li class="fragment">Average number of infected hosts in each grid cell from large number of stochastic runs and associated 
       standard deviations map
 </ul>
@@ -239,7 +244,7 @@ All open source, hosted on GitHub
 <h3>User Interfaces</h3>
 <p>
 <ul>
-  <li>PoPS Web Platform</li>
+  <li><a href="https://popsmodel.org/platform">PoPS Web Platform</a></li>
 <p>
   <li>Tangible Landscape</li>
 </ul>
