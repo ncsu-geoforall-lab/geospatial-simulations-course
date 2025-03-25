@@ -2,7 +2,7 @@
 Here we demonstrate how to run parallel jobs in GRASS using an urban growth modeling case study.
 
 <p>
-We will all share PERMANENT mapset of Location <code>albers</code> with prepared data and each student will create
+We will all share PERMANENT mapset of project <code>albers</code> with prepared data and each student will create
 their own mapset (using their user name) for computations in their own folder (<a href="https://github.com/ncsu-geoforall-lab/grass-gis-on-hpc-henry2/blob/main/docs/data.md#sharing-a-database-between-different-users">
     description of this setup</a>).
 Typically, the PERMANENT Mapset may be in a research storage and you may not have write access to it.
@@ -24,7 +24,7 @@ module load PrgEnv-intel
 pip install git+https://github.com/ncsu-landscape-dynamics/pynodelauncher.git
 </code></pre>
 
-Start GRASS GIS in a temporary mapset mapset:
+Start GRASS in a temporary mapset:
 <pre><code>
 grass --tmp-mapset /share/gis714s25/$USER/grassdata/albers/
 </code></pre>
@@ -36,7 +36,7 @@ g.list type=raster,vector  -mt
 
 Install FUTURES extension:
 <pre><code>
-g.extension r.futures
+g.extension extension=r.futures url=/gpfs_archive/gis714s25/grass-addons/src/raster/r.futures
 </code></pre>
 
 Exit GRASS session (temporary mapset will be removed):
@@ -62,7 +62,7 @@ that is set in PERMANENT.
 <pre><code>
 #!/bin/bash
 #BSUB -n 4
-#BSUB -W 15
+#BSUB -W 30
 #BSUB -R "rusage[mem=1GB]"
 #BSUB -R span[hosts=1] 
 #BSUB -oo slope_out
@@ -106,14 +106,14 @@ rm -rf /share/gis714s25/$USER/grassdata/albers/water
 rm -rf /share/gis714s25/$USER/grassdata/albers/forest
 
 # run in background by appending & after the tool
-grass -c /share/gis714s25/$USER/grassdata/albers/roads --exec r.grow.distance input=roads distance=dist_to_roads -m &
+grass -c /share/gis714s25/$USER/grassdata/albers/roads --exec r.grow.distance input=roads_nlcd_2019 distance=dist_to_roads_2019 -m &
 grass -c /share/gis714s25/$USER/grassdata/albers/water --exec r.grow.distance input=water distance=dist_to_water -m &
-grass -c /share/gis714s25/$USER/grassdata/albers/forest --exec r.grow.distance input=forest distance=dist_to_forest -m &
+grass -c /share/gis714s25/$USER/grassdata/albers/forest --exec r.grow.distance input=forest_2019 distance=dist_to_forest_2019 -m &
 # this will wait for the processes to finish before starting the next set of processes
 wait
-grass /share/gis714s25/$USER/grassdata/albers/roads --exec r.mapcalc "log_dist_to_roads = log(dist_to_roads + 1)" &
+grass /share/gis714s25/$USER/grassdata/albers/roads --exec r.mapcalc "log_dist_to_roads_2019 = log(dist_to_roads_2019 + 1)" &
 grass /share/gis714s25/$USER/grassdata/albers/water --exec r.mapcalc "log_dist_to_water = log(dist_to_water + 1)" &
-grass /share/gis714s25/$USER/grassdata/albers/forest --exec r.mapcalc "log_dist_to_forest = log(dist_to_forest + 1)" &
+grass /share/gis714s25/$USER/grassdata/albers/forest --exec r.mapcalc "log_dist_to_forest_2019 = log(dist_to_forest_2019 + 1)" &
 wait
 </code></pre>
 
@@ -126,7 +126,7 @@ Notice that we need to request twice as many cores then (on a single node).
 <pre><code>
 #!/bin/bash
 #BSUB -n 16
-#BSUB -W 10:00
+#BSUB -W 15:00
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=2GB]"
 #BSUB -oo devpressure_out

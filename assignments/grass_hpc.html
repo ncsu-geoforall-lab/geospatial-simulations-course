@@ -1,6 +1,6 @@
 <h2>Running basic analysis with GRASS GIS on Hazel</h2>
 The goal of this section is to become familiar with running basic GRASS GIS commands
-on HPC, including creating a Location, importing data, running a simple analysis and exporting data.
+on HPC, including creating a project, importing data, running a simple analysis and exporting data.
 <p>
 
 First, we will copy our prepared data from mass storage (<code>/gpfs_archive/gis714s25</code>)
@@ -51,8 +51,8 @@ module use --append /usr/local/usrapps/geospatial/modulefiles
 module load grass
 </code></pre>
 
-<h3>Creating a new Location</h3>
-In your scratch space (<code>/share/gis714s25/$USER</code>) create a new Location
+<h3>Creating a new project</h3>
+In your scratch space (<code>/share/gis714s25/$USER</code>) create a new project
 with CRS matching NLCD data located in the class' mass storage (<code>/gpfs_archive/gis714s25</code>):
 <pre><code>
 mkdir /share/gis714s25/$USER/grassdata
@@ -70,7 +70,7 @@ Which projection is NLCD data in? How many cells?
 </span>
 
 <h3>Importing NLCD</h3>
-We will import 2019 NLCD land cover into our newly created location.
+We will import 2019 NLCD land cover into our newly created project.
 
 We will import data in an <a href="https://hpc.ncsu.edu/Documents/LSF.php#interact">interactive session on a compute node</a><div class=""></div>
 We request a single core and 2GB of memory for 30 minutes:
@@ -85,7 +85,7 @@ module use --append /usr/local/usrapps/geospatial/modulefiles
 module load grass
 </code></pre>
 
-Start GRASS GIS in the newly created Location:
+Start GRASS GIS in the newly created project:
 <pre><code>
 grass /share/gis714s25/$USER/grassdata/intro/PERMANENT
 </code></pre>
@@ -124,7 +124,7 @@ Next we will compute a simple analysis with <code>r.neighbors</code> (number of 
 and export the result into tif. We use compression option when exporting to minimize file size
 (consult <a href="https://gdal.org/drivers/raster/gtiff.html">GDAL documentation</a> for further explanation).
 For that we submit a job, we request 1 core, 2GB of memory for 5 hours. GRASS tool is executed
-using the <code>--exec</code> interface which starts a GRASS session in specified Location, executed the command and ends the session.
+using the <code>--exec</code> interface which starts a GRASS session in specified project, executed the command and ends the session.
 
 We will create a text file in your home folder using nano editor:
 <pre><code>
