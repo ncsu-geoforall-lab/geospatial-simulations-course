@@ -31,7 +31,7 @@
    <li class="fragment">rule-based cellular automata 
    <li class="fragment">probabilistic land change models
    <li class="fragment">coupling with agent-based models
-   <li class="fragment">inputs, calibration and validation based on time series of RS and GIS data
+   <li class="fragment">inputs, calibration and validation: time series of RS and GIS data
 </ul>
 <p>
 For comprehensive overview see Li and Gong, 2016, 
@@ -75,14 +75,14 @@ surprising evolution patterns
 
 <p class="fragment">
 <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of life in wikipedia</a>: from simple 
-still lifes and oscilators to complex and surprising evolutioni, <a href="https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of many different configurations</a> on YouTube
+still lifes and oscilators to complex, dynamic patterns, <a href="https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of many configurations</a> on YouTube
 <p><img height="200" src="img/urban/Gospers_glider_gun_wikipedia.gif">
 <p><small>Gosper glider by Kieff, CC BY-SA 3.0,<br>
  https://commons.wikimedia.org/w/index.php?curid=101736</small>
 </section>
 
 <section>
-    <h3>Geospatial land change cellular automata</h3>
+    <h3>Land change cellular automata</h3>
 <p>
 <ul>
   <li class="fragment">georeferenced tesselation (grid)
@@ -114,6 +114,7 @@ Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141i</a></small>
   <li>SLEUTH is an acronym for inputs: Slope, Land Cover, Excluded, Urban, Transportation, Hillshade
 <p>
   <li>Urban areas behave like a living organism trained by transition rules:
+<p>
 <ul>
   <li class="fragment">class to class transition matrix derived from 2 LU maps
   <li class="fragment">time series of 4 urban maps is used for calibration
@@ -121,7 +122,7 @@ Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141i</a></small>
   <li class="fragment">growth types: diffusive, new spreading center, organic, road influenced
 </ul>
 </ul>
-<p class="fragment"><small>Learn more about SLEUTH at <a href="http://www.ncgia.ucsb.edu/projects/gig/index.html">Project Gigalopolis</a></small>
+<p class="fragment">Learn more about SLEUTH at <a href="http://www.ncgia.ucsb.edu/projects/gig/index.html">Project Gigalopolis</a>
 </section>
 
 <section>
@@ -159,6 +160,20 @@ Meentemeyer et al., 2013</a>
 </div>
 
 <img src="img/urban/cool_futures.png"  class="right" style="max-width: 38% !important">
+</section>
+
+<section>
+   <h3>Modeling components: urban growth</h3>
+<ul>
+  <li>Modeled quantity:
+     <b class="fragment">year when a grid cell is developed</b>
+  <li>Spatial and temporal scale:
+     <b class="fragment">regional (county - country), years</b>
+  <li>Configuration space and interactions:
+     <b class="fragment">population growth, land demand, environment and infrastructure...</b>
+  <li>Governing equations:
+     <b class="fragment"> statistical models, stichastic patch spread </b>
+</ul>
 </section>
 
 <section>
