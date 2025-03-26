@@ -58,15 +58,13 @@ $$
 
 <section>
     <h3>Game of life</h3>
-<p>Developed by Conway in 1970, the game has the following simple rules:
+<p>Developed by Conway in 1970, the game has 
+<a href="https://rosettacode.org/wiki/Conway%27s_Game_of_Life#">4 simple rules</a>
 <small>
 <ul>
   <li class="fragment">Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-<p>
   <li class="fragment">Any live cell with two or three live neighbours lives on to the next generation.
-<p>
   <li class="fragment">Any live cell with more than three live neighbours dies, as if by overpopulation.
-<p>
   <li class="fragment">Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 </ul>
 </small>
@@ -74,26 +72,25 @@ $$
 The resulting pattern is dependent only on the initial configuration:
 example of <strong>emergence and self-organization </strong> leading to many
 surprising evolution patterns
-</section>
 
-<section>
-    <h3>Game of life examples</h3>
-<p>
+<p class="fragment">
 <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of life in wikipedia</a>: from simple 
-still lifes and oscilators to complex and surprising evolution 
-<p>
-<a href="https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of many different configurations</a> on YouTube
+still lifes and oscilators to complex and surprising evolutioni, <a href="https://www.youtube.com/watch?v=C2vgICfQawE">Evolution of many different configurations</a> on YouTube
 <p><img height="200" src="img/urban/Gospers_glider_gun_wikipedia.gif">
 <p><small>Gosper glider by Kieff, CC BY-SA 3.0,<br>
  https://commons.wikimedia.org/w/index.php?curid=101736</small>
 </section>
 
 <section>
-    <h3>Geospatial cellular automata</h3>
+    <h3>Geospatial land change cellular automata</h3>
 <p>
 <ul>
+  <li class="fragment">georeferenced tesselation (grid)
+<p>
   <li class="fragment">initial state is based on land use data, usually from RS or GIS
+<p>
   <li class="fragment">rules are derived from socio-economic data and interactions between humans and environment 
+<p>
   <li class="fragment">models are calibrated and validated using time series of land use data 
 </ul>
 </section>
@@ -102,9 +99,9 @@ still lifes and oscilators to complex and surprising evolution
    <h3>Tobler's Detroit growth model</h3>
 <p>Cellular automata model with the spread rate estimated from actual population growth data 1930-1960.
 <p> <img height="300" src="img/urban/Tobler_Detroit.png">
-<p><small>W. R. Tobler (1970) A Computer Movie Simulating Urban Growth in the Detroit Region, 
-Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141</small>
-<p><small>In this paper Tobler invoked his famous first law of geography:
+<p><small><a href="https://www.jstor.org/stable/143141">W. R. Tobler (1970) A Computer Movie Simulating Urban Growth in the Detroit Region, 
+Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141i</a></small>
+<br><small>In this paper Tobler invoked his famous first law of geography:
 "everything is related to everything else, but near things are more related than distant things."</small>
 </section>
 
@@ -113,7 +110,9 @@ Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141</small>
 <p>
 <ul>
   <li>couples Urban Growth Model and Land Cover Deltatron Model 
+<p>
   <li>SLEUTH is an acronym for inputs: Slope, Land Cover, Excluded, Urban, Transportation, Hillshade
+<p>
   <li>Urban areas behave like a living organism trained by transition rules:
 <ul>
   <li class="fragment">class to class transition matrix derived from 2 LU maps
@@ -130,10 +129,14 @@ Economic Geography, 46:sup1, 234-240, DOI: 10.2307/143141</small>
 <p>
 <ul>
 <li class="fragment">Special case of land change models
+<p>
 <li class="fragment">Probabilistic transition rules and a stochastic perturbation term
+<p>
 <li class="fragment">Statistical methods are used to develop the transition rules, based on past time series:
 logistic regression, neural networks, decision trees
+<p>
 <li class="fragment">Beyond square grids: hexagons, irregular probabilistic patches
+<p>
 <li class="fragment">Interactions and spread beyond the immediate neighborhood
 </ul>
 </section>
