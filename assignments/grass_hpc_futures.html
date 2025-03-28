@@ -14,14 +14,10 @@ ln -s /share/gis714s25/grassdata/albers/PERMANENT/ /share/gis714s25/$USER/grassd
 </code></pre>
 
 
-Install <a href="https://github.com/ncsu-landscape-dynamics/pynodelauncher">pynodelauncher</a>:
-
 <pre><code>
 module use --append /usr/local/usrapps/geospatial/modulefiles
 module load gcc
 module load grass
-module load PrgEnv-intel
-pip install git+https://github.com/ncsu-landscape-dynamics/pynodelauncher.git
 </code></pre>
 
 Start GRASS in a temporary mapset:
@@ -140,8 +136,8 @@ rm -rf /share/gis714s25/$USER/grassdata/albers/devpressure_2001
 rm -rf /share/gis714s25/$USER/grassdata/albers/devpressure_2019
 
 # run in background by appending & after the tool
-grass -c /share/gis714s25/$USER/grassdata/albers/devpressure_2001 --exec r.futures.devpressure input=urban_no_roads_2001 output=devpressure_2001 size=20 gamma=1 nprocs=8 &
-grass -c /share/gis714s25/$USER/grassdata/albers/devpressure_2019 --exec r.futures.devpressure input=urban_no_roads_2019 output=devpressure_2019 size=20 gamma=1 nprocs=8 &
+grass -c /share/gis714s25/$USER/grassdata/albers/devpressure_2001 --exec r.futures.devpressure input=urban_noroads_2001 output=devpressure_2001 size=20 gamma=1 nprocs=8 &
+grass -c /share/gis714s25/$USER/grassdata/albers/devpressure_2019 --exec r.futures.devpressure input=urban_noroads_2019 output=devpressure_2019 size=20 gamma=1 nprocs=8 &
 
 # this will wait for the processes to finish
 wait
@@ -158,9 +154,9 @@ First, in your home create a new file named "pga.sh" with the following content:
 
 g.region raster=state_${1}
 r.mask raster=masking
-r.futures.pga developed=urban_2019 development_pressure=devpressure_2019@devpressure_2019 \
+r.futures.simulation developed=urban_2019 development_pressure=devpressure_2019@devpressure_2019 \
     compactness_mean=0.5 compactness_range=0.1 discount_factor=1 \
-    predictors=log_dist_to_forest@forest,log_dist_to_roads@roads,log_dist_to_water@water,slope@slope \
+    predictors=log_dist_to_forest_2019@forest,log_dist_to_roads_2019@roads,log_dist_to_water@water,slope@slope,wetland_density \
     n_dev_neighbourhood=20 devpot_params=/share/gis714s25/input_csv/best_model.csv num_neighbors=4 seed_search=probability \
     development_pressure_approach=gravity gamma=1 scaling_factor=1 num_steps=31 \
     subregions=state_${1} demand=/share/gis714s25/input_csv/demand_${1}.csv \
@@ -170,51 +166,32 @@ r.futures.pga developed=urban_2019 development_pressure=devpressure_2019@devpres
 Then create a script "bsub_futures.sh" with the content below:
 
 <pre><code>
-#!/bin/bash
-#BSUB -n 21
-#BSUB -R "rusage[mem=150GB]"
-#BSUB -R span[ptile=10]
-#BSUB -W 40:00
-#BSUB -oo futures_out
-#BSUB -eo futures_err
-#BSUB -J futures
+STATE=${1}
+SEED=${2}
 
 module use --append /usr/local/usrapps/geospatial/modulefiles
 module load grass
-module load PrgEnv-intel
 
+rm -rf /share/gis714s25/$USER/grassdata/albers/pga_${STATE}_${SEED}
+grass -c /share/gis714s25/$USER/grassdata/albers/pga_${STATE}_${SEED} --exec bash /home/${USER}/pga.sh ${STATE} ${SEED}
+</code></pre>
 
-rm -f /share/gis714s25/${USER}/pga_jobs.sh
-for SEED in `seq 1 10`
+Finally submit the computations as 60 separate jobs with the following command:
+
+<pre><code>
+for SEED in {1..10}
 do
     for STATE in 1 12 13 37 45 47
     do
-        rm -rf /share/gis714s25/$USER/grassdata/albers/pga_${STATE}_${SEED}
-        echo grass -c /share/gis714s25/$USER/grassdata/albers/pga_${STATE}_${SEED} --exec bash /home/${USER}/pga.sh ${STATE} ${SEED} >> /share/gis714s25/${USER}/pga_jobs.sh
+        bsub -n 1 -W 5:00 -R "rusage[mem=15GB]" -J pga_${SEED}_${STATE} -oo pga_${SEED}_${STATE}_out -eo pga_${SEED}_${STATE}_err bash bsub_futures.sh ${STATE} ${SEED}
     done
 done
-
-mpiexec python -m mpi4py -m pynodelauncher /share/gis714s25/${USER}/pga_jobs.sh
 </code></pre>
 
-This submission script first generates a file, which looks like this:
-
-<pre>
-grass -c /share/gis714s25/akratoc/grassdata/albers/pga_1_1 --exec bash /home/akratoc/pga.sh 1 1
-grass -c /share/gis714s25/akratoc/grassdata/albers/pga_12_1 --exec bash /home/akratoc/pga.sh 12 1
-...
-</pre>
-This file contains commands that will be distributed for computation across multiple nodes, each one of them computing the simulation
-for single state an random seed.
-Notice the submission parameters, there are slightly more complex.
-We estimate memory to be 10-15 GB per state (will differ based on the state size), so we can fit around
-10 concurrent simulations on a node when we request 150GB.
-Therefore, we specify that with <code>rusage[mem=150GB]</code> and <code>span[ptile=10]</code>.
-When we request 20 cores, that will result in requesting 2 nodes.
-We request 21 instead of 20 to include one extra core for MPI thread management. This is not necesserily the most efficient way,
-we could also submit separate jobs, but large number of job submissions is generally discouraged. There will be total of 60 (6 states x 10 seeds) FUTURES computations on 18 cores, once a computation from the list is finished
-the next one is started. When you submit your job, it may be pending for a while, you are requesting a lot of resources for a long time.
-For more complex submission you can consult HPC IT.
+This submits a total of 60 jobs. Note that submissions of large number of jobs is discouraged,
+there are other ways to do it, for example using
+<a href="https://github.com/ncsu-landscape-dynamics/pynodelauncher.git">pynodelauncher</a> command or
+<a href="https://hpc.ncsu.edu/Documents/lsf_scripts.php">job arrays</a>.
 
 
 <h3>Postprocessing</h3>
