@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="plugin/chalkboard/style.css">
+        <link rel="stylesheet" href="plugin/customcontrols/style.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2>Parallel processing and HPC</h2>
+    <h4 style="margin-top: 0.5em">
+    Anna Petrasova, Vaclav Petras, Helena Mitasova</h4>
+    <p class="title-foot">
+        GIS714 Geosimulations
+    </p>
+</section>
+
+
+<section>
+<h3>Parallelization in geospatial context</h3>
+<ul>
+<li>Just because your computer has many CPUs, that doesn't mean
+a computation uses them</li>
+<li>Implementing parallel computing with CPUs can be done on the level of algorithm or user level</li>
+</ul>
+<br>
+<img width="50%" src="img/hpc/CPUs.png">
+</section>
+
+<section>
+<h3>Parallelization approaches in geospatial context</h3>
+<ul>
+<li><em>Embarassingly parallel problems</em> &mdash;  independent computations (e.g., solar radiation for more days)</li>
+<li class="fragment" data-fragment-index="1"><em>Tiling approach</em> &mdash; divide spatial domain into tiles possibly with overlaps (e.g., interpolation)</li>
+<li class="fragment" data-fragment-index="2"><em>Complex approaches</em> &mdash; depend on algorithms, often use tiling with communication between tiles (e.g., hydrology)</li>
+</ul>
+<iframe style="margin-bottom:30px" width="280" height="157" src="https://www.youtube.com/embed/eK6dWivro1g?rel=0&amp;controls=0&amp;showinfo=0;loop=1;playlist=eK6dWivro1g" frameborder="0" allow="encrypted-media" data-autoplay></iframe>
+<img style="margin-left:30px;margin-right:30px" width="250px" src="img/hpc/tiling.jpg"  class="fragment" data-fragment-index="1">
+<img width="300px" src="img/diffusion_flows/fanimhhcolp.gif"  class="fragment" data-fragment-index="2">
+</section>
+
+<section>
+<h3>Notes on parallelization</h3>
+<p style="text-align: left"> Good news:
+<ul >
+<li>Many problems fall into first two categories</li>
+<li>It's fairly easy for users to parallelize their computations
+using Python, or background processing</li>
+</ul></p>
+<p class="fragment" style="text-align: left"> Problems:
+<ul class="fragment">
+<li>Overhead can cause a program to run slower than on one CPU (running on <em>n</em> CPUs does not mean <em>n</em>-times speed-up)</li>
+<li>We might not have enough memory for all processes</li>
+</ul></p>
+</section>
+
+
+<section>
+<h3>Parallel computing infrastructure (1)</h3>
+<ul>
+<li>laptop (8 CPUs) &mdash; for individuals</li>
+<li class="fragment" data-fragment-index="1">desktop/server (tens of CPUs)
+<ul>
+<li>typically remote access, but physical machine is accessible</li>
+<li> hardware owned by organizations, companies</li>
+</ul>
+</li>
+</ul>
+<img class="fragment" data-fragment-index="1" height="300px" src="img/hpc/server.png">
+</section>
+
+<section>
+<h3>Parallel computing infrastructure (2)</h3>
+<ul>
+<li>cloud (tens of CPUs)
+  <ul>
+     <li>connected computers, actual hardware/OS hidden through virtualization</li>
+     <li>easy to setup from user point of view</li>
+     <li>computing is often not the primary application</li>
+     <li>e.g., <a href="https://vcl.ncsu.edu/">NCSU VCL</a>, Amazon Web Services </li>
+  </ul>
+</ul>
+<img class="stretch" src="img/hpc/vcl1.png">
+</section>
+
+<section>
+<h3>Parallel computing infrastructure (3)</h3>
+<ul>
+<li>HPC, supercomputers (thousands of CPUs) 
+  <ul>
+      <li>connected nodes, unix-based OS (e.g., Linux)</li>
+      <li>not all programs can take advantage of it</li>
+      <li>e.g., <a href="https://projects.ncsu.edu/hpc/main.php">NCSU HPC: Henry2</a></li>
+  </ul>
+</li>
+</ul>
+<img class="stretch" src="img/hpc/supercomputer.jpg">
+<p class="small"> Supercomputer Blue Waters, NCSA, Illinois</p>
+</section>
+
+<section>
+    <h3>When to use HPC?</h3>
+    <ul>
+    <li>Computation takes a looong time (hours/days) on your machine.</li>
+    <li>Computation requires more memory than you have (e.g., more than 32GB)</li>
+    <li>Computation uses big data from Research storage</li>
+    <li>When you don't want to overheat your hardware</li>
+    <li>When your computation takes advantage of many cores</li>
+    </ul>
+</section>
+
+<section>
+    <h3>When not to use HPC?</h3>
+    <ul>
+    <li>long running script accessing internet</li>
+    <li>prototyping workflow</li>
+    <li>when you use software that is not available on HPC (e.g., non-open source software)</li>
+    </ul>
+</section>
+
+
+
+
+
+
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script src="plugin/customcontrols/plugin.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard,
+                    RevealCustomControls
+                ],
+
+                customcontrols: {
+                    controls: [
+                        { icon: '<i class="fa fa-pen-square"></i>',
+                        title: 'Toggle chalkboard (B)',
+                        action: 'RevealChalkboard.toggleChalkboard();'
+                        },
+                        { icon: '<i class="fa fa-pen"></i>',
+                        title: 'Toggle notes canvas (C)',
+                        action: 'RevealChalkboard.toggleNotesCanvas();'
+                        }
+                    ]
+                },
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>
