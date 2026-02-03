@@ -15,8 +15,8 @@ GRASS GIS overview and manual</a>
 <p>
 
 <p>
-For animating in GRASS GIS 7, see the
-<a href="https://www.youtube.com/watch?v=Pi1ESk9iPwk">video instructions</a> or
+For creating animations in desktop GRASS GIS, see 
+<!--<a href="https://www.youtube.com/watch?v=Pi1ESk9iPwk">video instructions</a> or-->
 instructions for the
 <a href="http://ncsu-geoforall-lab.github.io/grass-temporal-workshop/">
   Spatio-temporal data handling and visualization in GRASS GIS workshop
@@ -31,11 +31,10 @@ grass
 </code></pre>
 
 <p>
-In startup pannel set <b>GRASS GIS Database Directory</b> to path to datasets,
-for example on MS Windows, <code>C:\Users\myname\grassdata</code>.<br>
-For <b>GRASS Location</b> select nc_spm_08_grass7 (North Carolina, State Plane, meters) and
-for <b>GRASS Mapset</b> create a new mapset (called e.g. HW_interpolation_2).<br>
-Click <b>Start GRASS session</b>.
+%In startup pannel set <b>GRASS GIS Database Directory</b> to path to datasets,
+%for example on MS Windows, <code>C:\Users\myname\grassdata</code>.<br>
+For <b>GRASS project</b> we will use nc_spm_08_grass7 (North Carolina, State Plane, meters) and
+we will create a new <b>GRASS Mapset</b> (called e.g. gis714_flowsimul).<br>
 
 <p>
 Change working directory:<br>
@@ -69,17 +68,20 @@ by running the SIMWE model implemented in
 the <em class="module">r.sim.water</em> module - read the manual page to understand the parameters.
 We first use uniform rainfall excess, infiltration and land cover.
 <pre><code>
-r.sim.water -t elevation=elev_lid792_2m dx=dx_2m dy=dy_2m rain_value=50 infil_value=0 man_value=0.05 depth=wdp_2m discharge=disch_2m nwalkers=100000 niterations=30 output_step=2
+r.sim.water -t elevation=elev_lid792_2m dx=dx_2m dy=dy_2m depth=wdp_2m_def discharge=disch_2m_def 
+r.sim.water -t elevation=elev_lid792_2m dx=dx_2m dy=dy_2m rain_value=50 infil_value=0 man_value=0.05 depth=wdp_n05_2m discharge=disch_n05_2m nwalkers=100000 niterations=30 output_step=2
+r.sim.water -t elevation=elev_lid792_2m dx=dx_2m dy=dy_2m rain_value=50 infil_value=0 man_value=0.4 depth=wdp_n4_2m discharge=disch_n4_2m nwalkers=100000 niterations=56 output_step=4
 </code></pre>
 
-Display the results: 
+Display the last iteration results (is it steady state?): 
 <pre><code>
-d.rast wdp_2m.30
-d.rast disch_2m.30
+d.rast wdp_2m_def.30
+d.rast disch_2m_def.30
 </code></pre>
 
 Add legend to the final raster maps and save the images.
-<span class="question">Comment on the resulting pattern - where is the water ponding and what is causing it at this location?</span>
+Display the results with custom parameters as well.
+<span class="question">Comment on the resulting patterns - where is the water ponding and what is causing it at this location?</span>
 
 <p>
 Optionally, animate the time series:
@@ -118,7 +120,7 @@ r.mapcalc "dydemstr_2m = if(isnull(dystr_2m), dy_2m, dystr_2m)"
 Run the overland flow model:
 
 <pre><code>
-r.sim.water -t elevation=elev_lid792_2m dx=dxdemstr_2m dy=dydemstr_2m rain_value=50 infil_value=0 man_value=0.05 depth=wdpstr_2m discharge=dischstr_2m nwalkers=100000 niterations=30 output_step=2
+r.sim.water -t elevation=elev_lid792_2m dx=dxdemstr_2m dy=dydemstr_2m rain_value=50 infil_value=0 man_value=0.4 depth=wdpstr_2m discharge=dischstr_2m nwalkers=100000 niterations=48 output_step=4
 d.rast dischstr_2m.30
 </code></pre>
 Add legend to the final raster maps and save the images.
@@ -196,7 +198,7 @@ r.recode input=landcover_1m output=raincover_2m rules=land_to_rain.txt
 Run the model:
 
 <pre><code>
-r.sim.water -t elevation=elev_lid792_2m dx=dxdemstr_2m dy=dydemstr_2m rain=raincover_2m infil_value=0 man=mancover_2m depth=wdpstrcov_2m discharge=distrcov_2m nwalkers=100000 niterations=30 output_step=2
+r.sim.water -t elevation=elev_lid792_2m dx=dxdemstr_2m dy=dydemstr_2m rain=raincover_2m infil_value=0 man=mancover_2m depth=wdpstrcov_2m discharge=distrcov_2m nwalkers=100000 niterations=48 output_step=4
 </code></pre>
 
 Display the static results and save the images for your paper.
@@ -215,7 +217,7 @@ Which landcover holds most water?
 Optionaly animate the time series using the Animation tool.
 
 
-<h3>Sediment flow rate, erosion and deposition</h3>
+<h3>Optional: Sediment flow rate, erosion and deposition</h3>
 
 Compute sediment flow rate and net erosion/deposition using sediment
 transport part of the SIMWE model implemented in the
@@ -246,7 +248,7 @@ r.mapcalc "tauin = 0.01"
 Run the model using the last depth from previous run:
 
 <pre><code>
-g.copy rast=wdp_2m.30,wdp_2m
+g.copy rast=wdp_n4_2m.56,wdp_2m
 r.sim.sediment elevation=elev_lid792_2m dx=dx_2m dy=dy_2m water_depth=wdp_2m detachment_coeff=detin transport_coeff=tranin shear_stress=tauin man_value=0.05 nwalkers=1000000 niterations=30 transport_capacity=tcapacity tlimit_erosion_deposition=erdepmax sediment_flux=sedflow erosion_deposition=erdepsimwe
 </code></pre>
 
