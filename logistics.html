@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NCSU GIS 714: Geospatial Computation and Simulations</title>
+
+<link rel="shortcut icon" href="./img/favicon.ico" />
+
+<link href="layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="style.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+
+<body>
+
+<div id="outercontainer">
+<div id="container">
+
+<header>
+<div id="header-image">
+    <h1>NCSU GIS 714:<br>Geospatial Computing and Simulations</h1>
+</div>
+
+<nav>
+<ul class="nav">
+<li><a href="index.html">Syllabus</a></li>
+<li><a href="schedule.html">Schedule</a></li>
+<li><a href="logistics.html">Course logistics</a></li>
+<li><a href="topics/index.html">Topics</a></li>
+<li><a href="projects.html">Projects</a></li>
+</ul>
+</nav>
+
+</header>
+
+<main>
+<!-- This is a generated file. Do not edit. -->
+<h2>Course logistics</h2>
+
+<h3>Course web site and Moodle</h3>
+    The course follows 
+    <a href="schedule.html">Schedule</a>, where you will find links to the course material for each week.
+    Assignment reports, notebooks, presentations and the final paper are submitted through 
+    <a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978"><b>Moodle</b></a>
+    where feedback and grades will be posted following the submission. 
+    Help is provided through Moodle forum and a link to Zoom sessions (if applicable) is available through Moodle as well.
+
+<h4 id="software">Software</h4>
+Course focus will be on open source software:
+<ul>
+ <li><a href="https://grass.osgeo.org/">GRASS GIS</a>. 
+     To help testing and reporting on the current version
+<a href="https://grass.osgeo.org/download/">download and install GRASS GIS 8.4.0</a>
+for your operating system. On Windows, install the stand-alone package
+ <a href="https://grass.osgeo.org/download/software/ms-windows/#stand-alone">GRASS GIS 8.4.0</a>.
+ <li>Python and R which you should have installed already
+</ul>
+Additional information about software will be provided with the individual assignments.
+<p>
+Learn Geospatial Modeling with GRASS GIS 8.4.0: 
+<a href="https://www.youtube.com/watch?v=kktp5gZLLCk&list=PLiNYVMuYqTHUZUa7t3874sBfWAuNMj4pZ">
+GIS582 assignment videos</a>
+
+<h4 id="data">Data</h4>
+Links to data are provided on the assignment webpages or included with the notebooks. 
+If needed, instructions for downloading the educational GRASS GIS dataset are on the GIS582 
+<a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/logistics.html"><b>Course logistics</b></a> 
+web page (see the section on Data).
+
+<h4>Assignments</h4>
+Assignment submissions will be in the form of brief research papers or notebooks.
+<p>
+Papers
+<ul>
+    <li>
+     <!--For topics 1 and 4 (<a href="topics/intro_geocomputing.html">Introduction to Geocomputation</a>
+        and <a href="topics/spread_sim.html">Spread Simulations </a>), brief paper -->
+        Depending on the topics, the papers should be approx. 3-4 pages, including graphics and tables.</li>
+    <li>Required paper sections:
+        <ol>
+            <li>Introduction: task, problem, background, importance, motivation</li>
+            <li>Methods: general description of methods and concepts.
+              In this section you should demonstrate that for the given step-by-step instructions
+              your were able to explain what methods are being used to solve the given problem</li>
+            <li>Results: maps, graphs, tables with comments, focus on what is interesting in the data
+                  and the derived maps, how does the method used influence the results.</li>
+            <li>Discussion: was there anything unexpected or problematic in the results?
+                          Were there any issues related to the methdology? Also discuss the software issues,
+                          including fixes and suggestions for improvements here.</li>
+            <li>Conclusion: 1-2 sentences what you have learned</li>
+            <li>References</li>
+        </ol>
+    </li>
+    <li>
+        Sample paper formatting for
+        <a href="resources/word_report_template.docx">MS Word (DOCX)</a>,
+        <a href="resources/libreoffice_report_template.odt">LibreOffice (ODT)</a>
+        (view online in <a href="https://www.rollapp.com/rollmyfile/10oKEs1bF6GLWfXbVAULDCmv8E4rw9TPbrzLY9Fp">rollApp</a>), and
+        <a href="resources/latex_report_template.tex">LaTeX</a>
+        (open online in <a href="https://www.overleaf.com/docs?snip_uri[]=http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/resources/latex_report_template.tex&snip_uri[]=http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/resources/report_template_image.png&rich_text=true">Overleaf</a>).
+        <!--<a href="sample_report.pdf">pdf</a>,-->
+        Do not use the text from this example, it is for formatting only!
+    <li>
+        The submitted paper should be in PDF using naming convention
+        <code>LastnameFirstname_HW#.pdf</code> or in a format (e.g., html) indicated in the assignment.
+    <li>
+        Upload your assignment paper on the Moodle site by 11pm on the due date.
+    <li>
+        Although the HW papers are short they should be in a writing style suitable
+        for scientific publications. You can learn more about scientific publishing in
+        <a href="http://www.elsevier.com/journals/geomorphology/0169-555X/guide-for-authors#25000"> Elsevier instructions</a>.
+        Please also read the first 10 pages on
+        <a href="http://fatra.cnr.ncsu.edu/geospatial-modeling-course/resources/understanding_the_publishing_process.pdf">Publishing process</a>
+        and <a href="https://www.elsevier.com/connect/11-steps-to-structuring-a-science-paper-editors-will-take-seriously">Structure of a science paper</a>.
+</ul>
+
+Jupyter Notebooks
+<p>
+<!--
+    For topics 2 and 3 (<a href="topics/data_simulation.html">Data Simulation</a>
+        and <a href="topics/water_sim.html">Surface Water </a>), you will submit Jupyter Notebooks.-->
+Access the Jupyter Notebooks and read the instructions in the 
+        <a href="https://github.com/ncsu-geoforall-lab/GIS714-assignments">GIS714-assignments Github repo.</a>
+Directions to launch the Jupyter Notebooks:
+        <ol>
+            <li>Download and unzip the repo</li>
+            <li><b>On Windows</b>: open the <a href="https://github.com/chaedri/GIS714-assignments/blob/main/JupyterOnWindows.ipynb">JupyterOnWindows.ipynb</a> for directions</li>
+            <li><b>On Mac and Linux</b>: <a href="https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html">install jupyter lab</a>,
+                navigate to the repo in the command line, and launch jupyter lab. Open the notebook from the file browser side panel. </li>
+            <li>Work through the notebooks and add your own analysis / answer for each question.</li>
+            <li>Export the notebook as HTML (File>Export Notebook as...>HTML) and upload the HTML to Moodle.</li>
+            <li>If you have issues running the notebooks or launching GRASS in Jupyter, post on the Moodle Forum.</li>
+        </ol>
+
+<h3>Project</h3>
+
+See <a href="projects.html">Projects page</a>.
+You will use Moodle to post your project proposal, project progress talk, presentation and
+a final paper as well as any additional material that you would like to share (videos, demos, data, google maps).
+
+<h3>Grading and Policies</h3>
+See <a href="index.html"> Syllabus web page</a>.
+
+<p>
+Don’t cheat (e.g. use other person’s results),
+but you are encouraged to <em>collaborate and help each other with advice,</em>
+for example, through the message board.
+
+</main>
+
+<footer>
+
+<nav>
+<ul>
+    <li><a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978">Moodle site</a></li>
+    <li><a href="https://help.ncsu.edu/">Computing Help</a></li>
+    <li><a href="https://geospatial.ncsu.edu/">GIST Home</a></li>
+    <li><a href="https://www.ncsu.edu/policies/prr-disclaimer.php">Disclaimer</a></li>
+    <li><a href="https://oit.ncsu.edu/itaccess">Accessibility</a></li>
+<li>
+    <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course" title="Source code for web pages on GitHub">
+        <img src="img/github_logo.png" alt="GitHub Octocat logo">
+    </a>
+</li>
+<li title="Copyright and license (not applicable to linked materials)">
+    &copy; 2023
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    <a href="https://geospatial.ncsu.edu/geoforall/">NCSU GeoForAll Lab</a>
+</li>
+</ul>
+</nav>
+
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>

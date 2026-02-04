@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NCSU GIS 714: Geospatial Computation and Simulations</title>
+
+<link rel="shortcut icon" href=".././img/favicon.ico" />
+
+<link href="../layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="../style.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+
+<body>
+
+<div id="outercontainer">
+<div id="container">
+
+<header>
+<div id="header-image">
+    <h1>NCSU GIS 714:<br>Geospatial Computing and Simulations</h1>
+</div>
+
+<nav>
+<ul class="nav">
+<li><a href="../index.html">Syllabus</a></li>
+<li><a href="../schedule.html">Schedule</a></li>
+<li><a href="../logistics.html">Course logistics</a></li>
+<li><a href="../topics/index.html">Topics</a></li>
+<li><a href="../projects.html">Projects</a></li>
+</ul>
+</nav>
+
+</header>
+
+<main>
+<!-- This is a generated file. Do not edit. -->
+<h2>Introduction to human mobility pattern analysis</h2>
+
+<p>We will cover the following tasks:
+<ul>
+   <li>per cell correlation maps between variables: binned or interpolated participant data
+       with visualization over lidar DSM, computing viewsheds and distances to attractions
+<!--(Nuennen, see also gm_nuenen mapset) see run_nuenen_part_recall2, nuenen_workflows.txt-->
+   <li>basic vector operations (clipping), computing and analyzing kernel density maps of participants travelling patterns,
+       distances to attractions (Overijssel)
+   <li>viewshed composition summaries and viewshed maps for cycklists, relations to participant data (CHIPS)
+   <li>working with own data, identifying suitable data and tools, setting up a project location
+</ul>
+
+<h3>Software</h3>
+<ul>
+    <li><a href="http://grass.osgeo.org/">GRASS GIS</a>
+    <li><a href="http://grass.osgeo.org/grass-stable/manuals/"> GRASS GIS overview and manual</a>
+</ul>
+
+<h3>Data</h3>
+<p>We will use open data from Netherlands in two coordinate reference systems (CRS): 
+<ul>
+   <li>EPSG 4326: geographic coordinates longitude,latitude referenced to WGS84 elipsoid used by most GPS
+   <li>EPSG:28992 (Amersfoort / RD New ): projected coordinate system used in NL (onlique stereographic
+   projection with Bessel elipsoid)
+</ul>
+Note that there are other official CRS used in NL, such as 
+EPSG 7415 Amersfoort / RD New + NAP height, or EPSG 4289 which is lat/long registered to Bessel elipsoid 1841.
+Always use software with projection conversions support to process geospatial data.
+<p>
+Learn more (slides with brief description and related links):
+<ul>
+   <li> 
+   <a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/topics/data_intro.html"> 
+   mapping and georeferenced CRS </a> 
+   <li>
+   <a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/geodata_models.html#/">
+   raster and feature (vectorr) geospatial data models</a>
+   <li> conversion between geospatial data formats in <a href="https://gdal.org/">GDAL</a> with powerful 
+   <a href="https://gdal.org/programs/index.html"> comandline tools</a> for geospatial data processing.
+   GDAL is used in R, QGIS, GRASS GIS and many others. 
+</ul>
+<p>
+Netherlands provides standardized geospatial data through 
+<a href="https://www.pdok.nl/">PDOK</a> web portal.
+
+<p>
+Before starting it is useful to go through
+<a href="https://grass.osgeo.org/grass-stable/manuals/helptext.html">GRASS GIS Quickstart</a>
+and  learn some GRASS GIS terminology for its data organization.
+
+<p>
+The workshop data should be downloaded using links provided through email
+<ul>
+   <li><code>nl_epsg28992_amersfoort_workshp.zip</code> and 
+       <code>nl_epsg28992_amersf_overijssel.zip</code>  datasets
+   <li><code>workshop_breda_external.zip</code> 
+</ul>
+
+<p>
+Now, let us organize our work:
+<ul>
+  <li> Move the unzipped folder <code>nl_epsg28992_amersfoort_worksh </code> (this is our project <b>location</b>)
+into the <code>grassdata</code> directory (grass <b>database</b>)  created automatically when installing  GRASS GIS.
+  <li>Then create a directory <code>giswork</code> <b>outside</b> <code>grassdata</code>.
+We will use it for external (non-GRASS)  geospatial data, for example, data downloaded from on-line repositories or 
+or your georeferenced participant data. You can also use it for various supporting files (color ramps, series lists, etc.) and your outputs.
+Move the <code>workshop_breda_external.zip</code> into your <code>giswork</code> directory.
+</ul>
+
+<h3>Start GRASS GIS</h3>
+Start GRASS - click on GRASS icon or type<br>
+
+<pre><code>grass
+</code></pre>
+
+<p>
+In data catalog select <code>grassdata</code> as your database and <code>nl_epsg28992_amersfoort_workshp</code>
+as your location (project) which has several mapsets (shown as subdirectories). Double-click 
+on <code>nuenen_outdoor</code> and select <code>Switch mapset</code> - <code>nuenen_outdoor</code> will be
+shown in bold and we can start working with our data.
+<p>
+Note: You can work in GRASS GIS through the <b>graphical user interface (GUI)</b> or using <b>command line interface (CLI)</b>
+by typing (or copy-paste) commands in the Console or for linux/mac Grass Terminal
+You can write your workflpws as python scripts and share them in Jupyter notebooks (not covered yet here).
+
+<h3>Display the available data </h3>
+
+In data catalog (Data tab) display the data by double click on the listed map layer - it will be added to the display
+and the layer manager (Layers tab). To display the aerial photography and urban topography select (double click)
+<code> ortho_vinc_patch05,  dsm_05mfill,  dsm_05mfillsh </code>. To manage the displayed layers switch to Layers
+and you can change the opacity of <code>dsm_05mfillsh</code> (right click and select Change opacity level) to create
+a colored shaded relief. On the bottom of the Layer manager window you can see the command line (CLI) equivalents
+of displaying data:
+
+<pre><code>d.rast ortho_vinc_patch05
+d.rast dsm_05mfill
+d.rast dsm_05mfillsh
+</code></pre>
+
+in a similar way we can display the points that represent  our exhibits and the participant data,
+to use CLI you can paste these commands into Console or just double click the layer in the Data catalog:
+
+<pre><code>d.vect map=exhibits_all_om@nuenen_outdoor icon=basic/circle size=10
+d.vect nu_all_hres size=2
+</code></pre>
+
+<p>
+To transform our point data into a continuous point density representation we can compute 
+a kernel density map - it approximates the pattern of most used areas in terms of number of people and time.
+First we define the spatial extent and resolution for our analysis, then we run the kernel density tool
+and finally we adjust the output color ramp and display only values above min threshold:
+<pre><code>g.region raster=dsm_05mfill res=0.5
+v.kernel nu_all_hres out=kd_nu_all_hres rad=7 kern=epanechnikov
+r.null setnull=0 map=kd_nu_all_hres
+r.colors kd_nu_all_hres co=gyr
+</pre></code>
+
+<p>
+We can import and rasterize our participant data directly from the csv files. 
+To access the files without the need to specify full path we 
+change working directory to <code>giswork</code><br>
+<em>Settings</em> > <em>GRASS working environment</em> > <em>Change working directory</em> > select <code>giswork</code><br>
+or type <code>cd</code> (stands for change directory) into the GUI <em>Console</em> and hit Enter:
+<pre><code>cd
+</code></pre>
+
+<p>
+Now you can use the commands requiring external supporting text files
+without the need to specify the full path to the file.
+<p>
+To perform processing and analysis of our participant data we set the spatial extent
+to existing raster dsm_05mfill and the grid (raster) resolution to 2m.
+In our example below we rasterize (bin) the point data upon import using 
+mean phasic z computed from points in each grid cell for each participant:
+
+<pre><code>g.region raster=dsm_05mfill res=2
+r.in.xyz in=opt11h.csv out=opt11_mean_2m meth=mean sep=, x=3 y=4 z=13 skip=0
+r.in.xyz in=opt13h.csv out=opt13_mean_2m meth=mean sep=, x=3 y=4 z=13 skip=0
+r.in.xyz in=opt14h.csv out=opt14_mean_2m meth=mean sep=, x=3 y=4 z=13 skip=0
+r.in.xyz in=opt20h.csv out=opt20_mean_2m meth=mean sep=, x=3 y=4 z=13 skip=0
+r.in.xyz in=opt21h.csv out=opt21_mean_2m meth=mean sep=, x=3 y=4 z=13 skip=0
+</code></pre>
+
+<p>number of participants per each grid cell
+<pre><code>r.series in=opt11_mean_2m,opt20_mean_2m,opt14_mean_2m,opt13_mean_2m,opt21_mean_2m out=opt_count_2m meth=count
+</code></pre>
+
+Note that if our data are in csv format we can import them as points using v.in.ascii or v.in.csv commands
+and then rasterize them (perform the binning) using the add-on tool 
+<a href="https://grass.osgeo.org/grass83/manuals/addons/r.vect.stats.html">r.vect.stats</a>. Use g.extension tool
+to install an addon.
+
+To compute the correlation between the survey data (recommendation level) and the physiological response
+(mean phasic z) we first order the participants by recommendation level
+<pre><code>11 - 0
+20 - 7
+14 - 8
+13 - 9
+21 - 9
+</code></pre>
+
+and then we compute the mean and regression for a subset for grid cells with at least 3 participants
+<pre><code>r.to.vect opt_slope out=opt_slope
+r.series in=opt11_mean,opt14_mean,opt20_mean,opt13_mean,opt21_mean out=opt_mean meth=mean
+r.series in=opt11_mean,opt14_mean,opt20_mean,opt13_mean,opt21_mean out=opt_slope meth=slope
+r.series in=opt11_mean0,opt20_mean7,opt14_mean8,opt13_mean9,opt21_mean9 out=opt_slope meth=slope
+r.series in=opt11_mean0,opt20_mean7,opt14_mean8,opt13_mean9,opt21_mean9 out=opt_detcoef meth=detcoef
+</code></pre>
+
+To compute weighted mean phasic we first change nulls to zeroes and compute the weighted mean using 
+map algebra tool r.mapcalc:
+<pre><code>r.null opt11_mean null=0
+r.null opt13_mean null=0
+r.null opt14_mean null=0
+r.null opt20_mean null=0
+r.null opt21_mean null=0
+
+r.mapcalc "opt_partwmeanph = (opt11_n*opt11_mean + opt13_n*opt13_mean + opt14_n*opt14_mean + opt20_n*opt20_mean + opt21_n*opt21_mean) \
+/(opt11_n + opt13_n + opt14_n + opt20_n + opt13_n)"
+</code></pre>
+
+To create continuous representation map for mean phasic z and correlation coefficient 
+we first set the grid resolution to 0.5m, then convert our 2m resolution r.series outputs 
+to points and interpolate the 0.5m resolution maps using smoothing spline with tension
+tool v.surf.rst:
+<pre><code>g.region res=0.5
+r.to.vect -z in=opt_partwmeanph out=opt_partwmeanph type=point
+v.surf.rst in=opt_partwmeanph elev=opt_partwmeanph_rstdef
+r.colors opt_partwmeanph_rstdef rules=co_phasic_pmean.txt
+
+r.to.vect -z in=opt_detcoef out=opt_detcoef type=point
+v.surf.rst in=opt_detcoef elev=opt_detcoef
+r.colors opt_detcoef rules=co_detcoef.txt
+</code></pre>
+
+#overijssel
+<pre><code>switch to mapset in a different location
+</code></pre>
+
+Workflows for this part and more Nuennen and CHIPS analysis are available as text files and selected subsets will be added here.
+
+
+To add the newly output pngs to a web map continue by following the instructions found in the next tutorial here
+<a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial" target="_blank">https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial</a>
+
+</main>
+
+<footer>
+
+<nav>
+<ul>
+    <li><a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978">Moodle site</a></li>
+    <li><a href="https://help.ncsu.edu/">Computing Help</a></li>
+    <li><a href="https://geospatial.ncsu.edu/">GIST Home</a></li>
+    <li><a href="https://www.ncsu.edu/policies/prr-disclaimer.php">Disclaimer</a></li>
+    <li><a href="https://oit.ncsu.edu/itaccess">Accessibility</a></li>
+<li>
+    <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course" title="Source code for web pages on GitHub">
+        <img src="../img/github_logo.png" alt="GitHub Octocat logo">
+    </a>
+</li>
+<li title="Copyright and license (not applicable to linked materials)">
+    &copy; 2023
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    <a href="https://geospatial.ncsu.edu/geoforall/">NCSU GeoForAll Lab</a>
+</li>
+</ul>
+</nav>
+
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>

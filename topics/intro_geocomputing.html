@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NCSU GIS 714: Geospatial Computation and Simulations</title>
+
+<link rel="shortcut icon" href=".././img/favicon.ico" />
+
+<link href="../layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="../style.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+
+<body>
+
+<div id="outercontainer">
+<div id="container">
+
+<header>
+<div id="header-image">
+    <h1>NCSU GIS 714:<br>Geospatial Computing and Simulations</h1>
+</div>
+
+<nav>
+<ul class="nav">
+<li><a href="../index.html">Syllabus</a></li>
+<li><a href="../schedule.html">Schedule</a></li>
+<li><a href="../logistics.html">Course logistics</a></li>
+<li><a href="../topics/index.html">Topics</a></li>
+<li><a href="../projects.html">Projects</a></li>
+</ul>
+</nav>
+
+</header>
+
+<main>
+<!-- This is a generated file. Do not edit. -->
+<h2>1. Introduction to Geocomputation</h2>
+
+<h3 id="intro" class="subtopic">1.A Foundations</h3>
+Outline:
+<ul>
+    <li>geocomputation definitions</li>
+    <li>motivations for geosimulation</li>
+    <li>models for geosimulation and their properties</li>
+    <li>applications in science and practice</li>
+<!--    <li>overview of open source tools for geocomputation</li>-->
+</ul>
+
+<h4>Lecture</h4>
+Slides:
+<ul>
+    <li><a href="../lectures/intro_geocomputation.html">Lecture slides: Introduction to geocomputation</a>
+    <li><a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/lectures/grass.html#/">Lecture slides: Introduction to GRASS GIS as geocomputation and simulations environment</a>
+</ul>
+Supplemental materials:
+<ul>
+<li>Geocomputation and geosimulation:
+    <ul>
+<!--    <li>To be replaced <a href="http://www.geocomputation.org/">Geocomputation conference series</a>, read the -->
+    <li><a href="https://web.archive.org/web/20230626154201/http://www.geocomputation.org/what.html">Detailed Definition of Geocomputation</a> (archived from geocomputation.org)
+    <li><a href="https://r.geocompx.org/">Geocomputation with R</a>
+    <li><a href="https://py.geocompx.org/">Geocomputation with Python</a>
+    <li><a href="https://methods.sagepub.com/book/geocomputation">Geocomputation: A Practical Primer</a>
+    <li><a href="http://www.geosimulation.org/geosim/">Geosimulation</a> with focus on urban environments, includes crowd simulations
+    <li><a href="http://www.spatialanalysisonline.com/HTML/index.html?introduction_to_geocomputation.htm">
+Castle C, Crooks A T, de Smith M J, Goodchild M F and Longley P A (2018) Geocomputational methods and modeling,</a> 
+Chapter 8 in de Smith M J, Goodchild M F, and Longley P A (2018) Geospatial Analysis, 6th ed, The Winchelsea Press, UK
+    </ul>
+<p>
+<li>Open source software development and GRASS GIS
+    <ul>
+    <li><a href="https://doi.org/10.22224/gistbok/2021.2.4">Petras V., Mitasova H., Petrasova, A. 2021. Open Source Software Development. In: The Geographic Information Science & Technology Body of Knowledge (2nd Quarter 2021 Edition), John P. Wilson (ed.).</a>
+    <li><a href="https://grass-tutorials.osgeo.org/">Learn GRASS GIS tutorials</a>
+<!--    <li><a href="https://ncsu-geoforall-lab.github.io/grass-as-a-platform/autocarto.html#/">GRASS GIS as open source innovation platform</a>, talk at AutoCarto 2016-->
+    </ul>
+</ul>
+
+<h4>Assignment</h4>
+Learn how to perform basic geospatial processing and visualization in GRASS GIS:
+<ul>
+   <li>GRASS GIS desktop: <a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/grass/data_acquisition.html">Getting started with GRASS GIS desktop (GIS582 Geospatial Modeling course)</a>
+   <li>GRASS GIS desktop: 
+   <a href="https://grass-tutorials.osgeo.org/content/tutorials/terrain_and_DEMs/GRASS_terrain.html">
+Terrain modeling and analysis in GUI, bash and Python</a>
+<!--
+   <li>Getting started with GRASS GIS 8.4.0:
+<a href="https://www.youtube.com/watch?v=kktp5gZLLCk&list=PLiNYVMuYqTHUZUa7t3874sBfWAuNMj4pZ">
+GIS582 assignment videos 1/2, 2/2</a>
+see also <a href="https://github.com/ncsu-geoforall-lab/grass-gis-workshop-foss4g-2022/blob/main/workshop_GUI_intro.ipynb">GRASS GIS GUI intro (FOSS4G 2022 workshop)</a>
+   <li><a href="https://github.com/ncsu-geoforall-lab/grass-gis-workshop-foss4gna-2023">
+    Unlock the Power of GRASS GIS</a> Jupyter Notebooks for FOSS4G NA 2023 workshop (run part 1 and part 2 only).
+You can also run them on your computer, 
+see <a href="https://github.com/ncsu-geoforall-lab/GIS714-assignments/tree/main/GRASS_GIS_Foundations">
+GRASS in Jupyter notebooks on Windows</a> .
+-->
+</ul>
+
+<h3 id="dynamic" class="subtopic">1.B Dynamic spatial phenomena</h3>
+Outline:
+<ul>
+  <li>observation time series and multitemporal data
+  <li>fundamental physical, biological, and socio-economic processes
+  <li>static and dynamic simulations
+  <li>managing geospatial multitemporal data
+  <li>dynamic visualization
+</ul>
+<h4>Lecture</h4>
+Slides:
+<ul>
+   <li><a href="../lectures/geodynamics.html">Dynamic spatial phenomena</a>
+</ul>
+Supplemental materials:
+<ul>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S136481521300282X?via%3Dihub">
+Gebbert, S., Pebesma, E., 2014. A temporal GIS for field based environmental modeling. 
+Environmental Modelling and Software 53, 1-12.
+<a href="http://pebesma.staff.ifgi.de/tgrass.pdf">preprintpdf</a>
+    <li><a href="https://www.tandfonline.com/doi/full/10.1080/13658816.2017.1306862">Gebbert, S., Pebesma, E. 2017. The GRASS GIS temporal framework. International Journal of Geographical Information Science 31, 1273-1292 </a>
+<!--        <a href="http://fatra.cnr.ncsu.edu/geospatial-modeling-course/slides/dynamicgis">Dynamic GIS</a> (html slides)-->
+   <li><a href="http://fatra.cnr.ncsu.edu/temporal-grass-workshop/TGRASS_intro.pdf">Brief introduction to GRASS GIS Temporal Framework</a>
+   <li> <a href="https://www.springer.com/us/book/9781493918348"> GIS-based Analysis of Coastal Lidar Time-Series</a>, 
+   <a href="https://link-springer-com.prox.lib.ncsu.edu/book/10.1007%2F978-1-4939-1835-5">access through NCSU libraries</a> 
+   <li><a href="https://grasswiki.osgeo.org/wiki/Temporal_data_processing/GRASS_R_raster_time_series_processing">GRASS GIS and R raster time series processing</a>
+   <li><a href="http://ncsu-geoforall-lab.github.io/uav-lidar-analytics-course/lectures/multitemp_uas.html#/">Analyzing multitemporal UAS data</a>
+<p>
+    <li> <a href="https://earth.nullschool.net/">Visualization of global weather conditions</a>
+    <li><a href="http://www.spatialanalysisonline.com/HTML/index.html?modeling_dynamic_processes_wit.htm">Modeling dynamic
+processes within GIS</a>, Chapter 8.1.1 in  Geospatial Analysis 6th ed.
+</ul>
+
+<h4>Assignment</h4>
+Learn GRASS GIS Jupyter Notebooks basics, process, analyze and visualize multitemporal data and time series in GRASS GIS:
+<ul>
+<!--
+    <li><a href="http://ncsu-geoforall-lab.github.io/grass-temporal-workshop/">FOSS4G 2014 workshop</a> shows GUI, CLI and python approach.
+-->
+    <li><a href="https://github.com/ncsu-geoforall-lab/GIS714-assignments/tree/main/GRASS_GIS_Foundations">
+Intro to GRASS GIS Jupyter Notebooks</a>
+    <li><a href="https://github.com/ncsu-geoforall-lab/GIS714-assignments/tree/main/Temporal_Analyses">GRASS Temporal Analysis Notebooks</a>
+processing climate data, visualization of dynamic topography, visualization of modeling output.
+<br>You can run the notebooks on-line or locally, on your computer, following the instructions on the github webpage. 
+    <li>OPTIONAL:<a href="https://github.com/veroandreo/grass_opengeohub2021">Analyzing space-time satellite data for disease ecology applications with GRASS GIS and R</a> by Veronica Andreo with associated 
+                 <a href="https://veroandreo.github.io/grass_opengeohub2021/presentation.html">Presentation</a>
+</ul>
+<h3>Homework 1. A and B</h3>
+Write a brief paper (3-4 pages, including graphics)
+ about what you have done in these assignments and submit the paper along with the associated notebook(s). 
+Use your judgment to select what you will write about,
+but the structure should follow a short scientific publication. 
+See more details on the <a href="https://ncsu-geoforall-lab.github.io/geospatial-simulations-course/logistics.html"> course logistics webpage</a> and a 
+<a href="https://ncsu-geoforall-lab.github.io/geospatial-modeling-course/report_guide.html">report guide page.</a>
+
+</main>
+
+<footer>
+
+<nav>
+<ul>
+    <li><a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978">Moodle site</a></li>
+    <li><a href="https://help.ncsu.edu/">Computing Help</a></li>
+    <li><a href="https://geospatial.ncsu.edu/">GIST Home</a></li>
+    <li><a href="https://www.ncsu.edu/policies/prr-disclaimer.php">Disclaimer</a></li>
+    <li><a href="https://oit.ncsu.edu/itaccess">Accessibility</a></li>
+<li>
+    <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course" title="Source code for web pages on GitHub">
+        <img src="../img/github_logo.png" alt="GitHub Octocat logo">
+    </a>
+</li>
+<li title="Copyright and license (not applicable to linked materials)">
+    &copy; 2023
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    <a href="https://geospatial.ncsu.edu/geoforall/">NCSU GeoForAll Lab</a>
+</li>
+</ul>
+</nav>
+
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>
