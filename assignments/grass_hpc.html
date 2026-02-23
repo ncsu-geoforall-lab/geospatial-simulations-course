@@ -1,69 +1,53 @@
-<h2>Running basic analysis with GRASS GIS on Hazel</h2>
-The goal of this section is to become familiar with running basic GRASS GIS commands
+<h2>Running basic analysis with GRASS on Hazel</h2>
+The goal of this section is to become familiar with running basic GRASS commands
 on HPC, including creating a project, importing data, running a simple analysis and exporting data.
 <p>
 
-First, we will copy our prepared data from mass storage (<code>/gpfs_archive/gis714s25</code>)
-to our scratch space and unzip.
-<span class="question">
-    Why do we need to copy it there?
-</span>
+The class' scratch directory is <code>/share/gis714s26</code>.
+After you login for the first time, create your own directory
+and use that as your scratch space:
+
+<pre><code>mkdir /share/gis714s26/$USER</code></pre>
+
+<h3>Using the GRASS Conda Environment</h3>
+We will be using GRASS in conda environment. 
+Refer to <a href="https://hpc.ncsu.edu/Software/Apps.php?app=Conda">Hazel Conda</a>
+instructions for more details.
+
+One-time setup:
 
 <pre><code>
-mkdir /share/gis714s25/$USER/input_data
-cd /share/gis714s25/$USER/input_data
-cp /gpfs_archive/gis714s25/nlcd_2019_land_cover_l48_20210604.zip .
-unzip nlcd_2019_land_cover_l48_20210604.zip
+module load conda
+conda init bash
 </code></pre>
 
-Note: unzipping can take some time, if we would be unzipping multiple files like these,
-we would need to do that on a compute node rather than on a login node.
-<span class="question">
-    Why?
-</span>
+This will create <code>.bashrc</code> file in your home folder.
 
-
-<h3>Loading GRASS GIS</h3>
-On HPC you need to first load GRASS GIS to be able to use it. 
-First, append geospatial modules to list of available modules:
+Verify the setup:
 
 <pre><code>
-module use --append /usr/local/usrapps/geospatial/modulefiles
+conda activate /usr/local/usrapps/gis714s26/grass_env
+grass --version
+conda deactivate
 </code></pre>
 
-You can see what is currently the default version and what are the other versions and software available.
-See also the installed versions <a href="https://github.com/ncsu-geoforall-lab/grass-gis-on-hpc-henry2/blob/main/docs/available.md">here</a>.
-
-<pre><code>
-module avail
-</code></pre>
-
-At the bottom you will see several available versions of GRASS GIS,
-we will use the default one:
-<pre><code>
-module load grass
-</code></pre>
-
-You will need to execute these 2 lines every time you open a new terminal or include them in your job submission:
-
-<pre><code>
-module use --append /usr/local/usrapps/geospatial/modulefiles
-module load grass
-</code></pre>
 
 <h3>Creating a new project</h3>
-In your scratch space (<code>/share/gis714s25/$USER</code>) create a new project
-with CRS matching NLCD data located in the class' mass storage (<code>/gpfs_archive/gis714s25</code>):
+In your scratch space (<code>/share/gis714s26/$USER</code>) create a new project <i>intro</i>
+with CRS matching NLCD data located <code>/share/gis714s26/</code>:
 <pre><code>
-mkdir /share/gis714s25/$USER/grassdata
-grass -c /share/gis714s25/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img /share/gis714s25/$USER/grassdata/intro --text
+mkdir /share/gis714s26/$USER/
+conda activate /usr/local/usrapps/gis714s26/grass_env
+grass -c /share/gis714s26/nlcd_2019_land_cover_l48_20210604.img /share/gis714s26/$USER/intro --text
 </code></pre>
-This will automatically start in a new mapset PERMANENT and set the default computational region to match the NLCD raster.
+This will automatically start in a new mapset PERMANENT and set
+the default computational region to match the NLCD raster.
 Now, review projection and computational region info and exit:
 <pre><code>
 g.proj -p
 g.region -p
 exit
+conda deactivate
 </code></pre>
 <span class="question">
 Which projection is NLCD data in? How many cells?
@@ -78,16 +62,16 @@ We request a single core and 2GB of memory for 30 minutes:
 bsub -Is -n 1 -R "rusage[mem=2GB]" -W 30 bash
 </code></pre>
 
-Load GRASS GIS:
+<p>Once you are on a compute node, activate the environment:</p>
 
 <pre><code>
-module use --append /usr/local/usrapps/geospatial/modulefiles
-module load grass
+source ~/.bashrc
+conda activate /usr/local/usrapps/gis714s26/grass_env
 </code></pre>
 
-Start GRASS GIS in the newly created project:
+Start GRASS in the newly created project:
 <pre><code>
-grass /share/gis714s25/$USER/grassdata/intro/PERMANENT
+grass /share/gis714s26/$USER/intro/PERMANENT
 </code></pre>
 
 Set region to smaller area so that we don't have to wait too much:
@@ -97,7 +81,7 @@ g.region n=1690185 s=252165 e=1838925 w=514635 res=30 -p
 
 Import NLCD land cover data (will take couple minutes):
 <pre><code>
-r.in.gdal input=/share/gis714s25/$USER/input_data/nlcd_2019_land_cover_l48_20210604.img output=nlcd_2019 memory=2000 -r
+r.in.gdal input=/share/gis714s26/nlcd_2019_land_cover_l48_20210604.img output=nlcd_2019 memory=2000 -r
 </code></pre>
 
 Once you are done, you can launch GUI with <code>g.gui</code> add the new raster.
@@ -113,7 +97,7 @@ d.rast nlcd_2019
     Take a screenshot for the report.
 </span>
 
-Then close the window and exit GRASS GIS and the compute node.
+Then close the window and exit GRASS and the compute node.
 <pre><code>
 exit
 exit
@@ -141,16 +125,16 @@ Copy and paste the following content and exit (Ctrl+X) and save (Shift+Y):
 #BSUB -eo neighbors_err
 #BSUB -J neighbors
 
-module use --append /usr/local/usrapps/geospatial/modulefiles
-module load grass
+source ~/.bashrc
+conda activate /usr/local/usrapps/gis714s26/grass_env
 
-grass /share/gis714s25/$USER/grassdata/intro/PERMANENT --exec r.neighbors input=nlcd_2019 output=diversity_2019 size=3 method=diversity
-grass /share/gis714s25/$USER/grassdata/intro/PERMANENT --exec r.out.gdal input=diversity_2019 output=/share/gis714s25/$USER/diversity_2019.tif type=Byte createopt=COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES
+grass /share/gis714s26/$USER/intro/PERMANENT --exec r.neighbors input=nlcd_2019 output=diversity_2019 size=3 method=diversity
+grass /share/gis714s26/$USER/intro/PERMANENT --exec r.out.gdal input=diversity_2019 output=/share/gis714s26/$USER/diversity_2019.tif type=Byte createopt=COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES
 </code></pre>
 
 Submit the job from scratch space:
 <pre><code>
-cd /share/gis714s25/$USER/
+cd /share/gis714s26/$USER/
 bsub < /home/$USER/bsub_neighbors.sh
 </code></pre>
 
@@ -159,7 +143,7 @@ Now check that job is submitted.
 bjobs
 </code></pre>
 
-Once it runs, check the error output for progress messages from GRASS GIS.
+Once it runs, check the error output for progress messages from GRASS.
 <pre><code>
 less neighbors_err
 </code></pre>
@@ -169,7 +153,67 @@ Once the job is finished, inspect the summary output and see how long it took:
 less neighbors_out
 </code></pre>
 
-Check the tif file is created and copy it on  your local machine and open it in a GIS.
+Check the tif file is created and copy it on your local machine and open it in a GIS.
 <span class="question">
     Take a screenshot for the report.
 </span>
+
+
+<h3>Creating your own GRASS conda environment</h3>
+
+<p>If you need your own environment (e.g., to add extra packages),
+you can create one from a YAML file. This is not part of the assignment.</p>
+
+<h3>Step 1: Create a YAML file</h3>
+
+<p>Save the following as <code>grass_env.yml</code>:</p>
+
+<pre><code>
+name: grass_env
+channels:
+  - conda-forge
+dependencies:
+  - grass=8.4.2
+
+  # Compilers for building addons
+  - c-compiler
+  - cxx-compiler
+  - make
+
+  # Essential libraries that addons might need
+  - gdal
+  - proj
+  - geos
+
+  # Python geospatial stack
+  - numpy
+  - scipy
+  - pandas
+  - geopandas
+  - matplotlib
+</code></pre>
+
+<h3>Step 2: Create a .condarc file</h3>
+
+<p>When installing packages, conda downloads temporary files that can
+fill your home directory quota. Create <code>~/.condarc</code> to redirect them:</p>
+
+<pre>cat &gt; ~/.condarc &lt;&lt; 'EOF'
+pkgs_dirs:
+  - /share/$GROUP/$USER/conda/pkgs
+channels:
+  - conda-forge
+EOF</pre>
+
+<h3>Step 3: Create the environment</h3>
+
+<p>All installations must be done from a <b>login node</b> (not a compute node).</p>
+
+<pre>conda env create --prefix /usr/local/usrapps/$GROUP/$USER/grass_env -f grass_env.yml</pre>
+
+<p>This will take several minutes.</p>
+
+<h3>Step 4: Use it</h3>
+
+<pre>conda activate /usr/local/usrapps/$GROUP/$USER/grass_env
+grass --version</pre>
