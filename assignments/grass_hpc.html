@@ -164,7 +164,7 @@ Check the tif file is created and copy it on your local machine and open it in a
 <p>If you need your own environment (e.g., to add extra packages),
 you can create one from a YAML file. This is not part of the assignment.</p>
 
-<h3>Step 1: Create a YAML file</h3>
+<h4>Step 1: Create a YAML file</h4>
 
 <p>Save the following as <code>grass_env.yml</code>:</p>
 
@@ -193,7 +193,7 @@ dependencies:
   - matplotlib
 </code></pre>
 
-<h3>Step 2: Create a .condarc file</h3>
+<h4>Step 2: Create a .condarc file</h4>
 
 <p>When installing packages, conda downloads temporary files that can
 fill your home directory quota. Create <code>~/.condarc</code> to redirect them:</p>
@@ -205,7 +205,7 @@ channels:
   - conda-forge
 EOF</pre>
 
-<h3>Step 3: Create the environment</h3>
+<h4>Step 3: Create the environment</h4>
 
 <p>All installations must be done from a <b>login node</b> (not a compute node).</p>
 
@@ -213,7 +213,7 @@ EOF</pre>
 
 <p>This will take several minutes.</p>
 
-<h3>Step 4: Use it</h3>
+<h4>Step 4: Use it</h4>
 
 <pre>conda activate /usr/local/usrapps/$GROUP/$USER/grass_env
 grass --version</pre>
