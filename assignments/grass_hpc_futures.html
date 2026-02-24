@@ -29,6 +29,12 @@ Check you can access the data:
 g.list type=raster,vector -mt
 </code></pre>
 
+Install r.futures:
+
+<pre><code>
+g.extension r.futures
+</pre></code>
+
 Exit GRASS session (temporary mapset will be removed):
 <pre><code>
 exit
@@ -122,7 +128,7 @@ Notice that we need to request twice as many cores then (on a single node).
 <pre><code>
 #!/bin/bash
 #BSUB -n 16
-#BSUB -W 15:00
+#BSUB -W 3:00
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=2GB]"
 #BSUB -oo devpressure_out
