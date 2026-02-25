@@ -91,6 +91,8 @@ Since tool <code>r.grow.distance</code> is not internally parallelized, we will 
 so that they run concurrently using 3 cores. This can be simply achieved by executing them in the background.
 Alternatively, you can split it and execute as 3 separate jobs.
 
+Save this into a file bsub_distance.sh in your home folder:
+
 <pre><code>
 #!/bin/bash
 #BSUB -n 3
@@ -119,11 +121,19 @@ grass /share/gis714s26/$USER/futures/forest --exec r.mapcalc "log_dist_to_forest
 wait
 </code></pre>
 
+Submit the job from scratch space:
+<pre><code>
+cd /share/gis714s26/$USER/
+bsub < /home/$USER/bsub_distance.sh
+</code></pre>
+
 <h3>Computing development pressure</h3>
 Here we combine the two previous approaches to compute development pressure for 2001 and 2019.
 Tool <a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.futures.devpressure.html">r.futures.devpressure</a>
 is internally parallelized, so we can run the tool for both years concurrently and for each of them request certain number of cores.
 Notice that we need to request twice as many cores then (on a single node).
+
+Save this into a file bsub_devpressure.sh in your home folder:
 
 <pre><code>
 #!/bin/bash
@@ -147,6 +157,12 @@ grass -c /share/gis714s26/$USER/futures/devpressure_2019 --exec r.futures.devpre
 
 # this will wait for the processes to finish
 wait
+</code></pre>
+
+Submit the job from scratch space:
+<pre><code>
+cd /share/gis714s26/$USER/
+bsub < /home/$USER/bsub_devpressure.sh
 </code></pre>
 
 <h3>Running the simulation</h3>
