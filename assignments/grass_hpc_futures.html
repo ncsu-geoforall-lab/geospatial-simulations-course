@@ -205,8 +205,8 @@ We need to patch the results for individual states. For that we will use
 tool <code>r.patch</code> which is internally parallelized.
 
 First, create a bash script <code>patch.sh</code> that accepts 2 parameters (seed number and number of cores),
-loads grass, lists all FUTURES output rasters belonging to the specified seed
-and executes r.patch in a newly created mapset.
+loads grass, lists all FUTURES output rasters belonging to the specified seed,
+executes r.patch in a newly created mapset and exports the result into tif raster.
 <pre><code>
 # get parameters
 SEED=${1}
@@ -221,6 +221,7 @@ MAPS=`grass --tmp-mapset /share/gis714s26/$USER/futures --exec \
 rm -rf /share/gis714s26/$USER/futures/results_${SEED}
 grass -c /share/gis714s26/$USER/futures/results_${SEED} --exec r.patch input=${MAPS} output="out_seed_${SEED}" nprocs=${N}
 grass /share/gis714s26/$USER/futures/results_${SEED} --exec r.colors map=out_seed_${SEED} raster=out_state_1_seed_${SEED}@pga_1_${SEED}
+grass /share/gis714s26/$USER/futures/results_${SEED} --exec r.out.gdal input=out_seed_${SEED} output=/share/gis714s26/$USER/out_seed_${SEED}.tif type=Byte createopt="COMPRESS=LZW,PREDICTOR=3,BIGTIFF=YES"
 </code></pre>
 
 Then submit the computations as 10 separate jobs with the following command:

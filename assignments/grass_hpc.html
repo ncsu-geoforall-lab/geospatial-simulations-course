@@ -129,7 +129,7 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/gis714s26/grass_env
 
 grass /share/gis714s26/$USER/intro/PERMANENT --exec r.neighbors input=nlcd_2019 output=diversity_2019 size=3 method=diversity
-grass /share/gis714s26/$USER/intro/PERMANENT --exec r.out.gdal input=diversity_2019 output=/share/gis714s26/$USER/diversity_2019.tif type=Byte createopt=COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES
+grass /share/gis714s26/$USER/intro/PERMANENT --exec r.out.gdal input=diversity_2019 output=/share/gis714s26/$USER/diversity_2019.tif type=Byte createopt="COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES"
 </code></pre>
 
 Submit the job from scratch space:
