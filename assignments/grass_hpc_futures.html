@@ -129,7 +129,7 @@ Notice that we need to request twice as many cores then (on a single node).
 #!/bin/bash
 #BSUB -n 16
 #BSUB -W 3:00
-#BSUB -R span[hosts=1]
+#BSUB -R "span[hosts=1]"
 #BSUB -R "rusage[mem=2GB]"
 #BSUB -oo devpressure_out
 #BSUB -eo devpressure_err
@@ -223,17 +223,17 @@ grass -c /share/gis714s26/$USER/futures/results_${SEED} --exec r.patch input=${M
 grass /share/gis714s26/$USER/futures/results_${SEED} --exec r.colors map=out_seed_${SEED} raster=out_state_1_seed_${SEED}@pga_1_${SEED}
 </code></pre>
 
-Then create another script that submits the patching jobs for each seed (<code>submit_patch.sh</code>):
+Then submit the computations as 10 separate jobs with the following command:
+
 <pre><code>
-N=4
 for SEED in {1..10}
 do
-    bsub -n ${N} -W 1:00 -R span[hosts=1] -J patch_${SEED} -oo patch_${SEED}_out -eo patch_${SEED}_err bash /home/$USER/patch.sh ${SEED} ${N}
+    bsub -n 4 -W 1:00 -R "span[hosts=1]" -R "rusage[mem=1GB]" -J patch_${SEED} -oo patch_${SEED}_out -eo patch_${SEED}_err bash /home/$USER/patch.sh ${SEED} 4
 done
 </code></pre>
-Run the script with <code>bash submit_patch.sh</code>. This will submit 10 jobs.
 
 The results are rasters <code>out_seed_1@results_1</code>, <code>out_seed_2@results_2</code>, etc.
+
 <span class="question">
     Report the run times for all your computations and include a figure with the results.
 </span>
