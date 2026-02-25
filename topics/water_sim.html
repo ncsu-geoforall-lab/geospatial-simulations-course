@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NCSU GIS 714: Geospatial Computation and Simulations</title>
+
+<link rel="shortcut icon" href=".././img/favicon.ico" />
+
+<link href="../layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="../style.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+
+<body>
+
+<div id="outercontainer">
+<div id="container">
+
+<header>
+<div id="header-image">
+    <h1>NCSU GIS 714:<br>Geospatial Computing and Simulations</h1>
+</div>
+
+<nav>
+<ul class="nav">
+<li><a href="../index.html">Syllabus</a></li>
+<li><a href="../schedule.html">Schedule</a></li>
+<li><a href="../logistics.html">Course logistics</a></li>
+<li><a href="../topics/index.html">Topics</a></li>
+<li><a href="../projects.html">Projects</a></li>
+</ul>
+</nav>
+
+</header>
+
+<main>
+<!-- This is a generated file. Do not edit. -->
+<h2>3. Surface water simulation</h2>
+
+<!--change is topic to general flow / flux / surface gradient-driven flux or spread-->
+
+<h3 id="flow_flood_geometry" class="subtopic">3.A Surface water: geometry driven simulations of flow and flooding </h3>
+Outline:
+<ul>
+    <li>geometry driven modeling of surface water flow
+    <li>surface gradient, flowtracing over complex surfaces, flowaccumulation
+    <li>geometry driven modeling of flooding: overflow from rivers and ocean storm surge
+    <li>implementation of flooding simulations and dynamic visualization
+    <li>applications and limitations
+</ul>
+
+<h4>Lecture</h4>
+Slides:
+<ul>
+<li><a href="../lectures/water_geometry_sim.html">Lecture slides: geometry driven simulations of flow and flooding</a>
+</ul>
+Supplemental materials:
+<ul>
+<li>Flowrouting:
+    <ul>
+<!--    <li>review of flowrouting methods, Whitebox, GIS582-->
+    <li>Metz, M., Mitasova, H., Harmon, R.S. (2011) Efficient extraction of drainage networks from massive, radar-based elevation models with least cost path search, Hydrology and Earth System Sciences 15, pp. 667-678.
+   <li><a href="https://link.springer.com/chapter/10.1007%2F978-3-642-29063-3_21">Magalh˜aes, S. V. G., Andrade, M. V. A., Randolph Franklin, W., Pena, G. C., 2012. A new method for computing the drainage network based on raising the level of an ocean surrounding the terrain. </a>In: Gensel, J., Josselin, D., Vandenbroucke, D., Cartwright, W., Gartner, G., Meng, L., Peterson, M. P. (Eds.), Bridging the Geographic Information Sciences. Lecture Notes in Geoinformation and Cartography. Springer Berlin Heidelberg, pp. 391–407. doi:
+http://dx.doi.org/10.1007/978-3-642-29063-3_21 
+    <li><a href="https://arxiv.org/pdf/1511.04463.pdf"> 
+Barnes, Lehman, Mulla. “Priority-Flood: An Optimal Depression-Filling and Watershed-Labeling
+Algorithm for Digital Elevation Models”. </a>Computers and Geosciences. Vol 62, Jan 2014, pp 117–127. doi: “10.1016/j.cageo.2013.04.024”.
+    </ul>
+<li>Flooding:
+    <ul>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0022169411002599?via%3Dihub">Nobre et al. 2011</a>Height Above the Nearest Drainage – a hydrologically relevant new terrain model
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0098300411000975?via%3Dihub">J Jasiewicz, M Metz, 2011: A new GRASS GIS toolkit for Hortonian analysis of drainage networks, Computers & Geosciences.</a>https://doi.org/10.1016/j.cageo.2011.03.003
+    <li><a href="https://fiman.nc.gov/">FIMAN</a>
+    <li><a href="https://link-springer-com.prox.lib.ncsu.edu/chapter/10.1007/978-3-319-89303-7_13">Chapter 13: Coastal Modeling</a>
+in <a href="https://link.springer.com/book/10.1007%2F978-3-319-89303-7">
+Petrasova A, Harmon B, Petras V, Tabrizian P, Mitasova H., 2018, Tangible Modeling with Open Source GIS. Second edition. </a> Springer International Publishing.
+<a href="https://link-springer-com.prox.lib.ncsu.edu/book/10.1007/978-3-319-89303-7">
+Available free as e-book through NCSU library.</a>
+    <li><a href="http://visdom.at/publications/">Flood management with Visdon software</a> publications and videos
+    </ul>
+</ul>
+
+<h4>Assignment part 3.A</h4>
+Use Python and Jupyter Notebooks to compare different algorithms for flowaccumulation, discuss the impact of algorithm versus impact of noise on flowrouting. 
+Develop inundation simulation and visualize it in MAPBOX. Carefully read manual pages for commands used in the inundation 
+simulation and explain in your report what is going on.
+As part of this assignment, you will be working with github and learn how to create on-line tool for visualization 
+of your simulation output.
+<ul>
+    <li><a href="https://github.com/ncsu-geoforall-lab/GIS714-assignments"> Jupyter Notebook for comparing flow routing methods, simulate inundation from streams</a></li>(WaterSim-FlowAcc-and-HAND.ipynb)
+    <li><a href="https://github.com/ncsu-geoforall-lab/grass-mapbox-tutorial">How to Host Your Animated GRASS simulations with MapBoxGL JS and GitHub</a></li>
+    <li><a href="../assignments/water_geom_assign.html"> Alternative non-Jupyter version of assignment</a></li>
+</ul>
+
+
+<h3 id="water_flow_sim" class="subtopic">3.B Surface water: process based simulation</h3>
+Outline:
+<ul>
+    <li>surface water flow modeling components</li>
+    <li>shallow water flow equations</li>
+    <li>numerical methods for solving shallow water flow equations</li>
+<!--    <li>coupling with stormwater networks, groundwater models, storm surge</li>-->
+    <li>applications: surface runoff, dam breach
+    <li>visualization of surface water flow dynamics</li>
+</ul>
+
+<h4>Lecture</h4>
+Slides
+<ul>
+<li><a href="../lectures/flow_process_sim.html">Lecture slides: Surface water flow simulation</a>
+</ul>
+Supplemental materials:
+<ul>
+   <li> <a href="https://doi.org/10.1016/j.envsoft.2013.01.011"> Brooking C, Hunter, J Providing online access to hydrological model simulations through interactive geospatial animations Environmental Modelling and Software 42, May 2013, p163-168</a>, and <a href="https://www.hydroshare.org/">HydroShare</a> website
+   <li><a href="https://link-springer-com.prox.lib.ncsu.edu/chapter/10.1007/978-3-319-89303-7_7">Chapter 7: Surface Water Flow Modeling</a> 
+in <a href="https://link.springer.com/book/10.1007%2F978-3-319-89303-7">
+Petrasova A, Harmon B, Petras V, Tabrizian P, Mitasova H., 2018, Tangible Modeling with Open Source GIS. Second edition. </a> Springer International Publishing.
+and a <a href="https://petrasovaa.github.io/tangible-landscape-dambreak-presentation/#/">presentation</a>
+ associated with dam breach simulation (section 7.3.2 and A.1.9)
+   <li><a href="http://fatra.cnr.ncsu.edu/~hmitaso/gmslab/papers/II.6.8_Mitasova_044.pdf">Mitasova, H., Thaxton, C., Hofierka, J., McLaughlin, R., Moore, A., Mitas L., 2005, Path sampling method for modeling overland water flow, sediment transport and short term terrain evolution in Open Source GIS. In: C.T. Miller, M.W. Farthing, V.G. Gray, G.F. Pinder eds., Proc. CMWR XV, 13-17 June 2004, Chapel Hill, NC, USA, Elsevier, pp. 1479-1490.</a>
+   <li><a href="https://www.geosci-model-dev.net/10/1835/2017/">Itzï (version 17.1): an open-source, distributed GIS model for dynamic flood simulation</a>
+   <li><a href="https://oss.deltares.nl/web/delft3d">DELFT3D - open source</a> and <a href="https://publicwiki.deltares.nl/display/OET/OpenEarth">OpenEarth</a>
+   <li><a href="https://adcirc.org/">ADCIRC</a>
+   <li><a href="https://en.wikipedia.org/wiki/Shallow_water_equations">Shallow water equations in wikipedia</a>
+<!--   <li><a href="https://www.enviroware.com/">Air pollution modeling:LAPMOD, TOXFLAM</a>-->
+</ul>
+
+<h4>Assignment part 3.B</h4>
+Compare distribution of surface water flow at high resolution for uniform 
+and spatially variable land cover and topographic conditions.
+<ul>
+  <li><a href="https://github.com/ncsu-geoforall-lab/GIS714-assignments">Jupyter Notebook for surface water flow modeling using path sampling method</a> (WaterSim-SIMWE.ipynb) 
+  <li><a href="../assignments/simwe.html"> Alternative non-Jupyter version of assignment</a></li>
+
+<p>Optional
+  <li><a href="../assignments/process_based_flow.html">Surface water flow modeling for urban environments: Itzi</a>
+  <li>Write your own overland flow simulation tool in python:  
+  <ul>
+<!--  
+     <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Eric_OverlandFlow.py">Student1</a> with 
+     <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Assign_pathsampling.pdf">Instructions</a> and
+-->
+     <li><a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course/blob/master/resources/Anna_OverlandFlow.py">Example code</a>,
+      run from nc_spm_08 location and set region <code>g.region -p rast=elev_lid792_1m</code>,
+      compute dx and dy using r.slope.aspect, and then use <code>g.region zoom=dx</code> to leave out NULL cells at the edge from computation.</li>
+  </ul>
+</ul>
+
+<h3 id="geostats" class="subtopic">3.C Geostatistical simulations and uncertainty propagation</h3>
+Outline:
+<ul>
+   <li>motivation for geostatistical simulations
+   <li>geostatistical conditional simulations
+   <li>Gaussian Sequential Simulation
+   <li>simulations for error propagation
+   <li>coupling GRASS and R for geostatistics
+</ul>
+
+<h4>Lecture</h4>
+Slides
+<ul>
+<li><a href="../lectures/geostats_sim.html">Lecture slides: Geostatistical simulations</a>
+</ul>
+Supplemental materials:
+<ul>
+<li><a href="https://www.linkedin.com/pulse/non-conditional-gaussian-simulation-example-using-python-jimenez">Jimenez: A (Non) Conditional Gaussian Simulation Example Using Python</a>
+<li><a href="https://petrowiki.org/Geostatistical_conditional_simulation">Geostatistical_conditional_simulation in petroleum industry</a>
+<li><a href="https://www.youtube.com/watch?v=NmpMWehRNZY"> Geostatistics session 5 conditional simulation video by Jef Caers, Stanford</a>
+<li><a href="http://www.spatialanalysisonline.com/HTML/kriging_interpolation.htm">Conditional simulation in Geospatial Analysis book</a>
+<li><a href="http://pro.arcgis.com/en/pro-app/help/analysis/geostatistical-analyst/key-concepts-of-geostatistical-simulation.htm">
+Geostatistical simulation in ArcGIS</a>
+<li><a href="https://www.image.ucar.edu/GSP/Software/Fields/Help/sim.Krig.html">UCAR</a>
+<li>C. Lantuejoul, 2013, Geostatistical simulation: models and algorithms, Springer
+<li><a href="https://link.springer.com/content/pdf/10.1007%2F978-3-319-78999-6.pdf">Handbook of Mathematical Geosciences</a> Springer Open, 2018</a>
+</ul>
+
+<h4>Optional Assignment 3.C</h4>
+Derive a probability map of stream networks using geostatistical simulation and error propagation
+techniques, following the methodology described in the Chapter 10,
+<a href="http://spatial-analyst.net/book/system/files/Hengl_2009_GEOSTATe2c1w.pdf">Hengl, T.: A practical guide to geostatistical mapping</a> (theory is in the chapter 2.4, see also <a href="https://en.wikipedia.org/wiki/Binary_entropy_function">binary entropy function for Bernoulli process</a>):
+<ul>
+    <li> <a href="https://github.com/ncsu-geoforall-lab/GIS714-assignments">Jupyter Notebook with workflow in GRASS and R</a> (WaterSim-Geostatistical-Simulations.ipynb)</li> 
+<!--
+<li>
+Optional: apply the stream probability mapping method to our small rural watershed using the points
+in the layer "elev_lid792_randpts" in our data set or any elevation data set of your choice.
+<li>
+Optional: evaluate the uncertainty of inundation extent prediction due to errors in a DEM
+<p>
+Learn how to <a href="https://github.com/LukasGab/R_grassgis">Run GRASS from R</a>
+<li>Simulate distribution of studied variable (e.g. pollutant) based on observed data and their spatial relationships. (R) </li>
+-->
+    <li><a href="../assignments/geostats_sim.html"> Alternative non-Jupyter version of assignment</a></li>
+</ul>
+
+<h3>Homework 3. AB</h3>
+Perform the analysis and simulations for 3AB assignments using a DEM for your study site (or its subset).
+Justify your selection of resolution and select a computationally feasible size of your raster
+(1000 x 1000 to 3000 x 3000 is recommended based on your computational resources). 
+You can use the provided notebooks (submit as executed notebook in html) 
+or  GRASS workflows (submit as pdf paper).
+ with submission as a paper.
+Optionally, provide a link to dynamic visualization that you have developed for mapbox as part of 3A.
+
+</main>
+
+<footer>
+
+<nav>
+<ul>
+    <li><a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978">Moodle site</a></li>
+    <li><a href="https://help.ncsu.edu/">Computing Help</a></li>
+    <li><a href="https://geospatial.ncsu.edu/">GIST Home</a></li>
+    <li><a href="https://www.ncsu.edu/policies/prr-disclaimer.php">Disclaimer</a></li>
+    <li><a href="https://oit.ncsu.edu/itaccess">Accessibility</a></li>
+<li>
+    <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course" title="Source code for web pages on GitHub">
+        <img src="../img/github_logo.png" alt="GitHub Octocat logo">
+    </a>
+</li>
+<li title="Copyright and license (not applicable to linked materials)">
+    &copy; 2023
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    <a href="https://geospatial.ncsu.edu/geoforall/">NCSU GeoForAll Lab</a>
+</li>
+</ul>
+</nav>
+
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>

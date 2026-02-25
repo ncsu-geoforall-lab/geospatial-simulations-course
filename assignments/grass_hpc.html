@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NCSU GIS 714: Geospatial Computation and Simulations</title>
+
+<link rel="shortcut icon" href=".././img/favicon.ico" />
+
+<link href="../layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="../style.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+
+<body>
+
+<div id="outercontainer">
+<div id="container">
+
+<header>
+<div id="header-image">
+    <h1>NCSU GIS 714:<br>Geospatial Computing and Simulations</h1>
+</div>
+
+<nav>
+<ul class="nav">
+<li><a href="../index.html">Syllabus</a></li>
+<li><a href="../schedule.html">Schedule</a></li>
+<li><a href="../logistics.html">Course logistics</a></li>
+<li><a href="../topics/index.html">Topics</a></li>
+<li><a href="../projects.html">Projects</a></li>
+</ul>
+</nav>
+
+</header>
+
+<main>
+<!-- This is a generated file. Do not edit. -->
+<h2>Running basic analysis with GRASS on Hazel</h2>
+The goal of this section is to become familiar with running basic GRASS commands
+on HPC, including creating a project, importing data, running a simple analysis and exporting data.
+<p>
+
+The class' scratch directory is <code>/share/gis714s26</code>.
+After you login for the first time, create your own directory
+and use that as your scratch space:
+
+<pre><code>mkdir /share/gis714s26/$USER</code></pre>
+<h3>Using the GRASS Conda Environment</h3>
+We will be using GRASS in conda environment. 
+Refer to <a href="https://hpc.ncsu.edu/Software/Apps.php?app=Conda">Hazel Conda</a>
+instructions for more details.
+
+One-time setup:
+
+<pre><code>module load conda
+conda init bash
+</code></pre>
+
+This will create <code>.bashrc</code> file in your home folder.
+
+Logout and login again. Verify the setup:
+
+<pre><code>conda activate /usr/local/usrapps/gis714s26/grass_env
+grass --version
+conda deactivate
+</code></pre>
+
+
+<h3>Creating a new project</h3>
+In your scratch space (<code>/share/gis714s26/$USER</code>) create a new project <i>intro</i>
+with CRS matching NLCD data located <code>/share/gis714s26/</code>:
+<pre><code>mkdir /share/gis714s26/$USER/
+conda activate /usr/local/usrapps/gis714s26/grass_env
+grass -c /share/gis714s26/nlcd_2019_land_cover_l48_20210604.img /share/gis714s26/$USER/intro --text
+</code></pre>
+This will automatically start in a new mapset PERMANENT and set
+the default computational region to match the NLCD raster.
+Now, review projection and computational region info and exit:
+<pre><code>g.proj -p
+g.region -p
+exit
+conda deactivate
+</code></pre>
+<span class="question">
+Which projection is NLCD data in? How many cells?
+</span>
+
+<h3>Importing NLCD</h3>
+We will import 2019 NLCD land cover into our newly created project.
+
+We will import data in an <a href="https://hpc.ncsu.edu/Documents/LSF.php#interact">interactive session on a compute node</a><div class=""></div>
+We request a single core and 2GB of memory for 30 minutes:
+<pre><code>bsub -Is -n 1 -R "rusage[mem=2GB]" -W 30 bash
+</code></pre>
+
+<p>Once you are on a compute node, activate the environment:</p>
+
+<pre><code>source ~/.bashrc
+conda activate /usr/local/usrapps/gis714s26/grass_env
+</code></pre>
+
+Start GRASS in the newly created project:
+<pre><code>grass /share/gis714s26/$USER/intro/PERMANENT
+</code></pre>
+
+Set region to smaller area so that we don't have to wait too much:
+<pre><code>g.region n=1690185 s=252165 e=1838925 w=514635 res=30 -p
+</code></pre>
+
+Import NLCD land cover data (will take couple minutes):
+<pre><code>r.in.gdal input=/share/gis714s26/nlcd_2019_land_cover_l48_20210604.img output=nlcd_2019 memory=2000 -r
+</code></pre>
+
+Once you are done, you can launch GUI with <code>g.gui</code> add the new raster.
+Alternatively, launch a GRASS monitor and add the raster like this:
+<pre><code>d.mon wx0
+</code></pre>
+Once the display opens, run:
+<pre><code>d.rast nlcd_2019
+</code></pre>
+<span class="question">
+    Take a screenshot for the report.
+</span>
+
+Then close the window and exit GRASS and the compute node.
+<pre><code>exit
+exit
+</code></pre>
+
+<h3>Running an analysis and export</h3>
+Next we will compute a simple analysis with <code>r.neighbors</code> (number of different values within a 3x3 neighborhood)
+and export the result into tif. We use compression option when exporting to minimize file size
+(consult <a href="https://gdal.org/drivers/raster/gtiff.html">GDAL documentation</a> for further explanation).
+For that we submit a job, we request 1 core, 2GB of memory for 5 hours. GRASS tool is executed
+using the <code>--exec</code> interface which starts a GRASS session in specified project, executed the command and ends the session.
+
+We will create a text file in your home folder using nano editor:
+<pre><code>nano /home/$USER/bsub_neighbors.sh
+</code></pre>
+
+Copy and paste the following content and exit (Ctrl+X) and save (Shift+Y):
+<pre><code>#!/bin/bash
+#BSUB -n 1
+#BSUB -W 3:00
+#BSUB -R "rusage[mem=2GB]"
+#BSUB -oo neighbors_out
+#BSUB -eo neighbors_err
+#BSUB -J neighbors
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/gis714s26/grass_env
+
+grass /share/gis714s26/$USER/intro/PERMANENT --exec r.neighbors input=nlcd_2019 output=diversity_2019 size=3 method=diversity
+grass /share/gis714s26/$USER/intro/PERMANENT --exec r.out.gdal input=diversity_2019 output=/share/gis714s26/$USER/diversity_2019.tif type=Byte createopt="COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES"
+</code></pre>
+
+Submit the job from scratch space:
+<pre><code>cd /share/gis714s26/$USER/
+bsub < /home/$USER/bsub_neighbors.sh
+</code></pre>
+
+Now check that job is submitted. 
+<pre><code>bjobs
+</code></pre>
+
+Once it runs, check the error output for progress messages from GRASS.
+<pre><code>less neighbors_err
+</code></pre>
+
+Once the job is finished, inspect the summary output and see how long it took:
+<pre><code>less neighbors_out
+</code></pre>
+
+Check the tif file is created and copy it on your local machine and open it in a GIS.
+<span class="question">
+    Take a screenshot for the report.
+</span>
+
+
+<h3>Creating your own GRASS conda environment</h3>
+
+<p>If you need your own environment (e.g., to add extra packages),
+you can create one from a YAML file. This is not part of the assignment.</p>
+
+<h4>Step 1: Create a YAML file</h4>
+
+<p>Save the following as <code>grass_env.yml</code>:</p>
+
+<pre><code>name: grass_env
+channels:
+  - conda-forge
+dependencies:
+  - grass=8.4.2
+
+  # Compilers for building addons
+  - c-compiler
+  - cxx-compiler
+  - make
+
+  # Essential libraries that addons might need
+  - gdal
+  - proj
+  - geos
+
+  # Python geospatial stack
+  - numpy
+  - scipy
+  - pandas
+  - geopandas
+  - matplotlib
+</code></pre>
+
+<h4>Step 2: Create a .condarc file</h4>
+
+<p>When installing packages, conda downloads temporary files that can
+fill your home directory quota. Create <code>~/.condarc</code> to redirect them:</p>
+
+<pre>cat &gt; ~/.condarc &lt;&lt; 'EOF'
+pkgs_dirs:
+  - /share/$GROUP/$USER/conda/pkgs
+channels:
+  - conda-forge
+EOF</pre>
+
+<h4>Step 3: Create the environment</h4>
+
+<p>All installations must be done from a <b>login node</b> (not a compute node).</p>
+
+<pre>conda env create --prefix /usr/local/usrapps/$GROUP/$USER/grass_env -f grass_env.yml</pre>
+
+<p>This will take several minutes.</p>
+
+<h4>Step 4: Use it</h4>
+
+<pre>conda activate /usr/local/usrapps/$GROUP/$USER/grass_env
+grass --version</pre>
+
+</main>
+
+<footer>
+
+<nav>
+<ul>
+    <li><a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978">Moodle site</a></li>
+    <li><a href="https://help.ncsu.edu/">Computing Help</a></li>
+    <li><a href="https://geospatial.ncsu.edu/">GIST Home</a></li>
+    <li><a href="https://www.ncsu.edu/policies/prr-disclaimer.php">Disclaimer</a></li>
+    <li><a href="https://oit.ncsu.edu/itaccess">Accessibility</a></li>
+<li>
+    <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course" title="Source code for web pages on GitHub">
+        <img src="../img/github_logo.png" alt="GitHub Octocat logo">
+    </a>
+</li>
+<li title="Copyright and license (not applicable to linked materials)">
+    &copy; 2023
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    <a href="https://geospatial.ncsu.edu/geoforall/">NCSU GeoForAll Lab</a>
+</li>
+</ul>
+</nav>
+
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>

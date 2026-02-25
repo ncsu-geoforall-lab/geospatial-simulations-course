@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NCSU GIS 714: Geospatial Computation and Simulations</title>
+
+<link rel="shortcut icon" href=".././img/favicon.ico" />
+
+<link href="../layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="../style.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+
+<body>
+
+<div id="outercontainer">
+<div id="container">
+
+<header>
+<div id="header-image">
+    <h1>NCSU GIS 714:<br>Geospatial Computing and Simulations</h1>
+</div>
+
+<nav>
+<ul class="nav">
+<li><a href="../index.html">Syllabus</a></li>
+<li><a href="../schedule.html">Schedule</a></li>
+<li><a href="../logistics.html">Course logistics</a></li>
+<li><a href="../topics/index.html">Topics</a></li>
+<li><a href="../projects.html">Projects</a></li>
+</ul>
+</nav>
+
+</header>
+
+<main>
+<!-- This is a generated file. Do not edit. -->
+<h2>PoPS calibration</h2>
+
+Resources to download:
+<ul>
+<li><a href="http://fatra.cnr.ncsu.edu/pops/data/SOD_ABC_calibration.zip">test data</a></li>
+<li><a href="../resources/SOD_ABC_calibration.R">PoPS calibration R script</a></li>
+</ul>
+
+R software:
+<ul>
+<li>install rpops, follow <a href="https://github.com/ncsu-landscape-dynamics/rpops#how-to-install"> installation instructions</a></li>
+<li>install <a href="https://cran.r-project.org/web/packages/folderfun/index.html">folderfun</a> package
+</ul>
+
+
+
+<h3>Tasks</h3>
+Run the calibration code to derive parameters for spore rate, distance and direction strength for SOD based on 2018.
+Unzip the dataset to a folder and change the path to that folder in the R script.
+The script will output information about the progress of calibration.
+<ul>
+<li>What role does generation size and number of generations play in the calibration process?
+    Change them and observe the impacts.</li>
+<li>Change the thresholds of accepting a parameter set (checks variable).
+    Observe the impacts.</li>
+<li>Inspect the results of the calibration.</li>
+</ul>
+<!--
+<p>Outline:
+<ul>
+    <li>Use provided test data to calibrate PoPS model</li>
+    <li>Use parameters derived from calibration to validate PoPS outputs</li>
+    <li>Try to answer questions below</li>
+</ul>
+
+<p>
+Resources to download:
+<ul>
+<li><a href="http://fatra.cnr.ncsu.edu/pops/data/calibration_validation_sample_data.zip">test data</a></li>
+<li><a href="../resources/PoPS_calibration.R">PoPS calibration R script</a></li>
+<li><a href="../resources/PoPS_validation.R">PoPS validation R script</a></li>
+</ul>
+
+Run each block in the provided R scripts step by step and see the associated instructions as comments in the code.
+
+<h3>Calibration</h3>
+Run the calibration code to derive parameters for spore rate and distance for the PoPs model.
+<ul>
+<li>What are the parameters?</li>
+<li>How many times were the spore rate and distance parameters used out of the total number of calibration iterations?</li>
+<li>What does the distribution of the two parameters look like?</li>
+</ul>
+
+Optional:
+<ul>
+<li>Try different numbers of iterations. Are derived parameters different?</li>
+<li>Try turning management on (line 22). Are derived parameters different?</li>
+</ul>
+
+
+<h3>Validation</h3>
+Use the parameters derived from the calibration code to run the PoPS model and
+validate the outputs using the validation code.
+<ul>
+<li>What was the average disagreement and landscape similarity?</li>
+</ul>
+
+Optional:
+<ul>
+<li>Try with management on (line 24). How are the total disagreement and landscape similarity affected?</li>
+<li>Try with different spore rate and distance parameters. How are total disagreement and landscape similarity affected?</li>
+<li>Try with different conditions. How are total disagreement and landscape similarity affected?
+    <ul>
+        <li>With mortality on - Set mortality to "TRUE" and you can change the
+             conditions for time lag and mortality rate (lines 28-30)</li>
+        <li>With wind direction on - Can set wind to "N", "S", "W", "E".
+            Higher kappa values make the wind direction stronger (lines 33-34).</li>
+    </ul>
+</li>
+</ul>
+-->
+
+</main>
+
+<footer>
+
+<nav>
+<ul>
+    <li><a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978">Moodle site</a></li>
+    <li><a href="https://help.ncsu.edu/">Computing Help</a></li>
+    <li><a href="https://geospatial.ncsu.edu/">GIST Home</a></li>
+    <li><a href="https://www.ncsu.edu/policies/prr-disclaimer.php">Disclaimer</a></li>
+    <li><a href="https://oit.ncsu.edu/itaccess">Accessibility</a></li>
+<li>
+    <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course" title="Source code for web pages on GitHub">
+        <img src="../img/github_logo.png" alt="GitHub Octocat logo">
+    </a>
+</li>
+<li title="Copyright and license (not applicable to linked materials)">
+    &copy; 2023
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    <a href="https://geospatial.ncsu.edu/geoforall/">NCSU GeoForAll Lab</a>
+</li>
+</ul>
+</nav>
+
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NCSU GIS 714: Geospatial Computation and Simulations</title>
+
+<link rel="shortcut icon" href=".././img/favicon.ico" />
+
+<link href="../layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="../style.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+
+<body>
+
+<div id="outercontainer">
+<div id="container">
+
+<header>
+<div id="header-image">
+    <h1>NCSU GIS 714:<br>Geospatial Computing and Simulations</h1>
+</div>
+
+<nav>
+<ul class="nav">
+<li><a href="../index.html">Syllabus</a></li>
+<li><a href="../schedule.html">Schedule</a></li>
+<li><a href="../logistics.html">Course logistics</a></li>
+<li><a href="../topics/index.html">Topics</a></li>
+<li><a href="../projects.html">Projects</a></li>
+</ul>
+</nav>
+
+</header>
+
+<main>
+<!-- This is a generated file. Do not edit. -->
+<h2>Modeling landscape evolution</h2>
+
+<p>
+Resources:
+<ul>
+    <li><a href="http://grass.osgeo.org/grass-stable/manuals/">
+GRASS GIS overview and manual</a>
+    <li><a href="http://www.grassbook.org/">GRASS book</a>
+    <li><a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.landscape.evol.html">r.landscape.evol</a>
+</ul>
+
+
+
+<h3>Before we start</h3>
+Install <em>r.landscape.evol</em> addon:
+
+<pre><code>g.extension r.landscape.evol
+</code></pre>
+
+<p>
+Start GRASS in nc_spm_08_grass7 Location and create new mapset.
+Go to Settings - GRASS working environment - Change working directory
+and browse to a folder where you will create all the text files we will need.
+
+<h3>Modeling long-term landscape evolution with r.landscape.evol</h3>
+
+Create bedrock raster:
+<pre><code>g.region raster=elevation
+r.mapcalc "bedrock = elevation - 2"
+</code></pre>
+
+Run landscape evolution with default parameters for 10 years:
+<pre><code>r.landscape.evol elev=elevation initbdrk=bedrock smoothing=no prefx=levol_ outdem=elevation outsoil=soildepth number=10
+</pre></code>
+
+Modify color table, examine resulting layers and experiment with other parameters (mannings, climate, ...)
+
+<h4>Determining cutoffs</h4>
+Find appropriate transition points between different types of erosive processes using -p flag:
+<pre><code>r.landscape.evol elev=elevation initbdrk=bedrock smoothing=no prefx=levol_ outdem=elevation outsoil=soildepth number=10 -p
+v.db.select map=levol_1452_randomly_sampled_points separator=comma file=samples.csv
+</code></pre>
+
+In Python shell run:
+<pre><code>>>> import numpy as np
+>>> import matplotlib.pyplot as plt
+>>> data = np.loadtxt('samples.csv', skiprows=1, delimiter=',', usecols = (0, 1, 2, 3))
+>>> plt.scatter(data[:, 2], data[:, 1], s=3) # profile curvature
+>>> plt.yscale('log')
+>>> plt.grid()
+>>> plt.show()
+
+>>> plt.scatter(data[:, 3], data[:, 1], s=3) # tangential curvature
+>>> plt.yscale('log')
+>>> plt.grid()
+>>> plt.show()
+</code></pre>
+
+Select appropriate cutoffs (see <a href="https://grass.osgeo.org/grass-stable/manuals/addons/r_landscape_evol_Flow_acc_vs_curvature.png">example</a>)
+and rerun the model and compare the results.
+
+</main>
+
+<footer>
+
+<nav>
+<ul>
+    <li><a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978">Moodle site</a></li>
+    <li><a href="https://help.ncsu.edu/">Computing Help</a></li>
+    <li><a href="https://geospatial.ncsu.edu/">GIST Home</a></li>
+    <li><a href="https://www.ncsu.edu/policies/prr-disclaimer.php">Disclaimer</a></li>
+    <li><a href="https://oit.ncsu.edu/itaccess">Accessibility</a></li>
+<li>
+    <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course" title="Source code for web pages on GitHub">
+        <img src="../img/github_logo.png" alt="GitHub Octocat logo">
+    </a>
+</li>
+<li title="Copyright and license (not applicable to linked materials)">
+    &copy; 2023
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    <a href="https://geospatial.ncsu.edu/geoforall/">NCSU GeoForAll Lab</a>
+</li>
+</ul>
+</nav>
+
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>

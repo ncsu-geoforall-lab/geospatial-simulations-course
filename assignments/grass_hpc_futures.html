@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NCSU GIS 714: Geospatial Computation and Simulations</title>
+
+<link rel="shortcut icon" href=".././img/favicon.ico" />
+
+<link href="../layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="../style.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+
+<body>
+
+<div id="outercontainer">
+<div id="container">
+
+<header>
+<div id="header-image">
+    <h1>NCSU GIS 714:<br>Geospatial Computing and Simulations</h1>
+</div>
+
+<nav>
+<ul class="nav">
+<li><a href="../index.html">Syllabus</a></li>
+<li><a href="../schedule.html">Schedule</a></li>
+<li><a href="../logistics.html">Course logistics</a></li>
+<li><a href="../topics/index.html">Topics</a></li>
+<li><a href="../projects.html">Projects</a></li>
+</ul>
+</nav>
+
+</header>
+
+<main>
+<!-- This is a generated file. Do not edit. -->
+<h2>Urban growth modeling with FUTURES on Hazel</h2>
+Here we demonstrate how to run parallel jobs in GRASS using an urban growth modeling case study.
+
+<p>
+We will all share PERMANENT mapset of project <code>futures</code> with prepared data and each student will create
+their own mapset (using their user name) for computations in their own folder
+(<a href="https://github.com/ncsu-geoforall-lab/grass-gis-on-hpc-henry2/blob/main/docs/data.md#sharing-a-database-between-different-users">
+description of this setup</a>).
+Typically, the PERMANENT mapset may be in a research storage and you may not have write access to it.
+Please do not modify anything in the PERMANENT mapset.
+
+<pre><code>mkdir /share/gis714s26/$USER/futures
+ln -s /share/gis714s26/futures/PERMANENT/ /share/gis714s26/$USER/futures/
+</code></pre>
+
+
+<pre><code>conda activate /usr/local/usrapps/gis714s26/grass_env
+</code></pre>
+
+Start GRASS in a temporary mapset:
+<pre><code>grass --tmp-mapset /share/gis714s26/$USER/futures/
+</code></pre>
+
+Check you can access the data:
+<pre><code>g.list type=raster,vector -mt
+</code></pre>
+
+Install r.futures:
+
+<pre><code>g.extension r.futures
+</pre></code>
+
+Exit GRASS session (temporary mapset will be removed):
+<pre><code>exit
+</code></pre>
+
+We won't be going through the entire workflow, but rather demonstrating some parallel computation techniques on selected
+parts of the workflow. The next three sections (computing slope, distance to features, and development pressure)
+are independent, so you can submit all the jobs at the same time.
+
+
+<h3>Computing slope</h3>
+Tool <code>r.slope.aspect</code> can take advantage of multiple cores, because it uses OpenMP library to automatically distribute
+work among certain number of threads. OpenMP uses shared memory and therefore the job needs to run on a single node.
+We will submit a parallel job,
+that requests 4 cores and specifies that those cores need to be on one computing node (<code>span[hosts=1]</code>).
+The number of cores specified in the header should match the number in <code>nprocs</code> parameter.
+We will compute slope in a separate mapset called slope.
+Note that we don't have to set computational region for the new mapset because all new mapsets are using default region
+that is set in PERMANENT.
+
+<pre><code>#!/bin/bash
+#BSUB -n 4
+#BSUB -W 30
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -R span[hosts=1] 
+#BSUB -oo slope_out
+#BSUB -eo slope_err
+#BSUB -J slope
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/gis714s26/grass_env
+
+# remove this mapset which may exist from a previous run of this job
+rm -rf /share/gis714s26/$USER/futures/slope
+
+# create a new mapset with -c flag
+grass -c /share/gis714s26/$USER/futures/slope --exec r.slope.aspect elevation=DEM slope=slope nprocs=4
+</code></pre>
+
+Submit the job from scratch space:
+<pre><code>cd /share/gis714s26/$USER/
+bsub < /home/$USER/bsub_slope.sh
+</code></pre>
+
+<span class="question">
+    Submit this job with a different number of cores and compare the run time. Change the name of the mapset if you want to run it at the same time.
+</span>
+
+<h3>Computing distance</h3>
+Here we compute distance to roads, water and forest that will serve as predictors.
+Since tool <code>r.grow.distance</code> is not internally parallelized, we will execute distance to roads, water, and forest
+so that they run concurrently using 3 cores. This can be simply achieved by executing them in the background.
+Alternatively, you can split it and execute as 3 separate jobs.
+
+Save this into a file bsub_distance.sh in your home folder:
+
+<pre><code>#!/bin/bash
+#BSUB -n 3
+#BSUB -W 3:00
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -oo dist_out
+#BSUB -eo dist_err
+#BSUB -J dist
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/gis714s26/grass_env
+
+rm -rf /share/gis714s26/$USER/futures/roads
+rm -rf /share/gis714s26/$USER/futures/water
+rm -rf /share/gis714s26/$USER/futures/forest
+
+# run in background by appending & after the tool
+grass -c /share/gis714s26/$USER/futures/roads --exec r.grow.distance input=roads_nlcd_2019 distance=dist_to_roads_2019 -m &
+grass -c /share/gis714s26/$USER/futures/water --exec r.grow.distance input=water distance=dist_to_water -m &
+grass -c /share/gis714s26/$USER/futures/forest --exec r.grow.distance input=forest_2019 distance=dist_to_forest_2019 -m &
+# this will wait for the processes to finish before starting the next set of processes
+wait
+grass /share/gis714s26/$USER/futures/roads --exec r.mapcalc "log_dist_to_roads_2019 = log(dist_to_roads_2019 + 1)" &
+grass /share/gis714s26/$USER/futures/water --exec r.mapcalc "log_dist_to_water = log(dist_to_water + 1)" &
+grass /share/gis714s26/$USER/futures/forest --exec r.mapcalc "log_dist_to_forest_2019 = log(dist_to_forest_2019 + 1)" &
+wait
+</code></pre>
+
+Submit the job from scratch space:
+<pre><code>cd /share/gis714s26/$USER/
+bsub < /home/$USER/bsub_distance.sh
+</code></pre>
+
+<h3>Computing development pressure</h3>
+Here we combine the two previous approaches to compute development pressure for 2001 and 2019.
+Tool <a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.futures.devpressure.html">r.futures.devpressure</a>
+is internally parallelized, so we can run the tool for both years concurrently and for each of them request certain number of cores.
+Notice that we need to request twice as many cores then (on a single node).
+
+Save this into a file bsub_devpressure.sh in your home folder:
+
+<pre><code>#!/bin/bash
+#BSUB -n 16
+#BSUB -W 3:00
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=2GB]"
+#BSUB -oo devpressure_out
+#BSUB -eo devpressure_err
+#BSUB -J devpressure
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/gis714s26/grass_env
+
+rm -rf /share/gis714s26/$USER/futures/devpressure_2001
+rm -rf /share/gis714s26/$USER/futures/devpressure_2019
+
+# run in background by appending & after the tool
+grass -c /share/gis714s26/$USER/futures/devpressure_2001 --exec r.futures.devpressure input=urban_noroads_2001 output=devpressure_2001 size=20 gamma=1 nprocs=8 &
+grass -c /share/gis714s26/$USER/futures/devpressure_2019 --exec r.futures.devpressure input=urban_noroads_2019 output=devpressure_2019 size=20 gamma=1 nprocs=8 &
+
+# this will wait for the processes to finish
+wait
+</code></pre>
+
+Submit the job from scratch space:
+<pre><code>cd /share/gis714s26/$USER/
+bsub < /home/$USER/bsub_devpressure.sh
+</code></pre>
+
+<h3>Running the simulation</h3>
+
+Once all the previous steps are finished, we can run the futures simulation.
+We will use already precomputed input CSV files.
+First, in your home create a new file named "pga.sh" with the following content:
+
+<pre><code>#!/bin/bash
+
+g.region raster=state_${1}
+r.mask raster=masking
+r.futures.simulation developed=urban_2019 development_pressure=devpressure_2019@devpressure_2019 \
+    compactness_mean=0.5 compactness_range=0.1 discount_factor=1 \
+    predictors=log_dist_to_forest_2019@forest,log_dist_to_roads_2019@roads,log_dist_to_water@water,slope@slope,wetland_density \
+    n_dev_neighbourhood=20 devpot_params=/share/gis714s26/input_csv/best_model.csv num_neighbors=4 seed_search=probability \
+    development_pressure_approach=gravity gamma=1 scaling_factor=1 num_steps=31 \
+    subregions=state_${1} demand=/share/gis714s26/input_csv/demand_${1}.csv \
+    output=out_state_${1}_seed_${2} patch_sizes=/share/gis714s26/input_csv/patch_sizes_${1}.csv random_seed=${2}
+</code></pre>
+
+Then create a script "futures.sh" with the content below:
+
+<pre><code>STATE=${1}
+SEED=${2}
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/gis714s26/grass_env
+
+rm -rf /share/gis714s26/$USER/futures/pga_${STATE}_${SEED}
+grass -c /share/gis714s26/$USER/futures/pga_${STATE}_${SEED} --exec bash /home/${USER}/pga.sh ${STATE} ${SEED}
+</code></pre>
+
+Finally submit the computations as 60 separate jobs with the following command:
+
+<pre><code>for SEED in {1..10}
+do
+    for STATE in 1 12 13 37 45 47
+    do
+        bsub -n 1 -W 5:00 -R "rusage[mem=15GB]" -J pga_${SEED}_${STATE} -oo pga_${SEED}_${STATE}_out -eo pga_${SEED}_${STATE}_err bash /home/$USER/futures.sh ${STATE} ${SEED}
+    done
+done
+</code></pre>
+
+This submits a total of 60 jobs. Note that submissions of large number of jobs is discouraged,
+there are other ways to do it, for example using
+<a href="https://github.com/ncsu-landscape-dynamics/pynodelauncher.git">pynodelauncher</a> command or
+<a href="https://hpc.ncsu.edu/Documents/lsf_scripts.php">job arrays</a>.
+
+
+<h3>Postprocessing</h3>
+We need to patch the results for individual states. For that we will use
+tool <code>r.patch</code> which is internally parallelized.
+
+First, create a bash script <code>patch.sh</code> that accepts 2 parameters (seed number and number of cores),
+loads grass, lists all FUTURES output rasters belonging to the specified seed,
+executes r.patch in a newly created mapset and exports the result into tif raster.
+<pre><code># get parameters
+SEED=${1}
+N=${2}
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/gis714s26/grass_env
+
+# list results for each state for a single seed and save to a variable
+MAPS=`grass --tmp-mapset /share/gis714s26/$USER/futures --exec \
+     g.list type=raster pattern="out_state_*_seed_${SEED}" mapset="*" -m separator=comma`
+rm -rf /share/gis714s26/$USER/futures/results_${SEED}
+grass -c /share/gis714s26/$USER/futures/results_${SEED} --exec r.patch input=${MAPS} output="out_seed_${SEED}" nprocs=${N}
+grass /share/gis714s26/$USER/futures/results_${SEED} --exec r.colors map=out_seed_${SEED} raster=out_state_1_seed_${SEED}@pga_1_${SEED}
+grass /share/gis714s26/$USER/futures/results_${SEED} --exec r.out.gdal input=out_seed_${SEED} output=/share/gis714s26/$USER/out_seed_${SEED}.tif createopt="COMPRESS=LZW,PREDICTOR=2,BIGTIFF=YES"
+</code></pre>
+
+Then submit the computations as 10 separate jobs with the following command:
+
+<pre><code>for SEED in {1..10}
+do
+    bsub -n 4 -W 1:00 -R "span[hosts=1]" -R "rusage[mem=1GB]" -J patch_${SEED} -oo patch_${SEED}_out -eo patch_${SEED}_err bash /home/$USER/patch.sh ${SEED} 4
+done
+</code></pre>
+
+The results are rasters <code>out_seed_1@results_1</code>, <code>out_seed_2@results_2</code>, etc.
+
+<span class="question">
+    Report the run times for all your computations and include a figure with the results.
+</span>
+
+</main>
+
+<footer>
+
+<nav>
+<ul>
+    <li><a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978">Moodle site</a></li>
+    <li><a href="https://help.ncsu.edu/">Computing Help</a></li>
+    <li><a href="https://geospatial.ncsu.edu/">GIST Home</a></li>
+    <li><a href="https://www.ncsu.edu/policies/prr-disclaimer.php">Disclaimer</a></li>
+    <li><a href="https://oit.ncsu.edu/itaccess">Accessibility</a></li>
+<li>
+    <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course" title="Source code for web pages on GitHub">
+        <img src="../img/github_logo.png" alt="GitHub Octocat logo">
+    </a>
+</li>
+<li title="Copyright and license (not applicable to linked materials)">
+    &copy; 2023
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    <a href="https://geospatial.ncsu.edu/geoforall/">NCSU GeoForAll Lab</a>
+</li>
+</ul>
+</nav>
+
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>

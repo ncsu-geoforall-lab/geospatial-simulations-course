@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NCSU GIS 714: Geospatial Computation and Simulations</title>
+
+<link rel="shortcut icon" href=".././img/favicon.ico" />
+
+<link href="../layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="../style.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+
+<body>
+
+<div id="outercontainer">
+<div id="container">
+
+<header>
+<div id="header-image">
+    <h1>NCSU GIS 714:<br>Geospatial Computing and Simulations</h1>
+</div>
+
+<nav>
+<ul class="nav">
+<li><a href="../index.html">Syllabus</a></li>
+<li><a href="../schedule.html">Schedule</a></li>
+<li><a href="../logistics.html">Course logistics</a></li>
+<li><a href="../topics/index.html">Topics</a></li>
+<li><a href="../projects.html">Projects</a></li>
+</ul>
+</nav>
+
+</header>
+
+<main>
+<!-- This is a generated file. Do not edit. -->
+<h2>2. Data simulation and version control system</h2>
+
+<h3 id="data_simulation" class="subtopic">2.A Data simulation</h3>
+Outline:
+<ul>
+    <li>when we need data simulation</li>
+    <li>deterministic, random, and fractal surfaces </li>
+    <li>simulating point data and patches</li>
+<!--    <li>generating scenarios</li> -->
+</ul>
+
+<h4>Lecture</h4>
+Slides:
+<ul>
+<li><a href="../lectures/data_sim.html">Lecture slides: Data simulation</a>
+</ul>
+Supplemental materials:
+<ul>
+  <li>Equations and code:
+   <ul>
+      <li>Nature of Code:<a href="https://natureofcode.com/book/introduction/">Random numbers distribution and random walks</a>
+      <li><a href="http://www.spatialanalysisonline.com/HTML/statistical_measures_and_relat.htm">Common formulas and statistical measures</a>
+   </ul>
+  <li>Examples of applications:
+  <ul>
+      <li><a href="https://doi.org/10.1080/01431161.2020.1752952">Starek, M.J., et al., 2020, Viewshed simulation 
+and optimization for digital terrain modelling with terrestrial laser scanning, International Journal of Re-mote Sensing, 41:16, 6409-6426</a>
+      <li><a href="https://www.hydrol-earth-syst-sci.net/11/1481/2007/hess-11-1481-2007.pdf">Wechsler: Uncertainties associated with digital elevation models for hydrologic applications: a review</a>
+      <li><a href="https://doi.org/10.1016/S0098-3004(97)00005-8">Ehlschlaeger, C.R., et al., 1997. Visualizing spatial data uncertainty using animation. Computers & Geosciences 23, 387-395.</a>
+      <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0034425714002284">F.D. Schneider, et al.. Schaepman Simulating imaging spectrometer data: 3D forest modeling based on LiDAR and in situ data Remote Sens. Environ., 152 (2014), pp. 235-250</a>
+      <li><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12827">Wegmann, M., et al. (2018). r. pi: A grass gis package for semi‐automatic spatial pattern analysis of remotely sensed land cover data. Methods in Ecology and Evolution, 9(1), 191-199.</a>
+      <li><a href="http://papers.foss4gindia.in/wp-content/uploads/2015/11/Manuscript_Hyperspectral_FOSS_varunkt91@gmail.com_2015-05-25.pdf">
+Tiwari et al., 2015, Simulation of the hyperspectral data from multispectral data using open source programmin environment, Proc. OSGEO-India: FOSS4G 2015 -2nd Ntl. Conf. Open source geospatial tools in cclimate change research and natural resouirces management</a>
+   </ul>
+  <li>Fractals:
+  <ul>
+    <li><a href="https://www.wired.com/2010/09/fractal-patterns-in-nature/">Fractal patterns in nature</a>
+    <li><a href="https://en.wikipedia.org/wiki/List_of_fractals_by_Hausdorff_dimension">Fractals by Hausdorff dimension</a>
+    <li><a href="https://doi.org/10.1109/TGRS.2014.2384595">Synthesis of Fractal Surfaces for Remote-Sensing Applications</a> by Riccio and Ruello, 2015
+<!--    <li><a href="https://www.wired.com/2012/01/the-fractal-dimension-of-zip-codes/">Fractal dimension of zipcodes</a>-->
+<!--    <li><a href="https://apps.dtic.mil/dtic/tr/fulltext/u2/a293354.pdf">Synthetic Fractal Surfaces</a>-->
+    </ul>
+</ul>
+
+<h4>Assignment part A </h4>
+<p>
+  For this assignment, we'll use GRASS GIS in Jupyter Notebooks. 
+  The notebooks and associated GRASS data is located in on Github:
+  <ul>
+    <li><a href="https://github.com/ncsu-geoforall-lab/GIS714-assignments">GIS714-assignments on Github</a></li>
+  </ul>
+  Download the code and work through assignment 2A part 1 and part 2. 
+  Answer the questions in the notebooks and save the completed notebook as an HTML file and ipynb.
+  Then, upload both files to the Moodle submission portal.
+  <ul>
+    <li><a href="../assignments/data_sim_assign.html">Alternative non-Jupyter version of the assignment</a></li>
+  </ul>
+</p>
+
+
+<h3 id="github" class="subtopic">2.B Open source software and version control</h3>
+Outline:
+<ul>
+<li>open source software development infrastructure
+<li>development management tools
+<li>working with version control systems
+<li>osgeo software ecosystem
+</ul>
+
+<h4>Lecture</h4>
+Slides:
+<ul>
+  <li><a href="../lectures/foss_development.html">Lecture slides: Open source software development</a>
+  <li><a href="https://github.com/ncsu-geoforall-lab/GIS714-assignments/tree/main/Intro_To_Git/Slides">Intro to git and github</a>
+</ul>
+Supplemental materials:
+<ul>
+    <li><a href="https://doi.org/10.22224/gistbok/2021.2.4">Petras V., Mitasova H., Petrasova, A. 2021. Open Source Software Development. In: The Geographic Information Science & Technology Body of Knowledge (2nd Quarter 2021 Edition), John P. Wilson (ed.).</a>
+    <li><a href="https://ncsu-geoforall-lab.github.io/open-science-course/">Petras V. Tools for Open Geospatial Science course</a>
+    <ul>
+       <li><a href="https://wenzeslaus.github.io/presentations/geoforum2014-foss.pdf">Petras V., How Open Source Geospatial Development Works (2014 talk slides)</a>
+       <li><a href="https://ncsu-geoforall-lab.github.io/open-science-course/lectures/open-source.html#/">Petras V. How open source communities and development work (2017 lecture)</a>
+    </ul>
+</ul>
+
+<h4>Assignment part B: Working with GitHub</h4>
+
+Clone a github repository and submit a pull request
+<ul>
+    <li><a href="https://github.com/ncsu-geoforall-lab/GIS714-assignments">Introduction to Git and GitHub </a>, learn the terminology 
+(see the slides), explore the useful resources and submit your PR request
+</ul>
+
+<h3>Homework 2. A and B</h3>
+Submit the completed notebooks (part 1 and part 2) for Assignment 2A on Moodle. Upload the notebooks both as an HTML and as an ipynb.
+Submit a simple pull request to Github.
+
+
+</main>
+
+<footer>
+
+<nav>
+<ul>
+    <li><a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978">Moodle site</a></li>
+    <li><a href="https://help.ncsu.edu/">Computing Help</a></li>
+    <li><a href="https://geospatial.ncsu.edu/">GIST Home</a></li>
+    <li><a href="https://www.ncsu.edu/policies/prr-disclaimer.php">Disclaimer</a></li>
+    <li><a href="https://oit.ncsu.edu/itaccess">Accessibility</a></li>
+<li>
+    <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course" title="Source code for web pages on GitHub">
+        <img src="../img/github_logo.png" alt="GitHub Octocat logo">
+    </a>
+</li>
+<li title="Copyright and license (not applicable to linked materials)">
+    &copy; 2023
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    <a href="https://geospatial.ncsu.edu/geoforall/">NCSU GeoForAll Lab</a>
+</li>
+</ul>
+</nav>
+
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>

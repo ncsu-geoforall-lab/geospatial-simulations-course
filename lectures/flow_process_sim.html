@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<!-- This is a generated file. Do not edit. -->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Lecture slides for GIS/MEA582</title>
+
+        <meta name="description" content="Lecture slides for NCSU GIS714: Geospatial Simulations">
+        <meta name="author" content="Helena Mitasova and NCSU GeoForAll Lab">
+
+        <link rel="shortcut icon" href="../img/favicon.ico" />
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/ncsugeoforall.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="plugin/chalkboard/style.css">
+        <link rel="stylesheet" href="plugin/customcontrols/style.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+        body {
+        /*background-color: #FFF !important;*/
+        /*
+          background-image: url("pictures/elevation-nagshead.gif");
+          background-repeat: no-repeat;
+          background-position: left bottom;*/
+        }
+        .reveal section img {
+            background: transparent;
+            border: 0;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+        }
+        /* for standalone frame */
+        /*
+        iframe {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        */
+        /* display: inline; background-color: #002B36; padding: 0px; margin: 0px */
+        .rounded-corners {
+            border: 0px solid black;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -khtml-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        a {
+            color: #060 !important;
+        }
+        a:hover {
+            color: #060 !important;
+            text-decoration: underline !important;
+        }
+        h1, h2, h3, h4, h5 {
+            text-transform: none !important;
+            /* word-break: keep-all; text-transform: none; font-size: 200%; line-height: 110%; */
+            color: #060 !important;
+            /* color: #444 !important; */ /* grey from the wab page */
+            font-weight: bold !important;
+            -webkit-hyphens: none !important;
+            -moz-hyphens: none !important;
+            -ms-hyphens: none !important;
+            hyphens: none !important;
+            line-height: 110% !important;
+        }
+        .reveal .progress span {
+            background-color: #060 !important;
+        }
+        /* predefined element positioning */
+        .top {
+            /*position: relative;*/
+            top: 5%;
+            height: 45%; /* is the height even needed? */
+        }
+        .bottom {
+            height: 45%;
+        }
+        .ne {
+            position: absolute;
+            top: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .nw {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .se {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            height: 45%;
+            width: 45%;
+        }
+        .sw {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            height: 45%;
+            width: 45%;
+        }
+
+        /* classes for sections with predefined elements */
+        /* using !important because, reveal styles are applied afterwards  */
+        .right, .textimg > img, .textimg > video, .textimg > iframe, .imgtext > p, .imgtext > ul, .imgtext > ol, .imgtext > div {
+            float: right;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        .left, .imgtext > img, .imgtext > video, imgtext > iframe, .textimg > p, .textimg > ul, .textimg > ol, .textimg > div {
+            float: left;
+            text-align: left;
+            max-width: 47% !important;
+        }
+        li > ul, li > ol {
+            font-size: 85% !important;
+            line-height: 110% !important;
+        }
+        .small {
+            font-size: smaller !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .credit {
+            font-size: small !important;
+            color: gray;
+            margin: 0.1em !important;
+        }
+        .corner-buttons {
+            display: inline-block;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
+            z-index: 30;
+            font-size: medium !important;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+<section>
+    <h2><b>Process-based water flow simulation</b></h2>
+    <p style="margin-top: 0.5em">
+        Helena Mitasova, Anna Petrasova, Vaclav Petras</p>
+    <p class="title-foot">
+        GIS714 Geosimulations
+        <a href="http://www.ncsu.edu/" title="North Carolina State University">NCSU</a>
+    </p>
+</section>
+
+<section>
+    <h3>Learning objectives</h3>
+<p>
+<ul>
+   <li>surface water flow modeling components
+   <li>shallow water flow equations
+   <li>numerical methods, path sampling 
+ <!--  <li>coupling with stormwater networks, groundwater models, storm surge-->
+   <li>applications: surface runoff, dam breach
+   <li>visualization of surface water flow dynamics
+</ul>
+</section>
+
+<section>
+   <h3>Modeling components: overland flow</h3>
+<ul>
+  <li>Modeled quantity: 
+     <b class="fragment">water depth [m], discharge [m$^3$/s]</b> 
+  <li>Spatial and temporal scale: 
+     <b class="fragment">first order stream [1m resolution], single storm [minutes]</b> 
+  <li>Configuration space and interactions: 
+     <b class="fragment">water depth and precipitation interaction with topography, soil properties, land cover, infrastructure...</b>
+  <li>Governing equations:
+     <b class="fragment"> bivariate shallow water flow equation, Mannings equation.. </b>
+</ul>
+</section>
+
+<section>
+   <h3>Shallow water flow equation</h3>
+Assumes negligible vertical variability in flow velocity, 
+<br>it is used to simulate:
+<p>
+   <ul>
+   <li class="fragment">overland water flow and open channel flow  
+   <li class="fragment">flooding from dam breach
+   <li class="fragment">storm surge
+   <li class="fragment">lava flows
+   <li class="fragment"><a href="https://en.wikipedia.org/wiki/Shallow_water_equations">many other flow processes </a>
+   </ul>
+<p>
+<img height="250" src="img/diffusion_flows/streambufferflood.jpg">
+<img height="250" src="img/diffusion_flows/IM_A0019storm2006Alberto.JPG.jpg">
+</section>
+
+<section>
+   <h3>Shallow water flow equations</h3>
+<ul>
+<li class="fragment">Continuity equation: mass conservation 
+<li class="fragment">Momentum conservation equations (not considered here) 
+</ul>
+<p class="fragment">
+also refered to as St Venant equations.
+<p class="fragment">
+Continuity equation for flow in open channel
+<p class="fragment">
+ $$ {\partial h \over \partial t} + \left( {\partial h v_x \over \partial x} + {\partial h v_y \over \partial y} \right) = 0$$
+<ul>
+<small>
+ <li class="fragment">$h$ [m] is the depth of flow,
+ <li class="fragment">$t$ [s] is the time,
+ <li class="fragment">${\bf v}=(v_x,v_y)$ [m/s] is the flow velocity vector
+ <li class="fragment">$(x,y)$ location in 2D space
+ <li class="fragment">$h$ and ${\bf v}$ are variable in space and time (dynamic fields)
+ <li class="fragment">
+</small>
+</ul>
+<!-- <li>${\bf q}({\bf r},t)$ [$\rm m^2/s$] is the water flow per unit width,-->
+</section>
+
+<section>
+   <h3>Shallow water flow during storm</h3>
+Given rainfall excess rate $i_e$ SWF can be written as:
+<p>
+ $$ {\partial h \over \partial t} + \left( {\partial h v_x \over \partial x} + {\partial h v_y \over \partial y} \right) = i_e$$
+<!-- $$ {\partial h \over \partial t} + \nabla \cdot h \, {\bf v} = i_e$$-->
+<p>where flow velocity ${\bf v} = (v_x, v_y)$ is given by Manning's relation
+<p>
+$${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$$
+<ul>
+<small>
+ <li>$i_e$ [m/s] is rainfall excess (runoff)  = (rainfall $-$ infiltration $-$ vegetation intercept)
+<!-- <li>$\nabla$ is divergence operator-->
+<li>$n$ is dimensionless Manning's roughness coefficient (property of land cover)
+<li>k=1 [$m^{1/3}/s$] is corresponding dimension constant
+<li>$s$ is slope steepness 
+<li>${\bf s_0}$ is unit vector in the flow direction
+<li>we assume that slope of water surface is the same as elevation surface slope 
+</small>
+</ul>
+</section>
+
+<!--
+<section>
+   <h3>Shallow water flow equation</h3>
+<p>momentum conservation in the diffusion wave approximation: 
+$$ {\bf s_f}({\bf r},t)={\bf s}({\bf r})-\nabla h({\bf r},t)$$
+<ul>
+ <li>and ${\bf s_f}({\bf r},t)$ is the negative gradient of overland flow surface (friction slope).
+ <li>${\bf s}({\bf r})= - \nabla z({\bf r})$ is the negative elevation gradient,
+ <li>$z({\bf r})$ [m] is the elevation,
+</ul>
+</section>
+-->
+
+<section>
+   <h3>SWF equations solutions</h3>
+Estimate water depth $h$ at a location $(x,y)$ and time $t$.
+<p>
+<ul>
+  <li>Simplified approximations for steady state: function of flow accumulation (contributing area)
+  <li>Numerical solutions are needed for modeling:
+<p>
+   <ul>
+    <li class="fragment">dynamic wave: coupled continuity and momentum conservation equations
+    <li class="fragment">diffusive wave: incorporates dynamic water surface slope  
+    <li class="fragment">kinematic wave: approximates water surface slope by static elevation surface slope
+   </ul>
+  <li class="fragment"> Numerical methods: finite difference, finite element, finite volume, QMC path sampling 
+</ul>
+</section>
+
+<section>
+<h3>Surface flow modeling methods</h3>
+<p>
+<div class="left" style="max-width: 45% !important">
+<ul>
+<li class="fragment">input: DEM with depression</li>
+<li class="fragment">steady-state approximation: flow accumulation using least cost path</li>
+<li class="fragment">D-inf flow accumulations with depression as sink</li>
+<li class="fragment">kinematic wave: water accumulates is depression</li>
+<li class="fragment">diffusive wave: water fills depression and flows out</li>
+<li class="fragment">diffusive wave with predefined channel through depression</li>
+</ul>
+</div>
+
+<img class="right" style="max-width: 50% !important" height="450" src="img/diffusion_flows/gisemflow1hh.gif">
+<p><small>Water depth is represented as a surface in 3D to highlight the differences in methods</small>
+</section>
+
+<!--
+<section>
+   <h3>SWF simplified</h3>
+Solution of continuity equation for a steady state water flow 
+<p>
+$$ \partial h({\bf r},t)/\partial t =0 $$
+$$ \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = \nabla \cdot {\bf q} = i_e({\bf r})$$
+where
+<ul>
+ <li>${\bf q}$ [$\rm m^2/s$] is the water flow per unit width
+</ul>
+</section>
+-->
+
+<section>
+   <h3>Dynamic surface flow modeling</h3>
+Shallow water flow modeling with diffusion term using path sampling method: 
+<p><img height="360" src="img/diffusion_flows/gisemhhdifu.gif">
+</section>
+
+<section>
+   <h3>Path sampling method</h3>
+Solution of SWF equation is based on duality between particle and field representation: 
+water depth is a function of particle density
+</ul>
+<p class="fragment"> <img height="380" src="img/diffusion_flows/fanimwalk.gif">
+<img class="fragment" height="380" src="img/diffusion_flows/fanimhhcolp.gif">
+<p>Particles show single impulse, water depth shows accumulated depth 
+</section>
+
+<section>
+   <h3>Evolution of water depth</h3>
+<p><img height="400" src="img/diffusion_flows/evolfig.jpg">
+</section>
+
+<section>
+   <h3>Path sampling method for SWF</h3>
+Steady-state diffusive wave is approximated by a kinematic wave with 
+approximate diffusive wave effects $ \propto \nabla^2 [h^{5/3}({\bf r})]$ :
+<p>
+<!--$$ \partial h({\bf r},t)/\partial t =0 \quad \longrightarrow \quad \nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$-->
+$$-{\varepsilon({\bf r})\over 2 }\nabla^2 [h^{5/3}({\bf r})] +\nabla \cdot [ h({\bf r}){\bf v}({\bf r})] = i_e({\bf r})$$
+<p>the solution is found by routing the particles, where the new position of m-th particle is computed as:
+$${\bf r}_m^{new} = {\bf r}_m + t{\bf v(r)} + {\bf g(r)}$$ 
+where ${\bf r}_m = (x,y)$ is position of a particle, ${\bf v}$ is velocity vector, $t$ is time step 
+and ${\bf g}$ is a random vector with Gaussian distribution around ${\bf r_m}$.
+</section>
+
+<section>
+   <h3>Evolution of water depth</h3>
+Geometry-based (D-inf SFD) approximation: steady, uniform rainfall, constant velocity 
+<p><img height="400" src="img/diffusion_flows/water1994.gif">
+</section>
+
+<section>
+   <h3>Evolution of water depth</h3>
+Path sampling solution during and after storm with diffusive flow on alluvial fan
+<p><img class="fragment" height="400" src="img/diffusion_flows/irwinhhanim.gif">
+</section>
+
+<section>
+   <h3>Path sampling method</h3>
+Solution of SWF equation incorporates spatially variable flow velocity 
+<!--${\bf v} = {k\over n} h^{2/3}  s^{1/2} {\bf s_0}$: -->
+<ul>
+   <li>variable rainfall excess (impact of soils and land cover on infiltration),
+   <li>topography (slope steepness) 
+   <li>land cover (Mannings roughness coefficient)
+</ul>
+<p class="fragment"> <img height="400" src="img/diffusion_flows/balsam_sideimg.jpg">
+<img class="fragment" height="400" src="img/diffusion_flows/fanimhhcolp.gif">
+</section>
+
+<!--
+<section>
+   <h3>Path sampling method</h3>
+<p>Method for solving linear partial differential equations developed in physics, used also in chemistry, finance
+<p> Governing  equation: $L(c) = S$ 
+<p>S is sources-sinks, c is the modeled quantity, L is the operator e.g.,diffusion+ flow/drift + proliferation/decay
+<p> Solution: $c = L^{-1} (S)$,  $L^{-1}$ is the inverse operator
+<p>sample the source term field simulate action of L-1 on S estimate c from the density
+</section>
+-->
+
+<section>
+   <h3>Applications for different types of landscapes</h3>
+</section>
+
+<section>
+   <h3>Urban flooding: sub-meter resolution</h3>
+<p>Path sampling solution for overland flow: with uniform rainfall
+and land cover, approx. diffusive wave
+<p>
+<img height="420" src="img/diffusion_flows/water_ortho_lg.png">
+<img height="380" src="img/diffusion_flows/water_stormdrains_zoom.jpg">
+</section>
+
+<section>
+   <h3>Urban flooding: sub-meter resolution</h3>
+<p>Extreme storm and post-storm water depth in a floodplain 
+<p>
+<img height="250" src="img/diffusion_flows/carysimwe_eeidstorm.jpg">
+<img height="250" src="img/diffusion_flows/carysimwe_eeidpoststorm.jpg">
+<p>
+<img height="200" src="img/diffusion_flows/streambufferflood.jpg">
+</section>
+
+<section>
+   <h3>Landscape with pits</h3>
+<p>Surface water simulation in a landscape with numerous depressions 
+<p><img height="350" src="img/diffusion_flows/waterdepth_simwe1m_SWc.jpg">
+<img height="200" src="img/diffusion_flows/depth3d_2.jpg">
+<p><small>1m resolution DEM, most craters are diminished at 10m resolution </small>
+</section>
+
+<section>
+   <h3>Overland flow with microtpography</h3>
+<p>Surface water at ultra high resolutions (0.3m): tilled field
+<p><img height="320" src="img/diffusion_flows/field_waterdepth_simwe0008.png">
+<img class="fragment" height="280" src="img/geodynamics/agisoft_jan.gif">
+<p><small>At lower resolutions, the tillage is represented by appropriate Mannings coefficient</small>
+</section>
+
+<section>
+   <h3>Development with storm water controls</h3>
+<p>Overland flow with spatialy variable land cover and storm water control measures:
+constructed wetland and checkdams
+<p>
+<img height="420" src="img/diffusion_flows/lu01bldg3db.jpg">
+<img height="420" src="img/diffusion_flows/water01dsmall.gif">
+</section>
+
+<section>
+   <h3>Impact of construction</h3>
+<p>Scenarios with spatialy variable land cover due to construction and land change
+where stream buffers offer only limited protection
+<p>
+<img height="450" src="img/diffusion_flows/middleschool_scen.png">
+<!--
+<img height="220" src="img/diffusion_flows/gimlcbf1dcchdcut2.jpg">
+<img height="220" src="img/diffusion_flows/gimwaterchdcut2.jpg">
+<img height="220" src="img/diffusion_flows/gimwaterdcchdcut2.jpg">
+<img height="450" src="img/intro/CCgolf_landchange.001.jpeg">
+-->
+</section>
+
+<section>
+   <h3>Impact of construction</h3>
+<p>Scenarios with spatialy variable land cover due to construction and land change
+where extension of stream buffers upstream  improves protection
+<p>
+<img height="450" src="img/diffusion_flows/CCgolf_scenariobuffers.jpeg">
+<!--
+<img height="220" src="img/diffusion_flows/gimlcbf1dcchdcut2.jpg">
+<img height="220" src="img/diffusion_flows/gimwaterchdcut2.jpg">
+<img height="220" src="img/diffusion_flows/gimwaterdcchdcut2.jpg">
+<img height="450" src="img/intro/CCgolf_landchange.001.jpeg">
+-->
+</section>
+
+<section>
+   <h3>Dynamic wave applications</h3>
+<p>Dam breach model - full dynamic wave solution with backwater effect, using finite volume method
+<p><img height="400" src="img/diffusion_flows/sim3_ortho_small.gif">
+<p><small>see supplemental material for equations and r.damflood manual page for references</small>
+</section>
+
+<section>
+   <h3>Assignment</h3>
+<p>Surface water during hurricane Alberto
+<p><img height="300" src="img/diffusion_flows/IM_A0019storm2006Alberto.JPG.jpg">
+<img height="300" src="img/diffusion_flows/lwsimweEview3dfull.jpg">
+</section>
+
+<section>
+   <h3>Assignment</h3>
+<p>Surface water during hurricane Alberto
+<p><img height="300" src="img/diffusion_flows/IM_A0019storm2006Alberto.JPG.jpg">
+<img height="300" src="img/diffusion_flows/elev_dischtest.gif">
+</section>
+
+<section>
+   <h3>Assignment</h3>
+<p>Surface water flow with uniform cover and enforced channel
+<p><img height="300" src="img/diffusion_flows/lw_wdepth_uni.jpg">
+<img class="fragment" height="300" src="img/diffusion_flows/lw_wdepthstr_uni.jpg">
+<img height="300" src="img/diffusion_flows/lw_wdepthstr_uni2dlglg.jpg">
+</section>
+
+<section>
+   <h3>Assignment</h3>
+<p>Coupling DEM-based gradient with enforced channel: 
+<small>${\partial z \over \partial x}$ from DEM is replaced with ${\partial z \over \partial x}$ from the stream
+in grid cells where stream is located using map algebra</small>
+<p><img height="300" src="img/diffusion_flows/dxdemstream.jpg">
+<img height="300" src="img/diffusion_flows/dxstream.jpg">
+<p><small>same is applied to $y$ direction</small>
+</section>
+
+<section>
+   <h3>Assignment</h3>
+<p>Spatially variable land cover: increased roughness and reduced runoff
+<p><img height="350" src="img/diffusion_flows/landcover.jpg">
+</section>
+
+<section>
+   <h3>Assignment</h3>
+<p>Rainfall excess rate $<5,50>$, Mannings roughness $<0.01,0.5>$
+<p><img height="300" src="img/diffusion_flows/rainfallexc.png">
+<img height="300" src="img/diffusion_flows/manncoef.png">
+</section>
+
+<section>
+   <h3>Assignment</h3>
+<p>Spatially variable land cover: increased roughness and reduced runoff
+<p><img height="300" src="img/diffusion_flows/landcover.jpg">
+<img height="300" src="img/diffusion_flows/lw_wdepth_varcover.jpg">
+<img height="300" src="img/diffusion_flows/lw_wdepth_varcover2dlglg.jpg">
+</section>
+
+<section>
+   <h3>Few additional notes about path sampling method</h3>
+</section>
+
+<section>
+   <h3>Pluvial and fluvial flooding</h3>
+<p>Simulation of flodding from HAND method (inundation from a stream)
+and path sampling SIMWE method (overland flow)
+<p>
+<img height="260" src="img/diffusion_flows/hand.gif">
+<img height="260" src="img/diffusion_flows/simwe.gif">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy</h3>
+<p>Error is proportional to the $1/\sqrt N$, where N is the number of particles
+<p>
+<img height="280" src="img/diffusion_flows/mcsf_steady.gif">
+<img height="280" src="img/diffusion_flows/mcsf3_steady.gif">
+</section>
+
+<section>
+   <h3>Path sampling method: accuracy</h3>
+<p>Error is proportional to $1/\sqrt N$, $N$ is number of particles
+<p>
+<img height="380" src="img/diffusion_flows/mcsimwelg.gif">
+</section>
+
+<section>
+   <h3>Multiscale implementation</h3>
+<p>Path sampling enables implementation with multiple resolutions by adjusting
+the weight of the particles
+<p class="fragment">
+<img height="350" src="img/diffusion_flows/mcwc.gif">
+<img height="350" src="img/diffusion_flows/multiscale_hohen.jpg">
+</section>
+
+
+<!--
+<section>
+   <h3>Flow depth dynamics</h3>
+<p>Flow depth during and after rainfall: approximate diffusive wave
+<p>
+<img height="450" src="img/diffusion_flows/irwinhhanim.gif">
+</section>
+-->
+
+<section>
+ <h3>Summary</h3>
+<ul>
+   <li>we defined surface water flow modeling components
+   <li>we introduced shallow water flow equations (SWFE) 
+   <li>we explored applications of (SWFE)
+   <li>we visualized surface water flow dynamics
+</ul>
+</section>
+
+<!--
+<section>
+ <h3>Reading, resources</h3>
+links
+</section>
+-->
+<!-- This is a generated file. Do not edit. -->
+
+</div>
+        </div>
+
+        <!-- The home/index/parent button -->
+        <div class="corner-buttons">
+            <!-- &#x1f3e0; -->
+            <a class="parent-page" href="../index.html" title="Go to the course page">&#8962;</a>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script src="plugin/math/math.js"></script>
+        <script src="plugin/chalkboard/plugin.js"></script>
+        <script src="plugin/customcontrols/plugin.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: false,
+
+                // Display a presentation progress bar
+                progress: true,
+                
+                center: true,
+                
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+                
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    RevealChalkboard,
+                    RevealCustomControls
+                ],
+
+                customcontrols: {
+                    controls: [
+                        { icon: '<i class="fa fa-pen-square"></i>',
+                        title: 'Toggle chalkboard (B)',
+                        action: 'RevealChalkboard.toggleChalkboard();'
+                        },
+                        { icon: '<i class="fa fa-pen"></i>',
+                        title: 'Toggle notes canvas (C)',
+                        action: 'RevealChalkboard.toggleNotesCanvas();'
+                        }
+                    ]
+                },
+            });
+        </script>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/slideranim.js"></script>
+    </body>
+</html>
