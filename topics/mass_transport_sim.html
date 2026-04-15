@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>NCSU GIS 714: Geospatial Computation and Simulations</title>
+
+<link rel="shortcut icon" href=".././img/favicon.ico" />
+
+<link href="../layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="../style.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+
+<body>
+
+<div id="outercontainer">
+<div id="container">
+
+<header>
+<div id="header-image">
+    <h1>NCSU GIS 714:<br>Geospatial Computing and Simulations</h1>
+</div>
+
+<nav>
+<ul class="nav">
+<li><a href="../index.html">Syllabus</a></li>
+<li><a href="../schedule.html">Schedule</a></li>
+<li><a href="../logistics.html">Course logistics</a></li>
+<li><a href="../topics/index.html">Topics</a></li>
+<li><a href="../projects.html">Projects</a></li>
+</ul>
+</nav>
+
+</header>
+
+<main>
+<!-- This is a generated file. Do not edit. -->
+<h2>4. Mass transport and landscape evolution</h2>
+
+<h3 id="mass_transport" class="subtopic">4.B Mass transport</h3>
+Outline:
+<ul>
+    <li>mass transport processes
+    <li>geospatial modeling of mass transport 
+    <li>methods for erosion modeling
+    <li>applications for land use management
+<!--
+    <li>analytical and numerical methods </li>
+    <li>implementation in open source environments</li>
+    <li>applications: pollutants, sediment transport, erosion and deposition, landslides, rockfalls
+-->
+</ul>
+
+<h4>Lecture</h4>
+Slides
+<ul>
+<li><a href="https://drive.google.com/file/d/1PnQtLHbsIoTrH47XeJ3vrvF2snjkw-RE/view?usp=sharing">Slides for the recorded lecture</a>,
+the video recording of the lecture is available through Moodle
+<!--<li><a href="../lectures/mass_transp_sim.html">Draft Lecture slides: Mass transport simulation</a>-->
+</ul>
+Supplemental materials:
+<ul>
+<li><a href="https://www.sciencedirect.com/science/article/pii/B978012374739600052X?via%3Dihub">GIS-based Soil Erosion Modeling
+ Mitasova H., Hofierka, J., Harmon R.S., Barton M.C., Ullah, I. 2013 Treatise on Geomorphology, Remote Sensing and GIScience in Geomorphology 3 </a>, or access this
+<a href="https://drive.google.com/file/d/1qhv18OQQ6TT-BJXP7qndtsWIAgeF9A8G/view?usp=sharing">pdf</a>, describes theory for USLE, USPED, r.sim.sediment, r.landscape.evol
+<li><a href="https://link-springer-com.prox.lib.ncsu.edu/chapter/10.1007/978-3-319-89303-7_8">Soil erosion modeling</a> Tangible Modeling book, Chapter 8, shows USPED with TL
+<!--<li><a href="https://www.sciencedirect.com/science/article/...">Nine Considerations for Constructing and Running Geomorphological Models</a>-->
+<li><a href="https://www.geosci-model-dev.net/12/2837/2019/gmd-12-2837-2019.html">r.sim.terrain: a landscape evolution model with dynamic hydrology</a>, explores RUSLE3D, USPED, SIMWE for short term landscape evolution modeling 
+<li><a href="http://landlab.github.io/#/">LandLab</a>
+<li><a href="https://github.com/landlab/landlab/wiki/Tutorials">Landlab wiki tutorial</a>
+<li>Molinari M, Cannata M, Begueria S and Ambrosi C 2012 GIS-based Calibration of MassMov2D. Transactions in GIS, 2012, 16(2):215-231 (<a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.massmov.html">r.massmov</a>, debris flow simulation tool)
+</ul>
+
+<h4>Assignment part 4.A</h4>
+Evaluate impact of landuse change scenarios on mass transport process
+<ul>
+<li><a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/grass/hydrology_erosion.html">Erosion modeling assignment from GIS582</a>, video recording is available through Moodle
+<li>Optional: <a href="http://ncsu-geoforall-lab.github.io/geospatial-modeling-course/grass/simwe.html">Sediment transport by overland flow using path sampling method</a> implemented in GRASS GIS as r.sim.sediment, see the last section in case you
+already did the water simulation part  (you will need it as input).
+<!--<li><a href="../assignments/landscape_evol.html">Run and test long term landscape evolution model r.landscape.evol</a>-->
+</ul>
+<p>If you are interested in geomorphology you can run landlab notebooks:
+<ul>
+<li><a href="https://github.com/landlab/landlab_teaching_tools/blob/master/geomorphology_exercises/hillslope_notebooks/north_carolina_piedmont_hillslope_class_notebook.ipynb">Diffusive hillslope evolution</a>, example from Umstead Park, NC
+<li><a href="https://github.com/landlab/landlab_teaching_tools/blob/master/geomorphology_exercises/channels_streampower_notebooks/stream_power_channels_class_notebook.ipynb">Channel evolution in LandLab</a>
+<li><a href="https://nbviewer.jupyter.org/github/landlab/tutorials/blob/release/ecohydrology/cellular_automaton_vegetation_DEM/cellular_automaton_vegetation_DEM.ipynb">Ecohydrology model in landlab</a>, Cellular Automaton Tree-Grass-Shrub Simulator on DEM
+<li><a href="https://nbviewer.jupyter.org/github/landlab/tutorials/blob/release/component_tutorial/component_tutorial.ipynb">Landlab component library tutorial</a>
+<li><a href="https://mybinder.org/v2/gh/petrasovaa/conda/master">Landlab notebooks in Anna's Binder</a> ca be used if you cannot install landlab jupyter notebooks on your machine
+</ul>
+
+<!--
+<h3 id="landscape_evolution" class="subtopic">4.B Landscape evolution simulations </h3>
+In Spring 2019 merged with 4.A, planned as a separate unit in future
+<ul>
+    <li>concept of landscape evolution modeling, spatial and temporal scales
+    <li>introduction to landlab
+</ul>
+
+<h4>Lecture</h4>
+Slides:
+<ul>
+<li><a href="../lectures/flood_sim.html">Lecture slides: landscape evolution</a>
+</ul>
+Supplemental materials:
+<ul>
+<li>landlab
+<li>Brendan module
+<li>Isaac module
+</ul>
+
+<h4>Assignment part 4.B</h4>
+Explore landlab
+<ul>
+</ul>
+-->
+
+<h3>Homework 4.B</h3>
+Write a paper about application of mass transport simulations to assess impact of land cover on soil erosion and deposition
+based on the assignment.
+
+
+</main>
+
+<footer>
+
+<nav>
+<ul>
+    <li><a class="term-changes" href="https://moodle-courses2527.wolfware.ncsu.edu/course/view.php?id=5978">Moodle site</a></li>
+    <li><a href="https://help.ncsu.edu/">Computing Help</a></li>
+    <li><a href="https://geospatial.ncsu.edu/">GIST Home</a></li>
+    <li><a href="https://www.ncsu.edu/policies/prr-disclaimer.php">Disclaimer</a></li>
+    <li><a href="https://oit.ncsu.edu/itaccess">Accessibility</a></li>
+<li>
+    <a href="https://github.com/ncsu-geoforall-lab/geospatial-simulations-course" title="Source code for web pages on GitHub">
+        <img src="../img/github_logo.png" alt="GitHub Octocat logo">
+    </a>
+</li>
+<li title="Copyright and license (not applicable to linked materials)">
+    &copy; 2023
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
+    <a href="https://geospatial.ncsu.edu/geoforall/">NCSU GeoForAll Lab</a>
+</li>
+</ul>
+</nav>
+
+</footer>
+
+</div>
+</div>
+
+</body>
+</html>
